@@ -73,7 +73,7 @@ const RenderRifa = () => {
 
         <div className="boletos-grid">
           {numbers.map(number => (
-            <button className="num-boletos">{number}</button>
+            <button key={number} className="num-boletos">{number}</button>
           ))
 
           }
