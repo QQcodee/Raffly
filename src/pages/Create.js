@@ -1,7 +1,7 @@
 import { useState } from "react"
-import { Navigate, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import supabase from "../config/supabaseClient"
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom"
+
 
 
 

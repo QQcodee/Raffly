@@ -238,15 +238,6 @@ form button {
 
 }
 
-.render-rifa h2{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 30px;
-  gap: 10px;
-  width: 60%;
-  font-size: 30px;
-}
 
 .render-rifa h1{
   display: flex;
