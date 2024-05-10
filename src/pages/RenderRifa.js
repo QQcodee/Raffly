@@ -66,8 +66,19 @@ const RenderRifa = () => {
         return Array.from({ length: rifaDetails.numboletos }, (_, index) => index + 1);
     }, [rifaDetails.numboletos]);
 
+    const Cell = ({ columnIndex, rowIndex, style }) => (
+        <div style={style}>
+            <button className="num-boletos">{rowIndex * columnCount + columnIndex + 1}</button>
+        </div>
+    );
+
+<<<<<<< HEAD
+        <h1> Hola</h1>
+
+=======
     const columnCount = 20; // Adjust based on the width of the grid
     const rowCount = Math.ceil(rifaDetails.numboletos / columnCount);
+>>>>>>> 32bda5e0cb9e22fe40f8d74ce00cd45fddb9c0e2
 
     return (
         <div className="render-rifa">
