@@ -1,25 +1,30 @@
 import React, { useContext, useState } from 'react';
-import { AuthContext } from '../AuthContext'; // We will create this context next
+import { AuthContext } from '../AuthContext';
+import supabase from '../config/supabaseClient';
 
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const { setAuth } = useContext(AuthContext);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Here you would typically handle authentication, for now, we'll just simulate
-    if (username === 'user' && password === 'password') {
+    const { user, error } = await supabase.auth.signIn({
+      email: username,
+      password: password,
+    });
+
+    if (user) {
       setAuth(true);
-      console.log('Logged in');
+      console.log('Logged in:', user);
     } else {
-      alert('Invalid credentials');
+      alert('Login failed: ' + error.message);
     }
   };
 
   return (
     <form onSubmit={handleSubmit} className="auth-form">
-      <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
+      <input type="email" placeholder="Email" value={username} onChange={(e) => setUsername(e.target.value)} />
       <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
       <button type="submit">Login</button>
     </form>

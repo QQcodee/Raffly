@@ -2,6 +2,9 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { CartProvider } from './CartContext';
 import { AuthProvider } from './AuthContext';
 import './auth.css'; 
+import React, { useEffect, useContext } from 'react';
+import supabase from './config/supabaseClient';
+import { AuthContext } from './AuthContext';
 
 // pages
 import Home from "./pages/Home"
@@ -13,6 +16,22 @@ import Login from "./pages/Login"
 import SignUp from "./pages/SignUp" // Import SignUp
 
 function App() {
+
+/*   const { setAuth } = useContext(AuthContext);
+
+  useEffect(() => {
+    const session = supabase.auth.session();
+    setAuth(session ? true : false);
+
+    const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
+      setAuth(session ? true : false);
+    });
+
+    return () => {
+      authListener.unsubscribe();
+    };
+  }, [setAuth]);
+   */
   return (
     <AuthProvider>
       <CartProvider>

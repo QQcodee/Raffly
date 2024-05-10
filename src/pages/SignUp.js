@@ -1,17 +1,26 @@
 import React, { useContext, useState } from 'react';
 import { AuthContext } from '../AuthContext';
+import supabase from '../config/supabaseClient';
 
 function SignUp() {
   const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const { setAuth } = useContext(AuthContext);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Simulate user registration logic
-    console.log('User registered:', username, email);
-    setAuth(true); // Assume registration logs the user in
+    const { user, error } = await supabase.auth.signUp({
+      email: email,
+      password: password,
+    });
+
+    if (user) {
+      setAuth(true);
+      console.log('User registered:', user);
+    } else {
+      alert('Registration failed: ' + error.message);
+    }
   };
 
   return (
