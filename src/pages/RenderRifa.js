@@ -2,10 +2,12 @@ import { useEffect, useState, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import supabase from '../config/supabaseClient';
 import { FixedSizeGrid as Grid } from 'react-window';
+import { useCart } from '../CartContext'; // Import useCart
 
 const RenderRifa = () => {
     const { id } = useParams();
     const navigate = useNavigate();
+    const { addItem } = useCart(); // Use the addItem function from the cart context
     const [rifaDetails, setRifaDetails] = useState({
         nombre: '',
         desc: '',
@@ -40,15 +42,29 @@ const RenderRifa = () => {
         fetchRifas();
     }, [id, navigate]);
 
+    const handleAddTicketToCart = (ticketNumber) => {
+        addItem({
+            raffleId: id,
+            ticketNumber,
+            price: rifaDetails.precioboleto,
+            raffleName: rifaDetails.nombre
+        });
+    };
+
+    const Cell = ({ columnIndex, rowIndex, style }) => {
+        const ticketNumber = rowIndex * columnCount + columnIndex + 1;
+        return (
+            <div style={style}>
+                <button className="num-boletos" onClick={() => handleAddTicketToCart(ticketNumber)}>
+                    {ticketNumber}
+                </button>
+            </div>
+        );
+    };
+
     const numbers = useMemo(() => {
         return Array.from({ length: rifaDetails.numboletos }, (_, index) => index + 1);
     }, [rifaDetails.numboletos]);
-
-    const Cell = ({ columnIndex, rowIndex, style }) => (
-        <div style={style}>
-            <button className="num-boletos">{rowIndex * columnCount + columnIndex + 1}</button>
-        </div>
-    );
 
     const columnCount = 20; // Adjust based on the width of the grid
     const rowCount = Math.ceil(rifaDetails.numboletos / columnCount);
@@ -57,9 +73,9 @@ const RenderRifa = () => {
         <div className="render-rifa">
             <h1>{rifaDetails.nombre}</h1>
             <p>{rifaDetails.desc}</p>
-            <p>${rifaDetails.precioboleto}</p>
-            <p>{rifaDetails.numboletos} boletos</p>
-            <p>{rifaDetails.socio}</p>
+            <p>${rifaDetails.precioboleto} per ticket</p>
+            <p>{rifaDetails.numboletos} tickets available</p>
+            <p>Organized by {rifaDetails.socio}</p>
 
             <Grid
                 className="boletos-grid"
