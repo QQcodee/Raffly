@@ -7,7 +7,7 @@ import { useCart } from '../CartContext'; // Import useCart
 const RenderRifa = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const { addItem } = useCart(); // Use the addItem function from the cart context
+    const { addItem } = useCart();
     const [rifaDetails, setRifaDetails] = useState({
         nombre: '',
         desc: '',
@@ -42,6 +42,9 @@ const RenderRifa = () => {
         fetchRifas();
     }, [id, navigate]);
 
+    const columnCount = 10; // Number of tickets per row
+    const rowCount = Math.ceil(rifaDetails.numboletos / columnCount); // Total rows needed for the tickets
+
     const handleAddTicketToCart = (ticketNumber) => {
         addItem({
             raffleId: id,
@@ -65,21 +68,7 @@ const RenderRifa = () => {
     const numbers = useMemo(() => {
         return Array.from({ length: rifaDetails.numboletos }, (_, index) => index + 1);
     }, [rifaDetails.numboletos]);
-
-    const Cell = ({ columnIndex, rowIndex, style }) => (
-        <div style={style}>
-            <button className="num-boletos">{rowIndex * columnCount + columnIndex + 1}</button>
-        </div>
-    );
-
-<<<<<<< HEAD
-        <h1> Hola</h1>
-
-=======
-    const columnCount = 20; // Adjust based on the width of the grid
-    const rowCount = Math.ceil(rifaDetails.numboletos / columnCount);
->>>>>>> 32bda5e0cb9e22fe40f8d74ce00cd45fddb9c0e2
-
+    
     return (
         <div className="render-rifa">
             <h1>{rifaDetails.nombre}</h1>
@@ -91,11 +80,11 @@ const RenderRifa = () => {
             <Grid
                 className="boletos-grid"
                 columnCount={columnCount}
-                columnWidth={55} // Adjust the size according to your design
-                height={600} // Adjust based on your display area
+                columnWidth={55}
+                height={600}
                 rowCount={rowCount}
-                rowHeight={50} // Adjust the size according to your design
-                width={1100} // Adjust based on the available width
+                rowHeight={50}
+                width={1100}
             >
                 {Cell}
             </Grid>
