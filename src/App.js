@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { CartProvider } from './CartContext';
 import { AuthProvider } from './AuthContext';
-import './auth.css'; 
+import './css/auth.css'; 
 import React, { useEffect, useContext } from 'react';
 import supabase from './config/supabaseClient';
 import { AuthContext } from './AuthContext';

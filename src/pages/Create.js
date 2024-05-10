@@ -38,10 +38,6 @@ const Create = () => {
         console.log(data)
         setFormError(null)
         navigate('/')
-        
-        
-        
-
       }
     }
   

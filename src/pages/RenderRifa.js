@@ -42,7 +42,7 @@ const RenderRifa = () => {
         fetchRifas();
     }, [id, navigate]);
 
-    const columnCount = 10; // Number of tickets per row
+    const columnCount = 20; // Number of tickets per row
     const rowCount = Math.ceil(rifaDetails.numboletos / columnCount); // Total rows needed for the tickets
 
     const handleAddTicketToCart = (ticketNumber) => {
