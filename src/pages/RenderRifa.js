@@ -79,6 +79,8 @@ const RenderRifa = () => {
           }
         </div>
 
+        <h1> Hola</h1>
+
 
       
 
