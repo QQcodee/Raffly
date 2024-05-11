@@ -284,3 +284,34 @@ form button {
   
 
 }
+.num-boletos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%; /* Makes the button expand to fill the cell */
+  height: 100%; /* Makes the button expand to fill the cell */
+  padding: 8px 12px; /* Optional: Adjust padding as needed */
+  font-size: 14px; /* Adjust font size as needed */
+  border: 1px solid #ccc; /* Optional: Adds border to buttons */
+  background-color: #f7f7f7; /* Optional: Background color for the button */
+  cursor: pointer; /* Changes cursor to pointer to indicate it's clickable */
+  overflow: hidden; /* Keeps the content within the button's boundaries */
+  white-space: nowrap; /* Ensures the text stays in a single line */
+  text-overflow: ellipsis; /* Adds an ellipsis if the text overflows */
+}
+
+/* Optional: Add hover effect for better UX */
+.num-boletos:hover {
+  background-color: #e4e4e4;
+}
+
+/* Optional: Adjustments when the button is active */
+.num-boletos:active {
+  background-color: #000000;
+}
+.num-boletos:disabled {
+  background-color: black;
+  color: rgb(0, 0, 0);
+  cursor: default; /* Change cursor to default to indicate it's not clickable */
+}
+

@@ -3,6 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import supabase from '../config/supabaseClient';
 import { FixedSizeGrid as Grid } from 'react-window';
 import { useCart } from '../CartContext'; // Import useCart
+import '../css/index.css';
+
 
 const RenderRifa = () => {
     const { id } = useParams();
@@ -45,7 +47,16 @@ const RenderRifa = () => {
     const columnCount = 20; // Number of tickets per row
     const rowCount = Math.ceil(rifaDetails.numboletos / columnCount); // Total rows needed for the tickets
 
+    const [selectedTickets, setSelectedTickets] = useState({});
+
     const handleAddTicketToCart = (ticketNumber) => {
+        if (selectedTickets[ticketNumber]) {
+            // If ticket is already selected, do nothing
+            return;
+        }
+        // Mark the ticket as selected
+        setSelectedTickets(prev => ({ ...prev, [ticketNumber]: true }));
+        
         addItem({
             raffleId: id,
             ticketNumber,
@@ -53,17 +64,27 @@ const RenderRifa = () => {
             raffleName: rifaDetails.nombre
         });
     };
+    
 
     const Cell = ({ columnIndex, rowIndex, style }) => {
         const ticketNumber = rowIndex * columnCount + columnIndex + 1;
+        const isSelected = selectedTickets[ticketNumber]; // Check if the ticket is selected
+        const buttonStyle = isSelected ? { backgroundColor: 'black', color: 'black' } : {};
+    
         return (
             <div style={style}>
-                <button className="num-boletos" onClick={() => handleAddTicketToCart(ticketNumber)}>
+                <button
+                    className="num-boletos"
+                    onClick={() => handleAddTicketToCart(ticketNumber)}
+                    style={buttonStyle}
+                    disabled={isSelected} // Disable the button if it is selected
+                >
                     {ticketNumber}
                 </button>
             </div>
         );
     };
+    
 
     const numbers = useMemo(() => {
         return Array.from({ length: rifaDetails.numboletos }, (_, index) => index + 1);
