@@ -35,8 +35,8 @@ const Header = ({ cartCount }) => {
     <ul className="nav-home-ul">
       <li><Link className="nav-home-item" to="/">Home</Link></li>
       <li><Link className="nav-home-item" to="/create">Crear Nueva Rifa</Link></li>
-      <li><Link className="nav-home-item" to="/login">Registrarse</Link></li>
-      <li><Link className="nav-home-item" to="/signup">Iniciar Sesion</Link> {/* New Link for SignUp */}</li>
+      <li><Link className="nav-home-item" to="/login">Iniciar Sesion</Link></li>
+      <li><Link className="nav-home-item" to="/signup">Registrarse</Link> {/* New Link for SignUp */}</li>
       <li>
         <Link to={"/cart"}>
           <i className="material-icons">local_mall</i>
