@@ -6,7 +6,7 @@ const CartContext = createContext();
 const cartReducer = (state, action) => {
     switch (action.type) {
         case 'ADD_ITEM':
-            return [...state, { ...action.payload, id: uuidv4() }];
+            return [...state, { ...action.payload, id: uuidv4(), quantity: 1 }]; // Initialize quantity to 1
         case 'REMOVE_ITEM':
             return state.filter(item => item.id !== action.payload.id);
         case 'CLEAR_CART':
@@ -31,8 +31,10 @@ export const CartProvider = ({ children }) => {
         dispatch({ type: 'CLEAR_CART' });
     };
 
+    const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+
     return (
-        <CartContext.Provider value={{ cart, addItem, removeItem, clearCart }}>
+        <CartContext.Provider value={{ cart, cartCount, addItem, removeItem, clearCart }}>
             {children}
         </CartContext.Provider>
     );

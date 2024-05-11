@@ -1,0 +1,53 @@
+.nav-home {
+    background: #f08c2f;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+}
+
+.nav-home h1 {
+    color: #fff;
+    margin: 0; /* To remove default margin */
+}
+
+.nav-home-ul {
+    list-style: none;
+    display: flex;
+    margin: 20;
+    padding: 20;
+    justify-content: flex-end;
+}
+
+.nav-home-ul li {
+    margin-left: 20px; /* Adjust spacing between list items */
+}
+
+.nav-home-item {
+    text-decoration: none;
+    color: #f2f2f2;
+    font-size: 17px;
+}
+
+.icon-cart {
+	width: 40px;
+	height: 40px;
+	stroke: white;
+    text-decoration: none;
+}
+
+.icon-cart:hover {
+	cursor: pointer;
+}
+
+.cart-count {
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}

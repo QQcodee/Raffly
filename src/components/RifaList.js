@@ -29,10 +29,10 @@ const RifaList = ({rifa, onDelete}) => {
 
             <div className="boletos">{rifa.numboletos} boletos</div>
             <div className="buttons" align="right">
-                <Link to={"/render/" + rifa.id}>
+                <Link to={"/" + encodeURIComponent(rifa.socio.replace(/\s+/g, '-')) + "/" + encodeURIComponent(rifa.nombre.replace(/\s+/g, '-')) + "/" + rifa.id }>
                     <i className="material-icons">search</i>
                 </Link>
-                <Link to={"/" + rifa.id}>
+                <Link to={"/edit/" + rifa.id}>
                     <i className="material-icons">edit</i>
                 </Link>
                   <i className="material-icons" onClick={handleDelete}>delete</i>

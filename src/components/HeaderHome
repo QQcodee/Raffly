@@ -1,0 +1,21 @@
+import React from 'react';
+import { Link } from 'react-router-dom'; // Assuming you are using React Router
+
+const HeaderHome = () => {
+  return (
+    <nav className="navbar">
+      <div className="navbar-left">
+        <h1>Raffly</h1>
+      </div>
+      <div className="navbar-right">
+        <Link to="/">Home</Link>
+        <Link to="/create">Crear Nueva Rifa</Link>
+        <Link to="/cart">Shopping Cart</Link>
+        <Link to="/login">Login</Link>
+        <Link to="/signup">Sign Up</Link>
+      </div>
+    </nav>
+  );
+}
+
+export default HeaderHome;

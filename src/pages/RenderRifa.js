@@ -11,6 +11,7 @@ const RenderRifa = () => {
     const navigate = useNavigate();
     const { addItem } = useCart();
     const [rifaDetails, setRifaDetails] = useState({
+        id: '',
         nombre: '',
         desc: '',
         precioboleto: '',
@@ -32,6 +33,7 @@ const RenderRifa = () => {
 
             if (data) {
                 setRifaDetails({
+                    id: data.id,
                     nombre: data.nombre,
                     desc: data.desc,
                     precioboleto: data.precioboleto,
@@ -44,7 +46,7 @@ const RenderRifa = () => {
         fetchRifas();
     }, [id, navigate]);
 
-    const columnCount = 20; // Number of tickets per row
+    const columnCount = 30; // Number of tickets per row
     const rowCount = Math.ceil(rifaDetails.numboletos / columnCount); // Total rows needed for the tickets
 
     const [selectedTickets, setSelectedTickets] = useState({});
@@ -58,7 +60,7 @@ const RenderRifa = () => {
         setSelectedTickets(prev => ({ ...prev, [ticketNumber]: true }));
         
         addItem({
-            raffleId: id,
+            raffleId: rifaDetails.id,
             ticketNumber,
             price: rifaDetails.precioboleto,
             raffleName: rifaDetails.nombre
@@ -105,7 +107,8 @@ const RenderRifa = () => {
                 height={600}
                 rowCount={rowCount}
                 rowHeight={50}
-                width={1100}
+                overscanRowCount={5}
+                width={1650}
             >
                 {Cell}
             </Grid>
