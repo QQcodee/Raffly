@@ -1,6 +1,7 @@
 import supabase from "../config/supabaseClient"
 import { useState, useEffect } from "react"
 
+
 //componentes
 import RifaList from "../components/RifaList"
 
@@ -36,6 +37,7 @@ const Home = () => {
     return (
         <div className="page home">
             {fetchError && <p>{fetchError}</p>}
+            <h1> Bienvenido a Raffly </h1>
             {rifas && (
                 <div className="rifas-grid">
 

@@ -193,3 +193,19 @@ form button {
   cursor: default; /* Change cursor to default to indicate it's not clickable */
 }
 
+
+.supabase-auth-ui_ui-button {
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 100%;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  background-color: #f7f7f7;
+  cursor: pointer;
+  overflow: hidden;
+  white-space: nowrap;
+}

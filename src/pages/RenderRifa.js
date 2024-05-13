@@ -6,6 +6,7 @@ import { useCart } from '../CartContext'; // Import useCart
 import '../css/index.css';
 
 
+
 const RenderRifa = () => {
     const { id } = useParams();
     const navigate = useNavigate();

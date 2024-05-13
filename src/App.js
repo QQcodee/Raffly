@@ -1,8 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { CartProvider, useCart } from './CartContext';
-import { AuthProvider } from './AuthContext';
-import './css/auth.css'; 
 import './css/index.css';
 import './css/NavHome.css';
 // pages
@@ -12,7 +10,7 @@ import CartPage from './pages/CartPage';
 import Update from "./pages/Update"
 import RenderRifa from "./pages/RenderRifa"
 import Login from "./pages/Login"
-import SignUp from "./pages/SignUp" // Import SignUp
+import Success from "./pages/Success"
 
 const Header = ({ cartCount }) => {
     return (
@@ -36,7 +34,7 @@ const Header = ({ cartCount }) => {
       <li><Link className="nav-home-item" to="/">Home</Link></li>
       <li><Link className="nav-home-item" to="/create">Crear Nueva Rifa</Link></li>
       <li><Link className="nav-home-item" to="/login">Iniciar Sesion</Link></li>
-      <li><Link className="nav-home-item" to="/signup">Registrarse</Link> {/* New Link for SignUp */}</li>
+      
       <li>
         <Link to={"/cart"}>
           <i className="material-icons">local_mall</i>
@@ -54,7 +52,6 @@ const Header = ({ cartCount }) => {
 
 function App() {
     return (
-        <AuthProvider>
             <CartProvider>
                 <BrowserRouter>
                     <HeaderContainer />
@@ -65,11 +62,12 @@ function App() {
                         <Route path="/:socio/:nombre/:id" element={<RenderRifa/>} />
                         <Route path="/cart" element={<CartPage />} />
                         <Route path="/login" element={<Login />} />
-                        <Route path="/signup" element={<SignUp />} />
+                        
+                        <Route path="/success" element={<Success />} />
                     </Routes>
                 </BrowserRouter>
             </CartProvider>
-        </AuthProvider>
+        
     );
 }
 

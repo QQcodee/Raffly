@@ -1,33 +1,55 @@
-import React, { useContext, useState } from 'react';
-import { AuthContext } from '../AuthContext';
-import supabase from '../config/supabaseClient';
+import React, { useEffect } from "react";
+import { Auth } from "@supabase/auth-ui-react";
+import { useNavigate } from "react-router-dom";
+import { ThemeSupa } from "@supabase/auth-ui-shared";
+import supabase from "../config/supabaseClient";
+import "../css/index.css";
+
 
 function Login() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const { setAuth } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const { user, error } = await supabase.auth.signIn({
-      email: username,
-      password: password,
+  useEffect(() => {
+    const checkAuthState = async () => {
+      const { user } = supabase.auth.session();
+      if (user) {
+        navigate("/success");
+      } else {
+        navigate("/login");
+      }
+    };
+
+    checkAuthState();
+
+    supabase.auth.onAuthStateChange((event, session) => {
+      if (event === "SIGNED_IN") {
+        navigate("/success");
+      } else {
+        navigate("/login");
+      }
     });
-
-    if (user) {
-      setAuth(true);
-      console.log('Logged in:', user);
-    } else {
-      alert('Login failed: ' + error.message);
-    }
-  };
+  }, [navigate]);
 
   return (
-    <form onSubmit={handleSubmit} className="auth-form">
-      <input type="email" placeholder="Email" value={username} onChange={(e) => setUsername(e.target.value)} />
-      <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-      <button type="submit">Login</button>
-    </form>
+    <div>
+      
+         <div>
+          <h1 align="center"> Iniciar Sesion</h1>
+          </div>   
+          <div align="center">
+          <Auth
+          supabaseClient={supabase}
+          providers={["google"]}
+          magicLink={true}
+          appearance={{ theme: ThemeSupa }}
+          theme="dark"
+          
+          
+        />
+        </div>
+        
+
+    </div>
   );
 }
 
