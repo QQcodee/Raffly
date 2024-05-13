@@ -11,6 +11,7 @@ import Create from "./pages/Create"
 import CartPage from './pages/CartPage';
 import Update from "./pages/Update"
 import RenderRifa from "./pages/RenderRifa"
+import Dashboard from "./pages/Dashboard"
 import Login from "./pages/Login"
 import SignUp from "./pages/SignUp" // Import SignUp
 
@@ -34,7 +35,7 @@ const Header = ({ cartCount }) => {
   <div>
     <ul className="nav-home-ul">
       <li><Link className="nav-home-item" to="/">Home</Link></li>
-      <li><Link className="nav-home-item" to="/create">Crear Nueva Rifa</Link></li>
+      <li><Link className="nav-home-item" to="/dashboard">Dashboard</Link></li>
       <li><Link className="nav-home-item" to="/login">Iniciar Sesion</Link></li>
       <li><Link className="nav-home-item" to="/signup">Registrarse</Link> {/* New Link for SignUp */}</li>
       <li>
@@ -57,16 +58,16 @@ function App() {
         <AuthProvider>
             <CartProvider>
                 <BrowserRouter>
-                    <HeaderContainer />
-                    <Routes>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/create" element={<Create />} />
-                        <Route path="/edit/:id" element={<Update />} />
-                        <Route path="/:socio/:nombre/:id" element={<RenderRifa/>} />
-                        <Route path="/cart" element={<CartPage />} />
-                        <Route path="/login" element={<Login />} />
-                        <Route path="/signup" element={<SignUp />} />
-                    </Routes>
+                  <HeaderContainer />
+                  <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/dashboard/:id" element={<Dashboard />} />  // For editing
+                    <Route path="/dashboard" element={<Dashboard />} />  // For creating new
+                    <Route path="/:socio/:nombre/:id" element={<RenderRifa />} />
+                    <Route path="/cart" element={<CartPage />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/signup" element={<SignUp />} />
+                  </Routes> 
                 </BrowserRouter>
             </CartProvider>
         </AuthProvider>
