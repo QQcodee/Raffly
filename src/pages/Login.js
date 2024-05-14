@@ -32,21 +32,33 @@ function Login() {
 
   return (
     <div>
-      
-         <div>
-          <h1 align="center"> Iniciar Sesion</h1>
-          </div>   
-          <div align="center">
-          <Auth
-          supabaseClient={supabase}
-          providers={["google"]}
-          magicLink={true}
-          appearance={{ theme: ThemeSupa }}
-          theme="dark"
-          
-          
-        />
+        
+        <div className="login-container">
+        
+             
+              <div className="auth-component">
+              <header className="login-header">
+                <h1>Iniciar Sesion</h1>
+                </header>
+              <Auth
+              supabaseClient={supabase}
+              providers={["google"]}
+              magicLink={true}
+              appearance={{theme : ThemeSupa}}
+              theme="minimal"
+              localization={{
+                variables: {
+                  sign_in: {
+                    email_label: 'Your email address',
+                    password_label: 'Your strong password'
+                  },
+                },
+              }}
+              
+              
+            />
         </div>
+      </div>
         
 
     </div>

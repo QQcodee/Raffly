@@ -194,18 +194,49 @@ form button {
 }
 
 
-.supabase-auth-ui_ui-button {
-
+/* index.css or LoginStyles.css */
+.login-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  width: 50%;
-  height: 100%;
-  padding: 8px 12px;
-  font-size: 14px;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f7f8fa; /* Light grey background for softer feel */
+  color: #333; /* Soft black for text */
+}
+
+.login-header {
+  margin-bottom: 2rem;
+  color: #505050; /* Dark grey for the header */
+  align-items: center;
+}
+
+
+.auth-component {
+  width: 100%;
+  max-width: 520px; /* Limit the width of the auth form */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.15); /* Subtle shadow for depth */
+  background: white; /* White background for the form */
+  
+}
+
+.auth-component h1 {
+  text-align: center;
+}
+
+.auth-component input {
+  width: 100%;
+  
+
+  display: inline-block;
   border: 1px solid #ccc;
-  background-color: #f7f7f7;
-  cursor: pointer;
-  overflow: hidden;
-  white-space: nowrap;
+  border-radius: 4px;
+  box-sizing: border-box; /* Makes sure padding doesn't affect width */
+}
+
+
+.supabase-auth-ui_ui-button {
+  padding: 50px;
 }
