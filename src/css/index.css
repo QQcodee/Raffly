@@ -69,6 +69,71 @@ body {
   cursor: pointer;
 }
 
+/* index.css or LoginStyles.css */
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f7f8fa;
+  padding: 20px; /* Ensure there's space around the contents */
+  box-sizing: border-box;
+}
+
+
+.login-header {
+  margin-bottom: 2rem;
+  color: #505050; /* Dark grey for the header */
+  box-sizing: border-box;
+  
+}
+
+.myanchor {
+  color : blue,
+}
+
+.auth-component {
+  width: 100%;
+  max-width: 500px; /* Limit the width of the auth form */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.15); /* Subtle shadow for depth */
+  background: white; /* White background for the form */
+  margin: 0 auto; /* Centering the div if needed */
+
+}
+
+.auth-component h1 {
+  text-align: center;
+}
+
+.auth-component input {
+  width: 100%;
+  padding: 12px 15px;
+  box-sizing: border-box;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.auth-component button {
+  width: 100%;
+  background-color: #4CAF50; /* Green color for buttons */
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.auth-component button:hover {
+  background-color: #45a049; /* Slightly darker green on hover */
+}
+
+
 form {
   background: #fff;
   padding: 20px;
@@ -193,3 +258,19 @@ form button {
   cursor: default; /* Change cursor to default to indicate it's not clickable */
 }
 
+
+.supabase-auth-ui_ui-button {
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 100%;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  background-color: #f7f7f7;
+  cursor: pointer;
+  overflow: hidden;
+  white-space: nowrap;
+}
