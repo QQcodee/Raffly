@@ -1,0 +1,21 @@
+name: Deploy Database Changes
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  deploy-database:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install PostgreSQL client
+      run: sudo apt-get install -y postgresql-client
+    - name: Execute SQL Migrations
+      run: psql ${SUPABASE_DB_URL} -f ./supabase/migrations/init.sql
+      env:
+        SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
