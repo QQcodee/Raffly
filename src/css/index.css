@@ -80,16 +80,14 @@ body {
   box-sizing: border-box;
 }
 
-
 .login-header {
   margin-bottom: 2rem;
   color: #505050; /* Dark grey for the header */
   box-sizing: border-box;
-  
 }
 
 .myanchor {
-  color : blue,
+  color: blue;
 }
 
 .auth-component {
@@ -97,10 +95,9 @@ body {
   max-width: 500px; /* Limit the width of the auth form */
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.15); /* Subtle shadow for depth */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15); /* Subtle shadow for depth */
   background: white; /* White background for the form */
   margin: 0 auto; /* Centering the div if needed */
-
 }
 
 .auth-component h1 {
@@ -119,7 +116,7 @@ body {
 
 .auth-component button {
   width: 100%;
-  background-color: #4CAF50; /* Green color for buttons */
+  background-color: #4caf50; /* Green color for buttons */
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -131,7 +128,6 @@ body {
 .auth-component button:hover {
   background-color: #45a049; /* Slightly darker green on hover */
 }
-
 
 form {
   background: #fff;
@@ -292,7 +288,7 @@ form button {
   align-items: center;
   justify-content: center;
   height: 753px;
-  background-image: url(C:\Users\luise\OneDrive\Escritorio\Raffly\Raffly\src\imagenes\Hero-Backgroud.png);
+  background-image: url("https://cdhhjbucwspsckbwbwua.supabase.co/storage/v1/object/public/images/Hero-Backgroud%20(1).png");
 }
 
 .hero h1 {

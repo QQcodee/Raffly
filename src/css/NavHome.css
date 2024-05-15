@@ -1,5 +1,5 @@
 .header-home {
-  background-image: url(C:\Users\luise\OneDrive\Escritorio\Raffly\Raffly\src\imagenes\Header-Background.png);
+  background-image: url("https://cdhhjbucwspsckbwbwua.supabase.co/storage/v1/object/public/images/Header-Background.png");
   display: flex;
   align-items: center;
   justify-content: space-between;
