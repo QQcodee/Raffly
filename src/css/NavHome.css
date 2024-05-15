@@ -1,53 +1,71 @@
-.nav-home {
-    background: #f08c2f;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 20px;
+.header-home {
+  background-image: url(C:\Users\luise\OneDrive\Escritorio\Raffly\Raffly\src\imagenes\Header-Background.png);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  height: 151px;
+  vertical-align: text-top;
 }
 
-.nav-home h1 {
-    color: #fff;
-    margin: 0; /* To remove default margin */
+.nav-home {
+  display: flex;
+  margin-right: 90px;
 }
 
 .nav-home-ul {
-    list-style: none;
-    display: flex;
-    margin: 20;
-    padding: 20;
-    justify-content: flex-end;
+  list-style: none;
 }
 
 .nav-home-ul li {
-    margin-left: 20px; /* Adjust spacing between list items */
+  margin-left: 20px; /* Adjust spacing between list items */
+  display: inline-block;
+  margin: 20;
+  padding: 0px, 20px;
+  justify-content: flex-end;
+  text-decoration: none;
 }
 
 .nav-home-item {
-    text-decoration: none;
-    color: #f2f2f2;
-    font-size: 17px;
+  text-decoration: none;
+  color: #343a40;
+  font-size: 17px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 800;
+  font-size: 17px;
+  line-height: 23px;
+  vertical-align: middle;
 }
 
 .icon-cart {
-	width: 40px;
-	height: 40px;
-	stroke: white;
-    text-decoration: none;
+  width: 40px;
+  height: 40px;
+  stroke: white;
+  text-decoration: none;
 }
 
 .icon-cart:hover {
-	cursor: pointer;
+  cursor: pointer;
 }
 
 .cart-count {
-    color: white;
-    font-size: 12px;
-    font-weight: bold;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.logo-title {
+  font-family: Poppins;
+  font-size: 65px;
+  color: #343a40;
+  position: relative;
+  top: -10px;
+  left: 10px;
 }
