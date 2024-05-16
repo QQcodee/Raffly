@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { CartProvider, useCart } from "./CartContext";
+
 import "./css/index.css";
 import "./css/NavHome.css";
 // pages
@@ -12,6 +13,7 @@ import RenderRifa from "./pages/RenderRifa";
 import Login from "./pages/Login";
 import Success from "./pages/Success";
 
+/*
 const Header = ({ cartCount }) => {
   return (
     <header className="header-home">
@@ -42,6 +44,7 @@ const Header = ({ cartCount }) => {
           <li>
             <Link className="nav-home-item" to="/login">
               <i className="material-icons">account_circle</i>
+              <sub></sub>
             </Link>
           </li>
         </ul>
@@ -49,11 +52,13 @@ const Header = ({ cartCount }) => {
     </header>
   );
 };
+
+<HeaderContainer textDecoration="none" />
+*/
 function App() {
   return (
     <CartProvider>
       <BrowserRouter>
-        <HeaderContainer textDecoration="none" />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/create" element={<Create />} />
@@ -68,10 +73,11 @@ function App() {
     </CartProvider>
   );
 }
-
+/*
 const HeaderContainer = () => {
   const { cartCount } = useCart();
   return <Header cartCount={cartCount} />;
 };
+*/
 
 export default App;
