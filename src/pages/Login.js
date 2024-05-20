@@ -1,9 +1,13 @@
 import React, { useEffect } from "react";
 import { Auth } from "@supabase/auth-ui-react";
 import { useNavigate } from "react-router-dom";
-import { ThemeSupa, darkThemes } from "@supabase/auth-ui-shared";
+import { ThemeSupa } from "@supabase/auth-ui-shared";
+import { Link } from "react-router-dom";
 import supabase from "../config/supabaseClient";
 import "../css/index.css"; // Ensure this is correctly linked
+import "../css/NavHome.css";
+
+import HeaderLogin from "./HeaderLogin";
 
 function Login() {
   const navigate = useNavigate();
@@ -31,11 +35,12 @@ function Login() {
 
   return (
     <div>
+      <div>
+        <HeaderLogin />
+      </div>
       <div className="login-container">
         <div className="auth-component">
-          <header className="login-header">
-            <h1>Iniciar Session</h1>
-          </header>
+          <h1>Iniciar Sesion</h1>
           <Auth
             supabaseClient={supabase}
             providers={["google"]}

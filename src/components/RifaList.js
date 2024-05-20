@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const RifaList = ({ rifa, onDelete }) => {
   const handleDelete = async () => {
     const { data, error } = await supabase
-      .from("Rifas")
+      .from("rifas")
       .delete()
       .eq("id", rifa.id);
 

@@ -12,6 +12,7 @@ import Update from "./pages/Update";
 import RenderRifa from "./pages/RenderRifa";
 import Login from "./pages/Login";
 import Success from "./pages/Success";
+import HeaderLogin from "./pages/HeaderLogin.js";
 
 /*
 const Header = ({ cartCount }) => {

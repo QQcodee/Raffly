@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "../CartContext";
 import { useNavigate } from "react-router-dom";
+//import { v4 as uuidv4 } from 'uuid';
 
 import "../css/index.css";
 import "../css/NavHome.css";
@@ -15,10 +16,11 @@ const Home = () => {
   const [rifas, setRifas] = useState(null);
   const [user, setUser] = useState({});
   const navigate = useNavigate();
+  const { userRole, setUserRole } = useState(null);
 
   useEffect(() => {
     const fetchRifas = async () => {
-      const { data, error } = await supabase.from("Rifas").select();
+      const { data, error } = await supabase.from("rifas").select();
 
       if (error) {
         setFetchError("Could not fetch rifas");
@@ -45,6 +47,26 @@ const Home = () => {
     }
     getUserData();
   }, []);
+
+  const user_id = user.id;
+
+  useEffect(() => {
+    const fetchUserRole = async () => {
+      const { data, error } = await supabase
+        .from("user_roles_view")
+        .select()
+        .eq("user_id", user_id);
+      if (error) {
+        console.log(error);
+      }
+      if (data) {
+        console.log(data);
+        setUserRole(data);
+        console.log("userRole: ", userRole);
+      }
+    };
+    fetchUserRole();
+  }, [user_id]);
 
   //{user.identities[0].identity_data.name}
 

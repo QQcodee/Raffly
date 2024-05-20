@@ -22,7 +22,7 @@ const RenderRifa = () => {
   useEffect(() => {
     const fetchRifas = async () => {
       const { data, error } = await supabase
-        .from("Rifas")
+        .from("rifas")
         .select()
         .eq("id", id)
         .single();
