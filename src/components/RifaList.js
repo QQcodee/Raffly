@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import supabase from "../config/supabaseClient";
 import { useNavigate } from "react-router-dom";
 
-const RifaList = ({ rifa, onDelete }) => {
+const RifaList = ({ rifa, onDelete, role }) => {
   const handleDelete = async () => {
     const { data, error } = await supabase
       .from("rifas")
@@ -42,15 +42,22 @@ const RifaList = ({ rifa, onDelete }) => {
 
         <p>${rifa.precioboleto}</p>
         <p>by {rifa.socio}</p>
+        <p></p>
 
         <p className="boletos">{rifa.numboletos} boletos</p>
         <div className="buttons" align="right">
-          <Link to={"/edit/" + rifa.id}>
-            <i className="material-icons">edit</i>
-          </Link>
-          <i className="material-icons" onClick={handleDelete}>
-            delete
-          </i>
+          {role === "Admin" ? (
+            <>
+              <Link to={"/edit/" + rifa.id}>
+                <i className="material-icons">edit</i>
+              </Link>
+              <i className="material-icons" onClick={handleDelete}>
+                delete
+              </i>
+            </>
+          ) : (
+            <></>
+          )}
         </div>
       </section>
     </div>

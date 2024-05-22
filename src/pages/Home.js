@@ -16,7 +16,7 @@ const Home = () => {
   const [rifas, setRifas] = useState(null);
   const [user, setUser] = useState({});
   const navigate = useNavigate();
-  const { userRole, setUserRole } = useState(null);
+  const [userRole, setUserRole] = useState(null);
 
   useEffect(() => {
     const fetchRifas = async () => {
@@ -50,23 +50,28 @@ const Home = () => {
 
   const user_id = user.id;
 
+  //const user_id = "ce22999c-5e66-4ce6-8082-ace76850b9ec";
+
   useEffect(() => {
     const fetchUserRole = async () => {
       const { data, error } = await supabase
         .from("user_roles_view")
+        //.from("user_roles")
         .select()
         .eq("user_id", user_id);
       if (error) {
         console.log(error);
       }
       if (data) {
-        console.log(data);
-        setUserRole(data);
-        console.log("userRole: ", userRole);
+        //console.log(data);
+        //setUserRole(data[0].role_id);
+        setUserRole(data[0].roles[0]);
       }
     };
     fetchUserRole();
   }, [user_id]);
+
+  console.log(userRole);
 
   //{user.identities[0].identity_data.name}
 
@@ -143,7 +148,7 @@ const Home = () => {
         {rifas && (
           <div className="rifas-grid">
             {rifas.map((rifa) => (
-              <RifaList key={rifa.id} rifa={rifa} />
+              <RifaList key={rifa.id} rifa={rifa} role={userRole} />
             ))}
           </div>
         )}
