@@ -1,0 +1,30 @@
+.countdown-timer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  color: white;
+  padding: 5px 15px; /* Reduced padding to fit content more closely */
+  border-radius: 36px;
+  width: fit-content; /* Ensures the width fits the content */
+  margin: 0 auto; /* Centers the timer horizontally */
+}
+
+.time-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 5px; /* Reduced horizontal margin */
+}
+
+.time {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0; /* Removed margin */
+}
+
+.label {
+  font-size: 10px; /* Reduced font size for the labels */
+  margin: 0; /* Removed margin */
+  padding-top: 2px; /* Added a small padding to create some space between time and label */
+}

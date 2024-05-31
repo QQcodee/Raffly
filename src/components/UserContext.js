@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 const UserContext = () => {
   const [user, setUser] = useState({});
   const [userRole, setUserRole] = useState(null);
-  const user_id = user.id;
 
   useEffect(() => {
     async function getUserData() {
@@ -17,6 +16,8 @@ const UserContext = () => {
     }
     getUserData();
   }, []);
+
+  const user_id = user.id;
 
   useEffect(() => {
     const fetchUserRole = async () => {

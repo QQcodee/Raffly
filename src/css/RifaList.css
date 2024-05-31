@@ -1,0 +1,108 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;800&family=VT323&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&family=VT323&display=swap");
+
+.rifa-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+  background: #fff;
+  box-sizing: border-box;
+  border-radius: 6px;
+  position: relative;
+  border: 1px solid rgba(131, 131, 131, 0.5); /* Adding semi-transparent border */
+  box-shadow: 4.8px 4.8px 4.8px rgba(0, 0, 0, 0.25); /* Adding inner shadow effect */
+  cursor: default; /* Set default cursor */
+}
+
+.imagen-rifa {
+  cursor: pointer;
+  position: relative; /* Positioning context for absolute positioning */
+  width: 295px; /* Set width of the container */
+  height: 200px; /* Set height of the container */
+  overflow: hidden; /* Hide overflowing content */
+  border-top-left-radius: 6px; /* Apply border radius to the top left corner */
+  border-top-right-radius: 6px; /* Apply border radius to the top right corner */
+}
+
+.imagen-rifa img {
+  width: 100%; /* Ensure image covers the entire width of its container */
+  height: auto; /* Maintain aspect ratio */
+}
+
+.info-rifa {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: default; /* Set default cursor */
+}
+
+.rifa-nombre {
+  font-size: 25px;
+  font-family: "Poppins";
+  color: #000;
+  margin: 10px 0;
+  text-align: center;
+  cursor: default; /* Set default cursor */
+}
+
+.rifa-desc,
+.rifa-socio {
+  text-align: center;
+  margin: 10px 0;
+  font-size: 14px;
+  font-family: "Poppins";
+  cursor: default; /* Set default cursor */
+}
+
+.rifa-precio {
+  position: absolute;
+  top: -15px;
+  right: -25px;
+  background: red;
+  color: #fff;
+  border-radius: 35px;
+  width: auto;
+  height: 0;
+  padding: 20px 0;
+  padding-left: 25px;
+  padding-right: 25px;
+  line-height: 0px;
+  text-align: center;
+  font-size: 35px;
+  font-family: "Roboto";
+  cursor: default; /* Set default cursor */
+}
+
+.buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center; /* Center-align the buttons horizontally */
+  width: 100%;
+  cursor: default; /* Set default cursor */
+}
+
+.buttons .material-icons {
+  margin-left: 10px;
+  cursor: pointer; /* Set pointer cursor for buttons */
+}
+
+.rifa-list i {
+  color: #bbb;
+  margin-left: 10px;
+  font-size: 1.2em;
+  padding: 6px;
+  background: #eee;
+  border-radius: 50%;
+  cursor: default; /* Set default cursor */
+}
+
+.divider {
+  width: 80%; /* Adjust width as needed */
+  border: 0;
+  border-top: 1px solid #181818; /* Style the divider */
+  margin: 10px 0; /* Add margin for spacing */
+  cursor: default; /* Set default cursor */
+}

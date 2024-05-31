@@ -10,6 +10,7 @@ import "../css/NavHome.css";
 
 //componentes
 import RifaList from "../components/RifaList";
+//import HeaderHome from "../components/HeaderHome";
 
 const Home = () => {
   const [fetchError, setFetchError] = useState(null);
@@ -49,7 +50,6 @@ const Home = () => {
   }, []);
 
   const user_id = user.id;
-
   //const user_id = "ce22999c-5e66-4ce6-8082-ace76850b9ec";
 
   useEffect(() => {
@@ -68,10 +68,11 @@ const Home = () => {
         setUserRole(data[0].roles[0]);
       }
     };
+
     fetchUserRole();
   }, [user_id]);
 
-  console.log(userRole);
+  //console.log(userRole);
 
   //{user.identities[0].identity_data.name}
 
@@ -111,6 +112,30 @@ const Home = () => {
                 {user.email}
               </Link>
             </li>
+
+            {userRole === "Admin" || userRole === "Socio" ? (
+              <>
+                <button
+                  onClick={() => navigate("/dashboard/" + user_id)}
+                  style={{
+                    textDecoration: "none",
+                    color: "black",
+                    fontWeight: "bold",
+                    border: "none",
+                    backgroundColor: "White",
+                    cursor: "pointer",
+                    fontSize: "20px",
+                    padding: "10px",
+                    borderRadius: "10px",
+                    marginLeft: "10px",
+                  }}
+                >
+                  Panel de control
+                </button>
+              </>
+            ) : (
+              <></>
+            )}
           </ul>
         </nav>
       </header>
@@ -122,9 +147,23 @@ const Home = () => {
     return <HeaderHome cartCount={cartCount} />;
   };
 
+  useEffect(() => {
+    const fetchUser = async () => {
+      const { data, error } = await supabase.auth.getUser();
+      if (error) {
+        console.log(error);
+      }
+      if (data) {
+        setUser(data.user);
+      }
+    };
+    fetchUser();
+  }, []);
+
   return (
     <>
       <HeaderContainer textDecoration="none" />
+
       <div className="hero">
         <h1>Bienvenido a Raffly!</h1>
 
@@ -148,7 +187,12 @@ const Home = () => {
         {rifas && (
           <div className="rifas-grid">
             {rifas.map((rifa) => (
-              <RifaList key={rifa.id} rifa={rifa} role={userRole} />
+              <RifaList
+                key={rifa.id}
+                rifa={rifa}
+                role={userRole}
+                user_id={user_id}
+              />
             ))}
           </div>
         )}

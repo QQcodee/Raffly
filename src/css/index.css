@@ -33,40 +33,6 @@ body {
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 40px;
 }
-.rifa-list {
-  width: 100%;
-  padding: 10px;
-  background: #fff;
-  box-sizing: border-box;
-  border-radius: 6px;
-  position: relative;
-  cursor: pointer;
-}
-.rifa-list .boletos {
-  position: absolute;
-  top: -20px;
-  right: -20px;
-  background: var(--primary);
-  color: #fff;
-  border-radius: 6px;
-  width: auto;
-  height: 0;
-  padding: 20px 0;
-  padding-left: 10px;
-  padding-right: 10px;
-  line-height: 0px;
-  text-align: center;
-}
-
-.rifa-list i {
-  color: #bbb;
-  margin-left: 10px;
-  font-size: 1.2em;
-  padding: 6px;
-  background: #eee;
-  border-radius: 50%;
-  cursor: pointer;
-}
 
 /* index.css or LoginStyles.css */
 .login-container {

@@ -9,7 +9,22 @@ import "../css/RifaList.css";
 import { useEffect } from "react";
 import ByWho from "./ByWho";
 
-const RifaList = ({ rifa, user_id, userMetaData }) => {
+const RifaList = ({ rifa, onDelete, role, user_id, userMetaData }) => {
+  const handleDelete = async () => {
+    const { data, error } = await supabase
+      .from("rifas")
+      .delete()
+      .eq("id", rifa.id);
+
+    if (error) {
+      console.log(error);
+    }
+    if (data) {
+      console.log(data);
+      onDelete(rifa.id);
+    }
+  };
+
   const navigate = useNavigate();
   const handleCLick = () => {
     navigate(
@@ -43,6 +58,21 @@ const RifaList = ({ rifa, user_id, userMetaData }) => {
         <ByWho user_meta={rifa.user_id} />
         <CountdownTimer rifa={rifa} />
         <p className="rifa-precio">${rifa.precioboleto}</p>
+
+        <div className="buttons" align="right">
+          {role === "Admin" || user_id === rifa.user_id ? (
+            <>
+              <Link to={"/edit/" + rifa.id}>
+                <i className="material-icons">edit</i>
+              </Link>
+              <i className="material-icons" onClick={handleDelete}>
+                delete
+              </i>
+            </>
+          ) : (
+            <></>
+          )}
+        </div>
       </section>
     </div>
   );
