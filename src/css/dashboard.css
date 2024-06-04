@@ -1,13 +1,80 @@
-.header-dashboard {
-  width: 100%;
-  height: 80px;
-  background-color: #12bca2;
+/* Container for the whole layout */
+.dashboard-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
-.logo-title {
-  color: #fff;
-  font-size: 24px;
-  font-weight: bold;
-  margin: 0;
-  padding: 20px;
+/* Container for the sidebar and main content */
+.dashboard-content {
+  display: flex;
+  flex: 1;
+  justify-content: flex-start; /* Align items to the start (left) */
+}
+
+/* Sidebar styling */
+.sidebar {
+  width: 230px; /* Adjust the width to be narrower */
+  background: #f4f4f4;
+  padding: 10px;
+}
+
+/* Main content styling */
+.main-content {
+  flex: 1;
+  padding: 10px 20px; /* Reduce padding to bring content closer to the left */
+}
+
+/* Topbar styling */
+.topbar {
+  background: #333;
+  color: white;
+  padding-left: 30px;
+  text-align: left;
+  height: 80px;
+}
+
+.page.create form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.page.create form label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.page.create form input[type="text"],
+.page.create form input[type="number"],
+.page.create form textarea,
+.page.create form select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.page.create form textarea {
+  resize: vertical;
+}
+
+.page.create form button[type="submit"],
+.page.create form button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.page.create form button[type="submit"]:hover,
+.page.create form button:hover {
+  background-color: #45a049;
+}
+
+.page.create form .error {
+  color: red;
 }

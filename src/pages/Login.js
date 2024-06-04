@@ -57,7 +57,7 @@ function Login() {
                   button_label: "Iniciar Sesion",
                   loading_button_label: "Iniciando Sesion...",
                   social_provider_text: "Inicia Sesion con {{provider}}",
-                  link_text: "Ya tenes una cuenta? Iniciar Sesion",
+                  link_text: "Ya tienes una cuenta? Iniciar Sesion",
                   confirmation_text: "Checa tu email para confirmar tu cuenta",
                 },
                 sign_up: {
@@ -65,7 +65,7 @@ function Login() {
                   password_label: "Contraseña",
                   email_input_placeholder: "Tu correo electronico",
                   password_input_placeholder: "Crear Contraseña",
-                  link_text: "No tenes una cuenta? Crear una",
+                  link_text: "No tienes una cuenta? Crear una",
                   button_label: "Crear Cuenta",
                 },
                 forgotten_password: {

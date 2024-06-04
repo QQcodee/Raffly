@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { CartProvider, useCart } from "./CartContext";
 
 //import { CssBaseline, ThemeProvider } from "@mui/material";
@@ -17,25 +17,34 @@ import RenderRifa from "./pages/RenderRifa";
 import Login from "./pages/Login";
 import Success from "./pages/Success";
 import Dashboard from "./pages/dashboard/Dashboard";
+import MisRifas from "./pages/dashboard/MisRifas";
+import DashboardLayout from "./pages/dashboard/DashboardLayout";
 //import HeaderLogin from "./pages/HeaderLogin.js";
 //import Topbar from "./pages/dashboard/Topbar.js";
 
 function App() {
   return (
     <CartProvider>
-      <BrowserRouter>
+      <Router>
         <Routes>
+          {/* Main website routes */}
           <Route path="/" element={<Home />} />
-          <Route path="/create" element={<Create />} />
-          <Route path="/edit/:id" element={<Update />} />
+
           <Route path="/:socio/:nombre/:id" element={<RenderRifa />} />
           <Route path="/cart" element={<CartPage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/dashboard/:user_id" element={<Dashboard />} />
 
+          <Route path="/editar/:id" element={<Update />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/success" element={<Success />} />
+
+          {/* Dashboard routes */}
+          <Route path="/dashboard/:user_id" element={<DashboardLayout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="my-raffles" element={<MisRifas />} />
+            <Route path="crear-rifa" element={<Create />} />
+          </Route>
         </Routes>
-      </BrowserRouter>
+      </Router>
     </CartProvider>
   );
 }

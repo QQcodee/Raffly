@@ -8,6 +8,8 @@ import "../css/index.css";
 import "../css/NavHome.css";
 import RifaList from "../components/RifaList";
 
+//import components
+import HeaderHome from "../components/HeaderHome";
 const Home = () => {
   const [fetchError, setFetchError] = useState(null);
   const [rifas, setRifas] = useState(null);
@@ -32,6 +34,7 @@ const Home = () => {
     fetchRifas();
   }, []);
 
+  /*
   const HeaderHome = ({ cartCount }) => {
     return (
       <header className="header-home">
@@ -100,9 +103,11 @@ const Home = () => {
     return <HeaderHome cartCount={cartCount} />;
   };
 
+  */
+
   return (
     <>
-      <HeaderContainer textDecoration="none" />
+      <HeaderHome textDecoration="none" />
 
       <div className="hero">
         <h1>Bienvenido a Raffly!</h1>

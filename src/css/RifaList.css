@@ -55,6 +55,11 @@
   font-size: 14px;
   font-family: "Poppins";
   cursor: default; /* Set default cursor */
+
+  max-height: calc(
+    1.2em * 7
+  ); /* 1.2em is approximately the height of one line of text */
+  overflow: hidden;
 }
 
 .rifa-precio {

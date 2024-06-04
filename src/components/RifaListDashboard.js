@@ -10,7 +10,7 @@ import "../css/RifaList.css";
 import { useEffect } from "react";
 import ByWho from "./ByWho";
 
-const RifaList = ({ rifa, onDelete }) => {
+const RifaListDashboard = ({ rifa, onDelete }) => {
   const { user, userRole } = useUser();
 
   const handleDelete = async () => {
@@ -81,7 +81,7 @@ const RifaList = ({ rifa, onDelete }) => {
   );
 };
 
-export default RifaList;
+export default RifaListDashboard;
 
 /*
 
