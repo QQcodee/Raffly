@@ -3,13 +3,16 @@ import supabase from "../config/supabaseClient";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import CountdownTimer from "./CountdownTimer";
+import { useUser } from "../UserContext";
 
 //css
 import "../css/RifaList.css";
 import { useEffect } from "react";
 import ByWho from "./ByWho";
 
-const RifaList = ({ rifa, onDelete, role, user_id, userMetaData }) => {
+const RifaList = ({ rifa, onDelete }) => {
+  const { user, userRole } = useUser();
+
   const handleDelete = async () => {
     const { data, error } = await supabase
       .from("rifas")
@@ -60,7 +63,7 @@ const RifaList = ({ rifa, onDelete, role, user_id, userMetaData }) => {
         <p className="rifa-precio">${rifa.precioboleto}</p>
 
         <div className="buttons" align="right">
-          {role === "Admin" || user_id === rifa.user_id ? (
+          {userRole === "Admin" || user.id === rifa.user_id ? (
             <>
               <Link to={"/edit/" + rifa.id}>
                 <i className="material-icons">edit</i>

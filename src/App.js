@@ -1,6 +1,6 @@
-import React from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { CartProvider, useCart } from "./CartContext";
+
 //import { CssBaseline, ThemeProvider } from "@mui/material";
 //import { ColorModeContext, useMode } from "./theme";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -20,48 +20,6 @@ import Dashboard from "./pages/dashboard/Dashboard";
 //import HeaderLogin from "./pages/HeaderLogin.js";
 //import Topbar from "./pages/dashboard/Topbar.js";
 
-/*
-const Header = ({ cartCount }) => {
-  return (
-    <header className="header-home">
-      <Link to="/" style={{ textDecoration: "none" }}>
-        <h1 className="logo-title">Raffly</h1>
-      </Link>
-
-      <nav className="nav-home">
-        <ul className="nav-home-ul">
-          <li>
-            <Link className="nav-home-item" to="/">
-              Inicio
-            </Link>
-          </li>
-          <li>
-            <Link className="nav-home-item" to="/create">
-              Crear Nueva Rifa
-            </Link>
-          </li>
-
-          <li>
-            <Link className="nav-home-item" to={"/cart"}>
-              <i className="material-icons">local_mall</i>
-              <sub>{cartCount}</sub>
-            </Link>
-          </li>
-
-          <li>
-            <Link className="nav-home-item" to="/login">
-              <i className="material-icons">account_circle</i>
-              <sub></sub>
-            </Link>
-          </li>
-        </ul>
-      </nav>
-    </header>
-  );
-};
-
-<HeaderContainer textDecoration="none" />
-*/
 function App() {
   return (
     <CartProvider>
@@ -81,11 +39,5 @@ function App() {
     </CartProvider>
   );
 }
-/*
-const HeaderContainer = () => {
-  const { cartCount } = useCart();
-  return <Header cartCount={cartCount} />;
-};
-*/
 
 export default App;

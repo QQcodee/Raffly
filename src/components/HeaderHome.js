@@ -4,10 +4,14 @@ import { useCart } from "../CartContext";
 import supabase from "../config/supabaseClient";
 import { useState, useEffect } from "react";
 
+import { useUser } from "../UserContext";
+
 import "../css/index.css";
 import "../css/NavHome.css";
 
-const HeaderHome = ({ userRole, cartCount, user }) => {
+const HeaderHome = ({ cartCount }) => {
+  const { user, userRole } = useUser();
+
   return (
     <header className="header-home">
       <Link to="/" style={{ textDecoration: "none" }}>

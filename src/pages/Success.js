@@ -2,22 +2,12 @@ import { useNavigate } from "react-router-dom";
 import supabase from "../config/supabaseClient";
 import { useEffect, useState } from "react";
 import { ThemeSupa, Auth } from "@supabase/auth-ui-shared";
+import { useUser } from "../UserContext";
 
 export default function Success() {
-  const [user, setUser] = useState({});
+  const { user } = useUser();
+  //const { logout } = useUser();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    async function getUserData() {
-      await supabase.auth.getUser().then((value) => {
-        if (value.data?.user) {
-          console.log(value.data.user);
-          setUser(value.data.user);
-        }
-      });
-    }
-    getUserData();
-  }, []);
 
   async function logout() {
     const { error } = await supabase.auth.signOut();
@@ -27,11 +17,11 @@ export default function Success() {
   return (
     <div>
       <header>
-        {Object.keys(user).length > 0 ? (
+        {user ? (
           <>
             <h1>Success</h1>
             <h1>{user.email}</h1>
-            <button onClick={() => logout()}>Logout</button>
+            <button onClick={logout}>Logout</button>
             <button onClick={() => navigate("/")}>Home</button>
           </>
         ) : (

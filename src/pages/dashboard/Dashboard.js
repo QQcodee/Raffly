@@ -4,7 +4,7 @@ import supabase from "../../config/supabaseClient";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-//import HeaderLogin from "../HeaderLogin";
+import HeaderLogin from "../HeaderLogin";
 import RifaListDashboard from "../../components/RifaListDashboard";
 import HeaderDashboard from "../../components/HeaderDashboard";
 
@@ -37,7 +37,7 @@ const Dashboard = () => {
   return (
     <>
       <div>
-        <HeaderDashboard />
+        <HeaderLogin />
 
         <div className="page home">
           {fetchError && <p>{fetchError}</p>}

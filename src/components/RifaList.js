@@ -3,13 +3,14 @@ import supabase from "../config/supabaseClient";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import CountdownTimer from "./CountdownTimer";
+import { useUser } from "../UserContext";
 
 //css
 import "../css/RifaList.css";
 import { useEffect } from "react";
 import ByWho from "./ByWho";
 
-const RifaList = ({ rifa, user_id, userMetaData }) => {
+const RifaList = ({ rifa }) => {
   const navigate = useNavigate();
   const handleCLick = () => {
     navigate(
