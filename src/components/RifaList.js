@@ -10,7 +10,7 @@ import "../css/RifaList.css";
 import { useEffect } from "react";
 import ByWho from "./ByWho";
 
-const RifaList = ({ rifa }) => {
+const RifaList = ({ rifa, boletosVendidos }) => {
   const navigate = useNavigate();
   const handleCLick = () => {
     navigate(
@@ -20,6 +20,22 @@ const RifaList = ({ rifa }) => {
         encodeURIComponent(rifa.nombre.replace(/\s+/g, "-")) +
         "/" +
         rifa.id
+    );
+  };
+
+  const LoadingBar = ({ boletosVendidos, rifa }) => {
+    const percentage = (boletosVendidos / rifa.numboletos) * 100;
+
+    return (
+      <div className="loading-bar-container">
+        <div className="loading-bar">
+          <div
+            className="loading-bar-fill"
+            style={{ width: `${percentage}%` }}
+          ></div>
+        </div>
+        <p>{Math.round(percentage)}% sold</p>
+      </div>
     );
   };
 
@@ -44,33 +60,10 @@ const RifaList = ({ rifa }) => {
         <ByWho user_meta={rifa.user_id} />
         <CountdownTimer rifa={rifa} />
         <p className="rifa-precio">${rifa.precioboleto}</p>
+        <LoadingBar boletosVendidos={boletosVendidos || []} rifa={rifa} />
       </section>
     </div>
   );
 };
 
 export default RifaList;
-
-/*
-
-const rifa_user_id = rifas.user_id;
-  const [userMetaData, setUserMetaData] = useState(null);
-  useEffect(() => {
-    const fetchUserMetaData = async () => {
-      const { data, error } = await supabase
-        .from("user_metadata_view")
-        .select()
-        .eq("user_id", rifa_user_id);
-      if (error) {
-        console.log(error);
-      }
-      if (data) {
-        setUserMetaData(data);
-      }
-    };
-    fetchUserMetaData();
-  }, []);
-
-  console.log(userMetaData);
-
-  */

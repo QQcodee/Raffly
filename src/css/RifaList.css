@@ -87,6 +87,7 @@
   justify-content: center; /* Center-align the buttons horizontally */
   width: 100%;
   cursor: default; /* Set default cursor */
+  align-self: flex-end;
 }
 
 .buttons .material-icons {
@@ -102,6 +103,7 @@
   background: #eee;
   border-radius: 50%;
   cursor: default; /* Set default cursor */
+  align-self: flex-end;
 }
 
 .divider {
@@ -110,4 +112,25 @@
   border-top: 1px solid #181818; /* Style the divider */
   margin: 10px 0; /* Add margin for spacing */
   cursor: default; /* Set default cursor */
+}
+
+.loading-bar-container {
+  width: 100%;
+  margin: 20px 0;
+  text-align: center;
+}
+
+.loading-bar {
+  width: 100%;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+}
+
+.loading-bar-fill {
+  height: 20px;
+  background-color: #4caf50;
+  width: 0;
+  transition: width 0.3s ease-in-out;
 }

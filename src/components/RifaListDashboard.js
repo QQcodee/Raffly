@@ -57,15 +57,15 @@ const RifaListDashboard = ({ rifa, onDelete }) => {
             <li key={index}>{item}</li>
           ))}
         </ul>
+        <p className="rifa-precio">${rifa.precioboleto}</p>
 
         <ByWho user_meta={rifa.user_id} />
         <CountdownTimer rifa={rifa} />
-        <p className="rifa-precio">${rifa.precioboleto}</p>
 
-        <div className="buttons" align="right">
+        <div className="buttons">
           {userRole === "Admin" || user.id === rifa.user_id ? (
             <>
-              <Link to={"/edit/" + rifa.id}>
+              <Link to={"/dashboard/" + user.id + "/editar/" + rifa.id}>
                 <i className="material-icons">edit</i>
               </Link>
               <i className="material-icons" onClick={handleDelete}>

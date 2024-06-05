@@ -26,11 +26,6 @@ const HeaderHome = () => {
               Inicio
             </Link>
           </li>
-          <li>
-            <Link className="nav-home-item" to="/create">
-              Crear Nueva Rifa
-            </Link>
-          </li>
 
           <li>
             <Link className="nav-home-item" to={"/cart"}>

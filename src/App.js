@@ -8,6 +8,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/index.css";
 import "./css/NavHome.css";
 import "./css/dashboard.css";
+import "./css/Sidebar.css";
+
 // pages
 import Home from "./pages/Home";
 import Create from "./pages/Create";
@@ -34,14 +36,16 @@ function App() {
           <Route path="/cart" element={<CartPage />} />
 
           <Route path="/editar/:id" element={<Update />} />
+
           <Route path="/login" element={<Login />} />
           <Route path="/success" element={<Success />} />
 
           {/* Dashboard routes */}
           <Route path="/dashboard/:user_id" element={<DashboardLayout />}>
             <Route index element={<Dashboard />} />
-            <Route path="my-raffles" element={<MisRifas />} />
+            <Route path="mis-rifas" element={<MisRifas />} />
             <Route path="crear-rifa" element={<Create />} />
+            <Route path="editar/:id" element={<Update />} />
           </Route>
         </Routes>
       </Router>

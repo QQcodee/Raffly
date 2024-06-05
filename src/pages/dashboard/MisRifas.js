@@ -1,6 +1,8 @@
 import supabase from "../../config/supabaseClient";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 //import components
 
@@ -12,6 +14,8 @@ const MisRifas = () => {
   const { user_id } = useParams();
   const [fetchError, setFetchError] = useState(null);
   const [rifas, setRifas] = useState(null);
+
+  const navigate = useNavigate();
 
   const handleDelete = (id) => {
     setRifas((prevRifas) => {
@@ -45,6 +49,13 @@ const MisRifas = () => {
       <div>
         {fetchError && <p>{fetchError}</p>}
         <h1> Tus Rifas </h1>
+        <button
+          onClick={() => navigate("/dashboard/" + user_id + "/crear-rifa")}
+        >
+          {" "}
+          Crear Rifa{" "}
+        </button>
+
         {rifas && (
           <div className="rifas-grid">
             {rifas.map((rifa) => (

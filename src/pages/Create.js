@@ -1,19 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import supabase from "../config/supabaseClient";
-import { useEffect } from "react";
 import { useUser } from "../UserContext";
 
 import HeaderLogin from "./HeaderLogin";
 import ByWho from "../components/ByWho";
 
-//import dashboard.css
+// Import dashboard.css
 import "../css/dashboard.css";
 
 const Create = () => {
   const [nombre, setNombre] = useState("");
   const [desc, setDesc] = useState("");
-  //const [fecharifa,setfecharifa] = useState("")
+  // const [fecharifa,setfecharifa] = useState("")
   const [precioboleto, setprecioboleto] = useState("");
   const [numboletos, setnumboletos] = useState("");
   const [socio, setSocio] = useState("");
@@ -22,15 +21,28 @@ const Create = () => {
   const [socioMetaData, setSocioMetaData] = useState(null);
   const [categoria, setCategoria] = useState(null);
 
+  const [imagePreview, setImagePreview] = useState(null);
+  const [image, setImageURL] = useState(null);
+  const [date, setDate] = useState("");
+
   const navigate = useNavigate();
-  const navHome = () => {
-    navigate("/");
+  const navMisRifas = () => {
+    navigate("/dashboard/" + user.id + "/mis-rifas");
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!nombre || !desc || !precioboleto || !numboletos) {
+    if (
+      !nombre ||
+      !desc ||
+      !precioboleto ||
+      !numboletos ||
+      !image ||
+      !date ||
+      !socioMetaData ||
+      !categoria
+    ) {
       setFormError("Please fill in all the fields correctly.");
       return;
     }
@@ -44,17 +56,18 @@ const Create = () => {
         socio: socioMetaData,
         user_id: user.id,
         categoria: categoria,
+        img: image,
+        fecharifa: date,
       },
     ]);
-    navigate("/dashboard/" + user.id + "/my-raffles");
 
     if (error) {
       console.log(error);
       setFormError("Please fill in all the fields correctly.");
-    }
-    if (data) {
+    } else {
       console.log(data);
       setFormError(null);
+      navigate("/dashboard/" + user.id + "/mis-rifas");
     }
   };
 
@@ -74,7 +87,37 @@ const Create = () => {
     };
 
     fetchSocio();
-  }, []);
+  }, [user.id]);
+
+  const handleImageUpload = async (file) => {
+    try {
+      const filePath = `public/${file.name}`;
+      const { data, error } = await supabase.storage
+        .from("imagenes-rifas")
+        .upload(filePath, file);
+
+      if (error) {
+        throw error;
+      }
+
+      // Retrieve the public URL for the uploaded image
+      const { data: publicURLData, error: publicURLError } = supabase.storage
+        .from("imagenes-rifas")
+        .getPublicUrl(filePath);
+
+      if (publicURLError) {
+        throw publicURLError;
+      }
+
+      const publicURL = publicURLData.publicUrl;
+
+      // Set the public URL to the state variable for preview or further processing
+      setImagePreview(publicURL);
+      setImageURL(publicURL);
+    } catch (error) {
+      console.error("Error uploading image:", error.message);
+    }
+  };
 
   return (
     <div>
@@ -118,14 +161,39 @@ const Create = () => {
             onChange={(e) => setCategoria(e.target.value)}
           >
             <option value="">Seleccione una categoría</option>
-            <option value="categoria1">Vehiculos</option>
-            <option value="categoria2">Celulares</option>
-            <option value="categoria3">Efectivo</option>
-            <option value="categoria4">Joyeria</option>
-            <option value="categoria5">Relojes</option>
-            <option value="categoria6">Otro</option>
+            <option value="Vehiculos">Vehiculos</option>
+            <option value="Celulares">Celulares</option>
+            <option value="Efectivo">Efectivo</option>
+            <option value="Joyeria">Joyeria</option>
+            <option value="Relojes">Relojes</option>
+            <option value="Otro">Otro</option>
             {/* Add more options as needed */}
           </select>
+
+          <label htmlFor="image">Imagen:</label>
+          <input
+            type="file"
+            id="image"
+            accept="image/*"
+            onChange={(e) => handleImageUpload(e.target.files[0])}
+          />
+
+          {/* Display preview of uploaded image */}
+          {imagePreview && (
+            <img
+              src={imagePreview}
+              alt="Preview"
+              style={{ maxWidth: "100%", maxHeight: "200px" }}
+            />
+          )}
+
+          <label htmlFor="date">Fecha del sorteo:</label>
+          <input
+            type="date"
+            id="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+          />
 
           <ByWho user_meta={user.id} />
 
@@ -134,7 +202,7 @@ const Create = () => {
           {formError && <p className="error">{formError}</p>}
         </form>
 
-        <button onClick={navHome}>Volver</button>
+        <button onClick={navMisRifas}>Volver</button>
       </div>
     </div>
   );

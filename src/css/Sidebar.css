@@ -1,0 +1,21 @@
+.nav-sidebar-ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.nav-sidebar-item {
+  text-align: center; /* Align text to the center */
+  display: block;
+  padding: 10px; /* Adjust padding as needed */
+  text-decoration: none;
+  color: #333; /* Adjust color as needed */
+}
+
+.nav-sidebar-item:hover {
+  background-color: #f0f0f0; /* Adjust hover background color as needed */
+}
+
+.nav-sidebar-img {
+  display: block;
+  margin: 0 auto; /* Center horizontally */
+}
