@@ -4,11 +4,14 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import CountdownTimer from "./CountdownTimer";
 import { useUser } from "../UserContext";
+import { useEffect } from "react";
+
+//components
+import ByWho from "./ByWho";
+import LoadingBar from "./LoadingBar";
 
 //css
 import "../css/RifaList.css";
-import { useEffect } from "react";
-import ByWho from "./ByWho";
 
 const RifaList = ({ rifa, boletosVendidos }) => {
   const navigate = useNavigate();
@@ -20,22 +23,6 @@ const RifaList = ({ rifa, boletosVendidos }) => {
         encodeURIComponent(rifa.nombre.replace(/\s+/g, "-")) +
         "/" +
         rifa.id
-    );
-  };
-
-  const LoadingBar = ({ boletosVendidos, rifa }) => {
-    const percentage = (boletosVendidos / rifa.numboletos) * 100;
-
-    return (
-      <div className="loading-bar-container">
-        <div className="loading-bar">
-          <div
-            className="loading-bar-fill"
-            style={{ width: `${percentage}%` }}
-          ></div>
-        </div>
-        <p>{Math.round(percentage)}% sold</p>
-      </div>
     );
   };
 

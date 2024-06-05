@@ -9,8 +9,9 @@ import { useUser } from "../UserContext";
 import "../css/RifaList.css";
 import { useEffect } from "react";
 import ByWho from "./ByWho";
+import LoadingBar from "./LoadingBar";
 
-const RifaListDashboard = ({ rifa, onDelete }) => {
+const RifaListDashboard = ({ rifa, onDelete, boletosVendidos }) => {
   const { user, userRole } = useUser();
 
   const handleDelete = async () => {
@@ -61,6 +62,8 @@ const RifaListDashboard = ({ rifa, onDelete }) => {
 
         <ByWho user_meta={rifa.user_id} />
         <CountdownTimer rifa={rifa} />
+
+        <LoadingBar boletosVendidos={boletosVendidos || []} rifa={rifa} />
 
         <div className="buttons">
           {userRole === "Admin" || user.id === rifa.user_id ? (

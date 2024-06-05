@@ -4,12 +4,14 @@ import { Link } from "react-router-dom";
 import { useCart } from "../CartContext";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../UserContext";
+
+//import css
 import "../css/index.css";
 import "../css/NavHome.css";
-import RifaList from "../components/RifaList";
 
 //import components
 import HeaderHome from "../components/HeaderHome";
+import RifaList from "../components/RifaList";
 const Home = () => {
   const [fetchError, setFetchError] = useState(null);
   const [rifas, setRifas] = useState(null);

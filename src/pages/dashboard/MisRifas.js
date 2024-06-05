@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 //import components
 
 import RifaListDashboard from "../../components/RifaListDashboard";
-
 //import css
 
 const MisRifas = () => {
@@ -64,6 +63,7 @@ const MisRifas = () => {
                 rifa={rifa}
                 user_id={user_id}
                 onDelete={handleDelete}
+                boletosVendidos={450}
               />
             ))}
           </div>
