@@ -1,0 +1,93 @@
+.form-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #e3f2fd; /* Changed background color */
+}
+
+.form-header {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.payment-methods {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.payment-method {
+  display: flex;
+  align-items: center;
+}
+
+.payment-method input {
+  margin-right: 10px;
+}
+
+.payment-method img {
+  width: 24px;
+  height: auto;
+  margin-left: 5px;
+}
+
+.stripe-element,
+.oxxo-element {
+  margin-bottom: 20px;
+}
+
+.stripe-element label,
+.oxxo-element label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.stripe-element .StripeElement,
+.oxxo-element input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: white; /* Added background color */
+}
+
+.expiry-cvc-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.expiry-cvc-container .stripe-element {
+  flex: 1;
+}
+
+.expiry-cvc-container .stripe-element:first-child {
+  margin-right: 10px;
+}
+
+.button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.button:disabled {
+  background-color: #ccc;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+}
+
+.success-message {
+  color: green;
+  margin-top: 10px;
+}

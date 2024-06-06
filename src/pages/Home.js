@@ -12,6 +12,15 @@ import "../css/NavHome.css";
 //import components
 import HeaderHome from "../components/HeaderHome";
 import RifaList from "../components/RifaList";
+
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import CheckoutForm from "../components/CheckoutForm";
+
+const stripePromise = loadStripe(
+  "pk_test_51PO7ArItMOkvrGWYgiBdCuO8i16vzXxF8a4KitkwrqFLcbJQZ8CzZFnGK2mcGAAGpbJIoLommyfBdKrGEgVv2Ykl000rlrcsZY"
+);
+
 const Home = () => {
   const [fetchError, setFetchError] = useState(null);
   const [rifas, setRifas] = useState(null);
@@ -66,6 +75,16 @@ const Home = () => {
             ))}
           </div>
         )}
+      </div>
+
+      <div>
+        <h1>Hola</h1>
+        <Elements stripe={stripePromise}>
+          <CheckoutForm />
+        </Elements>
+      </div>
+      <div>
+        <h1>Hola</h1>
       </div>
     </>
   );

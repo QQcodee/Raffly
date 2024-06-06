@@ -21,8 +21,17 @@ import Success from "./pages/Success";
 import Dashboard from "./pages/dashboard/Dashboard";
 import MisRifas from "./pages/dashboard/MisRifas";
 import DashboardLayout from "./pages/dashboard/DashboardLayout";
+
+// import components
+import Form from "./pages/Form";
+
 //import HeaderLogin from "./pages/HeaderLogin.js";
 //import Topbar from "./pages/dashboard/Topbar.js";
+
+//stripe imports
+
+//import cardIcon from "../assets/logooxxo.png";
+//import oxxoIcon from "../assets/logooxxo.png";
 
 function App() {
   return (
@@ -39,6 +48,7 @@ function App() {
 
           <Route path="/login" element={<Login />} />
           <Route path="/success" element={<Success />} />
+          <Route path="/stripe" element={<Form />} />
 
           {/* Dashboard routes */}
           <Route path="/dashboard/:user_id" element={<DashboardLayout />}>
