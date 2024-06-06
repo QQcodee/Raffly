@@ -12,7 +12,7 @@ const LoadingBar = ({ boletosVendidos, rifa }) => {
         ></div>
       </div>
       <p>
-        {rifa.numboletos}/{boletosVendidos} vendidos
+        {boletosVendidos}/{rifa.numboletos} vendidos
       </p>
     </div>
   );
