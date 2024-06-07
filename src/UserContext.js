@@ -1,6 +1,6 @@
 // UserContext.js
 import React, { createContext, useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+
 import supabase from "./config/supabaseClient";
 
 const UserContext = createContext();
@@ -8,6 +8,7 @@ const UserContext = createContext();
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [userRole, setUserRole] = useState(null);
+  const [userMetaData, setSocioMetaData] = useState([]);
 
   useEffect(() => {
     async function getUserData() {
@@ -22,6 +23,25 @@ export const UserProvider = ({ children }) => {
     }
     getUserData();
   }, []);
+
+  useEffect(() => {
+    if (!user) return;
+
+    const fetchUserMetaData = async () => {
+      const { data, error } = await supabase
+        .from("user_metadata_view")
+        .select()
+        .eq("user_id", user.id);
+
+      if (error) {
+        console.log(error);
+      }
+      if (data) {
+        setSocioMetaData(data);
+      }
+    };
+    fetchUserMetaData();
+  }, [user]);
 
   useEffect(() => {
     if (!user) return;
@@ -46,7 +66,7 @@ export const UserProvider = ({ children }) => {
   }, [user]);
 
   return (
-    <UserContext.Provider value={{ user, userRole }}>
+    <UserContext.Provider value={{ user, userRole, userMetaData }}>
       {children}
     </UserContext.Provider>
   );

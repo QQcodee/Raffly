@@ -28,6 +28,12 @@ const HeaderHome = () => {
           </li>
 
           <li>
+            <Link className="nav-home-item" to="/socios">
+              Socios
+            </Link>
+          </li>
+
+          <li>
             <Link className="nav-home-item" to={"/cart"}>
               <i className="material-icons">local_mall</i>
               <sub>{cartCount}</sub>

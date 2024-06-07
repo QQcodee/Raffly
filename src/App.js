@@ -21,6 +21,8 @@ import Success from "./pages/Success";
 import Dashboard from "./pages/dashboard/Dashboard";
 import MisRifas from "./pages/dashboard/MisRifas";
 import DashboardLayout from "./pages/dashboard/DashboardLayout";
+import Socios from "./pages/Socios";
+import SingleSocio from "./pages/SingleSocio";
 
 // import components
 import Form from "./pages/Form";
@@ -49,6 +51,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/success" element={<Success />} />
           <Route path="/stripe" element={<Form />} />
+          <Route path="/socios" element={<Socios />} />
+          <Route path="/:nombre_negocio/:user_id" element={<SingleSocio />} />
 
           {/* Dashboard routes */}
           <Route path="/dashboard/:user_id" element={<DashboardLayout />}>

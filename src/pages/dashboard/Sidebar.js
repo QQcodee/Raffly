@@ -1,17 +1,20 @@
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { useUser } from "../../UserContext";
 
 //import sidebar css
 
 const Sidebar = () => {
   const { user_id } = useParams();
+  const { userMetaData } = useUser();
+
   return (
     <>
       <aside className="sidebar">
         <img
           className="nav-sidebar-img"
           height={150}
-          src="https://cdn.builder.io/api/v1/image/assets%2F471f30dc7fc44194a6a6e33e22d8a6a9%2Fc1a175f6985f474398d722b4cbbbda9d"
+          src={userMetaData[0].image_url}
         />
 
         <nav className="nav-sidebar">

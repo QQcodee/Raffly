@@ -45,6 +45,7 @@ const Home = () => {
     fetchRifas();
   }, []);
 
+  console.log(rifas);
   return (
     <>
       <HeaderHome textDecoration="none" />
