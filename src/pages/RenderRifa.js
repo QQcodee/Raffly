@@ -3,21 +3,20 @@ import { useParams, useNavigate } from "react-router-dom";
 import supabase from "../config/supabaseClient";
 import { FixedSizeGrid as Grid } from "react-window";
 import { useCart } from "../CartContext"; // Import useCart
+import { useUser } from "../UserContext";
+
 import "../css/index.css";
+import HeaderHome from "../components/HeaderHome";
+import HeaderSocios from "../components/HeaderSocios";
+import Form from "./Form";
 
 const RenderRifa = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { addItem } = useCart();
-  const [rifaDetails, setRifaDetails] = useState({
-    id: "",
-    nombre: "",
-    desc: "",
-    precioboleto: "",
-    numboletos: "",
-    socio: "",
-    img: "",
-  });
+  const [rifaDetails, setRifaDetails] = useState([]);
+
+  const [socioMetaData, setSocioMetaData] = useState([]);
 
   useEffect(() => {
     const fetchRifas = async () => {
@@ -40,12 +39,31 @@ const RenderRifa = () => {
           numboletos: data.numboletos,
           socio: data.socio,
           img: data.img,
+          user_id: data.user_id,
         });
       }
     };
-
     fetchRifas();
   }, [id, navigate]);
+
+  useEffect(() => {
+    const fetchUserMetaData = async () => {
+      const { data, error } = await supabase
+        .from("user_metadata")
+        .select()
+        .eq("user_id", rifaDetails.user_id);
+
+      if (error) {
+        console.log(error);
+      }
+      if (data) {
+        setSocioMetaData(data);
+
+        console.log(data);
+      }
+    };
+    fetchUserMetaData();
+  }, [rifaDetails]);
 
   const columnCount = 30; // Number of tickets per row
   const rowCount = Math.ceil(rifaDetails.numboletos / columnCount); // Total rows needed for the tickets
@@ -96,38 +114,43 @@ const RenderRifa = () => {
     );
   }, [rifaDetails.numboletos]);
 
+  //console.log(socioMetaData[0].image_url);
+
   return (
-    <div>
-      <div className="header-single">
-        <img
-          height={150}
-          src="https://cdn.builder.io/api/v1/image/assets%2F471f30dc7fc44194a6a6e33e22d8a6a9%2Fc1a175f6985f474398d722b4cbbbda9d"
-        ></img>
-        <h1>{rifaDetails.socio}</h1>
-      </div>
+    <>
+      <div>
+        <HeaderHome textdecoration="none" />
+        <HeaderSocios socioMetaData={socioMetaData} />
+        <div align="center" className="body-rifa">
+          <h1>{rifaDetails.nombre}</h1>
+          <img height={300} src={rifaDetails.img} alt={rifaDetails.nombre} />
+          <p>{rifaDetails.desc}</p>
+          <p>${rifaDetails.precioboleto} per ticket</p>
+          <p>{rifaDetails.numboletos} tickets available</p>
+          <p>Organized by {rifaDetails.socio}</p>
+        </div>
 
-      <div align="center" className="body-rifa">
-        <h1>{rifaDetails.nombre}</h1>
-        <img src={rifaDetails.img} alt={rifaDetails.nombre} />
-        <p>{rifaDetails.desc}</p>
-        <p>${rifaDetails.precioboleto} per ticket</p>
-        <p>{rifaDetails.numboletos} tickets available</p>
-        <p>Organized by {rifaDetails.socio}</p>
-      </div>
+        <Grid
+          className="boletos-grid"
+          columnCount={columnCount}
+          columnWidth={55}
+          height={600}
+          rowCount={rowCount}
+          rowHeight={50}
+          overscanRowCount={5}
+          width={1650}
+        >
+          {Cell}
+        </Grid>
 
-      <Grid
-        className="boletos-grid"
-        columnCount={columnCount}
-        columnWidth={55}
-        height={600}
-        rowCount={rowCount}
-        rowHeight={50}
-        overscanRowCount={5}
-        width={1650}
-      >
-        {Cell}
-      </Grid>
-    </div>
+        <Form
+          precioBoleto={rifaDetails.precioboleto}
+          descripcion={
+            "Ticket:" + rifaDetails.nombre + "(" + rifaDetails.id + ")"
+          }
+        />
+      </div>
+    </>
   );
 };
 

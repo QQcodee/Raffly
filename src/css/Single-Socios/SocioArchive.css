@@ -1,0 +1,23 @@
+.rifas-grid-archive {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 40px;
+}
+
+.div-grid-archive {
+  max-width: 1500px;
+  margin-left: 300px;
+  padding: 20px;
+}
+
+.divider-title {
+  width: 100%; /* Adjust width as needed */
+  border: 0;
+  border-top: 1px solid #181818; /* Style the divider */
+  margin: 10px 0; /* Add margin for spacing */
+}
+
+.root {
+  background: #000;
+}

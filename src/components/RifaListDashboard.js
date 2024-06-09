@@ -37,7 +37,9 @@ const RifaListDashboard = ({ rifa, onDelete, boletosVendidos }) => {
         "/" +
         encodeURIComponent(rifa.nombre.replace(/\s+/g, "-")) +
         "/" +
-        rifa.id
+        rifa.id +
+        "/" +
+        rifa.user_id
     );
   };
 

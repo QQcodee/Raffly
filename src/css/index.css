@@ -20,9 +20,9 @@ body {
   background: #f2f2f2;
 }
 
-.page {
-  max-width: 1200px;
-  margin: 20px auto;
+.page-home {
+  max-width: 1500px;
+  margin-left: 300px;
   padding: 20px;
 }
 

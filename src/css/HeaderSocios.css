@@ -1,0 +1,87 @@
+/* Improved Header CSS with Socio Prefix */
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&family=VT323&display=swap");
+
+.header-socio {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Ensure all items in the header are vertically centered */
+  padding: 15px 30px;
+  background-color: #222;
+  color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 80px;
+  vertical-align: middle;
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
+
+.logo-title-socio {
+  display: flex;
+  align-items: center; /* Ensure logo and title are vertically centered */
+  vertical-align: middle;
+}
+
+.logo-socio {
+  height: 150px;
+  width: auto; /* Maintain aspect ratio */
+  margin-right: 15px;
+}
+
+.title-socio {
+  font-size: 26px;
+  font-weight: 800;
+  margin: 0;
+  color: #f8f8f8;
+  font-family: Poppins;
+}
+
+.nav-menu-socio {
+  margin-left: -20px; /* Adjust this value as needed */
+  /* or use transform: translateX(-20px); */
+}
+
+.nav-menu-socio ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-menu-socio li {
+  margin-left: 35px;
+}
+
+.nav-menu-socio a {
+  color: #f8f8f8;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-menu-socio a:hover {
+  color: #ff0000;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .header-socio {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+  }
+
+  .logo-title-socio {
+    margin-bottom: 15px;
+  }
+
+  .nav-menu-socio ul {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .nav-menu-socio li {
+    margin: 10px 0;
+  }
+}

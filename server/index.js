@@ -15,17 +15,21 @@ app.use(bodyParser.json());
 
 app.post("/api/checkout", async (req, res) => {
   // you can get more data to find in a database, and so on
-  const { id, amount } = req.body;
+  const { id, amount, description, clientName, clientEmail } = req.body;
 
   try {
     const payment = await stripe.paymentIntents.create({
       amount,
       currency: "mxn",
-      description: "Raffly Ticket",
+      description,
       payment_method: id,
       confirm: true,
       payment_method_types: ["card", "oxxo"],
       return_url: "http://localhost:3000/success",
+      billing_details: {
+        name: clientName,
+        email: clientEmail,
+      },
     });
 
     console.log(payment);
@@ -42,11 +46,9 @@ app.post("/create-payment-intent", async (req, res) => {
 
   // Validate first and last names
   if (firstName.length < 2 || lastName.length < 2) {
-    return res
-      .status(400)
-      .send({
-        error: "First and last names must each be at least 2 characters long.",
-      });
+    return res.status(400).send({
+      error: "First and last names must each be at least 2 characters long.",
+    });
   }
 
   try {

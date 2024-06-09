@@ -22,14 +22,16 @@ const RifaList = ({ rifa, boletosVendidos }) => {
         "/" +
         encodeURIComponent(rifa.nombre.replace(/\s+/g, "-")) +
         "/" +
-        rifa.id
+        rifa.id +
+        "/" +
+        rifa.user_id
     );
   };
 
   const descItems = rifa.desc.split("\n");
 
   return (
-    <div className="rifa-list">
+    <div className="rifa-list" key={rifa.id}>
       <section onClick={handleCLick} className="imagen-rifa">
         <img src={rifa.img} style={{ width: "100%" }} />
       </section>
@@ -44,10 +46,10 @@ const RifaList = ({ rifa, boletosVendidos }) => {
           ))}
         </ul>
 
-        <ByWho user_meta={rifa.user_id} />
         <CountdownTimer rifa={rifa} />
         <p className="rifa-precio">${rifa.precioboleto}</p>
         <LoadingBar boletosVendidos={boletosVendidos || []} rifa={rifa} />
+        <ByWho user_meta={rifa.user_id} />
       </section>
     </div>
   );

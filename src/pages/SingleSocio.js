@@ -4,7 +4,11 @@ import supabase from "../config/supabaseClient";
 import { useState, useEffect } from "react";
 
 import RifaList from "../components/RifaList";
-import HeaderHome from "../components/HeaderHome";
+
+import HeaderSocios from "../components/HeaderSocios";
+
+//import SocioArchive.css
+import "../css/Single-Socios/SocioArchive.css";
 
 const SingleSocio = () => {
   const { user_id } = useParams();
@@ -35,14 +39,16 @@ const SingleSocio = () => {
 
   return (
     <>
-      <HeaderHome textDecoration="none" />
-      <div className="dashboard-content">
+      <HeaderSocios />
+
+      <div className="div-grid-archive">
         <div>
           {fetchError && <p>{fetchError}</p>}
-          <h1> Tus Rifas </h1>
+          <h1>Rifas Activas </h1>
+          <hr className="divider-title" />
 
           {rifas && (
-            <div className="rifas-grid">
+            <div className="rifas-grid-archive">
               {rifas.map((rifa) => (
                 <RifaList key={rifa.id} rifa={rifa} boletosVendidos={450} />
               ))}

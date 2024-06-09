@@ -23,6 +23,7 @@ import MisRifas from "./pages/dashboard/MisRifas";
 import DashboardLayout from "./pages/dashboard/DashboardLayout";
 import Socios from "./pages/Socios";
 import SingleSocio from "./pages/SingleSocio";
+import SingleContacto from "./pages/SingleContacto";
 
 // import components
 import Form from "./pages/Form";
@@ -43,7 +44,7 @@ function App() {
           {/* Main website routes */}
           <Route path="/" element={<Home />} />
 
-          <Route path="/:socio/:nombre/:id" element={<RenderRifa />} />
+          <Route path="/:socio/:nombre/:id/:user_id" element={<RenderRifa />} />
           <Route path="/cart" element={<CartPage />} />
 
           <Route path="/editar/:id" element={<Update />} />
@@ -53,6 +54,10 @@ function App() {
           <Route path="/stripe" element={<Form />} />
           <Route path="/socios" element={<Socios />} />
           <Route path="/:nombre_negocio/:user_id" element={<SingleSocio />} />
+          <Route
+            path="/:nombre_negocio/:user_id/contacto"
+            element={<SingleContacto />}
+          />
 
           {/* Dashboard routes */}
           <Route path="/dashboard/:user_id" element={<DashboardLayout />}>

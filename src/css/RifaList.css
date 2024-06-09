@@ -5,11 +5,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  width: 350px;
   padding: 10px;
   background: #fff;
   box-sizing: border-box;
-  border-radius: 6px;
+  border-radius: 15px;
   position: relative;
   border: 1px solid rgba(131, 131, 131, 0.5); /* Adding semi-transparent border */
   box-shadow: 4.8px 4.8px 4.8px rgba(0, 0, 0, 0.25); /* Adding inner shadow effect */
@@ -19,16 +19,24 @@
 .imagen-rifa {
   cursor: pointer;
   position: relative; /* Positioning context for absolute positioning */
-  width: 295px; /* Set width of the container */
-  height: 200px; /* Set height of the container */
+
+  width: 350px; /* Set width of the container */
+  height: 250px; /* Set height of the container */
   overflow: hidden; /* Hide overflowing content */
   border-top-left-radius: 6px; /* Apply border radius to the top left corner */
   border-top-right-radius: 6px; /* Apply border radius to the top right corner */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -20px;
 }
 
 .imagen-rifa img {
   width: 100%; /* Ensure image covers the entire width of its container */
+
   height: auto; /* Maintain aspect ratio */
+  border-radius: 15px 15px 0 0; /* Apply border radius to the top left and top right corners */
+  border: 1px solid rgba(131, 131, 131, 0.5); /* Add border to the image */
 }
 
 .info-rifa {
@@ -46,9 +54,23 @@
   margin: 10px 0;
   text-align: center;
   cursor: default; /* Set default cursor */
+  height: 30px;
 }
 
-.rifa-desc,
+.rifa-desc {
+  text-align: center;
+  margin: 10px 0;
+  font-size: 14px;
+  font-family: "Poppins";
+  cursor: default; /* Set default cursor */
+  list-style: none;
+  height: 250px;
+  max-height: calc(
+    1.2em * 9
+  ); /* 1.2em is approximately the height of one line of text */
+  overflow: hidden;
+}
+
 .rifa-socio {
   text-align: center;
   margin: 10px 0;
@@ -107,10 +129,11 @@
 }
 
 .divider {
-  width: 80%; /* Adjust width as needed */
+  width: 250px; /* Adjust width as needed */
   border: 0;
   border-top: 1px solid #181818; /* Style the divider */
-  margin: 10px 0; /* Add margin for spacing */
+  margin: -5px; /* Add margin for spacing */
+  margin-bottom: 10px;
   cursor: default; /* Set default cursor */
 }
 

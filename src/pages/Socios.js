@@ -32,7 +32,7 @@ const Socios = () => {
       {socios && (
         <div className="rifas-grid">
           {socios.map((socio) => (
-            <SociosList socio={socio} key={socio.id} />
+            <SociosList key={socio.id} socio={socio} />
           ))}
         </div>
       )}

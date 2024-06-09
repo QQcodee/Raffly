@@ -11,22 +11,28 @@ import {
 import axios from "axios";
 import { useState } from "react";
 import { useUser } from "../UserContext";
+import { useNavigate } from "react-router-dom";
 
 const stripePromise = loadStripe(
   "pk_test_51PO7ArItMOkvrGWYgiBdCuO8i16vzXxF8a4KitkwrqFLcbJQZ8CzZFnGK2mcGAAGpbJIoLommyfBdKrGEgVv2Ykl000rlrcsZY"
 );
 
-const CheckoutForm = () => {
+const CheckoutForm = ({ precioBoleto, descripcion }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [paymentMethodType, setPaymentMethodType] = useState("card");
   const [errorMessage, setErrorMessage] = useState("");
   const { user } = useUser();
-  const [amount, setAmount] = useState("");
+  //const [amount, setAmount] = useState("");
+
+  //console.log(precioBoleto);
+  //console.log(descripcion);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -69,15 +75,15 @@ const CheckoutForm = () => {
         const { data } = await axios.post(
           "http://localhost:3001/api/checkout",
           {
-            amount: 2000,
+            amount: precioBoleto * 100,
             currency: "mxn",
+            description: descripcion,
             id,
-            clientName: user.name,
-            clientEmail: user.email,
           }
         );
         console.log("data:", data);
         setErrorMessage("");
+        navigate("/success");
       } catch (error) {
         console.error("Error processing payment:", error);
         setErrorMessage("Payment processing failed. Please try again.");
@@ -95,7 +101,10 @@ const CheckoutForm = () => {
         );
 
         // Handle response, redirect to OXXO payment page
-        window.location.href = response.data.oxxoUrl;
+        //window.location.href = response.data.oxxoUrl;
+        navigate("/success");
+
+        window.open(response.data.oxxoUrl, "_blank");
       } catch (error) {
         console.error("Error:", error);
         setErrorMessage("Payment processing failed. Please try again.");
@@ -196,10 +205,10 @@ const CheckoutForm = () => {
     </div>
   );
 };
-function Form() {
+function Form({ precioBoleto, descripcion }) {
   return (
     <Elements stripe={stripePromise}>
-      <CheckoutForm />
+      <CheckoutForm precioBoleto={precioBoleto} descripcion={descripcion} />
     </Elements>
   );
 }

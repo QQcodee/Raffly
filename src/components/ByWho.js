@@ -21,7 +21,7 @@ const ByWho = ({ user_meta }) => {
     fetchSocio();
   }, []);
 
-  return <p>By {socioMetaData}</p>;
+  return <p>{socioMetaData}</p>;
 };
 
 export default ByWho;
