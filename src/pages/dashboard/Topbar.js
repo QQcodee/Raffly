@@ -4,7 +4,9 @@ const Topbar = () => {
   const { userMetaData } = useUser();
   return (
     <header className="topbar">
-      <h1>Dashboard de {userMetaData[0].nombre_negocio}</h1>
+      {userMetaData[0] ? (
+        <h1>Dashboard de {userMetaData[0].nombre_negocio}</h1>
+      ) : null}
     </header>
   );
 };

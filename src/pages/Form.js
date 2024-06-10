@@ -13,11 +13,14 @@ import { useState } from "react";
 import { useUser } from "../UserContext";
 import { useNavigate } from "react-router-dom";
 
+//import CheckoutForm.css
+import "../css/CheckoutForm.css";
+
 const stripePromise = loadStripe(
   "pk_test_51PO7ArItMOkvrGWYgiBdCuO8i16vzXxF8a4KitkwrqFLcbJQZ8CzZFnGK2mcGAAGpbJIoLommyfBdKrGEgVv2Ykl000rlrcsZY"
 );
 
-const CheckoutForm = ({ precioBoleto, descripcion }) => {
+const CheckoutForm = ({ precioBoleto, descripcion, stripe_id }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [paymentMethodType, setPaymentMethodType] = useState("card");
@@ -25,8 +28,9 @@ const CheckoutForm = ({ precioBoleto, descripcion }) => {
   const { user } = useUser();
   //const [amount, setAmount] = useState("");
 
-  //console.log(precioBoleto);
-  //console.log(descripcion);
+  console.log(stripe_id);
+  console.log(precioBoleto, descripcion);
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -79,6 +83,7 @@ const CheckoutForm = ({ precioBoleto, descripcion }) => {
             currency: "mxn",
             description: descripcion,
             id,
+            destination: stripe_id,
           }
         );
         console.log("data:", data);
@@ -205,10 +210,14 @@ const CheckoutForm = ({ precioBoleto, descripcion }) => {
     </div>
   );
 };
-function Form({ precioBoleto, descripcion }) {
+function Form({ precioBoleto, descripcion, stripe_id }) {
   return (
     <Elements stripe={stripePromise}>
-      <CheckoutForm precioBoleto={precioBoleto} descripcion={descripcion} />
+      <CheckoutForm
+        precioBoleto={precioBoleto}
+        descripcion={descripcion}
+        stripe_id={stripe_id}
+      />
     </Elements>
   );
 }

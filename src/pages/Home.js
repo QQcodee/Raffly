@@ -37,7 +37,7 @@ const Home = () => {
     fetchRifas();
   }, []);
 
-  console.log(rifas);
+  //console.log(rifas);
   return (
     <>
       <HeaderHome textDecoration="none" />

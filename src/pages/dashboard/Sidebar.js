@@ -34,6 +34,12 @@ const Sidebar = () => {
                 Mis Rifas
               </Link>
             </li>
+
+            <li>
+              <Link className="nav-sidebar-item" to="stripe-config">
+                Stripe
+              </Link>
+            </li>
           </ul>
         </nav>
       </aside>

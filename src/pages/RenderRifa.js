@@ -10,6 +10,8 @@ import HeaderHome from "../components/HeaderHome";
 import HeaderSocios from "../components/HeaderSocios";
 import Form from "./Form";
 
+//import CheckoutForm.css
+
 const RenderRifa = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -128,6 +130,7 @@ const RenderRifa = () => {
           <p>${rifaDetails.precioboleto} per ticket</p>
           <p>{rifaDetails.numboletos} tickets available</p>
           <p>Organized by {rifaDetails.socio}</p>
+          <p>{rifaDetails.stripe_id}</p>
         </div>
 
         <Grid
@@ -142,13 +145,20 @@ const RenderRifa = () => {
         >
           {Cell}
         </Grid>
-
-        <Form
-          precioBoleto={rifaDetails.precioboleto}
-          descripcion={
-            "Ticket:" + rifaDetails.nombre + "(" + rifaDetails.id + ")"
-          }
-        />
+        {rifaDetails && socioMetaData[0] ? (
+          <Form
+            precioBoleto={rifaDetails.precioboleto}
+            stripe_id={socioMetaData[0].stripe_id}
+            descripcion={
+              "Ticket:" +
+              rifaDetails.nombre +
+              "(" +
+              rifaDetails.id +
+              ")" +
+              rifaDetails.stripe_id
+            }
+          />
+        ) : null}
       </div>
     </>
   );

@@ -51,15 +51,17 @@ const HeaderHome = () => {
             )}
           </li>
 
-          {userRole === "Admin" || userRole === "Socio" ? (
+          {user || userRole === "Socio" ? (
             <button
               onClick={() => navigate(`/dashboard/${user?.id}`)}
               style={{
                 textDecoration: "none",
                 color: "black",
-                fontWeight: "bold",
+                fontWeight: "600",
                 border: "none",
-                backgroundColor: "White",
+                fontFamily: "Poppins",
+
+                backgroundColor: "orange",
                 cursor: "pointer",
                 fontSize: "20px",
                 padding: "10px",
@@ -67,7 +69,7 @@ const HeaderHome = () => {
                 marginLeft: "10px",
               }}
             >
-              Panel de control
+              Panel de socios
             </button>
           ) : null}
         </ul>

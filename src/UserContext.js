@@ -29,7 +29,7 @@ export const UserProvider = ({ children }) => {
 
     const fetchUserMetaData = async () => {
       const { data, error } = await supabase
-        .from("user_metadata_view")
+        .from("user_metadata")
         .select()
         .eq("user_id", user.id);
 

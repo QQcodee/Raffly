@@ -6,8 +6,9 @@ import { Link } from "react-router-dom";
 import supabase from "../config/supabaseClient";
 import "../css/index.css"; // Ensure this is correctly linked
 import "../css/NavHome.css";
+import HeaderHome from "../components/HeaderHome";
 
-import HeaderLogin from "./HeaderLogin";
+//import HeaderLogin from "./HeaderLogin";
 
 function Login() {
   const navigate = useNavigate();
@@ -36,7 +37,7 @@ function Login() {
   return (
     <div>
       <div>
-        <HeaderLogin />
+        <HeaderHome />
       </div>
       <div className="login-container">
         <div className="auth-component">

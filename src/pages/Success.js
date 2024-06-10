@@ -3,6 +3,7 @@ import supabase from "../config/supabaseClient";
 import { useEffect, useState } from "react";
 import { ThemeSupa, Auth } from "@supabase/auth-ui-shared";
 import { useUser } from "../UserContext";
+import HeaderHome from "../components/HeaderHome";
 
 export default function Success() {
   const { user } = useUser();
@@ -16,21 +17,20 @@ export default function Success() {
 
   return (
     <div>
-      <header>
-        {user ? (
-          <>
-            <h1>Success</h1>
-            <h1>{user.email}</h1>
-            <button onClick={logout}>Logout</button>
-            <button onClick={() => navigate("/")}>Home</button>
-          </>
-        ) : (
-          <>
-            <h1>Volver al inicio</h1>
-            <button onClick={() => navigate("/")}>Home</button>
-          </>
-        )}
-      </header>
+      <HeaderHome />
+      {user ? (
+        <>
+          <h1>Success</h1>
+          <h1>{user.email}</h1>
+          <button onClick={logout}>Logout</button>
+          <button onClick={() => navigate("/")}>Home</button>
+        </>
+      ) : (
+        <>
+          <h1>Volver al inicio</h1>
+          <button onClick={() => navigate("/")}>Home</button>
+        </>
+      )}
     </div>
   );
 }

@@ -53,11 +53,12 @@ const Create = () => {
         desc,
         precioboleto,
         numboletos,
-        socio: socioMetaData,
+        socio: socioMetaData[0].nombre_negocio,
         user_id: user.id,
         categoria: categoria,
         img: image,
         fecharifa: date,
+        stripe_id: socioMetaData[0].stripe_id,
       },
     ]);
 
@@ -74,7 +75,7 @@ const Create = () => {
   useEffect(() => {
     const fetchSocio = async () => {
       const { data, error } = await supabase
-        .from("user_metadata_view")
+        .from("user_metadata")
         .select()
         .eq("user_id", user.id);
 
@@ -82,7 +83,7 @@ const Create = () => {
         console.log(error);
       }
       if (data) {
-        setSocioMetaData(data[0].nombre_negocio);
+        setSocioMetaData(data);
       }
     };
 
