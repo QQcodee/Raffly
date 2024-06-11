@@ -46,7 +46,7 @@ const RifaList = ({ rifa, boletosVendidos }) => {
           ))}
         </ul>
 
-        <CountdownTimer rifa={rifa} />
+        <CountdownTimer fecha={rifa.fecharifa} />
         <p className="rifa-precio">${rifa.precioboleto}</p>
         <LoadingBar boletosVendidos={boletosVendidos || []} rifa={rifa} />
         <ByWho user_meta={rifa.user_id} />

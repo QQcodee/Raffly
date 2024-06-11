@@ -63,7 +63,7 @@ const RifaListDashboard = ({ rifa, onDelete, boletosVendidos }) => {
         <p className="rifa-precio">${rifa.precioboleto}</p>
 
         <ByWho user_meta={rifa.user_id} />
-        <CountdownTimer rifa={rifa} />
+        <CountdownTimer fecha={rifa.fecharifa} />
 
         <LoadingBar boletosVendidos={boletosVendidos || []} rifa={rifa} />
 

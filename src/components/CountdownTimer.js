@@ -3,9 +3,9 @@ import React, { useState, useEffect } from "react";
 //css
 import "../css/CountdownTimer.css";
 
-const CountdownTimer = ({ targetDate, rifa }) => {
+const CountdownTimer = ({ targetDate, fecha }) => {
   const calculateTimeLeft = () => {
-    const targetDate = new Date(rifa.fecharifa).getTime();
+    const targetDate = new Date(fecha).getTime();
     const difference = +new Date(targetDate) - +new Date();
     let timeLeft = {};
 

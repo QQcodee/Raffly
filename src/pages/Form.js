@@ -12,6 +12,10 @@ import axios from "axios";
 import { useState } from "react";
 import { useUser } from "../UserContext";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "../CartContext";
+import { Link } from "react-router-dom";
+
+import supabase from "../config/supabaseClient";
 
 //import CheckoutForm.css
 import "../css/CheckoutForm.css";
@@ -20,7 +24,7 @@ const stripePromise = loadStripe(
   "pk_test_51PO7ArItMOkvrGWYgiBdCuO8i16vzXxF8a4KitkwrqFLcbJQZ8CzZFnGK2mcGAAGpbJIoLommyfBdKrGEgVv2Ykl000rlrcsZY"
 );
 
-const CheckoutForm = ({ precioBoleto, descripcion, stripe_id }) => {
+const CheckoutForm = ({ descripcion, stripe_id, totalAmount, rifa }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [paymentMethodType, setPaymentMethodType] = useState("card");
@@ -28,15 +32,47 @@ const CheckoutForm = ({ precioBoleto, descripcion, stripe_id }) => {
   const { user } = useUser();
   //const [amount, setAmount] = useState("");
 
-  console.log(stripe_id);
-  console.log(precioBoleto, descripcion);
-
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  const { cart } = useCart();
+
   const navigate = useNavigate();
+
+  const handleSuccesfulPayment = async (event) => {
+    // Extract ticket numbers from cart items
+    const ticketNumbersArray = cart.map((item) => item.ticketNumber);
+
+    const { data, error } = await supabase.from("boletos").insert([
+      {
+        id_rifa: rifa.id,
+        num_boletos: ticketNumbersArray,
+        user_id: user.id,
+        precio: rifa.precioboleto,
+        desc: rifa.desc,
+        nombre_rifa: rifa.nombre,
+        img_rifa: rifa.img,
+        socio: rifa.socio,
+        nombre: user.user_metadata.name,
+        fecharifa: rifa.fecharifa,
+      },
+    ]);
+
+    if (error) {
+      console.error("Error inserting data: ", error);
+    } else {
+      console.log("Data inserted successfully: ", data);
+      navigate(
+        "/" +
+          encodeURIComponent(rifa.socio.replace(/\s+/g, "-")) +
+          "/" +
+          encodeURIComponent(rifa.user_id.replace(/\s+/g, "-")) +
+          "/mis-boletos"
+      );
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -79,7 +115,7 @@ const CheckoutForm = ({ precioBoleto, descripcion, stripe_id }) => {
         const { data } = await axios.post(
           "http://localhost:3001/api/checkout",
           {
-            amount: precioBoleto * 100,
+            amount: totalAmount * 100,
             currency: "mxn",
             description: descripcion,
             id,
@@ -88,7 +124,10 @@ const CheckoutForm = ({ precioBoleto, descripcion, stripe_id }) => {
         );
         console.log("data:", data);
         setErrorMessage("");
-        navigate("/success");
+
+        if (data.payment.status === "succeeded") {
+          handleSuccesfulPayment();
+        }
       } catch (error) {
         console.error("Error processing payment:", error);
         setErrorMessage("Payment processing failed. Please try again.");
@@ -198,25 +237,39 @@ const CheckoutForm = ({ precioBoleto, descripcion, stripe_id }) => {
           </>
         )}
 
-        <button
-          type="submit"
-          className="button"
-          disabled={!stripe || isLoading}
-        >
-          {isLoading ? "Processing..." : "Pay"}
-        </button>
-        {errorMessage && <div className="error-message">{errorMessage}</div>}
+        {user ? (
+          <>
+            <button
+              type="submit"
+              className="button"
+              disabled={!stripe || isLoading}
+            >
+              {isLoading ? "Processing..." : "Pay"}
+            </button>
+            {errorMessage && (
+              <div className="error-message">{errorMessage}</div>
+            )}
+          </>
+        ) : (
+          <div className="error-message">
+            Inicia sesion para realizar el pago
+            <button className="button" onClick={() => navigate("/login")}>
+              Iniciar sesion
+            </button>
+          </div>
+        )}
       </form>
     </div>
   );
 };
-function Form({ precioBoleto, descripcion, stripe_id }) {
+function Form({ descripcion, stripe_id, totalAmount, rifa }) {
   return (
     <Elements stripe={stripePromise}>
       <CheckoutForm
-        precioBoleto={precioBoleto}
         descripcion={descripcion}
         stripe_id={stripe_id}
+        totalAmount={totalAmount}
+        rifa={rifa}
       />
     </Elements>
   );

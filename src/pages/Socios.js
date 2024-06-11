@@ -28,6 +28,9 @@ const Socios = () => {
   return (
     <div>
       <HeaderHome />
+      <div>
+        <h1>Socios </h1>
+      </div>
 
       {socios && (
         <div className="rifas-grid">

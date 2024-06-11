@@ -142,7 +142,6 @@ const StripeAccountLinkButton = ({ userId, userMetaData, stripe_id }) => {
             <p>Cargando....</p>
           ) : accountExists === "true" ? (
             <>
-              <p>Tu cuenta ya a sido configurada</p>
               <button onClick={generateDashboardAccessLink}>
                 Acceder al Dashboard de Stripe
               </button>

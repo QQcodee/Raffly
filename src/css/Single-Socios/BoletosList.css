@@ -1,0 +1,70 @@
+.center-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Adjust height as needed */
+}
+
+.boleto-container {
+  max-width: 400px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  text-align: center; /* Center the text */
+}
+
+.boleto-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.boleto-description {
+  margin-bottom: 10px;
+}
+
+.boleto-price {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.countdown-timer {
+  margin-bottom: 10px;
+}
+
+.boleto-organizer {
+  font-style: italic;
+}
+
+.boleto-number-list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 10px;
+  text-align: center; /* Align text to left within list */
+}
+
+.boleto-number-list li {
+  margin-bottom: 5px;
+  text-align: center; /* Center the text within list items */
+}
+
+.imagen-boleto {
+  position: relative;
+  width: 350px;
+  height: 250px;
+  overflow: hidden;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.imagen-boletos {
+  width: 100%;
+  height: auto;
+  border-radius: 15px 15px 0 0;
+  border: 1px solid rgba(131, 131, 131, 0.5);
+}

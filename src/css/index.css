@@ -206,6 +206,7 @@ form button {
   cursor: default; /* Change cursor to default to indicate it's not clickable */
 }
 
+/* CSS para login */
 /* index.css or LoginStyles.css */
 .login-container {
   display: flex;
@@ -248,6 +249,8 @@ form button {
 .supabase-auth-ui_ui-button {
   padding: 50px;
 }
+
+/* CSS HERO HOME */
 
 .hero {
   display: flex;
@@ -299,4 +302,114 @@ hr.solid {
   left: 250px;
   top: 320px;
   opacity: 60%;
+}
+
+/* CSS PARA CARRITO */
+
+/* Styles for the random ticket button */
+.random-ticket-button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.random-ticket-button:hover {
+  background-color: #0056b3;
+}
+
+/* Styles for the cart section */
+.cart-section {
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  width: 80%;
+  max-width: 600px;
+  text-align: left;
+}
+
+.cart-section h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.cart-section ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.cart-section ul li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.cart-section ul li:last-child {
+  border-bottom: none;
+}
+
+.cart-section ul li button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cart-section ul li button:hover {
+  background-color: #c82333;
+}
+
+.cart-section p {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: right;
+}
+
+/* Styles for the random ticket button */
+.random-ticket-button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.random-ticket-button:hover {
+  background-color: #0056b3;
+}
+
+/* Styles for the random ticket button (Agregar boleto aleatorio) */
+.add-random-ticket-button {
+  display: inline-block;
+  margin: 10px;
+  padding: 8px 15px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-random-ticket-button:hover {
+  background-color: #218838;
 }

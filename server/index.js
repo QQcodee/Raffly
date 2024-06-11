@@ -39,7 +39,7 @@ app.post("/api/checkout", async (req, res) => {
       payment_method: id,
       confirm: true,
       payment_method_types: ["card", "oxxo"],
-      application_fee_amount: 100,
+      application_fee_amount: 0.01 * amount,
       transfer_data: {
         destination: destination,
       },
@@ -48,7 +48,7 @@ app.post("/api/checkout", async (req, res) => {
 
     console.log(payment);
 
-    return res.status(200).json({ message: "Successful Payment" });
+    return res.status(200).json({ message: "Successful Payment", payment });
   } catch (error) {
     console.log(error);
     return res.json({ message: error.raw.message });

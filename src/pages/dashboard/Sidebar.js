@@ -7,41 +7,60 @@ import { useUser } from "../../UserContext";
 const Sidebar = () => {
   const { user_id } = useParams();
   const { userMetaData } = useUser();
+  console.log(userMetaData);
 
   return (
     <>
       <aside className="sidebar">
-        <img
-          className="nav-sidebar-img"
-          height={150}
-          src={userMetaData[0].image_url}
-        />
+        {userMetaData[0] ? (
+          <>
+            <img
+              className="nav-sidebar-img"
+              height={150}
+              src={userMetaData[0].image_url}
+            />
+            <nav className="nav-sidebar">
+              <ul className="nav-sidebar-ul">
+                <li>
+                  <Link
+                    className="nav-sidebar-item"
+                    to={
+                      "/" +
+                      encodeURIComponent(
+                        userMetaData[0].nombre_negocio.replace(/\s+/g, "-")
+                      ) +
+                      "/" +
+                      encodeURIComponent(
+                        userMetaData[0].user_id.replace(/\s+/g, "-")
+                      )
+                    }
+                  >
+                    Inicio
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="nav-sidebar-item"
+                    to={"/dashboard/" + user_id}
+                  >
+                    Dashboard
+                  </Link>
+                </li>
+                <li>
+                  <Link className="nav-sidebar-item" to="mis-rifas">
+                    Mis Rifas
+                  </Link>
+                </li>
 
-        <nav className="nav-sidebar">
-          <ul className="nav-sidebar-ul">
-            <li>
-              <Link className="nav-sidebar-item" to="/">
-                Inicio
-              </Link>
-            </li>
-            <li>
-              <Link className="nav-sidebar-item" to={"/dashboard/" + user_id}>
-                Dashboard
-              </Link>
-            </li>
-            <li>
-              <Link className="nav-sidebar-item" to="mis-rifas">
-                Mis Rifas
-              </Link>
-            </li>
-
-            <li>
-              <Link className="nav-sidebar-item" to="stripe-config">
-                Stripe
-              </Link>
-            </li>
-          </ul>
-        </nav>
+                <li>
+                  <Link className="nav-sidebar-item" to="stripe-config">
+                    Stripe
+                  </Link>
+                </li>
+              </ul>
+            </nav>
+          </>
+        ) : null}
       </aside>
     </>
   );

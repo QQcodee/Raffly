@@ -7,7 +7,6 @@
   justify-content: space-between;
   align-items: center; /* Ensure all items in the header are vertically centered */
   padding: 15px 30px;
-  background-color: #222;
   color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   height: 80px;

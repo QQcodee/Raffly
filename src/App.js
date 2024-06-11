@@ -28,6 +28,7 @@ import SingleContacto from "./pages/SingleContacto";
 // import components
 import Form from "./pages/Form";
 import Onboarding from "./pages/Onboarding";
+import MisBoletos from "./pages/MisBoletos";
 
 //import HeaderLogin from "./pages/HeaderLogin.js";
 //import Topbar from "./pages/dashboard/Topbar.js";
@@ -58,6 +59,10 @@ function App() {
           <Route
             path="/:nombre_negocio/:user_id/contacto"
             element={<SingleContacto />}
+          />
+          <Route
+            path="/:nombre_negocio/:user_id/mis-boletos"
+            element={<MisBoletos />}
           />
 
           {/* Dashboard routes */}
