@@ -14,6 +14,8 @@ import LoadingBar from "./LoadingBar";
 import "../css/RifaList.css";
 
 const RifaList = ({ rifa, boletosVendidos }) => {
+  const [soldTickets, setSoldTickets] = useState([]);
+
   const navigate = useNavigate();
   const handleCLick = () => {
     navigate(
@@ -29,6 +31,29 @@ const RifaList = ({ rifa, boletosVendidos }) => {
   };
 
   const descItems = rifa.desc.split("\n");
+
+  useEffect(() => {
+    const fetchSoldTickets = async () => {
+      if (!rifa.id) return;
+
+      const { data, error } = await supabase
+        .from("boletos")
+        .select()
+        .eq("id_rifa", rifa.id);
+
+      if (error) {
+        console.log(error);
+      }
+      if (data) {
+        // Flatten the arrays of ticket numbers into a single array
+        const soldTicketsArray = data.reduce((acc, ticket) => {
+          return acc.concat(ticket.num_boletos);
+        }, []);
+        setSoldTickets(soldTicketsArray);
+      }
+    };
+    fetchSoldTickets();
+  }, [rifa.id]);
 
   return (
     <div className="rifa-list" key={rifa.id}>
@@ -48,7 +73,7 @@ const RifaList = ({ rifa, boletosVendidos }) => {
 
         <CountdownTimer fecha={rifa.fecharifa} />
         <p className="rifa-precio">${rifa.precioboleto}</p>
-        <LoadingBar boletosVendidos={boletosVendidos || []} rifa={rifa} />
+        <LoadingBar boletosVendidos={soldTickets.length} rifa={rifa} />
         <ByWho user_meta={rifa.user_id} />
       </section>
     </div>

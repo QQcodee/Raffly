@@ -27,7 +27,9 @@ const MisBoletos = () => {
   return (
     <>
       <HeaderSocios />
-      <h1>Mis Boletos</h1>
+      <h1 style={{ textAlign: "left", marginLeft: "40px", marginTop: "60px" }}>
+        Mis Boletos
+      </h1>
       {boletos && (
         <div className="rifas-grid-archive">
           {boletos.map((boleto) => (

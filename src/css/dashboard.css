@@ -1,31 +1,62 @@
-/* Container for the whole layout */
+/* Sidebar styling */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Space items apart */
+  height: 100vh; /* Full viewport height */
+  width: 230px; /* Adjust the width to be narrower */
+  background: #f4f4f4;
+  padding: 10px;
+}
+
+/* Navigation styling */
+.nav-sidebar {
+  flex-grow: 1; /* Allow the nav to grow and take available space */
+}
+
+/* Sidebar bottom link styling */
+.sidebar-bottom {
+  margin-top: auto; /* Push this element to the bottom */
+  padding-top: 20px; /* Optional padding */
+  border-top: 1px solid #696969;
+}
+
+/* Styling for sidebar items */
+.nav-sidebar-item {
+  display: block;
+  padding: 10px;
+  color: #333;
+  text-decoration: none;
+}
+
+.nav-sidebar-item:hover {
+  background: #ddd;
+}
+
+/* Optional styles for the image */
+.nav-sidebar-img {
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+/* Other CSS for your application */
 .dashboard-layout {
   display: flex;
   flex-direction: column;
   height: 100vh;
 }
 
-/* Container for the sidebar and main content */
 .dashboard-content {
   display: flex;
   flex: 1;
   justify-content: flex-start; /* Align items to the start (left) */
 }
 
-/* Sidebar styling */
-.sidebar {
-  width: 230px; /* Adjust the width to be narrower */
-  background: #f4f4f4;
-  padding: 10px;
-}
-
-/* Main content styling */
 .main-content {
   flex: 1;
   padding: 10px 20px; /* Reduce padding to bring content closer to the left */
 }
 
-/* Topbar styling */
 .topbar {
   background: #333;
   color: white;

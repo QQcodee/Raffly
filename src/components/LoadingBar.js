@@ -1,5 +1,6 @@
 const LoadingBar = ({ boletosVendidos, rifa }) => {
   const percentage = (boletosVendidos / rifa.numboletos) * 100;
+  console.log(boletosVendidos);
 
   //falta funcion de calcular boletos vendidos por rifa
 

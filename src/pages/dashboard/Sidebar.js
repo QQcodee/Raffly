@@ -18,6 +18,7 @@ const Sidebar = () => {
               className="nav-sidebar-img"
               height={150}
               src={userMetaData[0].image_url}
+              alt="User"
             />
             <nav className="nav-sidebar">
               <ul className="nav-sidebar-ul">
@@ -51,7 +52,6 @@ const Sidebar = () => {
                     Mis Rifas
                   </Link>
                 </li>
-
                 <li>
                   <Link className="nav-sidebar-item" to="stripe-config">
                     Stripe
@@ -59,6 +59,11 @@ const Sidebar = () => {
                 </li>
               </ul>
             </nav>
+            <div className="sidebar-bottom">
+              <Link className="nav-sidebar-item" to="config">
+                <i className="material-icons">settings</i>Config
+              </Link>
+            </div>
           </>
         ) : null}
       </aside>
