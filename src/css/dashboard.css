@@ -3,15 +3,17 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between; /* Space items apart */
-  height: 100vh; /* Full viewport height */
-  width: 230px; /* Adjust the width to be narrower */
+  height: 100%; /* Full height of its container */
+  width: 230px; /* Fixed width */
   background: #f4f4f4;
   padding: 10px;
+  box-sizing: border-box; /* Include padding in width/height */
 }
 
 /* Navigation styling */
 .nav-sidebar {
   flex-grow: 1; /* Allow the nav to grow and take available space */
+  overflow-y: auto; /* Add scrolling to nav items if necessary */
 }
 
 /* Sidebar bottom link styling */
@@ -43,18 +45,7 @@
 .dashboard-layout {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-}
-
-.dashboard-content {
-  display: flex;
-  flex: 1;
-  justify-content: flex-start; /* Align items to the start (left) */
-}
-
-.main-content {
-  flex: 1;
-  padding: 10px 20px; /* Reduce padding to bring content closer to the left */
+  height: 100vh; /* Full viewport height */
 }
 
 .topbar {
@@ -63,8 +54,25 @@
   padding-left: 30px;
   text-align: left;
   height: 80px;
+  box-sizing: border-box; /* Include padding in height calculation */
+  width: 100%; /* Full width */
 }
 
+.dashboard-content {
+  display: flex;
+  flex: 1; /* Grow to fill the remaining space */
+  overflow: hidden; /* Hide overflow initially */
+}
+
+.main-content {
+  flex: 1; /* Grow to fill the remaining space */
+  overflow-y: auto; /* Enable vertical scrolling */
+  padding: 10px 20px; /* Reduce padding to bring content closer to the left */
+  height: calc(100vh - 80px); /* Adjust height to account for the top bar */
+  box-sizing: border-box; /* Include padding in height calculation */
+}
+
+/* Forms styling */
 .page.create form {
   max-width: 600px;
   margin: 0 auto;

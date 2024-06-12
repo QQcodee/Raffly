@@ -13,10 +13,11 @@ import LoadingBar from "./LoadingBar";
 //css
 import "../css/RifaList.css";
 
-const RifaList = ({ rifa, boletosVendidos }) => {
+const RifaList = ({ rifa }) => {
   const [soldTickets, setSoldTickets] = useState([]);
 
   const navigate = useNavigate();
+
   const handleCLick = () => {
     navigate(
       "/" +
