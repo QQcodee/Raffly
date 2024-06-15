@@ -178,16 +178,19 @@ const CheckoutForm = ({ descripcion, stripe_id, totalAmount, rifa }) => {
         const response = await axios.post(
           "https://www.raffly.com.mx/api/create-payment-intent-oxxo",
           {
-            amount: 2000,
+            amount: totalAmount * 100,
+            currency: "mxn",
+            description: descripcion,
             firstName,
             lastName,
             email,
+            destination: stripe_id,
           }
         );
 
         // Handle response, redirect to OXXO payment page
         //window.location.href = response.data.oxxoUrl;
-        navigate("/success");
+        handleSuccesfulPayment();
 
         window.open(response.data.oxxoUrl, "_blank");
       } catch (error) {
@@ -303,6 +306,7 @@ const CheckoutForm = ({ descripcion, stripe_id, totalAmount, rifa }) => {
     </div>
   );
 };
+
 function Form({ descripcion, stripe_id, totalAmount, rifa }) {
   return (
     <Elements stripe={stripePromise}>

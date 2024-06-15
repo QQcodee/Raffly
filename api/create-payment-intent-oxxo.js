@@ -17,7 +17,8 @@ app.use(express.json());
 app.use(bodyParser.json());
 
 app.post("/api/create-payment-intent-oxxo", async (req, res) => {
-  const { amount, firstName, lastName, email } = req.body;
+  const { amount, firstName, lastName, email, description, destination } =
+    req.body;
 
   // Validate first and last names
   if (firstName.length < 2 || lastName.length < 2) {
@@ -29,10 +30,15 @@ app.post("/api/create-payment-intent-oxxo", async (req, res) => {
   try {
     // Create PaymentIntent
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: amount * 100, // Stripe expects amount in cents
+      amount: amount, // Stripe expects amount in cents
       currency: "mxn",
+      description,
       payment_method_types: ["oxxo"],
       receipt_email: email,
+      application_fee_amount: 0.01 * amount,
+      transfer_data: {
+        destination: destination,
+      },
     });
 
     // Generate OXXO payment details with billing details
