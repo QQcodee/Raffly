@@ -3,7 +3,6 @@ require("dotenv").config();
 const express = require("express");
 const Stripe = require("stripe");
 const cors = require("cors");
-const bodyParser = require("body-parser");
 
 const stripeSecretKey = process.env.STRIPE_SECRET;
 const clientURL = process.env.CLIENT_URL;
@@ -14,7 +13,6 @@ const stripe = new Stripe(stripeSecretKey);
 
 app.use(cors({ origin: clientURL }));
 app.use(express.json());
-app.use(bodyParser.json());
 
 app.post("/api/check-account-exists", async (req, res) => {
   const { accountId } = req.body;
@@ -39,4 +37,3 @@ app.post("/api/check-account-exists", async (req, res) => {
 });
 
 module.exports = app;
-module.exports.handler = serverless(app);
