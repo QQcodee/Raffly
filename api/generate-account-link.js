@@ -6,7 +6,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 
 const stripeSecretKey = process.env.STRIPE_SECRET;
-const clientURL = process.env.REACT_APP_CLIENT_URL;
+const clientURL = process.env.CLIENT_URL;
 
 const app = express();
 
