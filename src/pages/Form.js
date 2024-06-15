@@ -154,7 +154,7 @@ const CheckoutForm = ({ descripcion, stripe_id, totalAmount, rifa }) => {
 
       try {
         const { data } = await axios.post(
-          "http://www.raffly.com.mx/api/checkout",
+          "https://www.raffly.com.mx/api/checkout",
           {
             amount: totalAmount * 100,
             currency: "mxn",
@@ -176,7 +176,7 @@ const CheckoutForm = ({ descripcion, stripe_id, totalAmount, rifa }) => {
     } else if (paymentMethodType === "oxxo") {
       try {
         const response = await axios.post(
-          "http://www.raffly.com.mx/api/create-payment-intent-oxxo",
+          "https://www.raffly.com.mx/api/create-payment-intent-oxxo",
           {
             amount: 2000,
             firstName,

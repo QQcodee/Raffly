@@ -11,7 +11,7 @@ const StripeAccountLinkButton = ({ userId, userMetaData, stripe_id }) => {
     try {
       // Step 1: Create account link
       const response = await fetch(
-        "http://www.raffly.com.mx/api/create-account-link",
+        "https://www.raffly.com.mx/api/create-account-link",
 
         {
           method: "POST",
@@ -51,7 +51,7 @@ const StripeAccountLinkButton = ({ userId, userMetaData, stripe_id }) => {
   const generateAccountLink = async () => {
     try {
       const response = await fetch(
-        "http://www.raffly.com.mx/api/generate-account-link",
+        "https://www.raffly.com.mx/api/generate-account-link",
         {
           method: "POST",
           headers: {
@@ -77,7 +77,7 @@ const StripeAccountLinkButton = ({ userId, userMetaData, stripe_id }) => {
   const generateDashboardAccessLink = async () => {
     try {
       const response = await fetch(
-        "http://www.raffly.com.mx/api/generate-dashboard-access-link",
+        "https://www.raffly.com.mx/api/generate-dashboard-access-link",
         {
           method: "POST",
           headers: {
@@ -111,7 +111,7 @@ const StripeAccountLinkButton = ({ userId, userMetaData, stripe_id }) => {
   const checkAccountSetup = async () => {
     try {
       const response = await fetch(
-        "http://www.raffly.com.mx/api/check-account-exists",
+        "https://www.raffly.com.mx/api/check-account-exists",
         {
           method: "POST",
           headers: {
