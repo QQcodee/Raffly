@@ -5,8 +5,8 @@ import { useUser } from "../UserContext";
 
 //import ByWho from "../components/ByWho";
 
-const Update = () => {
-  const { id } = useParams();
+const Update = ({ idRifa }) => {
+  //const { id } = useParams();
   const navigate = useNavigate();
 
   const [nombre, setNombre] = useState("");
@@ -42,8 +42,8 @@ const Update = () => {
         fecharifa: date,
         categoria,
       })
-      .eq("id", id);
-    navigate("/dashboard/" + user.id + "/mis-rifas");
+      .eq("id", idRifa);
+    //navigate("/dashboard/" + user.id + "/mis-rifas");
 
     if (error) {
       console.log(error);
@@ -60,7 +60,7 @@ const Update = () => {
       const { data, error } = await supabase
         .from("rifas")
         .select()
-        .eq("id", id)
+        .eq("id", idRifa)
         .single();
 
       if (error) {
@@ -79,7 +79,7 @@ const Update = () => {
     };
 
     fetchRifas();
-  }, [id, navigate]);
+  }, [idRifa, navigate]);
 
   return (
     <div className="page create">

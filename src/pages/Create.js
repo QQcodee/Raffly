@@ -58,7 +58,6 @@ const Create = () => {
         categoria: categoria,
         img: image,
         fecharifa: date,
-        stripe_id: socioMetaData[0].stripe_id,
       },
     ]);
 
@@ -197,6 +196,10 @@ const Create = () => {
           />
 
           <ByWho user_meta={user.id} />
+          <p style={{ color: "red" }}>
+            Asegurate de que todos los datos esten bien porque no vas a poder
+            editar los datos una vez creada la rifa
+          </p>
 
           <button type="submit">Crear Rifa</button>
 

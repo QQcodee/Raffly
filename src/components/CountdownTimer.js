@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 //css
 import "../css/CountdownTimer.css";
 
-const CountdownTimer = ({ targetDate, fecha }) => {
+const CountdownTimer = ({ targetDate, fecha, color }) => {
   const calculateTimeLeft = () => {
     const targetDate = new Date(fecha).getTime();
     const difference = +new Date(targetDate) - +new Date();
@@ -37,7 +37,7 @@ const CountdownTimer = ({ targetDate, fecha }) => {
   }, [targetDate]);
 
   return (
-    <div className="countdown-timer">
+    <div className="countdown-timer" style={{ backgroundColor: color }}>
       <div className="time-section">
         <div className="time">{timeLeft.days}</div>
         <div className="label">Dias</div>

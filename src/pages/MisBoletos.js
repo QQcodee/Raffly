@@ -31,7 +31,7 @@ const MisBoletos = () => {
         Mis Boletos
       </h1>
       {boletos && (
-        <div className="rifas-grid-archive">
+        <div className="boletos-grid-archive">
           {boletos.map((boleto) => (
             <BoletosList key={boleto.id} boleto={boleto} />
           ))}

@@ -1,13 +1,39 @@
 .rifas-grid-archive {
   margin-top: 40px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 80px;
+}
+
+.boletos-grid-archive {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 40px;
+}
+.rifas-grid-home {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 150px;
+}
+
+.socios-grid {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  gap: 40px;
 }
 
 .div-grid-archive {
   max-width: 1500px;
-  margin-left: 300px;
+  margin-left: 150px;
+  padding: 20px;
+}
+
+.div-grid-home {
+  max-width: 1500px;
+  margin-left: 150px;
   padding: 20px;
 }
 

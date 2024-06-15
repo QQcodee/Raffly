@@ -7,7 +7,6 @@ import { useUser } from "../../UserContext";
 const Sidebar = () => {
   const { user_id } = useParams();
   const { userMetaData } = useUser();
-  console.log(userMetaData);
 
   return (
     <>
@@ -52,6 +51,13 @@ const Sidebar = () => {
                     Mis Rifas
                   </Link>
                 </li>
+
+                <li>
+                  <Link className="nav-sidebar-item" to="boletos">
+                    Boletos
+                  </Link>
+                </li>
+
                 <li>
                   <Link className="nav-sidebar-item" to="stripe-config">
                     Stripe

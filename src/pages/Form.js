@@ -20,9 +20,7 @@ import supabase from "../config/supabaseClient";
 //import CheckoutForm.css
 import "../css/CheckoutForm.css";
 
-const stripePromise = loadStripe(
-  "pk_test_51PO7ArItMOkvrGWYgiBdCuO8i16vzXxF8a4KitkwrqFLcbJQZ8CzZFnGK2mcGAAGpbJIoLommyfBdKrGEgVv2Ykl000rlrcsZY"
-);
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC);
 
 const CheckoutForm = ({ descripcion, stripe_id, totalAmount, rifa }) => {
   const stripe = useStripe();
@@ -37,9 +35,39 @@ const CheckoutForm = ({ descripcion, stripe_id, totalAmount, rifa }) => {
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const { cart } = useCart();
+  const { cart, clearCart, removeItem } = useCart();
 
   const navigate = useNavigate();
+
+  const handleRemoveSoldTicketsFromCart = async () => {
+    // Fetch sold tickets from the database
+    const { data, error } = await supabase
+      .from("boletos")
+      .select()
+      .eq("id_rifa", rifa.id);
+
+    if (error) {
+      console.log(error);
+      return [];
+    }
+
+    // Flatten the arrays of ticket numbers into a single array
+    const soldTicketsArray = data.reduce((acc, ticket) => {
+      return acc.concat(ticket.num_boletos);
+    }, []);
+
+    // Find sold tickets in the cart
+    const soldTicketsInCart = cart.filter((item) =>
+      soldTicketsArray.includes(item.ticketNumber)
+    );
+
+    // Remove sold tickets from the cart
+    soldTicketsInCart.forEach((item) => {
+      removeItem(item.id);
+    });
+
+    return soldTicketsInCart;
+  };
 
   const handleSuccesfulPayment = async (event) => {
     // Extract ticket numbers from cart items
@@ -57,6 +85,8 @@ const CheckoutForm = ({ descripcion, stripe_id, totalAmount, rifa }) => {
         socio: rifa.socio,
         nombre: user.user_metadata.name,
         fecharifa: rifa.fecharifa,
+        socio_user_id: rifa.user_id,
+        comprado: true,
       },
     ]);
 
@@ -64,6 +94,7 @@ const CheckoutForm = ({ descripcion, stripe_id, totalAmount, rifa }) => {
       console.error("Error inserting data: ", error);
     } else {
       console.log("Data inserted successfully: ", data);
+      clearCart();
       navigate(
         "/" +
           encodeURIComponent(rifa.socio.replace(/\s+/g, "-")) +
@@ -77,6 +108,16 @@ const CheckoutForm = ({ descripcion, stripe_id, totalAmount, rifa }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+
+    const soldTicketsInCart = await handleRemoveSoldTicketsFromCart();
+
+    if (soldTicketsInCart.length > 0) {
+      setErrorMessage(
+        "Lamentablemente alguien más compró alguno de tus boletos y fueron eliminados de tu carrito puedes agregar mas o coninuar con los que ya tienes."
+      );
+      setIsLoading(false);
+      return;
+    }
 
     if (paymentMethodType === "card") {
       if (!stripe || !elements) {

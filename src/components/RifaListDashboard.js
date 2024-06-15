@@ -4,32 +4,26 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import CountdownTimer from "./CountdownTimer";
 import { useUser } from "../UserContext";
-
-//css
-import "../css/RifaList.css";
 import { useEffect } from "react";
+
+//components
 import ByWho from "./ByWho";
 import LoadingBar from "./LoadingBar";
 
-const RifaListDashboard = ({ rifa, onDelete, boletosVendidos }) => {
-  const { user, userRole } = useUser();
+//css
+import "../css/RifaList.css";
 
-  const handleDelete = async () => {
-    const { data, error } = await supabase
-      .from("rifas")
-      .delete()
-      .eq("id", rifa.id);
-
-    if (error) {
-      console.log(error);
-    }
-    if (data) {
-      console.log(data);
-      onDelete(rifa.id);
-    }
-  };
+const RifaList = ({ rifa }) => {
+  const [soldTickets, setSoldTickets] = useState([]);
 
   const navigate = useNavigate();
+
+  const [isBackContainerHovered, setIsBackContainerHovered] = useState(false);
+
+  const handleToggleHover = () => {
+    setIsBackContainerHovered(!isBackContainerHovered);
+  };
+
   const handleCLick = () => {
     navigate(
       "/" +
@@ -45,48 +39,119 @@ const RifaListDashboard = ({ rifa, onDelete, boletosVendidos }) => {
 
   const descItems = rifa.desc.split("\n");
 
+  useEffect(() => {
+    const fetchSoldTickets = async () => {
+      if (!rifa.id) return;
+
+      const { data, error } = await supabase
+        .from("boletos")
+        .select()
+        .eq("id_rifa", rifa.id);
+
+      if (error) {
+        console.log(error);
+      }
+      if (data) {
+        // Flatten the arrays of ticket numbers into a single array
+        const soldTicketsArray = data.reduce((acc, ticket) => {
+          return acc.concat(ticket.num_boletos);
+        }, []);
+        setSoldTickets(soldTicketsArray);
+      }
+    };
+    fetchSoldTickets();
+  }, [rifa.id]);
+
+  const [socioMetaData, setSocioMetaData] = useState([]);
+
+  useEffect(() => {
+    const fetchUserMetaData = async () => {
+      const { data, error } = await supabase
+        .from("user_metadata")
+        .select()
+        .eq("nombre_negocio", rifa.socio);
+
+      if (error) {
+        console.log(error);
+      }
+      if (data) {
+        setSocioMetaData(data);
+      }
+    };
+    fetchUserMetaData();
+  }, [rifa.socio]);
+
   return (
-    <div className="rifa-list">
-      <section onClick={handleCLick} className="imagen-rifa">
-        <img src={rifa.img} style={{ width: "100%" }} />
-      </section>
-
-      <section className="info-rifa">
-        <h1 className="rifa-nombre">{rifa.nombre}</h1>
-        <hr className="divider" />
-
-        <ul className="rifa-desc">
-          {descItems.map((item, index) => (
-            <li key={index}>{item}</li>
-          ))}
-        </ul>
-        <p className="rifa-precio">${rifa.precioboleto}</p>
-
-        <ByWho user_meta={rifa.user_id} />
-        <CountdownTimer fecha={rifa.fecharifa} />
-
-        <LoadingBar boletosVendidos={boletosVendidos || []} rifa={rifa} />
-
-        <div className="buttons">
-          {userRole === "Admin" || user.id === rifa.user_id ? (
-            <>
-              <Link to={"/dashboard/" + user.id + "/editar/" + rifa.id}>
-                <i className="material-icons">edit</i>
-              </Link>
-              <i className="material-icons" onClick={handleDelete}>
-                delete
+    <>
+      {socioMetaData[0] ? (
+        <div
+          className={`listing-container ${
+            isBackContainerHovered ? "hovered" : ""
+          }`}
+        >
+          {/* Back container */}
+          <div className="back-container">
+            <img
+              src={rifa.img}
+              alt="Background"
+              className="background-image"
+              onClick={handleToggleHover}
+            />
+            <div className="eye-icon">
+              <i className="material-icons" onClick={handleToggleHover}>
+                visibility
               </i>
-            </>
-          ) : (
-            <></>
-          )}
+            </div>
+          </div>
+
+          {/* Front container */}
+          <div style={{ cursor: "default" }} className="front-container">
+            {/* Logo and name */}
+            <div className="logo-name-container">
+              <span className="name">{socioMetaData[0].nombre_negocio}</span>
+            </div>
+            <hr className="divider" />
+
+            {/* Rifa name */}
+            <div className="rifa-name">{rifa.nombre}</div>
+
+            {/* Description */}
+            <div className="description">
+              <ul className="description">
+                {descItems.map((item, index) => (
+                  <li key={index}>{item}</li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Loading bar and time counter */}
+            <div className="loading-bar-container">
+              <LoadingBar boletosVendidos={soldTickets.length} rifa={rifa} />
+            </div>
+
+            <div className="countdown-container">
+              <CountdownTimer fecha={rifa.fecharifa} />
+            </div>
+
+            {/* Price */}
+          </div>
+          <div
+            className="price"
+            style={{ backgroundColor: socioMetaData[0].color }}
+          >
+            ${rifa.precioboleto}
+          </div>
+          <div className="logo-name-container">
+            <img src={socioMetaData[0].image_url} alt="Logo" className="logo" />
+            {/*<span className="name">{socioMetaData[0].nombre_negocio}</span>*/}
+          </div>
         </div>
-      </section>
-    </div>
+      ) : null}
+    </>
   );
 };
 
-export default RifaListDashboard;
+export default RifaList;
 
 /*
 

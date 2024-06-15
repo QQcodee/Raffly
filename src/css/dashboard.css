@@ -49,6 +49,7 @@
 }
 
 .topbar {
+  display: flex;
   background: #333;
   color: white;
   padding-left: 30px;
@@ -56,6 +57,9 @@
   height: 80px;
   box-sizing: border-box; /* Include padding in height calculation */
   width: 100%; /* Full width */
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 30px;
 }
 
 .dashboard-content {

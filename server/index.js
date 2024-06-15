@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const Stripe = require("stripe");
 const cors = require("cors");
@@ -5,9 +7,10 @@ const bodyParser = require("body-parser");
 
 const { createClient } = require("@supabase/supabase-js");
 
-const supabaseUrl = "https://ivltiudjxnrytalzxfwr.supabase.co";
-const supabaseKey =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml2bHRpdWRqeG5yeXRhbHp4ZndyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTYyMTMzNzgsImV4cCI6MjAzMTc4OTM3OH0.th0QprBpNXFyh3pZ_yUwEsy1ge7fOfNzd7pzTpGRwZE";
+const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
+const supabaseKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
+const stripeSecretKey = process.env.STRIPE_SECRET;
+const clientURL = process.env.CLIENT_URL;
 
 const supabase = createClient(supabaseUrl, supabaseKey);
 
@@ -15,11 +18,9 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 const app = express();
 
-const stripe = new Stripe(
-  "sk_test_51PO7ArItMOkvrGWYvaLLvqaZW94rKqxDepb29QxRyw0ABgYvLaJu27B88C1OjkNOjEVUSfwszkAXPqFK6iEeinJT00cZHMzNFO"
-);
+const stripe = new Stripe(stripeSecretKey);
 
-app.use(cors({ origin: "http://localhost:3000" }));
+app.use(cors({ origin: clientURL }));
 app.use(express.json());
 app.use(bodyParser.json());
 
@@ -115,7 +116,7 @@ app.post("/create-account-link", async (req, res) => {
   res.json({ url: accountLink.url, accountId: account.id });
 });
 
-app.post("/save-account-id", async (req, res) => {
+/*app.post("/save-account-id", async (req, res) => {
   const { userId, accountId } = req.body;
 
   try {
@@ -132,6 +133,8 @@ app.post("/save-account-id", async (req, res) => {
     res.status(500).send({ error: error.message });
   }
 });
+
+*/
 
 app.post("/generate-account-link", async (req, res) => {
   const { accountId } = req.body;

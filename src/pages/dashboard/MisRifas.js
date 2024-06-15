@@ -8,6 +8,7 @@ import { useUser } from "../../UserContext";
 //import components
 
 import RifaListDashboard from "../../components/RifaListDashboard";
+import { Margin } from "@mui/icons-material";
 //import css
 
 const MisRifas = () => {
@@ -103,7 +104,7 @@ const MisRifas = () => {
         )}
 
         {rifas && (
-          <div className="rifas-grid">
+          <div style={{ marginLeft: "10px" }} className="rifas-grid">
             {rifas.map((rifa) => (
               <RifaListDashboard
                 key={rifa.id}

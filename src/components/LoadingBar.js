@@ -1,8 +1,5 @@
 const LoadingBar = ({ boletosVendidos, rifa }) => {
   const percentage = (boletosVendidos / rifa.numboletos) * 100;
-  console.log(boletosVendidos);
-
-  //falta funcion de calcular boletos vendidos por rifa
 
   return (
     <div className="loading-bar-container">
@@ -12,7 +9,15 @@ const LoadingBar = ({ boletosVendidos, rifa }) => {
           style={{ width: `${percentage}%` }}
         ></div>
       </div>
-      <p>
+      <p
+        style={{
+          color: "black",
+          top: "-22px",
+          position: "relative",
+          fontWeight: "400",
+          fontSize: "14px",
+        }}
+      >
         {boletosVendidos}/{rifa.numboletos} vendidos
       </p>
     </div>

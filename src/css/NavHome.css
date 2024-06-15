@@ -20,10 +20,10 @@
 .nav-home-ul li {
   margin-left: 20px; /* Adjust spacing between list items */
   display: inline-block;
-  margin: 20;
   padding: 0px, 20px;
   justify-content: flex-end;
   text-decoration: none;
+  vertical-align: middle;
 }
 
 .nav-home-item {
@@ -32,7 +32,7 @@
   font-size: 17px;
   font-family: "Poppins";
   font-style: normal;
-  font-weight: 800;
+  font-weight: 700;
   font-size: 17px;
   line-height: 23px;
   vertical-align: middle;

@@ -36,7 +36,12 @@ const BoletosList = ({ boleto }) => {
           className="ticket"
           style={{ backgroundColor: socioMetaData[0].color }}
         >
-          <aside>{boleto.nombre_rifa}</aside>
+          {boleto.comprado === true ? (
+            <aside style={{ color: "#6FCF85" }}>{boleto.nombre_rifa}</aside>
+          ) : (
+            <aside style={{ color: "black" }}>Falta Pagar</aside>
+          )}
+
           <section className="ticket__first-section">
             <section>
               <img src={socioMetaData[0].image_url} alt="logo" />
@@ -100,9 +105,17 @@ const BoletosList = ({ boleto }) => {
             }}
           ></section>
           <section className="ticket__third-section">
-            <h4>¡MUCHA SUERTE!</h4>
+            {boleto.comprado === true ? (
+              <h4>¡MUCHA SUERTE!</h4>
+            ) : (
+              <button>Pagar boleto</button>
+            )}
           </section>
-          <aside>{boleto.nombre_rifa}</aside>
+          {boleto.comprado === true ? (
+            <aside style={{ color: "#6FCF85" }}>{boleto.nombre_rifa}</aside>
+          ) : (
+            <aside style={{ color: "red" }}>Falta Pagar</aside>
+          )}
         </div>
       ) : null}
     </>

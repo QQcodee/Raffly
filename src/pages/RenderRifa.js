@@ -4,11 +4,15 @@ import supabase from "../config/supabaseClient";
 import { FixedSizeGrid as Grid } from "react-window";
 import { useCart } from "../CartContext"; // Import useCart
 
-import "../css/index.css";
 import HeaderHome from "../components/HeaderHome";
 import HeaderSocios from "../components/HeaderSocios";
 import Form from "./Form";
 import BoletosForm from "../components/BoletosForm";
+
+//import RenderRifa.css
+import "../css/RenderRifa.css";
+import CountdownTimer from "../components/CountdownTimer";
+import LoadingBar from "../components/LoadingBar";
 
 const RenderRifa = () => {
   const { id } = useParams();
@@ -17,6 +21,8 @@ const RenderRifa = () => {
   const [rifaDetails, setRifaDetails] = useState([]);
   const [socioMetaData, setSocioMetaData] = useState([]);
   const [soldTickets, setSoldTickets] = useState([]);
+
+  const [descItems, setDescItems] = useState([]);
 
   useEffect(() => {
     const fetchRifas = async () => {
@@ -32,6 +38,7 @@ const RenderRifa = () => {
 
       if (data) {
         setRifaDetails(data);
+        setDescItems(data.desc.split("\n"));
       }
     };
     fetchRifas();
@@ -51,7 +58,6 @@ const RenderRifa = () => {
       }
       if (data) {
         setSocioMetaData(data);
-        console.log(data);
       }
     };
     fetchUserMetaData();
@@ -75,16 +81,17 @@ const RenderRifa = () => {
           return acc.concat(ticket.num_boletos);
         }, []);
         setSoldTickets(soldTicketsArray);
-        console.log(soldTicketsArray);
       }
     };
     fetchSoldTickets();
   }, [rifaDetails.id]);
 
-  const columnCount = 30; // Number of tickets per row
+  const columnCount = 20; // Number of tickets per row
   const rowCount = Math.ceil(rifaDetails.numboletos / columnCount); // Total rows needed for the tickets
 
   const [selectedTickets, setSelectedTickets] = useState({});
+
+  const ticketNumbersArray = cart.map((item) => item.ticketNumber);
 
   const handleAddTicketToCart = (ticketNumber) => {
     if (selectedTickets[ticketNumber] || soldTickets.includes(ticketNumber)) {
@@ -166,55 +173,93 @@ const RenderRifa = () => {
       <div>
         <HeaderHome textdecoration="none" />
         <HeaderSocios socioMetaData={socioMetaData} />
-        <div align="center" className="body-rifa">
-          <h1>{rifaDetails.nombre}</h1>
-          <img height={300} src={rifaDetails.img} alt={rifaDetails.nombre} />
-          <p>{rifaDetails.desc}</p>
-          <p>${rifaDetails.precioboleto} per ticket</p>
-          <p>{rifaDetails.numboletos} tickets available</p>
-          <p>Organized by {rifaDetails.socio}</p>
-          <p>{rifaDetails.stripe_id}</p>
-        </div>
 
-        <div className="cart-section">
-          <h2>Carrito {cart.length > 0 ? <>({cart.length}) </> : null} </h2>
-          <button
-            className="random-ticket-button"
-            onClick={handleSelectRandomTicket}
+        {rifaDetails.fecharifa ? (
+          <>
+            <div className="rifa-card">
+              <div className="rifa-info-render">
+                <div className="rifa-tittle">
+                  <h1>{rifaDetails.nombre}</h1>
+                  {socioMetaData[0] ? (
+                    <CountdownTimer
+                      fecha={rifaDetails.fecharifa}
+                      color={socioMetaData[0].color}
+                    />
+                  ) : null}
+                </div>
+
+                <h2>${rifaDetails.precioboleto} / numero</h2>
+
+                <hr className="divider-rifa-render" />
+
+                <div className="rifa-description">
+                  <ul className="rifa-desc-render">
+                    {descItems.map((item, index) => (
+                      <li key={index}>{item}</li>
+                    ))}
+                  </ul>
+
+                  <div className="rifa-loadingbar">
+                    {" "}
+                    <LoadingBar
+                      boletosVendidos={soldTickets.length}
+                      rifa={rifaDetails}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="rifa-img">
+                <img src={rifaDetails.img} />
+              </div>
+            </div>
+          </>
+        ) : null}
+
+        <div className="boletos-carrito">
+          <div className="cart-section">
+            <h2>Carrito {cart.length > 0 ? <>({cart.length}) </> : null} </h2>
+            <p>Total a pagar: ${totalAmount.toFixed(0)}</p>
+            <button
+              className="random-ticket-button"
+              onClick={handleSelectRandomTicket}
+            >
+              Agregar boleto aleatorio
+            </button>
+            {cart.length === 0 ? (
+              <p>Ningun boleto seleccionado</p>
+            ) : (
+              <>
+                <ul>
+                  {cart.map((item) => (
+                    <li key={item.id}>
+                      Boleto #{item.ticketNumber} - ${item.price}
+                      <button
+                        onClick={() => handleRemoveTicketFromCart(item.id)}
+                      >
+                        Eliminar
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+          </div>
+          <Grid
+            className="boletos-grid"
+            columnCount={columnCount}
+            columnWidth={55}
+            height={600}
+            rowCount={rowCount}
+            rowHeight={50}
+            overscanRowCount={5}
+            width={1150}
+            style={{ border: "none", overflowX: "hidden" }}
           >
-            Agregar boleto aleatorio
-          </button>
-          {cart.length === 0 ? (
-            <p>Ningun boleto seleccionado</p>
-          ) : (
-            <>
-              <ul>
-                {cart.map((item) => (
-                  <li key={item.id}>
-                    Boleto #{item.ticketNumber} - ${item.price}
-                    <button onClick={() => handleRemoveTicketFromCart(item.id)}>
-                      Eliminar
-                    </button>
-                  </li>
-                ))}
-              </ul>
-              <p>Total a pagar: ${totalAmount.toFixed(0)}</p>
-            </>
-          )}
+            {Cell}
+          </Grid>
         </div>
 
-        <Grid
-          className="boletos-grid"
-          columnCount={columnCount}
-          columnWidth={55}
-          height={600}
-          rowCount={rowCount}
-          rowHeight={50}
-          overscanRowCount={5}
-          width={1690}
-        >
-          {Cell}
-        </Grid>
         {rifaDetails && socioMetaData[0] ? (
           <Form
             precioBoleto={rifaDetails.precioboleto}
@@ -227,7 +272,8 @@ const RenderRifa = () => {
               "(" +
               rifaDetails.id +
               ")" +
-              rifaDetails.stripe_id
+              "Numeros:" +
+              ticketNumbersArray
             }
           />
         ) : null}

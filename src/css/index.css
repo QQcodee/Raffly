@@ -21,17 +21,9 @@ body {
 }
 
 .page-home {
-  max-width: 1500px;
-  margin-left: 300px;
+  margin: auto;
   padding: 20px;
-}
-
-/* smoothie grid */
-.rifas-grid {
-  margin-top: 40px;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 40px;
+  background-color: #000000;
 }
 
 /* index.css or LoginStyles.css */
@@ -189,6 +181,7 @@ form button {
   overflow: hidden; /* Keeps the content within the button's boundaries */
   white-space: nowrap; /* Ensures the text stays in a single line */
   text-overflow: ellipsis; /* Adds an ellipsis if the text overflows */
+  border-radius: 15px;
 }
 
 /* Optional: Add hover effect for better UX */
@@ -266,6 +259,8 @@ form button {
   position: absolute;
   left: 250px;
   top: 150px;
+  font-family: "Poppins";
+  font-weight: 600;
 }
 
 .hero h2 {
@@ -306,110 +301,184 @@ hr.solid {
 
 /* CSS PARA CARRITO */
 
-/* Styles for the random ticket button */
-.random-ticket-button {
-  display: block;
-  margin: 20px auto;
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+/*BOLETOS CSS*/
+
+.ticket {
+  width: 360px;
+  height: 550px;
+  margin: auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 30px;
 }
 
-.random-ticket-button:hover {
-  background-color: #0056b3;
+.ticket > aside:first-of-type {
+  right: 70px;
 }
 
-/* Styles for the cart section */
-.cart-section {
-  margin: 20px auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #f9f9f9;
-  width: 80%;
-  max-width: 600px;
-  text-align: left;
-}
-
-.cart-section h2 {
-  font-size: 24px;
-  margin-bottom: 10px;
-}
-
-.cart-section ul {
-  list-style-type: none;
+.ticket > aside:first-of-type,
+.ticket > aside:last-of-type {
+  position: absolute;
+  -webkit-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+  bottom: 258px;
+  width: 550px;
+  z-index: 1000;
+  text-align: center;
+  color: #fff;
+  font-weight: bolder;
+  text-transform: uppercase;
+  font-size: 21px;
+  letter-spacing: 10px;
+  z-index: 0;
+  font-family: "SEGOE UI BOLD";
+  margin: 0;
   padding: 0;
 }
 
-.cart-section ul li {
+.ticket > aside:last-of-type {
+  left: 67px;
+}
+
+.ticket > section {
+  background-color: #fff;
+  font-family: "BAHNSCHRIFT";
+}
+
+.ticket .ticket__first-section > section:first-of-type > img {
+  height: 75px;
+  width: auto;
+}
+
+.ticket .ticket__first-section {
+  margin: 3px 32px;
+}
+
+.ticket .ticket__first-section > section:first-of-type {
+  padding: 3px 50px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 10px 0;
-  border-bottom: 1px solid #ddd;
+  justify-content: center;
 }
 
-.cart-section ul li:last-child {
-  border-bottom: none;
+.ticket .ticket__first-section > section:nth-of-type(2) {
+  border-top: 2px dashed #000;
+  border-bottom: 2px dashed #000;
+  padding: 10px;
+  font-size: 17px;
+  display: flex;
+  height: 90px;
 }
 
-.cart-section ul li button {
-  background-color: #dc3545;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 3px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+.ticket .ticket__first-section > section:nth-of-type(2) > div {
+  display: flex;
+  flex-direction: column;
+  color: red;
+  font-weight: 700;
+  flex-grow: 1;
+  align-items: center;
+  font-family: "POPPINS SEMI BOLD";
 }
 
-.cart-section ul li button:hover {
-  background-color: #c82333;
+.ticket .ticket__first-section > section:nth-of-type(2) > div > ul {
+  display: flex;
+  flex-wrap: wrap;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  font-size: 12px;
 }
 
-.cart-section p {
-  font-size: 18px;
-  font-weight: bold;
-  text-align: right;
+.ticket .ticket__first-section > ul {
+  list-style-type: none;
+  padding: 0 10px;
+  margin: 10px 0 0;
+  height: 172px;
 }
 
-/* Styles for the random ticket button */
-.random-ticket-button {
-  display: block;
-  margin: 20px auto;
+.ticket .ticket__first-section > ul > li {
+  height: 28px;
+  display: flex;
+}
+
+.ticket .ticket__first-section > ul > li > p {
+  margin: 0;
+  font-size: 13px;
+}
+
+.ticket .ticket__first-section > ul > li > p:first-of-type {
+  width: 75px;
+}
+
+.ticket .ticket__first-section > ul > li > p:nth-of-type(2) {
+  margin-left: 2px;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: red;
+  font-weight: 700;
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  font-family: "POPPINS SEMI BOLD";
+}
+
+.ticket .ticket__first-section > section:first-of-type h4 {
+  font-size: 15px;
+  font-weight: bolder;
+  text-transform: uppercase;
+  margin: 0 0 0 10px;
+}
+
+.ticket .ticket__second-section {
+  height: 178px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50%;
+  margin: 0 32px 3px;
+}
+
+.ticket .ticket__third-section {
+  margin: 0 32px 3px;
+}
+
+.ticket .ticket__third-section > h4 {
+  margin: 0;
+  padding: 5px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: red;
+  font-size: 17px;
+  text-transform: uppercase;
+  font-weight: 900;
+}
+
+.ticket .ticket__third-section > button {
+  justify-content: center;
+  display: flex;
+  margin: 0 auto;
   padding: 10px 20px;
-  background-color: #007bff;
+  background-color: #6fcf85;
   color: white;
   border: none;
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
-.random-ticket-button:hover {
-  background-color: #0056b3;
-}
-
-/* Styles for the random ticket button (Agregar boleto aleatorio) */
-.add-random-ticket-button {
-  display: inline-block;
-  margin: 10px;
-  padding: 8px 15px;
-  background-color: #28a745;
-  color: white;
-  border: none;
+.rifa-info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Adds space between top-section and bottom-section */
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333;
+  margin: 0 auto;
+  max-width: 1500px;
+  padding: 20px;
+  background-color: #f5f5f5;
   border-radius: 5px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.add-random-ticket-button:hover {
-  background-color: #218838;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }

@@ -5,7 +5,8 @@ import supabase from "../config/supabaseClient";
 import SociosList from "../components/SociosList";
 import HeaderHome from "../components/HeaderHome";
 
-//import css
+//import SociosArchive.css
+import "../css//Single-Socios/SocioArchive.css";
 
 const Socios = () => {
   const [socios, setSocios] = useState([]);
@@ -26,20 +27,23 @@ const Socios = () => {
   }, []);
 
   return (
-    <div>
+    <>
       <HeaderHome />
       <div>
-        <h1>Socios </h1>
-      </div>
+        <div className="div-grid-archive">
+          <h1>Socios </h1>
+          <hr className="divider-title" />
 
-      {socios && (
-        <div className="rifas-grid">
-          {socios.map((socio) => (
-            <SociosList key={socio.id} socio={socio} />
-          ))}
+          {socios && (
+            <div className="socios-grid">
+              {socios.map((socio) => (
+                <SociosList key={socio.id} socio={socio} />
+              ))}
+            </div>
+          )}
         </div>
-      )}
-    </div>
+      </div>
+    </>
   );
 };
 

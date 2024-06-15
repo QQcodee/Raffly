@@ -29,6 +29,8 @@ import SingleContacto from "./pages/SingleContacto";
 import Form from "./pages/Form";
 import Onboarding from "./pages/Onboarding";
 import MisBoletos from "./pages/MisBoletos";
+import BoletoNuevo from "./pages/BoletoNuevo";
+import BoletosDashboard from "./pages/dashboard/BoletosDashboard";
 
 //import HeaderLogin from "./pages/HeaderLogin.js";
 //import Topbar from "./pages/dashboard/Topbar.js";
@@ -56,6 +58,7 @@ function App() {
           <Route path="/stripe" element={<Onboarding />} />
           <Route path="/socios" element={<Socios />} />
           <Route path="/:nombre_negocio/:user_id" element={<SingleSocio />} />
+          <Route path="/boleto" element={<BoletoNuevo />} />
           <Route
             path="/:nombre_negocio/:user_id/contacto"
             element={<SingleContacto />}
@@ -69,7 +72,10 @@ function App() {
 
           <Route path="/dashboard/:user_id" element={<DashboardLayout />}>
             <Route index element={<Dashboard />} />
+
             <Route path="mis-rifas" element={<MisRifas />} />
+            <Route path="boletos" element={<BoletosDashboard />} />
+
             <Route path="crear-rifa" element={<Create />} />
             <Route path="editar/:id" element={<Update />} />
             <Route path="stripe-config" element={<Onboarding />} />

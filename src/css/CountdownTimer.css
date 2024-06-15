@@ -8,6 +8,7 @@
   border-radius: 36px;
   width: fit-content; /* Ensures the width fits the content */
   margin: 0 auto; /* Centers the timer horizontally */
+  position: relative;
 }
 
 .time-section {

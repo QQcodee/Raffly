@@ -47,9 +47,10 @@ const Home = () => {
 
         <hr className="solid"></hr>
         <h2>
-          Participa para ganar increíbles premios! <br />
-          Carros, Celulares, Relojes, Efectivo y Mucho Más. <br /> <br />
-          Registrate y empieza a ganar ya!
+          La Mejor Plataforma de Rifas <br />
+          Rifas Online Hechas Fáciles: Crea y Gana Sin Restricciones. <br />{" "}
+          <br />
+          ¡Únete ahora y comienza tu primera rifa hoy mismo!
         </h2>
         {user ? (
           <button onClick={() => navigate("/rifas")}>Ver Rifas</button>
@@ -57,17 +58,21 @@ const Home = () => {
           <button onClick={() => navigate("/login")}>Registrarse</button>
         )}
       </div>
-
-      <div className="page-home">
-        {fetchError && <p>{fetchError}</p>}
-        <h1>Bienvenido a Raffly</h1>
-        {rifas && (
-          <div className="rifas-grid">
-            {rifas.map((rifa) => (
-              <RifaList key={rifa.id} rifa={rifa} boletosVendidos={450} />
-            ))}
-          </div>
-        )}
+      <div>
+        <h2>Como funciona?</h2>
+      </div>
+      <div style={{ backgroundColor: "#DAECFF" }}>
+        <div className="div-grid-home">
+          {fetchError && <p>{fetchError}</p>}
+          <h1>Bienvenido a Raffly</h1>
+          {rifas && (
+            <div className="rifas-grid-home">
+              {rifas.map((rifa) => (
+                <RifaList key={rifa.id} rifa={rifa} boletosVendidos={450} />
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </>
   );

@@ -40,38 +40,34 @@ const HeaderHome = () => {
             </Link>
           </li>
 
-          <li>
-            <Link className="nav-home-item" to="/login">
-              <i className="material-icons">account_circle</i>
-            </Link>
-            {user && (
-              <Link className="nav-home-item" to="/success">
-                {user.email}
+          {userRole === "Socio" || userRole === "Admin" ? (
+            <li>
+              <Link className="nav-home-item" to={"/dashboard/" + user.id}>
+                Dashboard
               </Link>
-            )}
-          </li>
-
-          {user || userRole === "Socio" ? (
-            <button
-              onClick={() => navigate(`/dashboard/${user?.id}`)}
-              style={{
-                textDecoration: "none",
-                color: "black",
-                fontWeight: "600",
-                border: "none",
-                fontFamily: "Poppins",
-
-                backgroundColor: "orange",
-                cursor: "pointer",
-                fontSize: "20px",
-                padding: "10px",
-                borderRadius: "10px",
-                marginLeft: "10px",
-              }}
-            >
-              Panel de socios
-            </button>
+            </li>
           ) : null}
+
+          <li>
+            {user ? (
+              <Link
+                style={{
+                  textDecoration: "none",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  display: "flex",
+                  gap: "0.5rem",
+                }}
+                className="nav-home-item"
+                to="/success"
+              >
+                <i href="/success" className="material-icons">
+                  account_circle
+                </i>
+                {user.user_metadata.name}
+              </Link>
+            ) : null}
+          </li>
         </ul>
       </nav>
     </header>

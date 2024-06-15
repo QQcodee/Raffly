@@ -1,26 +1,49 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
+import { useUser } from "../UserContext";
+import supabase from "../config/supabaseClient";
 
 const StripeAccountLinkButton = ({ userId, userMetaData, stripe_id }) => {
   const [accountExists, setAccountExists] = useState("default");
+  const { user } = useUser();
 
   const createAccountLink = async () => {
-    const response = await fetch("http://localhost:3001/create-account-link", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    try {
+      // Step 1: Create account link
+      const response = await fetch(
+        "http://localhost:3001/create-account-link",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-    if (response.ok) {
+      if (!response.ok) {
+        throw new Error("Failed to create account link");
+      }
+
       const data = await response.json();
       console.log(data);
-      // Store accountId in user metadata in Supabase
-      await associateAccountIdWithUser(userId, data.accountId);
-      //window.location.href = data.url;
+
+      // Step 2: Store accountId in user metadata in Supabase
+      const { data: userData, error } = await supabase
+        .from("user_metadata")
+        .update({ stripe_id: data.accountId })
+        .eq("user_id", user.id);
+
+      if (error) {
+        throw error;
+      }
+
+      // Step 3: Open the account link in a new tab
       window.open(data.url, "_blank");
-    } else {
-      console.error("Failed to create account link");
+    } catch (error) {
+      console.error(
+        "Error creating account link and associating:",
+        error.message
+      );
     }
   };
 
