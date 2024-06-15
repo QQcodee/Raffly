@@ -22,8 +22,8 @@ app.post("/api/generate-account-link", async (req, res) => {
   try {
     const accountLink = await stripe.accountLinks.create({
       account: accountId,
-      refresh_url: "http://localhost:3000/success",
-      return_url: "http://localhost:3000/success",
+      refresh_url: "https://www.raffly.com.mx//success",
+      return_url: "https://www.raffly.com.mx//success",
       type: "account_onboarding",
     });
 
@@ -35,4 +35,3 @@ app.post("/api/generate-account-link", async (req, res) => {
 });
 
 module.exports = app;
-module.exports.handler = serverless(app);

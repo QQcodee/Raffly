@@ -21,7 +21,7 @@ app.post("/api/generate-dashboard-access-link", async (req, res) => {
 
   try {
     const loginLink = await stripe.accounts.createLoginLink(accountId, {
-      redirect_url: "http://localhost:3000/success", // Redirect URL after login
+      redirect_url: "https://www.raffly.com.mx//success", // Redirect URL after login
     });
 
     res.json({ url: loginLink.url });
@@ -32,4 +32,3 @@ app.post("/api/generate-dashboard-access-link", async (req, res) => {
 });
 
 module.exports = app;
-module.exports.handler = serverless(app);

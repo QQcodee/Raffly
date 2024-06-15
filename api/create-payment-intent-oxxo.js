@@ -65,4 +65,3 @@ app.post("/api/create-payment-intent-oxxo", async (req, res) => {
 });
 
 module.exports = app;
-module.exports.handler = serverless(app);

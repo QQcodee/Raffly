@@ -36,7 +36,7 @@ app.post("/api/checkout", async (req, res) => {
       transfer_data: {
         destination: destination,
       },
-      return_url: "http://localhost:3000/success",
+      return_url: "https://www.raffly.com.mx//success",
     });
 
     console.log(payment);
@@ -49,4 +49,3 @@ app.post("/api/checkout", async (req, res) => {
 });
 
 module.exports = app;
-module.exports.handler = serverless(app);
