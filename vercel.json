@@ -6,7 +6,7 @@
       "use": "@vercel/node"
     },
     {
-      "src": "src/**/*",
+      "src": "build/**/*",
       "use": "@vercel/static-build",
       "config": {
         "distDir": "build"
@@ -20,7 +20,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "/src/$1"
+      "dest": "/build/$1"
     }
   ]
 }
