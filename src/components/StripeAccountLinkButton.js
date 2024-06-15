@@ -11,7 +11,8 @@ const StripeAccountLinkButton = ({ userId, userMetaData, stripe_id }) => {
     try {
       // Step 1: Create account link
       const response = await fetch(
-        "http://localhost:3001/create-account-link",
+        "http://www.raffly.com.mx/api/create-account-link",
+
         {
           method: "POST",
           headers: {
@@ -47,24 +48,10 @@ const StripeAccountLinkButton = ({ userId, userMetaData, stripe_id }) => {
     }
   };
 
-  const associateAccountIdWithUser = async (userId, accountId) => {
-    const response = await fetch("http://localhost:3001/save-account-id", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ userId, accountId }),
-    });
-
-    if (!response.ok) {
-      console.error("Failed to save account ID");
-    }
-  };
-
   const generateAccountLink = async () => {
     try {
       const response = await fetch(
-        "http://localhost:3001/generate-account-link",
+        "http://www.raffly.com.mx/api/generate-account-link",
         {
           method: "POST",
           headers: {
@@ -90,7 +77,7 @@ const StripeAccountLinkButton = ({ userId, userMetaData, stripe_id }) => {
   const generateDashboardAccessLink = async () => {
     try {
       const response = await fetch(
-        "http://localhost:3001/generate-dashboard-access-link",
+        "http://www.raffly.com.mx/api/generate-dashboard-access-link",
         {
           method: "POST",
           headers: {
@@ -124,7 +111,7 @@ const StripeAccountLinkButton = ({ userId, userMetaData, stripe_id }) => {
   const checkAccountSetup = async () => {
     try {
       const response = await fetch(
-        "http://localhost:3001/check-account-exists",
+        "http://www.raffly.com.mx/api/check-account-exists",
         {
           method: "POST",
           headers: {

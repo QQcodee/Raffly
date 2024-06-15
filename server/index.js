@@ -56,7 +56,7 @@ app.post("/api/checkout", async (req, res) => {
   }
 });
 
-app.post("/create-payment-intent", async (req, res) => {
+app.post("/create-payment-intent-oxxo", async (req, res) => {
   const { amount, firstName, lastName, email } = req.body;
 
   // Validate first and last names
