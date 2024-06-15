@@ -52,7 +52,7 @@ const MisRifas = () => {
   const checkAccountSetup = async () => {
     try {
       const response = await fetch(
-        "http://localhost:3001/check-account-exists",
+        "https://raffly.com.mx/api/check-account-exists",
         {
           method: "POST",
           headers: {
