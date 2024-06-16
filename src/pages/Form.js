@@ -92,6 +92,7 @@ const CheckoutForm = ({ descripcion, stripe_id, totalAmount, rifa }) => {
           fecharifa: rifa.fecharifa,
           socio_user_id: rifa.user_id,
           comprado: true,
+          apartado: false,
         },
       ]);
 
@@ -126,6 +127,7 @@ const CheckoutForm = ({ descripcion, stripe_id, totalAmount, rifa }) => {
           fecharifa: rifa.fecharifa,
           socio_user_id: rifa.user_id,
           oxxo: true,
+          apartado: false,
         },
       ]);
 
@@ -230,6 +232,7 @@ const CheckoutForm = ({ descripcion, stripe_id, totalAmount, rifa }) => {
 
         // Handle response, redirect to OXXO payment page
         //window.location.href = response.data.oxxoUrl;
+        console.log("response:", response.data);
         handleSuccesfulPayment();
 
         window.open(response.data.oxxoUrl, "_blank");

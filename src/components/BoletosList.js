@@ -87,7 +87,9 @@ const BoletosList = ({ boleto }) => {
                     ? "Pagado"
                     : boleto.apartado === true
                     ? "Apartado"
-                    : "No Pagado"}
+                    : boleto.oxxo === true
+                    ? "Pago con oxxo pendiente"
+                    : "Falta Pagar"}
                 </p>
               </li>
               <li>

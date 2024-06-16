@@ -245,7 +245,13 @@ const BoletosDashboard = () => {
 
                 <td>{"$" + item.precio * item.num_boletos.length}</td>
                 <td>{item.num_boletos.join(", ")}</td>
-                <td>{item.comprado === true ? "Pagado" : "Apartado"}</td>
+                <td>
+                  {item.comprado === true
+                    ? "Pagado"
+                    : item.oxxo
+                    ? "Pago pendiente oxxo"
+                    : "Apartado"}
+                </td>
                 <td>{item.email}</td>
                 <td>{item.telefono}</td>
                 <td>{item.id}</td>
