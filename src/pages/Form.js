@@ -75,37 +75,73 @@ const CheckoutForm = ({ descripcion, stripe_id, totalAmount, rifa }) => {
     // Extract ticket numbers from cart items
     const ticketNumbersArray = cart.map((item) => item.ticketNumber);
 
-    const { data, error } = await supabase.from("boletos").insert([
-      {
-        id_rifa: rifa.id,
-        num_boletos: ticketNumbersArray,
-        user_id: user.id,
-        precio: rifa.precioboleto,
-        desc: rifa.desc,
-        nombre_rifa: firstName + " " + lastName,
-        email: email,
-        telefono: phone,
-        img_rifa: rifa.img,
-        socio: rifa.socio,
-        nombre: user.user_metadata.name,
-        fecharifa: rifa.fecharifa,
-        socio_user_id: rifa.user_id,
-        comprado: true,
-      },
-    ]);
+    if (paymentMethodType === "card") {
+      const { data, error } = await supabase.from("boletos").insert([
+        {
+          id_rifa: rifa.id,
+          num_boletos: ticketNumbersArray,
+          user_id: user.id,
+          precio: rifa.precioboleto,
+          desc: rifa.desc,
+          nombre_rifa: rifa.nombre,
+          email: email,
+          telefono: phone,
+          img_rifa: rifa.img,
+          socio: rifa.socio,
+          nombre: firstName + " " + lastName,
+          fecharifa: rifa.fecharifa,
+          socio_user_id: rifa.user_id,
+          comprado: true,
+        },
+      ]);
 
-    if (error) {
-      console.error("Error inserting data: ", error);
-    } else {
-      console.log("Data inserted successfully: ", data);
-      clearCart();
-      navigate(
-        "/" +
-          encodeURIComponent(rifa.socio.replace(/\s+/g, "-")) +
+      if (error) {
+        console.error("Error inserting data: ", error);
+      } else {
+        console.log("Data inserted successfully: ", data);
+        clearCart();
+        navigate(
           "/" +
-          encodeURIComponent(rifa.user_id.replace(/\s+/g, "-")) +
-          "/mis-boletos"
-      );
+            encodeURIComponent(rifa.socio.replace(/\s+/g, "-")) +
+            "/" +
+            encodeURIComponent(rifa.user_id.replace(/\s+/g, "-")) +
+            "/mis-boletos"
+        );
+      }
+    }
+    if (paymentMethodType === "oxxo") {
+      const { data, error } = await supabase.from("boletos").insert([
+        {
+          id_rifa: rifa.id,
+          num_boletos: ticketNumbersArray,
+          user_id: user.id,
+          precio: rifa.precioboleto,
+          desc: rifa.desc,
+          nombre_rifa: rifa.nombre,
+          email: email,
+          telefono: phone,
+          img_rifa: rifa.img,
+          socio: rifa.socio,
+          nombre: firstName + " " + lastName,
+          fecharifa: rifa.fecharifa,
+          socio_user_id: rifa.user_id,
+          oxxo: true,
+        },
+      ]);
+
+      if (error) {
+        console.error("Error inserting data: ", error);
+      } else {
+        console.log("Data inserted successfully: ", data);
+        clearCart();
+        navigate(
+          "/" +
+            encodeURIComponent(rifa.socio.replace(/\s+/g, "-")) +
+            "/" +
+            encodeURIComponent(rifa.user_id.replace(/\s+/g, "-")) +
+            "/mis-boletos"
+        );
+      }
     }
   };
 
