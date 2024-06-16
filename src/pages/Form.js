@@ -266,7 +266,7 @@ const CheckoutForm = ({ descripcion, stripe_id, totalAmount, rifa }) => {
               <input
                 type="phone"
                 id="phone"
-                value={email}
+                value={phone}
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
@@ -322,7 +322,7 @@ const CheckoutForm = ({ descripcion, stripe_id, totalAmount, rifa }) => {
               <input
                 type="phone"
                 id="phone"
-                value={email}
+                value={phone}
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
