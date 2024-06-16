@@ -1,7 +1,6 @@
 import supabase from "../../config/supabaseClient";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import Update from "../Update";
 import CountdownTimer from "../../components/CountdownTimer";
 import LoadingBar from "../../components/LoadingBar";
 
@@ -14,6 +13,7 @@ const BoletosDashboard = () => {
   const [sortDirection, setSortDirection] = useState("asc"); // Default sorting direction
   const [searchTerm, setSearchTerm] = useState(""); // State for search term
   const [searchNumber, setSearchNumber] = useState(""); // State for searching number in num_boletos
+  const [searchTelefono, setSearchTelefono] = useState(""); // State for searching by telefono
 
   const [currentRifa, setCurrentRifa] = useState("");
 
@@ -107,8 +107,15 @@ const BoletosDashboard = () => {
     const numberMatch = item.num_boletos.some(
       (num) => num.toString() === searchNumber
     );
+    const telefonoMatch = item.telefono
+      ? item.telefono.toString().includes(searchTelefono.toString())
+      : false;
 
-    return nombreMatch && (searchNumber === "" || numberMatch);
+    return (
+      nombreMatch &&
+      (searchNumber === "" || numberMatch) &&
+      (searchTelefono === "" || telefonoMatch)
+    );
   });
 
   const handleRifaChange = (e) => {
@@ -122,80 +129,131 @@ const BoletosDashboard = () => {
   };
 
   return (
-    <div>
-      <h2>Data Table</h2>
-      <div>
-        <label htmlFor="rifasSelector">Seleccionar Rifa</label>
-        <select
-          id="rifasSelector"
-          onChange={handleRifaChange}
-          value={selectedName}
-          style={{ width: "200px", color: "black" }}
-        >
-          {rifas.map((rifa) => (
-            <option key={rifa.id} value={rifa.id}>
-              {rifa.nombre}
-            </option>
-          ))}
-        </select>
+    <div className="boletos-dashboard">
+      <div className="boletos-dashboard-top">
+        <h2>Data Table</h2>
+
+        <div className="select-container">
+          <select
+            id="rifasSelector"
+            onChange={handleRifaChange}
+            value={selectedName}
+            placeholder="Elegir Rifa"
+            style={{
+              width: "200px",
+              color: "black",
+              padding: "10px",
+              margin: "10px",
+              borderRadius: "15px",
+              boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+            }}
+          >
+            {rifas.map((rifa) => (
+              <option key={rifa.id} value={rifa.id}>
+                {rifa.nombre}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
       <div>
-        <label htmlFor="nombreInput">Buscar Nombre:</label>
         <input
           type="text"
           id="nombreInput"
           value={searchTerm}
           onChange={handleNombreSearch}
+          placeholder="Buscar por nombre"
+          style={{
+            width: "200px",
+            color: "black",
+            padding: "10px",
+            margin: "10px",
+            borderRadius: "15px",
+            border: "1px solid #ccc",
+            boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+          }}
         />
       </div>
       <div>
-        <label htmlFor="numberInput">Buscar Número:</label>
         <input
           type="text"
           id="numberInput"
           value={searchNumber}
           onChange={handleNumberSearch}
+          placeholder="Buscar por boleto"
+          style={{
+            width: "200px",
+            color: "black",
+            padding: "10px",
+            margin: "10px",
+            borderRadius: "15px",
+            border: "1px solid #ccc",
+            boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+          }}
         />
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th onClick={() => handleSort("nombre")}>
-              Nombre Comprador <i className="material-icons">swap_vert</i>
-            </th>
+      <input
+        type="text"
+        id="telefonoInput"
+        value={searchTelefono}
+        onChange={(e) => setSearchTelefono(e.target.value)}
+        placeholder="Buscar por telefono"
+        style={{
+          width: "200px",
+          color: "black",
+          padding: "10px",
+          margin: "10px",
+          borderRadius: "15px",
+          border: "1px solid #ccc",
+          boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+        }}
+      />
+      <div>
+        <table className="content-table">
+          <thead>
+            <tr>
+              <th
+                style={{ cursor: "pointer" }}
+                onClick={() => handleSort("nombre")}
+              >
+                Nombre Comprador <i className="material-icons">swap_vert</i>
+              </th>
 
-            <th onClick={() => handleSort("precio")}>
-              Valor <i className="material-icons">swap_vert</i>
-            </th>
-            <th onClick={() => handleSort("num_boletos")}>
-              Boletos <i className="material-icons">swap_vert</i>
-            </th>
-            <th onClick={() => handleSort("comprado")}>
-              Estado <i className="material-icons">swap_vert</i>
-            </th>
-            <th onClick={() => handleSort("id")}>
-              Email <i className="material-icons">swap_vert</i>
-            </th>
+              <th>Valor</th>
+              <th>Boletos</th>
+              <th
+                style={{ cursor: "pointer" }}
+                onClick={() => handleSort("comprado")}
+              >
+                Estado <i className="material-icons">swap_vert</i>
+              </th>
+              <th>Email</th>
+              <th>Telefono</th>
 
-            <th onClick={() => handleSort("id")}>
-              ID Boleto <i className="material-icons">swap_vert</i>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredData.map((item) => (
-            <tr key={item.id}>
-              <td>{item.nombre}</td>
-
-              <td>{"$" + item.precio * item.num_boletos.length}</td>
-              <td>{item.num_boletos.join(", ")}</td>
-              <td>{item.comprado === true ? "Pagado" : "Apartado"}</td>
-              <td>{item.email}</td>
-              <td>{item.id}</td>
+              <th
+                style={{ cursor: "pointer" }}
+                onClick={() => handleSort("id")}
+              >
+                ID Boleto <i className="material-icons">swap_vert</i>
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {filteredData.map((item) => (
+              <tr key={item.id}>
+                <td>{item.nombre}</td>
+
+                <td>{"$" + item.precio * item.num_boletos.length}</td>
+                <td>{item.num_boletos.join(", ")}</td>
+                <td>{item.comprado === true ? "Pagado" : "Apartado"}</td>
+                <td>{item.email}</td>
+                <td>{item.telefono}</td>
+                <td>{item.id}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

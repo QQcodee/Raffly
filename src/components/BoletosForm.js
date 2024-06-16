@@ -4,6 +4,7 @@ import { useCart } from "../CartContext";
 import { useUser } from "../UserContext";
 import { useNavigate } from "react-router-dom";
 
+//Componente para apartar boletos en rifas
 const BoletosForm = ({ rifa }) => {
   const { cart } = useCart();
 

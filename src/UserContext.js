@@ -1,6 +1,4 @@
-// UserContext.js
 import React, { createContext, useState, useEffect, useContext } from "react";
-
 import supabase from "./config/supabaseClient";
 
 const UserContext = createContext();
@@ -8,9 +6,11 @@ const UserContext = createContext();
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [userRole, setUserRole] = useState(null);
-  const [userMetaData, setSocioMetaData] = useState([]);
+  const [userMetaData, setUserMetaData] = useState([]);
+  const [authListener, setAuthListener] = useState(null); // State to hold the auth listener
 
   useEffect(() => {
+    // Fetch initial user data
     async function getUserData() {
       const { data: authData, error } = await supabase.auth.getUser();
       if (error) {
@@ -22,31 +22,55 @@ export const UserProvider = ({ children }) => {
       }
     }
     getUserData();
+
+    // Listen for auth state changes (login/logout)
+    const listener = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === "SIGNED_OUT") {
+        setUser(null); // Clear user state on logout
+        setUserRole(null); // Clear userRole state on logout
+        setUserMetaData([]); // Clear userMetaData state on logout
+      }
+    });
+
+    // Save the listener in state
+    setAuthListener(listener);
+
+    // Cleanup listener on component unmount
+    return () => {
+      if (authListener) {
+        authListener.unsubscribe(); // Unsubscribe from auth changes
+      }
+    };
   }, []);
 
   useEffect(() => {
-    if (!user) return;
+    // Fetch user metadata when user changes
+    async function fetchUserMetaData() {
+      if (!user) return;
 
-    const fetchUserMetaData = async () => {
       const { data, error } = await supabase
         .from("user_metadata")
         .select()
         .eq("user_id", user.id);
 
       if (error) {
-        console.log(error);
+        console.error("Error fetching user metadata:", error.message);
+        return;
       }
+
       if (data) {
-        setSocioMetaData(data);
+        setUserMetaData(data);
       }
-    };
+    }
+
     fetchUserMetaData();
   }, [user]);
 
   useEffect(() => {
-    if (!user) return;
+    // Fetch user role when user changes
+    async function fetchUserRole() {
+      if (!user) return;
 
-    const fetchUserRole = async () => {
       const { data, error } = await supabase
         .from("user_roles_view")
         .select()
@@ -60,7 +84,7 @@ export const UserProvider = ({ children }) => {
       if (data) {
         setUserRole(data[0]?.roles[0]);
       }
-    };
+    }
 
     fetchUserRole();
   }, [user]);

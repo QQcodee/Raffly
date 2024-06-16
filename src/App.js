@@ -31,6 +31,7 @@ import Onboarding from "./pages/Onboarding";
 import MisBoletos from "./pages/MisBoletos";
 import BoletoNuevo from "./pages/BoletoNuevo";
 import BoletosDashboard from "./pages/dashboard/BoletosDashboard";
+import LoginForm from "./components/LoginForm";
 
 //import HeaderLogin from "./pages/HeaderLogin.js";
 //import Topbar from "./pages/dashboard/Topbar.js";
@@ -67,6 +68,8 @@ function App() {
             path="/:nombre_negocio/:user_id/mis-boletos"
             element={<MisBoletos />}
           />
+
+          <Route path="/loginform" element={<LoginForm />} />
 
           {/* Dashboard routes */}
 

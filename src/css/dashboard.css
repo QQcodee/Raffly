@@ -5,9 +5,10 @@
   justify-content: space-between; /* Space items apart */
   height: 100%; /* Full height of its container */
   width: 230px; /* Fixed width */
-  background: #f4f4f4;
+  background: #ffffff;
   padding: 10px;
   box-sizing: border-box; /* Include padding in width/height */
+  box-shadow: #333 0px 4px 4px;
 }
 
 /* Navigation styling */
@@ -66,6 +67,7 @@
   display: flex;
   flex: 1; /* Grow to fill the remaining space */
   overflow: hidden; /* Hide overflow initially */
+  background-color: #f2f7fa;
 }
 
 .main-content {
@@ -120,4 +122,89 @@
 
 .page.create form .error {
   color: red;
+}
+
+/* Container for the select element */
+.select-container {
+  position: relative;
+  display: inline-block;
+  width: 200px; /* Adjust the width as needed */
+}
+
+/* Style the select element itself */
+select {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  appearance: none; /* Remove default arrow */
+  background-color: #fff;
+  cursor: pointer;
+}
+
+/* Style the dropdown arrow */
+.select-container::after {
+  content: "▼"; /* Arrow character */
+  font-size: 12px;
+  color: #555;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+/* Style the select element when focused */
+select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Style for disabled select */
+select:disabled {
+  background-color: #f2f2f2;
+  cursor: not-allowed;
+}
+
+.boletos-dashboard {
+  display: flex;
+  flex-direction: column;
+}
+
+.boletos-dashboard-top {
+}
+
+.content-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 17px;
+  min-width: 400px;
+  border-radius: 15px 15px 0 0;
+  overflow: scroll;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.content-table thead tr {
+  background-color: #ffffff;
+  color: #000000;
+  text-align: left;
+  font-weight: bold;
+}
+
+.content-table th,
+.content-table td {
+  padding: 12px 15px;
+}
+
+.content-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.content-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.content-table tbody tr:last-of-type {
+  border-bottom: 2px solid #000000;
 }

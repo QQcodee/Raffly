@@ -7,9 +7,21 @@ import { useNavigate } from "react-router-dom";
 
 import { useUser } from "../UserContext";
 
+import AccountMenu from "./AccountMenu";
+
 const HeaderSocios = () => {
-  const { user_id } = useParams();
+  const { user_id, nombre_negocio } = useParams();
   const [socioMetaData, setSocioMetaData] = useState([]);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  console.log(nombre_negocio);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
 
   const { user, userRole } = useUser();
 
@@ -51,23 +63,26 @@ const HeaderSocios = () => {
             </div>
             <nav className="nav-menu-socio">
               <ul>
-                <li>
-                  <a
-                    href={
-                      "/" +
-                      encodeURIComponent(
-                        socioMetaData[0].nombre_negocio.replace(/\s+/g, "-")
-                      ) +
-                      "/" +
-                      encodeURIComponent(
-                        socioMetaData[0].user_id.replace(/\s+/g, "-")
-                      ) +
-                      "/mis-boletos"
-                    }
-                  >
-                    Mis Boletos
-                  </a>
-                </li>
+                {user ? (
+                  <li>
+                    <a
+                      href={
+                        "/" +
+                        encodeURIComponent(
+                          socioMetaData[0].nombre_negocio.replace(/\s+/g, "-")
+                        ) +
+                        "/" +
+                        encodeURIComponent(
+                          socioMetaData[0].user_id.replace(/\s+/g, "-")
+                        ) +
+                        "/mis-boletos"
+                      }
+                    >
+                      Mis Boletos
+                    </a>
+                  </li>
+                ) : null}
+
                 <li>
                   <a
                     href={
@@ -106,14 +121,61 @@ const HeaderSocios = () => {
                   <a href="#metodos-de-pago">Metodos de pago</a>
                 </li>
 
-                <li>
-                  <a href="#metodos-de-pago">Perfil</a>
-                </li>
                 {user || userRole === "Socio" ? (
                   <li>
-                    <a href={"/dashboard/" + user?.id}>Dashboard</a>
+                    <a href={"/dashboard/" + user?.id}>Panel de socio</a>
                   </li>
                 ) : null}
+
+                <li>
+                  {user ? (
+                    <>
+                      <Link
+                        style={{
+                          textDecoration: "none",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          display: "flex",
+                          gap: "0.5rem",
+                        }}
+                        className="nav-home-item"
+                        to={"#"}
+                        onClick={toggleMenu}
+                      >
+                        <i className="material-icons">account_circle</i>
+                        {user.user_metadata.name}
+                      </Link>
+                      {isMenuOpen && (
+                        <AccountMenu
+                          onClose={closeMenu}
+                          user={user}
+                          socio_id={user_id}
+                          nombre_negocio={nombre_negocio}
+                        />
+                      )}
+                    </>
+                  ) : (
+                    <Link
+                      style={{
+                        textDecoration: "none",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        display: "flex",
+                        gap: "0.5rem",
+                      }}
+                      className="nav-home-item"
+                      to="/login"
+                    >
+                      <i
+                        onClick={() => navigate("/login")}
+                        className="material-icons"
+                      >
+                        account_circle
+                      </i>
+                      Iniciar Sesion
+                    </Link>
+                  )}
+                </li>
               </ul>
             </nav>
           </header>

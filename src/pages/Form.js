@@ -33,6 +33,8 @@ const CheckoutForm = ({ descripcion, stripe_id, totalAmount, rifa }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+
   const [isLoading, setIsLoading] = useState(false);
 
   const { cart, clearCart, removeItem } = useCart();
@@ -80,7 +82,9 @@ const CheckoutForm = ({ descripcion, stripe_id, totalAmount, rifa }) => {
         user_id: user.id,
         precio: rifa.precioboleto,
         desc: rifa.desc,
-        nombre_rifa: rifa.nombre,
+        nombre_rifa: firstName + " " + lastName,
+        email: email,
+        telefono: phone,
         img_rifa: rifa.img,
         socio: rifa.socio,
         nombre: user.user_metadata.name,
@@ -137,8 +141,8 @@ const CheckoutForm = ({ descripcion, stripe_id, totalAmount, rifa }) => {
         type: paymentMethodType,
         card: cardElement,
         billing_details: {
-          name: user.name,
-          email: user.email,
+          name: firstName + " " + lastName,
+          email: email,
         },
       });
 
@@ -232,6 +236,43 @@ const CheckoutForm = ({ descripcion, stripe_id, totalAmount, rifa }) => {
         {paymentMethodType === "card" && (
           <>
             <div className="stripe-element">
+              <label htmlFor="name">Nombre</label>
+              <input
+                type="text"
+                id="firstName"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                required
+              />
+              <label htmlFor="name">Apellido</label>
+              <input
+                type="text"
+                id="lastName"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                required
+              />
+            </div>
+            <div className="stripe-element">
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+              <label htmlFor="email">Telefono</label>
+              <input
+                type="phone"
+                id="phone"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="stripe-element">
               <label htmlFor="cardNumber">Card Number</label>
               <CardNumberElement id="cardNumber" />
             </div>
@@ -250,8 +291,8 @@ const CheckoutForm = ({ descripcion, stripe_id, totalAmount, rifa }) => {
 
         {paymentMethodType === "oxxo" && (
           <>
-            <div className="oxxo-element">
-              <label htmlFor="name">First Name</label>
+            <div className="stripe-element">
+              <label htmlFor="name">Nombre</label>
               <input
                 type="text"
                 id="firstName"
@@ -259,7 +300,7 @@ const CheckoutForm = ({ descripcion, stripe_id, totalAmount, rifa }) => {
                 onChange={(e) => setFirstName(e.target.value)}
                 required
               />
-              <label htmlFor="name">Last Name</label>
+              <label htmlFor="name">Apellido</label>
               <input
                 type="text"
                 id="lastName"
@@ -268,11 +309,19 @@ const CheckoutForm = ({ descripcion, stripe_id, totalAmount, rifa }) => {
                 required
               />
             </div>
-            <div className="oxxo-element">
+            <div className="stripe-element">
               <label htmlFor="email">Email</label>
               <input
                 type="email"
                 id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+              <label htmlFor="email">Telefono</label>
+              <input
+                type="phone"
+                id="phone"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
