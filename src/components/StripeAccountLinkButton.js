@@ -64,8 +64,7 @@ const StripeAccountLinkButton = ({ userId, userMetaData, stripe_id }) => {
       const data = await response.json();
 
       if (response.ok) {
-        //window.location.href = data.url; // Redirect user to the account link
-        window.open(data.url, "_blank");
+        window.location.href = data.url; // Redirect user to the account link
       } else {
         console.error("Error generating account link:", data.error);
       }

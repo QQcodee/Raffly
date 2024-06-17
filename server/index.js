@@ -9,10 +9,10 @@ const { createClient } = require("@supabase/supabase-js");
 
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
 const supabaseKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
+
 const stripeSecretKey = process.env.STRIPE_SECRET;
 const clientURL = process.env.CLIENT_URL;
-
-const supabase = createClient(supabaseUrl, supabaseKey);
 
 //import supabase from config folder
 
