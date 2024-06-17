@@ -133,6 +133,9 @@ const StripeAccountLinkButton = ({ userId, userMetaData, stripe_id }) => {
           if (data.paymentsActive === true) {
             setAccountExists("true");
           }
+          if (data.paymentsActive === false) {
+            setAccountExists("false");
+          }
         } else {
           console.log("Account does not exist.");
         }
@@ -149,19 +152,25 @@ const StripeAccountLinkButton = ({ userId, userMetaData, stripe_id }) => {
       {stripe_id ? (
         <>
           {accountExists === "default" ? (
-            <>
-              <p>Tu cuenta aun no a sido configurada</p>
-              <button onClick={generateAccountLink}>
-                Continuar Configuracion
-              </button>
-            </>
+            <p>Cargando...</p>
           ) : accountExists === "true" ? (
             <>
               <button onClick={generateDashboardAccessLink}>
                 Acceder al Dashboard de Stripe
               </button>
             </>
-          ) : null}
+          ) : accountExists === "false" ? (
+            <>
+              <p>Tu cuenta aun no a sido configurada</p>
+              <button onClick={generateAccountLink}>
+                Continuar Configuracion
+              </button>
+            </>
+          ) : (
+            <>
+              <p>Cargando...</p>
+            </>
+          )}
         </>
       ) : (
         <>
