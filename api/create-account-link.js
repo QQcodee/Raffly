@@ -20,8 +20,8 @@ app.post("/api/create-account-link", async (req, res) => {
   const account = await stripe.accounts.create({ type: "express" });
   const accountLink = await stripe.accountLinks.create({
     account: account.id,
-    refresh_url: "https://www.raffly.com.mx//stripe",
-    return_url: "https://www.raffly.com.mx//stripe",
+    refresh_url: "https://www.raffly.com.mx",
+    return_url: "https://www.raffly.com.mx",
     type: "account_onboarding",
   });
 

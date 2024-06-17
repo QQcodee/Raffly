@@ -39,7 +39,8 @@ const StripeAccountLinkButton = ({ userId, userMetaData, stripe_id }) => {
       }
 
       // Step 3: Open the account link in a new tab
-      window.open(data.url, "_blank");
+      window.location.href = data.url;
+      //window.open(data.url, "_blank");
     } catch (error) {
       console.error(
         "Error creating account link and associating:",
@@ -64,7 +65,7 @@ const StripeAccountLinkButton = ({ userId, userMetaData, stripe_id }) => {
       const data = await response.json();
 
       if (response.ok) {
-        window.location.href = data.url; // Redirect user to the account link
+        window.open(data.url, "_blank"); // Redirect user to the account link
       } else {
         console.error("Error generating account link:", data.error);
       }
@@ -148,21 +149,19 @@ const StripeAccountLinkButton = ({ userId, userMetaData, stripe_id }) => {
       {stripe_id ? (
         <>
           {accountExists === "default" ? (
-            <p>Cargando....</p>
-          ) : accountExists === "true" ? (
-            <>
-              <button onClick={generateDashboardAccessLink}>
-                Acceder al Dashboard de Stripe
-              </button>
-            </>
-          ) : (
             <>
               <p>Tu cuenta aun no a sido configurada</p>
               <button onClick={generateAccountLink}>
                 Continuar Configuracion
               </button>
             </>
-          )}
+          ) : accountExists === "true" ? (
+            <>
+              <button onClick={generateDashboardAccessLink}>
+                Acceder al Dashboard de Stripe
+              </button>
+            </>
+          ) : null}
         </>
       ) : (
         <>
