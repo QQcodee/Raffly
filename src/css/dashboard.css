@@ -169,10 +169,11 @@ select:disabled {
 
 .boletos-dashboard {
   display: flex;
-  flex-direction: column;
 }
 
 .boletos-dashboard-top {
+  display: flex;
+  flex-direction: column;
 }
 
 .content-table {
@@ -181,8 +182,8 @@ select:disabled {
   font-size: 17px;
   min-width: 400px;
   border-radius: 15px 15px 0 0;
-  overflow: scroll;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  border: 1px solid #000000;
 }
 
 .content-table thead tr {

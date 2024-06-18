@@ -395,7 +395,13 @@ const CheckoutForm = ({ descripcion, stripe_id, totalAmount, rifa }) => {
   );
 };
 
-function Form({ descripcion, stripe_id, totalAmount, rifa }) {
+function Form({
+  descripcion,
+  stripe_id,
+  totalAmount,
+  rifa,
+  paymentMethodType,
+}) {
   return (
     <Elements stripe={stripePromise}>
       <CheckoutForm
@@ -403,6 +409,7 @@ function Form({ descripcion, stripe_id, totalAmount, rifa }) {
         stripe_id={stripe_id}
         totalAmount={totalAmount}
         rifa={rifa}
+        paymentMethodType={paymentMethodType}
       />
     </Elements>
   );

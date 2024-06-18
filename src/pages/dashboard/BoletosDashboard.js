@@ -155,60 +155,72 @@ const BoletosDashboard = () => {
             ))}
           </select>
         </div>
+
+        <div>
+          <input
+            type="text"
+            id="nombreInput"
+            value={searchTerm}
+            onChange={handleNombreSearch}
+            placeholder="Buscar por nombre"
+            style={{
+              width: "200px",
+              color: "black",
+              padding: "10px",
+              margin: "10px",
+              borderRadius: "15px",
+              border: "1px solid #ccc",
+              boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+            }}
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            id="numberInput"
+            value={searchNumber}
+            onChange={handleNumberSearch}
+            placeholder="Buscar por boleto"
+            style={{
+              width: "200px",
+              color: "black",
+              padding: "10px",
+              margin: "10px",
+              borderRadius: "15px",
+              border: "1px solid #ccc",
+              boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+            }}
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            id="telefonoInput"
+            value={searchTelefono}
+            onChange={(e) => setSearchTelefono(e.target.value)}
+            placeholder="Buscar por telefono"
+            style={{
+              width: "200px",
+              color: "black",
+              padding: "10px",
+              margin: "10px",
+              borderRadius: "15px",
+              border: "1px solid #ccc",
+              boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+            }}
+          />
+        </div>
       </div>
-      <div>
-        <input
-          type="text"
-          id="nombreInput"
-          value={searchTerm}
-          onChange={handleNombreSearch}
-          placeholder="Buscar por nombre"
-          style={{
-            width: "200px",
-            color: "black",
-            padding: "10px",
-            margin: "10px",
-            borderRadius: "15px",
-            border: "1px solid #ccc",
-            boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
-          }}
-        />
-      </div>
-      <div>
-        <input
-          type="text"
-          id="numberInput"
-          value={searchNumber}
-          onChange={handleNumberSearch}
-          placeholder="Buscar por boleto"
-          style={{
-            width: "200px",
-            color: "black",
-            padding: "10px",
-            margin: "10px",
-            borderRadius: "15px",
-            border: "1px solid #ccc",
-            boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
-          }}
-        />
-      </div>
-      <input
-        type="text"
-        id="telefonoInput"
-        value={searchTelefono}
-        onChange={(e) => setSearchTelefono(e.target.value)}
-        placeholder="Buscar por telefono"
+      <div
         style={{
-          width: "200px",
-          color: "black",
+          overflowY: "auto",
+          maxHeight: "800px",
+          width: "100%",
+          marginLeft: "10px",
           padding: "10px",
-          margin: "10px",
-          borderRadius: "15px",
-          border: "1px solid #ccc",
-          boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
         }}
-      />
-      <div>
+        className="table-container"
+      >
         <table className="content-table">
           <thead>
             <tr>

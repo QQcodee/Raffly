@@ -31,6 +31,19 @@ const AccountMenu = ({ onClose, user, socio_id, nombre_negocio }) => {
           {user.user_metadata.name}
         </li>
         <li onClick={() => navigate("/success")}>Mi Cuenta</li>
+        <li
+          onClick={() =>
+            navigate(
+              "/" +
+                encodeURIComponent(nombre_negocio.replace(/\s+/g, "-")) +
+                "/" +
+                encodeURIComponent(socio_id.replace(/\s+/g, "-")) +
+                "/mis-boletos"
+            )
+          }
+        >
+          Mis Boletos
+        </li>
         <li>Configuracion</li>
         <li>Facturacion</li>
         <li onClick={logout}>Cerrar Sesion</li>
