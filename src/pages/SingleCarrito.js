@@ -113,22 +113,24 @@ const SingleCarrito = () => {
           </div>
 
           <div className="form-checkout">
-            <Form
-              precioBoleto={cart.price}
-              rifa={cart[0].rifa}
-              totalAmount={totalAmount}
-              socioMetaData={socioMetaData}
-              stripe_id={socioMetaData[0].stripe_id}
-              descripcion={
-                "Ticket:" +
-                cart[0].rifa.nombre +
-                "(" +
-                cart[0].rifa.id +
-                ")" +
-                "Numeros:" +
-                ticketNumbersArray
-              }
-            />
+            {rifaDetails && socioMetaData[0] ? (
+              <Form
+                precioBoleto={cart.price}
+                rifa={cart[0].rifa}
+                totalAmount={totalAmount}
+                socioMetaData={socioMetaData}
+                stripe_id={socioMetaData[0].stripe_id}
+                descripcion={
+                  "Ticket:" +
+                  cart[0].rifa.nombre +
+                  "(" +
+                  cart[0].rifa.id +
+                  ")" +
+                  "Numeros:" +
+                  ticketNumbersArray
+                }
+              />
+            ) : null}
           </div>
         </div>
       ) : (
