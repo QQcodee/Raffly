@@ -113,7 +113,7 @@ const SingleCarrito = () => {
           </div>
 
           <div className="form-checkout">
-            {rifaDetails && socioMetaData[0] ? (
+            {socioMetaData[0] ? (
               <Form
                 precioBoleto={cart.price}
                 rifa={cart[0].rifa}
