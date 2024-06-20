@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { CartProvider, useCart } from "./CartContext";
+import { CartProvider } from "./CartContext";
 
 //import { CssBaseline, ThemeProvider } from "@mui/material";
 //import { ColorModeContext, useMode } from "./theme";
@@ -26,7 +26,6 @@ import SingleSocio from "./pages/SingleSocio";
 import SingleContacto from "./pages/SingleContacto";
 
 // import components
-import Form from "./pages/Form";
 import Onboarding from "./pages/Onboarding";
 import MisBoletos from "./pages/MisBoletos";
 import BoletoNuevo from "./pages/BoletoNuevo";

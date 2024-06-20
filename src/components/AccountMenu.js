@@ -1,5 +1,5 @@
 import supabase from "../config/supabaseClient";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const AccountMenu = ({ onClose, user, socio_id, nombre_negocio }) => {
   const navigate = useNavigate();

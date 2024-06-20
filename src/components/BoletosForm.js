@@ -1,4 +1,3 @@
-import { useState } from "react";
 import supabase from "../config/supabaseClient";
 import { useCart } from "../CartContext";
 import { useUser } from "../UserContext";

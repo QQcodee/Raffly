@@ -1,5 +1,4 @@
 import React from "react";
-import CountdownTimer from "./CountdownTimer";
 //import "./BoletosList.css"; // Import CSS file
 import "../css//Single-Socios/BoletosList.css";
 import supabase from "../config/supabaseClient";
