@@ -118,6 +118,7 @@ const SingleCarrito = () => {
               rifa={cart[0].rifa}
               totalAmount={totalAmount}
               socioMetaData={socioMetaData}
+              stripe_id={socioMetaData[0].stripe_id}
               descripcion={
                 "Ticket:" +
                 cart[0].rifa.nombre +
