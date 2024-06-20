@@ -6,7 +6,7 @@ const AccountMenu = ({ onClose, user, socio_id, nombre_negocio }) => {
   async function logout() {
     if (socio_id !== null && nombre_negocio !== null) {
       const { error } = await supabase.auth.signOut();
-      navigate("/" + nombre_negocio + "/" + socio_id / +"/rifas");
+      navigate("/" + nombre_negocio + "/" + socio_id);
     } else {
       const { error } = await supabase.auth.signOut();
       navigate("/");
@@ -30,7 +30,20 @@ const AccountMenu = ({ onClose, user, socio_id, nombre_negocio }) => {
 
           {user.user_metadata.name}
         </li>
-        <li onClick={() => navigate("/success")}>Mi Cuenta</li>
+
+        <li
+          onClick={() =>
+            navigate(
+              "/" +
+                encodeURIComponent(nombre_negocio.replace(/\s+/g, "-")) +
+                "/" +
+                encodeURIComponent(socio_id.replace(/\s+/g, "-")) +
+                "/perfil"
+            )
+          }
+        >
+          Mi Cuenta
+        </li>
         <li
           onClick={() =>
             navigate(

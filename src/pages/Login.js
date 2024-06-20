@@ -14,17 +14,6 @@ function Login() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const checkAuthState = async () => {
-      const { user } = supabase.auth.session();
-      if (user) {
-        navigate("/success");
-      } else {
-        navigate("/login");
-      }
-    };
-
-    checkAuthState();
-
     supabase.auth.onAuthStateChange((event, session) => {
       if (event === "SIGNED_IN") {
         navigate("/success");
@@ -46,6 +35,7 @@ function Login() {
             supabaseClient={supabase}
             providers={["google"]}
             magicLink={true}
+            redirectTo="https://www.raffly.com.mx/"
             appearance={{ theme: ThemeSupa }}
             theme="minimal"
             localization={{

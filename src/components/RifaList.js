@@ -7,7 +7,6 @@ import { useUser } from "../UserContext";
 import { useEffect } from "react";
 
 //components
-import ByWho from "./ByWho";
 import LoadingBar from "./LoadingBar";
 
 //css

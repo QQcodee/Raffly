@@ -32,6 +32,8 @@ import MisBoletos from "./pages/MisBoletos";
 import BoletoNuevo from "./pages/BoletoNuevo";
 import BoletosDashboard from "./pages/dashboard/BoletosDashboard";
 import LoginForm from "./components/LoginForm";
+import SingleCarrito from "./pages/SingleCarrito";
+import LoginSingle from "./pages/LoginSIngle";
 
 //import HeaderLogin from "./pages/HeaderLogin.js";
 //import Topbar from "./pages/dashboard/Topbar.js";
@@ -67,6 +69,20 @@ function App() {
           <Route
             path="/:nombre_negocio/:user_id/mis-boletos"
             element={<MisBoletos />}
+          />
+
+          <Route
+            path="/:nombre_negocio/:user_id/carrito"
+            element={<SingleCarrito />}
+          />
+
+          <Route
+            path="/:nombre_negocio/:user_id/login"
+            element={<LoginSingle />}
+          />
+          <Route
+            path="/:nombre_negocio/:user_id/perfil"
+            element={<SingleCarrito />}
           />
 
           <Route path="/loginform" element={<LoginForm />} />

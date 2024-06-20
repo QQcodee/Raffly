@@ -9,7 +9,7 @@ import {
   CardExpiryElement,
 } from "@stripe/react-stripe-js";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useUser } from "../UserContext";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../CartContext";
@@ -22,7 +22,13 @@ import "../css/CheckoutForm.css";
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC);
 
-const CheckoutForm = ({ descripcion, stripe_id, totalAmount, rifa }) => {
+const CheckoutForm = ({
+  descripcion,
+  stripe_id,
+  totalAmount,
+  rifa,
+  socioMetaData,
+}) => {
   const stripe = useStripe();
   const elements = useElements();
   const [paymentMethodType, setPaymentMethodType] = useState("card");
@@ -37,7 +43,10 @@ const CheckoutForm = ({ descripcion, stripe_id, totalAmount, rifa }) => {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const { cart, clearCart, removeItem } = useCart();
+  const { cart, clearCart, removeItem, cartCount } = useCart();
+
+  const ticketNumbersArray = cart.map((item) => item.ticketNumber);
+  const ticketNumbersWhatsapp = ticketNumbersArray.join("%0A");
 
   const navigate = useNavigate();
 
@@ -73,7 +82,6 @@ const CheckoutForm = ({ descripcion, stripe_id, totalAmount, rifa }) => {
 
   const handleSuccesfulPayment = async (event) => {
     // Extract ticket numbers from cart items
-    const ticketNumbersArray = cart.map((item) => item.ticketNumber);
 
     if (paymentMethodType === "card") {
       const { data, error } = await supabase.from("boletos").insert([
@@ -240,6 +248,24 @@ const CheckoutForm = ({ descripcion, stripe_id, totalAmount, rifa }) => {
         console.error("Error:", error);
         setErrorMessage("Payment processing failed. Please try again.");
       }
+    } else if (paymentMethodType === "transferencia") {
+      window.open(
+        "https://api.whatsapp.com/send/?phone=" +
+          socioMetaData[0].phone +
+          "&text=Hola aparte " +
+          cartCount +
+          " boletos para el combo millonario: %0A ———————————— %0A Nombre: " +
+          firstName +
+          "%0A Apellido: " +
+          lastName +
+          "%0A Telefono: " +
+          phone +
+          "%0A%0A Boletos:%0A" +
+          ticketNumbersWhatsapp +
+          "%0A%0ATOTAL: $" +
+          totalAmount +
+          " %0A%0A CUENTAS DE PAGO AQUI: www.raffly.com.mx %0A %0A El siguiente paso es enviar foto del comprobante de pago por aqui"
+      );
     }
 
     setIsLoading(false);
@@ -247,7 +273,9 @@ const CheckoutForm = ({ descripcion, stripe_id, totalAmount, rifa }) => {
 
   return (
     <div className="form-container">
-      <h2 className="form-header">Checkout</h2>
+      <h2 style={{ fontSize: "32px" }} className="form-header">
+        Datos de pago
+      </h2>
       <form onSubmit={handleSubmit}>
         <div className="payment-methods">
           <label className="payment-method">
@@ -258,7 +286,11 @@ const CheckoutForm = ({ descripcion, stripe_id, totalAmount, rifa }) => {
               checked={paymentMethodType === "card"}
               onChange={(e) => setPaymentMethodType(e.target.value)}
             />
-            Card
+            <img
+              src="https://ivltiudjxnrytalzxfwr.supabase.co/storage/v1/object/public/imagenes-rifas/public/pngwing.com__5_.png"
+              alt="Tarjeta"
+            />
+            Tarjeta
           </label>
           <label className="payment-method">
             <input
@@ -268,30 +300,62 @@ const CheckoutForm = ({ descripcion, stripe_id, totalAmount, rifa }) => {
               checked={paymentMethodType === "oxxo"}
               onChange={(e) => setPaymentMethodType(e.target.value)}
             />
+            <img
+              src="https://ivltiudjxnrytalzxfwr.supabase.co/storage/v1/object/public/imagenes-rifas/public/logooxxo__1_.png"
+              alt="OXXO"
+            />
             OXXO
+          </label>
+          <label className="payment-method">
+            <input
+              type="radio"
+              name="paymentMethod"
+              value="transferencia"
+              checked={paymentMethodType === "transferencia"}
+              onChange={(e) => setPaymentMethodType(e.target.value)}
+            />
+            <i className="material-icons">currency_exchange</i>
+            Transferencia
           </label>
         </div>
 
         {paymentMethodType === "card" && (
           <>
-            <div className="stripe-element">
-              <label htmlFor="name">Nombre</label>
-              <input
-                type="text"
-                id="firstName"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-                required
-              />
-              <label htmlFor="name">Apellido</label>
-              <input
-                type="text"
-                id="lastName"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-                required
-              />
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+
+                width: "100%",
+                marginBottom: "10px",
+                marginTop: "10px",
+                gap: "10px",
+                alignItems: "center",
+              }}
+              className="stripe-element"
+            >
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                <label htmlFor="name">Nombre</label>
+                <input
+                  type="text"
+                  id="firstName"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  required
+                />
+              </div>
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                <label htmlFor="name">Apellido</label>
+                <input
+                  type="text"
+                  id="lastName"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  required
+                />
+              </div>
             </div>
+
             <div className="stripe-element">
               <label htmlFor="email">Email</label>
               <input
@@ -304,6 +368,7 @@ const CheckoutForm = ({ descripcion, stripe_id, totalAmount, rifa }) => {
               <label htmlFor="phone">Telefono</label>
               <input
                 type="phone"
+                placeholder="Numero de whatsapp"
                 id="phone"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
@@ -360,6 +425,65 @@ const CheckoutForm = ({ descripcion, stripe_id, totalAmount, rifa }) => {
               <label htmlFor="phone">Telefono</label>
               <input
                 type="phone"
+                placeholder="Numero de whatsapp"
+                id="phone"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                required
+              />
+            </div>
+          </>
+        )}
+
+        {paymentMethodType === "transferencia" && (
+          <>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+
+                width: "100%",
+                marginBottom: "10px",
+                marginTop: "10px",
+                gap: "10px",
+                alignItems: "center",
+              }}
+              className="stripe-element"
+            >
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                <label htmlFor="name">Nombre</label>
+                <input
+                  type="text"
+                  id="firstName"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  required
+                />
+              </div>
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                <label htmlFor="name">Apellido</label>
+                <input
+                  type="text"
+                  id="lastName"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  required
+                />
+              </div>
+            </div>
+            <div className="stripe-element">
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+              <label htmlFor="phone">Telefono</label>
+              <input
+                type="phone"
+                placeholder="Numero de whatsapp"
                 id="phone"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
@@ -370,18 +494,24 @@ const CheckoutForm = ({ descripcion, stripe_id, totalAmount, rifa }) => {
         )}
 
         {user ? (
-          <>
-            <button
-              type="submit"
-              className="button"
-              disabled={!stripe || isLoading}
-            >
-              {isLoading ? "Processing..." : "Pay"}
+          paymentMethodType === "card" || paymentMethodType === "oxxo" ? (
+            <>
+              <button
+                type="submit"
+                className="button"
+                disabled={!stripe || isLoading}
+              >
+                {isLoading ? "Processing..." : "Pagar"}
+              </button>
+              {errorMessage && (
+                <div className="error-message">{errorMessage}</div>
+              )}
+            </>
+          ) : paymentMethodType === "transferencia" ? (
+            <button type="submit" className="button">
+              Apartar
             </button>
-            {errorMessage && (
-              <div className="error-message">{errorMessage}</div>
-            )}
-          </>
+          ) : null
         ) : (
           <div className="error-message">
             Inicia sesion para realizar el pago
@@ -401,6 +531,7 @@ function Form({
   totalAmount,
   rifa,
   paymentMethodType,
+  socioMetaData,
 }) {
   return (
     <Elements stripe={stripePromise}>
@@ -410,6 +541,7 @@ function Form({
         totalAmount={totalAmount}
         rifa={rifa}
         paymentMethodType={paymentMethodType}
+        socioMetaData={socioMetaData}
       />
     </Elements>
   );

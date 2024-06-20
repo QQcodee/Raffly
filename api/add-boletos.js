@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 app.post("/api/add-boletos", async (req, res) => {
   const {
     userId,
-    accountId,
+
     rifa,
     firstName,
     lastName,

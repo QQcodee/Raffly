@@ -8,12 +8,14 @@ import { useNavigate } from "react-router-dom";
 import { useUser } from "../UserContext";
 
 import AccountMenu from "./AccountMenu";
+import { useCart } from "../CartContext";
 
 const HeaderSocios = () => {
   const { user_id, nombre_negocio } = useParams();
+
   const [socioMetaData, setSocioMetaData] = useState([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  console.log(nombre_negocio);
+  const { cartCount } = useCart();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -128,6 +130,26 @@ const HeaderSocios = () => {
                 ) : null}
 
                 <li>
+                  <Link
+                    className="nav-home-item"
+                    to={
+                      "/" +
+                      encodeURIComponent(
+                        socioMetaData[0].nombre_negocio.replace(/\s+/g, "-")
+                      ) +
+                      "/" +
+                      encodeURIComponent(
+                        socioMetaData[0].user_id.replace(/\s+/g, "-")
+                      ) +
+                      "/carrito"
+                    }
+                  >
+                    <i className="material-icons">local_mall</i>
+                    <sub>{cartCount}</sub>
+                  </Link>
+                </li>
+
+                <li>
                   {user ? (
                     <>
                       <Link
@@ -164,10 +186,35 @@ const HeaderSocios = () => {
                         gap: "0.5rem",
                       }}
                       className="nav-home-item"
-                      to="/login"
+                      to={
+                        "/" +
+                        encodeURIComponent(
+                          socioMetaData[0].nombre_negocio.replace(/\s+/g, "-")
+                        ) +
+                        "/" +
+                        encodeURIComponent(
+                          socioMetaData[0].user_id.replace(/\s+/g, "-")
+                        ) +
+                        "/login"
+                      }
                     >
                       <i
-                        onClick={() => navigate("/login")}
+                        onClick={() =>
+                          navigate(
+                            "/" +
+                              encodeURIComponent(
+                                socioMetaData[0].nombre_negocio.replace(
+                                  /\s+/g,
+                                  "-"
+                                )
+                              ) +
+                              "/" +
+                              encodeURIComponent(
+                                socioMetaData[0].user_id.replace(/\s+/g, "-")
+                              ) +
+                              "/login"
+                          )
+                        }
                         className="material-icons"
                       >
                         account_circle

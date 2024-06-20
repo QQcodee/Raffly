@@ -14,6 +14,7 @@ const BoletosDashboard = () => {
   const [searchTerm, setSearchTerm] = useState(""); // State for search term
   const [searchNumber, setSearchNumber] = useState(""); // State for searching number in num_boletos
   const [searchTelefono, setSearchTelefono] = useState(""); // State for searching by telefono
+  const [selectedEstado, setSelectedEstado] = useState(""); // State for selected estado
 
   const [currentRifa, setCurrentRifa] = useState("");
 
@@ -111,10 +112,24 @@ const BoletosDashboard = () => {
       ? item.telefono.toString().includes(searchTelefono.toString())
       : false;
 
+    // Determine the estado based on item properties
+    const estado =
+      item.comprado === true
+        ? "Pagado"
+        : item.oxxo === true
+        ? "Pago pendiente oxxo"
+        : item.apartado === true
+        ? "Apartado"
+        : null;
+
+    // Match the selected estado or show all if no estado is selected
+    const estadoMatch = selectedEstado === "" || estado === selectedEstado;
+
     return (
       nombreMatch &&
       (searchNumber === "" || numberMatch) &&
-      (searchTelefono === "" || telefonoMatch)
+      (searchTelefono === "" || telefonoMatch) &&
+      estadoMatch
     );
   });
 
@@ -210,6 +225,28 @@ const BoletosDashboard = () => {
             }}
           />
         </div>
+
+        <div>
+          <select
+            id="estadoSelect"
+            value={selectedEstado}
+            onChange={(e) => setSelectedEstado(e.target.value)}
+            style={{
+              width: "200px",
+              color: "black",
+              padding: "10px",
+              margin: "10px",
+              borderRadius: "15px",
+              border: "1px solid #ccc",
+              boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+            }}
+          >
+            <option value="">Todos</option>
+            <option value="Pagado">Pagado</option>
+            <option value="Pago pendiente oxxo">Pago pendiente oxxo</option>
+            <option value="Apartado">Apartado</option>
+          </select>
+        </div>
       </div>
       <div
         style={{
@@ -260,9 +297,11 @@ const BoletosDashboard = () => {
                 <td>
                   {item.comprado === true
                     ? "Pagado"
-                    : item.oxxo
+                    : item.oxxo === true
                     ? "Pago pendiente oxxo"
-                    : "Apartado"}
+                    : item.apartado === true
+                    ? "Apartado"
+                    : "Error"}
                 </td>
                 <td>{item.email}</td>
                 <td>{item.telefono}</td>
