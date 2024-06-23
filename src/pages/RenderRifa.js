@@ -124,8 +124,8 @@ const RenderRifa = () => {
     fetchSoldTickets();
   }, [rifaDetails.id]);
 
-  const columnCount = 20; // Number of tickets per row
-  const rowCount = Math.ceil(rifaDetails.numboletos / columnCount); // Total rows needed for the tickets
+  //const columnCount = 20; // Number of tickets per row
+  //const rowCount = Math.ceil(rifaDetails.numboletos / columnCount); // Total rows needed for the tickets
 
   const [selectedTickets, setSelectedTickets] = useState({});
 
@@ -242,6 +242,41 @@ const RenderRifa = () => {
     setOpen(false);
   };
 
+  const [columnCount, setColumnCount] = useState(3);
+  const [columnWidth, setColumnWidth] = useState(200);
+  const [rowHeight, setRowHeight] = useState(200);
+  const [responsiveWidth, setresponsiveWidth] = useState(1150);
+
+  useEffect(() => {
+    const updateGridLayout = () => {
+      const width = window.innerWidth;
+
+      if (width <= 768) {
+        setColumnCount(7);
+        setColumnWidth(50); // 32px padding
+        setRowHeight(40);
+        setresponsiveWidth(370);
+      } else if (width <= 1400) {
+        setColumnCount(15);
+        setColumnWidth(55); // 16px gap
+        setRowHeight(50);
+        setresponsiveWidth(700);
+      } else {
+        setColumnCount(20);
+        setColumnWidth(55); // 32px gap
+        setRowHeight(50);
+        setresponsiveWidth(1150);
+      }
+    };
+
+    updateGridLayout();
+    window.addEventListener("resize", updateGridLayout);
+
+    return () => {
+      window.removeEventListener("resize", updateGridLayout);
+    };
+  }, []);
+
   return (
     <>
       <div>
@@ -267,7 +302,7 @@ const RenderRifa = () => {
                   ) : null}
                 </div>
 
-                <h2>${rifaDetails.precioboleto} / numero</h2>
+                <h2 className="rifa-price">${rifaDetails.precioboleto} mxn</h2>
 
                 <hr className="divider-rifa-render" />
 
@@ -297,37 +332,26 @@ const RenderRifa = () => {
 
         <div className="boletos-carrito">
           <div className="cart-section">
-            <h2 style={{ textAlign: "center" }}>
-              Carrito {cart.length > 0 ? <>({cart.length}) </> : null}{" "}
-            </h2>
-            <p style={{ textAlign: "center" }}>
-              Total a pagar: ${totalAmount.toFixed(0)}
-            </p>
-            <button
-              className="random-ticket-button"
-              onClick={handleSelectRandomTicket}
-            >
-              Agregar boleto aleatorio
-            </button>
-            {cart.length === 0 ? (
-              <p style={{ textAlign: "center", fontWeight: "400" }}>
-                Ningun boleto seleccionado
+            <div className="cart-header">
+              <h2
+                style={{
+                  textAlign: "center",
+                  fontSize: "24px",
+                }}
+              >
+                Carrito {cart.length > 0 ? <>({cart.length}) </> : null}{" "}
+              </h2>
+              <p style={{ textAlign: "center" }}>
+                Total a pagar: ${totalAmount.toFixed(0)}
               </p>
-            ) : (
-              <>
-                <ul>
-                  {cart.map((item) => (
-                    <li key={item.id}>
-                      #{item.ticketNumber} - ${item.price}
-                      <button
-                        onClick={() => handleRemoveTicketFromCart(item.id)}
-                      >
-                        Eliminar
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-                {socioMetaData[0] ? (
+              <button
+                className="random-ticket-button"
+                onClick={handleSelectRandomTicket}
+              >
+                Agregar boleto aleatorio
+              </button>
+              {socioMetaData[0] ? (
+                <div className="buy-button-container-mobile">
                   <button
                     className="buy-button"
                     onClick={() => {
@@ -352,10 +376,66 @@ const RenderRifa = () => {
                       fontSize: "16px",
                       cursor: "pointer",
                       width: "100%",
+                      marginTop: "20px",
                     }}
                   >
                     Comprar
                   </button>
+                </div>
+              ) : null}
+            </div>
+            {cart.length === 0 ? (
+              <p style={{ textAlign: "center", fontWeight: "400" }}>
+                Ningun boleto seleccionado
+              </p>
+            ) : (
+              <>
+                <ul>
+                  {cart.map((item) => (
+                    <li key={item.id}>
+                      #{item.ticketNumber} - ${item.price}
+                      <button
+                        onClick={() => handleRemoveTicketFromCart(item.id)}
+                      >
+                        Eliminar
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+                {socioMetaData[0] ? (
+                  <div className="buy-button-container">
+                    <button
+                      className="buy-button"
+                      onClick={() => {
+                        navigate(
+                          "/" +
+                            encodeURIComponent(
+                              socioMetaData[0].nombre_negocio.replace(
+                                /\s+/g,
+                                "-"
+                              )
+                            ) +
+                            "/" +
+                            encodeURIComponent(
+                              socioMetaData[0].user_id.replace(/\s+/g, "-")
+                            ) +
+                            "/carrito"
+                        );
+                      }}
+                      style={{
+                        backgroundColor: socioMetaData[0].color,
+                        color: "white",
+                        borderRadius: "15px",
+                        border: "none",
+                        padding: "10px 20px",
+                        fontSize: "16px",
+                        cursor: "pointer",
+                        width: "100%",
+                      }}
+                    >
+                      Comprar
+                    </button>
+                  </div>
                 ) : null}
               </>
             )}
@@ -363,16 +443,49 @@ const RenderRifa = () => {
           <Grid
             className="boletos-grid"
             columnCount={columnCount}
-            columnWidth={55}
-            height={600}
-            rowCount={rowCount}
-            rowHeight={50}
             overscanRowCount={5}
-            width={1150}
             style={{ border: "none", overflowX: "hidden" }}
+            columnWidth={columnWidth}
+            height={600}
+            rowCount={Math.ceil(rifaDetails.numboletos / columnCount)}
+            rowHeight={rowHeight}
+            width={responsiveWidth}
           >
             {Cell}
           </Grid>
+          {socioMetaData[0] ? (
+            <div className="buy-button-container-mobile">
+              <button
+                className="buy-button"
+                onClick={() => {
+                  navigate(
+                    "/" +
+                      encodeURIComponent(
+                        socioMetaData[0].nombre_negocio.replace(/\s+/g, "-")
+                      ) +
+                      "/" +
+                      encodeURIComponent(
+                        socioMetaData[0].user_id.replace(/\s+/g, "-")
+                      ) +
+                      "/carrito"
+                  );
+                }}
+                style={{
+                  backgroundColor: socioMetaData[0].color,
+                  color: "white",
+                  borderRadius: "15px",
+                  border: "none",
+                  padding: "10px 20px",
+                  fontSize: "16px",
+                  cursor: "pointer",
+                  width: "100%",
+                  marginTop: "20px",
+                }}
+              >
+                Comprar
+              </button>
+            </div>
+          ) : null}
         </div>
       </div>
     </>

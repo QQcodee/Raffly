@@ -16,6 +16,8 @@ const SingleSocio = () => {
   const [fetchError, setFetchError] = useState(null);
   const [rifas, setRifas] = useState(null);
 
+  console.log(rifas);
+
   useEffect(() => {
     const fetchRifas = async () => {
       const { data, error } = await supabase
@@ -42,19 +44,17 @@ const SingleSocio = () => {
       <HeaderSocios />
 
       <div className="div-grid-archive">
-        <div>
-          {fetchError && <p>{fetchError}</p>}
-          <h1>Rifas Activas </h1>
-          <hr className="divider-title" />
+        {fetchError && <p>{fetchError}</p>}
+        <h1>Rifas Activas </h1>
+        <hr className="divider-title" />
 
-          {rifas && (
-            <div className="rifas-grid-archive">
-              {rifas.map((rifa) => (
-                <RifaList key={rifa.id} rifa={rifa} boletosVendidos={450} />
-              ))}
-            </div>
-          )}
-        </div>
+        {rifas && (
+          <div className="rifas-grid-archive">
+            {rifas.map((rifa) => (
+              <RifaList key={rifa.id} rifa={rifa} />
+            ))}
+          </div>
+        )}
       </div>
     </>
   );

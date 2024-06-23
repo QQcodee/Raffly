@@ -1,20 +1,24 @@
 .rifas-grid-archive {
   margin-top: 40px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 80px;
+  grid-template-columns: repeat(auto-fill, 300px);
+  gap: 300px;
+  left: 2%;
+  position: relative;
 }
 
 .boletos-grid-archive {
   margin-top: 40px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 40px;
+  grid-template-columns: repeat(auto-fill, 300px);
+  gap: 150px;
+  left: 10%;
+  position: relative;
 }
 .rifas-grid-home {
   margin-top: 40px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 150px;
 }
 
@@ -26,8 +30,9 @@
 }
 
 .div-grid-archive {
-  max-width: 1500px;
-  margin-left: 150px;
+  width: auto;
+  position: relative;
+  left: 2%;
   padding: 20px;
 }
 
@@ -46,4 +51,37 @@
 
 .root {
   background: #000;
+}
+
+@media (max-width: 1410px) {
+  .rifas-grid-archive {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 300px);
+    gap: 250px;
+    left: 2%;
+    position: relative;
+  }
+
+  .div-grid-archive {
+    width: auto;
+    position: relative;
+    margin: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .rifas-grid-archive {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 200px);
+    gap: 40px;
+    left: 2%;
+    position: relative;
+  }
+
+  .div-grid-archive {
+    position: relative;
+    margin: auto;
+  }
 }

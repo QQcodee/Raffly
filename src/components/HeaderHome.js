@@ -1,24 +1,24 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom"; // Assuming you are using React Router
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../CartContext";
-import supabase from "../config/supabaseClient";
-import { useState, useEffect } from "react";
-
 import { useUser } from "../UserContext";
-
+import AccountMenu from "./AccountMenu";
 import "../css/index.css";
 import "../css/NavHome.css";
-import AccountMenu from "./AccountMenu";
 
 const HeaderHome = () => {
   const navigate = useNavigate();
   const { user, userRole } = useUser();
   const { cartCount } = useCart();
-
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isNavOpen, setIsNavOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const toggleNav = () => {
+    setIsNavOpen(!isNavOpen);
   };
 
   const closeMenu = () => {
@@ -30,36 +30,36 @@ const HeaderHome = () => {
       <Link to="/" style={{ textDecoration: "none" }}>
         <h1 className="logo-title">Raffly</h1>
       </Link>
-
-      <nav className="nav-home">
+      <div className="hamburger" onClick={toggleNav}></div>
+      <nav className={`nav-home ${isNavOpen ? "active" : ""}`}>
         <ul className="nav-home-ul">
           <li>
-            <Link className="nav-home-item" to="/">
+            <Link className="nav-home-item" to="/" onClick={toggleNav}>
               Inicio
             </Link>
           </li>
-
           <li>
-            <Link className="nav-home-item" to="/socios">
+            <Link className="nav-home-item" to="/socios" onClick={toggleNav}>
               Socios
             </Link>
           </li>
-
           <li>
-            <Link className="nav-home-item" to={"/cart"}>
+            <Link className="nav-home-item" to={"/cart"} onClick={toggleNav}>
               <i className="material-icons">local_mall</i>
               <sub>{cartCount}</sub>
             </Link>
           </li>
-
           {userRole === "Socio" || userRole === "Admin" ? (
             <li>
-              <Link className="nav-home-item" to={"/dashboard/" + user.id}>
+              <Link
+                className="nav-home-item"
+                to={`/dashboard/${user.id}`}
+                onClick={toggleNav}
+              >
                 Dashboard
               </Link>
             </li>
           ) : null}
-
           <li>
             {user ? (
               <>
@@ -72,7 +72,7 @@ const HeaderHome = () => {
                     gap: "0.5rem",
                   }}
                   className="nav-home-item"
-                  to={"#"}
+                  to="#"
                   onClick={toggleMenu}
                 >
                   <i className="material-icons">account_circle</i>
@@ -98,13 +98,9 @@ const HeaderHome = () => {
                 }}
                 className="nav-home-item"
                 to="/login"
+                onClick={toggleNav}
               >
-                <i
-                  onClick={() => navigate("/login")}
-                  className="material-icons"
-                >
-                  account_circle
-                </i>
+                <i className="material-icons">account_circle</i>
                 Iniciar Sesion
               </Link>
             )}
@@ -116,74 +112,3 @@ const HeaderHome = () => {
 };
 
 export default HeaderHome;
-
-/*
-  const HeaderHome = ({ cartCount }) => {
-    return (
-      <header className="header-home">
-        <Link to="/" style={{ textDecoration: "none" }}>
-          <h1 className="logo-title">Raffly</h1>
-        </Link>
-
-        <nav className="nav-home">
-          <ul className="nav-home-ul">
-            <li>
-              <Link className="nav-home-item" to="/">
-                Inicio
-              </Link>
-            </li>
-            <li>
-              <Link className="nav-home-item" to="/create">
-                Crear Nueva Rifa
-              </Link>
-            </li>
-
-            <li>
-              <Link className="nav-home-item" to={"/cart"}>
-                <i className="material-icons">local_mall</i>
-                <sub>{cartCount}</sub>
-              </Link>
-            </li>
-
-            <li>
-              <Link className="nav-home-item" to="/login">
-                <i className="material-icons">account_circle</i>
-              </Link>
-              {user && (
-                <Link className="nav-home-item" to="/success">
-                  {user.email}
-                </Link>
-              )}
-            </li>
-
-            {userRole === "Admin" || userRole === "Socio" ? (
-              <button
-                onClick={() => navigate(`/dashboard/${user?.id}`)}
-                style={{
-                  textDecoration: "none",
-                  color: "black",
-                  fontWeight: "bold",
-                  border: "none",
-                  backgroundColor: "White",
-                  cursor: "pointer",
-                  fontSize: "20px",
-                  padding: "10px",
-                  borderRadius: "10px",
-                  marginLeft: "10px",
-                }}
-              >
-                Panel de control
-              </button>
-            ) : null}
-          </ul>
-        </nav>
-      </header>
-    );
-  };
-
-  const HeaderContainer = () => {
-    const { cartCount } = useCart();
-    return <HeaderHome cartCount={cartCount} />;
-  };
-
-  */

@@ -1,14 +1,14 @@
 import HeaderSocios from "../components/HeaderSocios";
-import { useUser } from "../UserContext";
 import supabase from "../config/supabaseClient";
 import BoletosList from "../components/BoletosList";
-import BoletoNuevo from "./BoletoNuevo";
 
-const { useState, useEffect } = require("react");
+import { useState, useEffect } from "react";
+import { useUser } from "../UserContext";
 
 const MisBoletos = () => {
   const { user } = useUser();
   const [boletos, setBoletos] = useState([]);
+  console.log(user);
 
   useEffect(() => {
     const fetchBoletos = async () => {

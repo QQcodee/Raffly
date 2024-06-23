@@ -14,7 +14,7 @@ const BoletosList = ({ boleto }) => {
       const { data, error } = await supabase
         .from("user_metadata")
         .select()
-        .eq("nombre_negocio", boleto.socio);
+        .eq("user_id", boleto.socio_user_id);
 
       if (error) {
         console.log(error);
@@ -26,7 +26,7 @@ const BoletosList = ({ boleto }) => {
       }
     };
     fetchUserMetaData();
-  }, [boleto.socio]);
+  }, [boleto.socio_user_id]);
 
   return (
     <>

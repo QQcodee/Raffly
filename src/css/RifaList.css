@@ -6,6 +6,12 @@
   height: 400px; /* Adjust as needed */
 }
 
+@media (max-width: 600px) {
+  .listing-container {
+    transform: scale(0.85);
+  }
+}
+
 .back-container {
   position: absolute;
   /*top: 20px;  Adjust as needed */
@@ -173,14 +179,6 @@
   transform: translate(90px, 1px);
 
   z-index: 8;
-}
-
-.rifas-grid {
-  margin-top: 40px;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  row-gap: 120px;
-  column-gap: 150px;
 }
 
 .divider {
