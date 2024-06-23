@@ -82,7 +82,7 @@
 .cart-section ul {
   list-style-type: none;
   padding-left: 20px;
-  height: 350px;
+  height: 330px;
   overflow-y: scroll;
 }
 
@@ -150,6 +150,10 @@
   background-color: #f5f5f5;
   border-radius: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.288);
+}
+
+.search-mobile {
+  display: none;
 }
 
 @media (max-width: 768px) {
@@ -325,5 +329,16 @@
 
   .buy-button-container-mobile {
     display: flex;
+  }
+
+  .search-container {
+    display: none;
+  }
+
+  .search-mobile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
   }
 }

@@ -16,8 +16,6 @@ const SingleSocio = () => {
   const [fetchError, setFetchError] = useState(null);
   const [rifas, setRifas] = useState(null);
 
-  console.log(rifas);
-
   useEffect(() => {
     const fetchRifas = async () => {
       const { data, error } = await supabase

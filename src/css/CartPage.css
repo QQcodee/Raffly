@@ -1,25 +1,28 @@
-.cart-section {
+.cart-section-single {
   margin: 20px auto;
   padding: 20px;
 
-  width: 100px;
+  width: 350px;
   text-align: left;
   height: 100%;
   overflow-y: hidden;
   font-family: "Poppins";
+  margin-top: 0px;
 }
 
-.cart-section h2 {
+.cart-section-single h2 {
   font-size: 24px;
   margin-bottom: 10px;
 }
 
-.cart-section ul {
+.cart-section-single ul {
   list-style-type: none;
   padding: 0;
+  height: 440px;
+  overflow-y: scroll;
 }
 
-.cart-section ul li {
+.cart-section-single ul li {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -27,11 +30,11 @@
   border-bottom: 1px solid #ddd;
 }
 
-.cart-section ul li:last-child {
+.cart-section-single ul li:last-child {
   border-bottom: none;
 }
 
-.cart-section ul li button {
+.cart-section-single ul li button {
   background-color: #dc3545;
   color: white;
   border: none;
@@ -41,11 +44,11 @@
   transition: background-color 0.3s ease;
 }
 
-.cart-section ul li button:hover {
+.cart-section-single ul li button:hover {
   background-color: #c82333;
 }
 
-.cart-section p {
+.cart-section-single p {
   font-size: 18px;
   font-weight: bold;
   text-align: right;
@@ -69,6 +72,230 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.288);
 }
 
-.form-checkout {
+.form-container {
   width: 600px;
+  padding: 20px;
+}
+
+.form-container form {
+  background-color: transparent;
+}
+
+.form-header {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.payment-methods {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.payment-method {
+  display: flex;
+  align-items: center;
+}
+
+.payment-method input {
+  margin-right: 10px;
+}
+
+.payment-method img {
+  width: 24px;
+  height: auto;
+  margin-left: 5px;
+}
+
+.stripe-element,
+.oxxo-element {
+  margin-bottom: 20px;
+}
+
+.stripe-element label,
+.oxxo-element label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.stripe-element .StripeElement,
+.oxxo-element input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: white; /* Added background color */
+}
+
+.expiry-cvc-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.expiry-cvc-container .stripe-element {
+  flex: 1;
+}
+
+.expiry-cvc-container .stripe-element:first-child {
+  margin-right: 10px;
+}
+
+.button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.button:disabled {
+  background-color: #ccc;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+}
+
+.success-message {
+  color: green;
+  margin-top: 10px;
+}
+
+.page-title {
+  width: 1500px;
+  position: relative;
+  left: 0;
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+.page-title h2 {
+  font-size: 30px;
+  position: relative;
+  left: 10%;
+}
+
+.divider-title-carrito {
+  width: 100%;
+  border: 0;
+  border-top: 1px solid #181818; /* Style the divider */
+  margin: 10px 0; /* Add margin for spacing */
+  position: relative;
+  left: 10%;
+}
+
+@media (max-width: 1200px) {
+  .carrito-card {
+    justify-content: space-between;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    color: #333;
+    border: 1px solid #cccccc10;
+    max-width: 700px;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.288);
+    margin: auto;
+    margin-bottom: 80px;
+  }
+
+  .cart-section-single p {
+    text-align: center;
+  }
+
+  .form-container {
+    align-items: center;
+
+    width: 400px;
+    padding: 20px;
+    position: relative;
+    left: -25px;
+  }
+
+  .form-container form {
+    background-color: transparent;
+  }
+
+  .page-title {
+    width: 800px;
+    position: relative;
+    left: 0;
+    font-size: 30px;
+    margin-bottom: 20px;
+  }
+  .page-title h2 {
+    font-size: 30px;
+    position: relative;
+    left: 10%;
+  }
+
+  .divider-title-carrito {
+    width: 100%;
+    border: 0;
+    border-top: 1px solid #181818; /* Style the divider */
+    margin: 10px 0; /* Add margin for spacing */
+    position: relative;
+    left: 10%;
+  }
+}
+
+@media (max-width: 760px) {
+  .carrito-card {
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    color: #333;
+    border: 1px solid #cccccc10;
+    max-width: 400px;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.288);
+    margin: auto;
+    margin-bottom: 80px;
+  }
+
+  .cart-section-single p {
+    text-align: center;
+  }
+
+  .form-container {
+    align-items: center;
+
+    width: 400px;
+    padding: 20px;
+    position: relative;
+    left: -25px;
+  }
+
+  .form-container form {
+    background-color: transparent;
+  }
+
+  .page-title {
+    width: 400px;
+    position: relative;
+    left: 0;
+    font-size: 30px;
+    margin-bottom: 20px;
+  }
+  .page-title h2 {
+    font-size: 30px;
+    position: relative;
+    left: 10%;
+  }
+
+  .divider-title-carrito {
+    width: 100%;
+    border: 0;
+    border-top: 1px solid #181818; /* Style the divider */
+    margin: 10px 0; /* Add margin for spacing */
+    position: relative;
+    left: 10%;
+  }
 }

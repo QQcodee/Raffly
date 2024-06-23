@@ -1,5 +1,7 @@
+/*
+
 .form-container {
-  max-width: 600px;
+  width: 600px;
   margin: 0 auto;
   padding: 20px;
 }
@@ -52,7 +54,7 @@
   border-radius: 4px;
   width: 100%;
   box-sizing: border-box;
-  background-color: white; /* Added background color */
+  background-color: white; 
 }
 
 .expiry-cvc-container {
@@ -91,3 +93,6 @@
   color: green;
   margin-top: 10px;
 }
+
+
+*/

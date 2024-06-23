@@ -129,7 +129,7 @@ const RenderRifa = () => {
 
   const [selectedTickets, setSelectedTickets] = useState({});
 
-  const ticketNumbersArray = cart.map((item) => item.ticketNumber);
+  //const ticketNumbersArray = cart.map((item) => item.ticketNumber);
 
   const handleAddTicketToCart = (ticketNumber) => {
     // Check if the ticket is already selected or sold
@@ -153,6 +153,7 @@ const RenderRifa = () => {
 
     // Mark the ticket as selected
     setSelectedTickets((prev) => ({ ...prev, [ticketNumber]: true }));
+    setSearchQuery("");
 
     // Add the item to the cart
     addItem({
@@ -196,12 +197,17 @@ const RenderRifa = () => {
 
   const Cell = ({ columnIndex, rowIndex, style }) => {
     const ticketNumber = rowIndex * columnCount + columnIndex + 1;
+
+    if (ticketNumber > rifaDetails.numboletos) {
+      return null; // Don't render anything if the ticket number exceeds the number of boletos
+    }
+
     const isSelected = selectedTickets[ticketNumber]; // Check if the ticket is selected
     const isSold = soldTickets.includes(ticketNumber); // Check if the ticket is sold
     const buttonStyle = isSelected
-      ? { backgroundColor: "black", color: "white" }
+      ? { backgroundColor: "grey", color: "white" }
       : isSold
-      ? { backgroundColor: "grey", color: "grey" }
+      ? { backgroundColor: "black", color: "black" }
       : {};
 
     return (
@@ -277,6 +283,37 @@ const RenderRifa = () => {
     };
   }, []);
 
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResult, setSearchResult] = useState("");
+
+  useEffect(() => {
+    handleSearch();
+  }, [searchQuery]);
+
+  const handleSearch = () => {
+    const ticketNumber = parseInt(searchQuery, 10);
+    if (isNaN(ticketNumber)) {
+      setSearchResult("");
+      return;
+    }
+    if (ticketNumber > rifaDetails.numboletos) {
+      setSearchResult("Este boleto no existe.");
+    } else if (soldTickets.includes(ticketNumber)) {
+      setSearchResult(`El boleto ${ticketNumber} ya se vendio.`);
+    } else if (cart.some((item) => item.ticketNumber === ticketNumber)) {
+      setSearchResult(`El boleto ${ticketNumber} ya fue agregado.`);
+    } else {
+      setSearchResult(
+        <button
+          className="num-boletos"
+          onClick={() => handleAddTicketToCart(ticketNumber)}
+        >
+          Agrear boleto {ticketNumber} al carrito
+        </button>
+      );
+    }
+  };
+
   return (
     <>
       <div>
@@ -350,6 +387,24 @@ const RenderRifa = () => {
               >
                 Agregar boleto aleatorio
               </button>
+
+              <div className="search-container">
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Buscar boleto por numero"
+                  style={{
+                    padding: "10px",
+                    borderRadius: "5px",
+                    border: "1px solid #ccc",
+                    width: "100%",
+                    maxWidth: "300px",
+                  }}
+                />
+                <div>{searchResult}</div>
+                {/* Other component code */}
+              </div>
               {socioMetaData[0] ? (
                 <div className="buy-button-container-mobile">
                   <button
@@ -440,6 +495,7 @@ const RenderRifa = () => {
               </>
             )}
           </div>
+
           <Grid
             className="boletos-grid"
             columnCount={columnCount}
@@ -453,6 +509,23 @@ const RenderRifa = () => {
           >
             {Cell}
           </Grid>
+          <div className="search-mobile">
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Buscar boleto por numero"
+              style={{
+                padding: "10px",
+                borderRadius: "5px",
+                border: "1px solid #ccc",
+                width: "100%",
+                maxWidth: "300px",
+              }}
+            />
+            <div>{searchResult}</div>
+            {/* Other component code */}
+          </div>
           {socioMetaData[0] ? (
             <div className="buy-button-container-mobile">
               <button

@@ -8,6 +8,9 @@ import { useParams } from "react-router-dom";
 import Form from "./Form";
 import HeaderSocios from "../components/HeaderSocios";
 
+//import CartPage.css
+import "../css/CartPage.css";
+
 const SingleCarrito = () => {
   const { cart, removeItem, clearCart } = useCart();
 
@@ -18,7 +21,7 @@ const SingleCarrito = () => {
   const { user_id, nombre_negocio } = useParams();
 
   // console.log(cart[0].rifa.nombre);
-  //console.log(cart);
+  console.log(cart);
 
   const ticketNumbersArray = cart.map((item) => item.ticketNumber);
 
@@ -64,15 +67,14 @@ const SingleCarrito = () => {
     <>
       <HeaderSocios />
 
-      <h2 style={{ marginLeft: "150px" }}>Carrito</h2>
-      <hr
-        style={{ marginLeft: "150px", width: "1500px" }}
-        className="divider-title"
-      />
+      <div className="page-title">
+        <h2>Carrito</h2>
+        <hr className="divider-title-carrito" />
+      </div>
 
       {cart[0] ? (
         <div className="carrito-card">
-          <div className="cart-section">
+          <div className="cart-section-single">
             <h2
               style={{
                 fontSize: "32px",
@@ -82,12 +84,18 @@ const SingleCarrito = () => {
             >
               Boletos {cart.length > 0 ? <>({cart.length}) </> : null}{" "}
             </h2>
+            <p style={{ textAlign: "center", fontWeight: "500" }}>
+              {cart[0].raffleName}
+            </p>
+            <p style={{ textAlign: "center", fontWeight: "500" }}>
+              {cart[0].rifa.socio}
+            </p>
 
             {cart.length === 0 ? (
               <p>Ningun boleto seleccionado</p>
             ) : (
               <>
-                <ul style={{ listStyle: "none", height: "525px" }}>
+                <ul style={{ listStyle: "none" }}>
                   {cart.map((item) => (
                     <li key={item.id}>
                       #{item.ticketNumber} - ${item.price}
