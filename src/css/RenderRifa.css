@@ -63,7 +63,11 @@
 }
 
 .rifa-desc-render {
-  height: 250px;
+  height: 260px;
+  max-height: calc(1.2em * 14);
+
+  overflow: hidden;
+  overflow-y: scroll;
 }
 
 .cart-section {
@@ -221,8 +225,10 @@
   }
 
   .rifa-desc-render {
-    height: auto;
-    max-height: 250px;
+    height: 250px;
+    max-height: calc(1.2em * 9);
+    overflow: hidden;
+    overflow-y: scroll;
   }
 
   .cart-section {

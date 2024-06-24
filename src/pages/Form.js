@@ -518,7 +518,22 @@ const CheckoutForm = ({
         ) : (
           <div className="error-message">
             Inicia sesion para realizar el pago
-            <button className="button" onClick={() => navigate("/login")}>
+            <button
+              className="button"
+              onClick={() =>
+                navigate(
+                  "/" +
+                    encodeURIComponent(
+                      socioMetaData[0].nombre_negocio.replace(/\s+/g, "-")
+                    ) +
+                    "/" +
+                    encodeURIComponent(
+                      socioMetaData[0].user_id.replace(/\s+/g, "-")
+                    ) +
+                    "/login"
+                )
+              }
+            >
               Iniciar sesion
             </button>
           </div>
