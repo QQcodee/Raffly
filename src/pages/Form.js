@@ -34,6 +34,7 @@ const CheckoutForm = ({
   const [paymentMethodType, setPaymentMethodType] = useState("card");
   const [errorMessage, setErrorMessage] = useState("");
   const { user } = useUser();
+  const [oxxoResponse, setOxxoResponse] = useState("");
   //const [amount, setAmount] = useState("");
 
   const [firstName, setFirstName] = useState("");
@@ -136,7 +137,7 @@ const CheckoutForm = ({
           socio_user_id: rifa.user_id,
           oxxo: true,
           apartado: false,
-          oxxo_url: response.data.oxxoUrl,
+          oxxo_url: oxxoResponse,
         },
       ]);
 
@@ -243,6 +244,7 @@ const CheckoutForm = ({
         //window.location.href = response.data.oxxoUrl;
         console.log("response:", response.data);
         handleSuccesfulPayment();
+        setOxxoResponse(response.data.oxxoUrl);
 
         window.open(response.data.oxxoUrl, "_blank");
       } catch (error) {
