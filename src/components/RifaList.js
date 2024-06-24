@@ -139,7 +139,11 @@ const RifaList = ({ rifa }) => {
             ${rifa.precioboleto}
           </div>
           <div className="logo-name-container">
-            <img src={socioMetaData[0].image_url} alt="Logo" className="logo" />
+            <img
+              src={socioMetaData[0].image_url}
+              alt="Logo"
+              className="logo-rifaList"
+            />
             {/*<span className="name">{socioMetaData[0].nombre_negocio}</span>*/}
           </div>
         </div>

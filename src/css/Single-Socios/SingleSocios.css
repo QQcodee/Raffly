@@ -5,22 +5,31 @@
   gap: 300px;
   left: 8%;
   position: relative;
+  max-width: 90%;
 }
 
 .div-grid-archive {
-  width: auto;
+  width: 1500 px;
   position: relative;
   padding: 20px;
-  margin: auto;
+  left: 2%;
   align-items: center;
   justify-content: center;
 }
 
 .divider-title-rifas-activas {
-  width: 80%; /* Adjust width as needed */
+  width: 100%; /* Adjust width as needed */
   border: 0;
   border-top: 1px solid #181818; /* Style the divider */
   margin-left: 80px;
+}
+
+.rifas-title {
+  width: 80%;
+  position: relative;
+  left: 0;
+  font-size: 30px;
+  margin-bottom: 20px;
 }
 
 .rifas-title h2 {
@@ -28,9 +37,38 @@
   margin-left: 80px;
 }
 
+.body-socios {
+  width: 100vw;
+  margin: auto;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.p-faq {
+  text-align: justify;
+  font-weight: 500;
+  font-family: "Poppins";
+  width: 600px;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.tittle-faq {
+  text-align: center;
+  font-family: "Poppins";
+  color: red;
+  margin-top: 50px;
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 50px;
+  max-width: 40ch;
+  margin: auto;
+}
+
 @media (max-width: 1020px) {
   .div-grid-archive {
-    width: auto;
+    width: 900px;
     position: relative;
     margin: auto;
   }
@@ -56,6 +94,35 @@
     border: 0;
     border-top: 1px solid #181818; /* Style the divider */
     margin-left: 20px;
+  }
+
+  .body-socios {
+    width: 100vw;
+    margin: auto;
+    align-items: center;
+    margin-bottom: 50px;
+  }
+
+  .p-faq {
+    text-align: justify;
+    font-weight: 500;
+    font-family: "Poppins";
+    width: 80%;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .tittle-faq {
+    text-align: center;
+    font-family: "Poppins";
+    color: red;
+    margin-top: 50px;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 50px;
+    max-width: 40ch;
+    margin: auto;
   }
 }
 
@@ -87,5 +154,34 @@
     border: 0;
     border-top: 1px solid #181818; /* Style the divider */
     margin-left: 20px;
+  }
+
+  .body-socios {
+    width: 100vw;
+    margin: auto;
+    align-items: center;
+    margin-bottom: 50px;
+  }
+
+  .p-faq {
+    text-align: justify;
+    font-weight: 500;
+    font-family: "Poppins";
+    width: 400px;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .tittle-faq {
+    text-align: center;
+    font-family: "Poppins";
+    color: red;
+    margin-top: 50px;
+    font-size: 23px;
+    font-weight: 700;
+    margin-bottom: 50px;
+    max-width: 40ch;
+    margin: auto;
   }
 }

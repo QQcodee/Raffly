@@ -24,7 +24,14 @@
 .logo-socio {
   height: 150px;
   width: auto; /* Maintain aspect ratio */
+  max-width: 150px;
+  object-fit: cover;
+  object-position: center;
   margin-right: 15px;
+  border: 1px solid rgba(44, 44, 44, 0.5);
+  border-radius: 90px;
+
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .hamburger {

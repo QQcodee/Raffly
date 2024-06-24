@@ -247,7 +247,25 @@ const HeaderSocios = () => {
                         encodeURIComponent(
                           socioMetaData[0].user_id.replace(/\s+/g, "-")
                         ) +
-                        "/contacto"
+                        "/#FAQ"
+                      }
+                    >
+                      FAQ
+                    </a>
+                  </li>
+
+                  <li>
+                    <a
+                      href={
+                        "/" +
+                        encodeURIComponent(
+                          socioMetaData[0].nombre_negocio.replace(/\s+/g, "-")
+                        ) +
+                        "/" +
+                        encodeURIComponent(
+                          socioMetaData[0].user_id.replace(/\s+/g, "-")
+                        ) +
+                        "/#Contacto"
                       }
                     >
                       Contacto
@@ -257,6 +275,12 @@ const HeaderSocios = () => {
                   <li>
                     <a href="#metodos-de-pago">Metodos de pago</a>
                   </li>
+
+                  {user || userRole === "Socio" ? (
+                    <li>
+                      <a href={"/dashboard/" + user?.id}>Panel de socio</a>
+                    </li>
+                  ) : null}
 
                   <hr className="divider-title"></hr>
 
@@ -325,7 +349,25 @@ const HeaderSocios = () => {
                       encodeURIComponent(
                         socioMetaData[0].user_id.replace(/\s+/g, "-")
                       ) +
-                      "/contacto"
+                      "/#FAQ"
+                    }
+                  >
+                    FAQ
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href={
+                      "/" +
+                      encodeURIComponent(
+                        socioMetaData[0].nombre_negocio.replace(/\s+/g, "-")
+                      ) +
+                      "/" +
+                      encodeURIComponent(
+                        socioMetaData[0].user_id.replace(/\s+/g, "-")
+                      ) +
+                      "/#Contacto"
                     }
                   >
                     Contacto
