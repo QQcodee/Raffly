@@ -137,14 +137,13 @@ const CheckoutForm = ({
           socio_user_id: rifa.user_id,
           oxxo: true,
           apartado: false,
-          oxxo_url: oxxoResponse.oxxoUrl,
+          oxxo_url: oxxoResponse,
         },
       ]);
 
       if (error) {
         console.error("Error inserting data: ", error);
       } else {
-        console.log("Data inserted successfully: ", data);
         clearCart();
         navigate(
           "/" +
@@ -243,8 +242,8 @@ const CheckoutForm = ({
         // Handle response, redirect to OXXO payment page
         //window.location.href = response.data.oxxoUrl;
 
-        console.log("response:", data);
-        setOxxoResponse(data);
+        console.log(data);
+        setOxxoResponse(oxxoUrl);
         console.log("oxxoResponse:", oxxoResponse);
 
         handleSuccesfulPayment();
