@@ -243,8 +243,9 @@ const CheckoutForm = ({
         // Handle response, redirect to OXXO payment page
         //window.location.href = response.data.oxxoUrl;
         console.log("response:", response.data);
-        handleSuccesfulPayment();
         setOxxoResponse(response.data.oxxoUrl);
+
+        handleSuccesfulPayment();
 
         window.open(response.data.oxxoUrl, "_blank");
       } catch (error) {
