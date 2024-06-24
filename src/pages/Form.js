@@ -136,6 +136,7 @@ const CheckoutForm = ({
           socio_user_id: rifa.user_id,
           oxxo: true,
           apartado: false,
+          oxxo_url: response.data.oxxoUrl,
         },
       ]);
 
