@@ -227,7 +227,7 @@ const CheckoutForm = ({
       }
     } else if (paymentMethodType === "oxxo") {
       try {
-        const response = await axios.post(
+        const { data } = await axios.post(
           "https://www.raffly.com.mx/api/create-payment-intent-oxxo",
           {
             amount: totalAmount * 100,
@@ -242,13 +242,14 @@ const CheckoutForm = ({
 
         // Handle response, redirect to OXXO payment page
         //window.location.href = response.data.oxxoUrl;
-        console.log("response:", response.data);
-        setOxxoResponse(response.oxxoUrl);
+
+        console.log("response:", data);
+        setOxxoResponse(data);
         console.log("oxxoResponse:", oxxoResponse);
 
         handleSuccesfulPayment();
 
-        window.open(response.data.oxxoUrl, "_blank");
+        window.open(data.oxxoUrl, "_blank");
       } catch (error) {
         console.error("Error:", error);
         setErrorMessage("Payment processing failed. Please try again.");
