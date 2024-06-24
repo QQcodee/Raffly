@@ -60,7 +60,7 @@ const SingleSocio = () => {
 
       fetchSocioMetaData();
     },
-    [user_id]
+    [user_id, rifas]
   );
 
   return (
