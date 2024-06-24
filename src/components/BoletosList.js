@@ -32,7 +32,6 @@ const BoletosList = ({ boleto }) => {
 
   const handleRedirect = () => {
     window.open(boleto.oxxo_url);
-    window.location.href = boleto.oxxo_url;
   };
 
   const ticketNumbersWhatsapp = boleto.num_boletos.join("%0A");
