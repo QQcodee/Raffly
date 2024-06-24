@@ -21,7 +21,6 @@ const SingleCarrito = () => {
   const { user_id, nombre_negocio } = useParams();
 
   // console.log(cart[0].rifa.nombre);
-  console.log(cart);
 
   const ticketNumbersArray = cart.map((item) => item.ticketNumber);
 
@@ -46,8 +45,6 @@ const SingleCarrito = () => {
 
   useEffect(() => {
     const fetchUserMetaData = async () => {
-      if (!user_id) return;
-
       const { data, error } = await supabase
         .from("user_metadata")
         .select()
@@ -58,6 +55,7 @@ const SingleCarrito = () => {
       }
       if (data) {
         setSocioMetaData(data);
+        console.log(socioMetaData);
       }
     };
     fetchUserMetaData();

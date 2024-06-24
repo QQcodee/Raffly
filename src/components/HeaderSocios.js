@@ -17,6 +17,8 @@ const HeaderSocios = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { cartCount } = useCart();
 
+  console.log(socioMetaData);
+
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
 
   const toggleMenu = () => {

@@ -36,6 +36,8 @@ const CheckoutForm = ({
   const { user } = useUser();
   //const [amount, setAmount] = useState("");
 
+  console.log(stripe_id);
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
