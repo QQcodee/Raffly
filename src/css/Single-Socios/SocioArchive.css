@@ -1,12 +1,3 @@
-.rifas-grid-archive {
-  margin-top: 40px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 300px);
-  gap: 300px;
-  left: 2%;
-  position: relative;
-}
-
 .boletos-grid-archive {
   margin-top: 40px;
   display: grid;
@@ -29,13 +20,6 @@
   gap: 40px;
 }
 
-.div-grid-archive {
-  width: auto;
-  position: relative;
-  left: 2%;
-  padding: 20px;
-}
-
 .div-grid-home {
   max-width: 1500px;
   margin-left: 150px;
@@ -51,37 +35,4 @@
 
 .root {
   background: #000;
-}
-
-@media (max-width: 1410px) {
-  .rifas-grid-archive {
-    margin-top: 40px;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 300px);
-    gap: 250px;
-    left: 2%;
-    position: relative;
-  }
-
-  .div-grid-archive {
-    width: auto;
-    position: relative;
-    margin: auto;
-  }
-}
-
-@media (max-width: 480px) {
-  .rifas-grid-archive {
-    margin-top: 40px;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 200px);
-    gap: 40px;
-    left: 2%;
-    position: relative;
-  }
-
-  .div-grid-archive {
-    position: relative;
-    margin: auto;
-  }
 }

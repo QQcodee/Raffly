@@ -7,8 +7,8 @@ import RifaList from "../components/RifaList";
 
 import HeaderSocios from "../components/HeaderSocios";
 
-//import SocioArchive.css
-import "../css/Single-Socios/SocioArchive.css";
+//import SingleSocio.css
+import "../css/Single-Socios/SingleSocios.css";
 
 const SingleSocio = () => {
   const { user_id } = useParams();
@@ -43,8 +43,10 @@ const SingleSocio = () => {
 
       <div className="div-grid-archive">
         {fetchError && <p>{fetchError}</p>}
-        <h1>Rifas Activas </h1>
-        <hr className="divider-title" />
+        <div className="rifas-title">
+          <h2>Rifas Activas </h2>
+          <hr className="divider-title-rifas-activas" />
+        </div>
 
         {rifas && (
           <div className="rifas-grid-archive">

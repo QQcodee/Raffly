@@ -6,12 +6,6 @@
   height: 400px; /* Adjust as needed */
 }
 
-@media (max-width: 600px) {
-  .listing-container {
-    transform: scale(0.85);
-  }
-}
-
 .back-container {
   position: absolute;
   /*top: 20px;  Adjust as needed */
@@ -211,4 +205,10 @@
   transition: width 0.3s ease-in-out;
   text-align: center;
   border-radius: 15px;
+}
+
+@media (max-width: 600px) {
+  .listing-container {
+    transform: scale(0.89);
+  }
 }
