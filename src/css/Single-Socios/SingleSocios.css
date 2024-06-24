@@ -72,7 +72,7 @@
   }
 
   .rifas-title {
-    width: 300px;
+    width: 350px;
     position: relative;
     left: 0;
     font-size: 30px;
@@ -83,7 +83,7 @@
     margin-left: 20px;
   }
   .divider-title-rifas-activas {
-    width: 400px; /* Adjust width as needed */
+    width: 90%; /* Adjust width as needed */
     border: 0;
     border-top: 1px solid #181818; /* Style the divider */
     margin-left: 20px;
