@@ -3,11 +3,13 @@ import React from "react";
 import "../css//Single-Socios/BoletosList.css";
 import supabase from "../config/supabaseClient";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const BoletosList = ({ boleto }) => {
   // Joining num_boletos array elements with commas
   const numBoletosString = boleto.num_boletos.join(", ");
   const [socioMetaData, setSocioMetaData] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUserMetaData = async () => {
@@ -28,6 +30,35 @@ const BoletosList = ({ boleto }) => {
     fetchUserMetaData();
   }, [boleto.socio_user_id]);
 
+  const handleRedirect = () => {
+    window.open(boleto.oxxo_url);
+    window.location.href = boleto.oxxo_url;
+  };
+
+  const ticketNumbersWhatsapp = boleto.num_boletos.join("%0A");
+  const count = boleto.num_boletos.length;
+
+  const totalAmount = count * boleto.precio;
+
+  const handlePagarTransferencia = () => {
+    window.open(
+      "https://api.whatsapp.com/send/?phone=" +
+        socioMetaData[0].phone +
+        "&text=Porfavor envia una foto del comprobante de pago para asegurar tus " +
+        count +
+        " boletos para el combo millonario: %0A ———————————— %0A Nombre: " +
+        boleto.nombre +
+        "%0A Telefono: " +
+        boleto.telefono +
+        "%0A%0A Boletos($" +
+        boleto.precio +
+        "c/u):%0A" +
+        ticketNumbersWhatsapp +
+        "%0A%0ATOTAL: $" +
+        totalAmount +
+        " %0A%0A Una vez enviado el comprobante de pago activaremos tu boleto en un periodo de 24hrs."
+    );
+  };
   return (
     <>
       {socioMetaData[0] ? (
@@ -85,7 +116,7 @@ const BoletosList = ({ boleto }) => {
                   {boleto.comprado === true
                     ? "Pagado"
                     : boleto.apartado === true
-                    ? "Apartado"
+                    ? "Apartado pago pendiente"
                     : boleto.oxxo === true
                     ? "Pago con oxxo pendiente"
                     : "Falta Pagar"}
@@ -108,9 +139,11 @@ const BoletosList = ({ boleto }) => {
           <section className="ticket__third-section">
             {boleto.comprado === true ? (
               <h4>¡MUCHA SUERTE!</h4>
-            ) : (
-              <button>Pagar boleto</button>
-            )}
+            ) : boleto.oxxo ? (
+              <button onClick={handleRedirect}>Voucher oxxo</button>
+            ) : boleto.apartado ? (
+              <button onClick={handlePagarTransferencia}>Pagar boleto</button>
+            ) : null}
           </section>
           {boleto.comprado === true ? (
             <aside style={{ color: "#6FCF85" }}>{boleto.nombre_rifa}</aside>

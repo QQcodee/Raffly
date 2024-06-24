@@ -8,7 +8,6 @@ import { useUser } from "../UserContext";
 const MisBoletos = () => {
   const { user } = useUser();
   const [boletos, setBoletos] = useState([]);
-  console.log(user);
 
   useEffect(() => {
     const fetchBoletos = async () => {

@@ -68,7 +68,7 @@ const RifaList = ({ rifa }) => {
       const { data, error } = await supabase
         .from("user_metadata")
         .select()
-        .eq("nombre_negocio", rifa.socio);
+        .eq("user_id", rifa.user_id);
 
       if (error) {
         console.log(error);
