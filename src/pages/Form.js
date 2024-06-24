@@ -81,7 +81,7 @@ const CheckoutForm = ({
     return soldTicketsInCart;
   };
 
-  const handleSuccesfulPayment = async (event) => {
+  const handleSuccesfulPayment = async (oxxo_url = null) => {
     // Extract ticket numbers from cart items
 
     if (paymentMethodType === "card") {
@@ -137,7 +137,7 @@ const CheckoutForm = ({
           socio_user_id: rifa.user_id,
           oxxo: true,
           apartado: false,
-          oxxo_url: oxxoResponse,
+          oxxo_url: oxxo_url,
         },
       ]);
 
@@ -243,10 +243,8 @@ const CheckoutForm = ({
         //window.location.href = response.data.oxxoUrl;
 
         console.log(data);
-        setOxxoResponse(data[0].oxxoUrl);
-        console.log("oxxoResponse:", oxxoResponse);
 
-        handleSuccesfulPayment();
+        handleSuccesfulPayment(data.oxxoUrl);
 
         window.open(data.oxxoUrl, "_blank");
       } catch (error) {
