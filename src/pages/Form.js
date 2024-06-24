@@ -243,7 +243,7 @@ const CheckoutForm = ({
         //window.location.href = response.data.oxxoUrl;
 
         console.log(data);
-        setOxxoResponse(oxxoUrl);
+        setOxxoResponse(data[0].oxxoUrl);
         console.log("oxxoResponse:", oxxoResponse);
 
         handleSuccesfulPayment();
