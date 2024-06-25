@@ -16,18 +16,14 @@ app.use(cors({ origin: clientURL }));
 app.use(express.json());
 app.use(bodyParser.json());
 
-app.get("/api/payment-status-oxxo/:oxxo_id", async (req, res) => {
+app.post("/api/payment-status-oxxo/", async (req, res) => {
   const { oxxo_id } = req.params;
-
-  console.log(oxxo_id);
 
   try {
     const paymentIntent = await stripe.paymentIntents.retrieve(oxxo_id);
     res.json({ status: paymentIntent.status });
-    console.log(paymentIntent.status);
   } catch (error) {
     res.status(500).json({ error: error.message });
-    console.log(error);
   }
 });
 

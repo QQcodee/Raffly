@@ -10,9 +10,13 @@ const OxxoPaymentStatus = ({ boleto }) => {
   const fetchPaymentStatus = async (oxxo_id = null) => {
     setStatus("cargando...");
     try {
-      const response = await fetch(
-        `https://www.raffly.com.mx/api/payment-status-oxxo/${oxxo_id}`
+      const { response } = await axios.post(
+        "https://www.raffly.com.mx/api/payment-status-oxxo",
+        {
+          oxxo_id: oxxo_id,
+        }
       );
+
       if (!response.ok) {
         throw new Error("Failed to fetch payment status");
       }
