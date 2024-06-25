@@ -65,10 +65,13 @@
   max-width: 40ch;
   margin: auto;
 }
+.whatsapp-sticky {
+  display: none;
+}
 
 @media (max-width: 1020px) {
   .div-grid-archive {
-    width: 900px;
+    width: auto;
     position: relative;
     margin: auto;
   }
@@ -128,20 +131,20 @@
 
 @media (max-width: 570px) {
   .div-grid-archive {
-    width: auto;
+    width: 350px;
     position: relative;
     margin: auto;
   }
 
   .rifas-grid-archive {
-    left: -2%;
+    left: -50px;
     gap: 100px;
   }
 
   .rifas-title {
     width: 350px;
     position: relative;
-    left: 0;
+    left: -40px;
     font-size: 30px;
     margin-bottom: 20px;
   }
@@ -167,7 +170,7 @@
     text-align: justify;
     font-weight: 500;
     font-family: "Poppins";
-    width: 400px;
+    width: 350px;
     margin: auto;
     margin-top: 20px;
     margin-bottom: 20px;
@@ -181,7 +184,20 @@
     font-size: 23px;
     font-weight: 700;
     margin-bottom: 50px;
-    max-width: 40ch;
+    max-width: 350px;
     margin: auto;
+  }
+
+  .whatsapp-sticky {
+    position: sticky;
+    bottom: 10px;
+    right: 10px;
+    z-index: 1000;
+    display: flex;
+
+    justify-content: right;
+    align-items: right;
+    margin-bottom: 20px;
+    margin-top: 20px;
   }
 }

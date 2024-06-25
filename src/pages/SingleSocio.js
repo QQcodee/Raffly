@@ -234,6 +234,28 @@ const SingleSocio = () => {
           ) : null}
         </div>
       </div>
+      <div className="whatsapp-sticky">
+        <a
+          onClick={() =>
+            window.open(
+              "https://api.whatsapp.com/send/?phone=" +
+                socioMetaData[0].phone +
+                "&text=Hola tengo una duda"
+            )
+          }
+        >
+          <img
+            src="https://ivltiudjxnrytalzxfwr.supabase.co/storage/v1/object/public/imagenes-rifas/No-borrar/whatsapp.png"
+            alt="logo"
+            style={{
+              width: "80px",
+              marginTop: "20px",
+              padding: "10px",
+              cursor: "pointer",
+            }}
+          />
+        </a>
+      </div>
     </>
   );
 };
