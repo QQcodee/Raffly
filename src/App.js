@@ -33,6 +33,7 @@ import BoletosDashboard from "./pages/dashboard/BoletosDashboard";
 import LoginForm from "./components/LoginForm";
 import SingleCarrito from "./pages/SingleCarrito";
 import LoginSingle from "./pages/LoginSIngle";
+import OxxoPaymentStatus from "./components/OxxoPaymentStatus";
 
 //import HeaderLogin from "./pages/HeaderLogin.js";
 //import Topbar from "./pages/dashboard/Topbar.js";
@@ -85,6 +86,8 @@ function App() {
           />
 
           <Route path="/loginform" element={<LoginForm />} />
+
+          <Route path="/oxxo" element={<OxxoPaymentStatus />} />
 
           {/* Dashboard routes */}
 

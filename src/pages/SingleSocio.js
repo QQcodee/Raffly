@@ -96,13 +96,20 @@ const SingleSocio = () => {
           style={{
             width: "100%",
             padding: "20px",
-            backgroundColor: "black",
-            marginBottom: "50px",
+            backgroundColor: socioMetaData[0]
+              ? socioMetaData[0].color
+              : "black",
+            marginBottom: "80px",
           }}
           className="FAQ-Header"
           id="FAQ"
         >
-          <h2 style={{ textAlign: "center", color: "white" }}>
+          <h2
+            style={{
+              textAlign: "center",
+              color: "white",
+            }}
+          >
             Preguntas frecuentes
           </h2>
         </div>

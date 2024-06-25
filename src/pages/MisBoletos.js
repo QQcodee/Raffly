@@ -14,7 +14,8 @@ const MisBoletos = () => {
       const { data, error } = await supabase
         .from("boletos")
         .select()
-        .eq("user_id", user.id);
+        .eq("user_id", user.id)
+        .order("created_at", { ascending: false });
 
       if (data) {
         setBoletos(data);

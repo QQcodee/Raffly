@@ -4,6 +4,7 @@ import "../css//Single-Socios/BoletosList.css";
 import supabase from "../config/supabaseClient";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import OxxoPaymentStatus from "./OxxoPaymentStatus";
 
 const BoletosList = ({ boleto }) => {
   // Joining num_boletos array elements with commas
@@ -29,10 +30,6 @@ const BoletosList = ({ boleto }) => {
     };
     fetchUserMetaData();
   }, [boleto.socio_user_id]);
-
-  const handleRedirect = () => {
-    window.open(boleto.oxxo_url);
-  };
 
   const ticketNumbersWhatsapp = boleto.num_boletos.join("%0A");
   const count = boleto.num_boletos.length;
@@ -139,7 +136,7 @@ const BoletosList = ({ boleto }) => {
             {boleto.comprado === true ? (
               <h4>¡MUCHA SUERTE!</h4>
             ) : boleto.oxxo ? (
-              <button onClick={handleRedirect}>Voucher oxxo</button>
+              <OxxoPaymentStatus boleto={boleto} />
             ) : boleto.apartado ? (
               <button onClick={handlePagarTransferencia}>Pagar boleto</button>
             ) : null}

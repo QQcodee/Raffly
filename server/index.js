@@ -20,10 +20,11 @@ const app = express();
 
 const stripe = new Stripe(stripeSecretKey);
 
-app.use(cors({ origin: clientURL }));
+app.use(cors({ origin: "http://localhost:3000" }));
 app.use(express.json());
 app.use(bodyParser.json());
 
+/*
 app.post("/api/checkout", async (req, res) => {
   // you can get more data to find in a database, and so on
   const { id, amount, description, destination } = req.body;
@@ -134,7 +135,7 @@ app.post("/create-account-link", async (req, res) => {
   }
 });
 
-*/
+
 
 app.post("/generate-account-link", async (req, res) => {
   const { accountId } = req.body;
@@ -188,6 +189,75 @@ app.post("/check-account-exists", async (req, res) => {
   } catch (error) {
     console.error("Error checking account existence:", error);
     return res.status(500).json({ error: error.message });
+  }
+});
+*/
+
+/*
+app.get("/payment-status/:paymentIntentId", async (req, res) => {
+  const { paymentIntentId } = req.params;
+
+  try {
+    const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
+    res.json({ status: paymentIntent.status });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+
+    try {
+      const { data } = await axios.post(
+        "http://localhost:3001/update-oxxo-status",
+        {
+          boleto_id: boleto.id,
+        }
+      );
+
+      // Handle response, redirect to OXXO payment page
+      //window.location.href = response.data.oxxoUrl;
+
+      console.log(data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+      
+
+
+
+*/
+app.get("/payment-status-oxxo/:oxxo_id", async (req, res) => {
+  const { oxxo_id } = req.params;
+
+  console.log(oxxo_id);
+
+  try {
+    const paymentIntent = await stripe.paymentIntents.retrieve(oxxo_id);
+    res.json({ status: paymentIntent.status });
+    console.log(paymentIntent.status);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+    console.log(error);
+  }
+});
+
+app.post("/update-oxxo-status", async (req, res) => {
+  const { boleto_id } = req.body;
+
+  console.log("updaring oxxo status", boleto_id);
+
+  try {
+    const { data, error } = await supabase
+      .from("boletos")
+      .update({ comprado: true })
+      .eq("id", boleto_id);
+    if (error) {
+      throw error;
+    }
+
+    res.status(200).send({ success: true, data });
+  } catch (error) {
+    res.status(500).send({ error: error.message });
   }
 });
 
