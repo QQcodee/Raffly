@@ -65,11 +65,6 @@ const SingleCarrito = () => {
     <>
       <HeaderSocios />
 
-      <div className="page-title">
-        <h2>Carrito</h2>
-        <hr className="divider-title-carrito" />
-      </div>
-
       {cart[0] ? (
         <div className="carrito-card">
           <div className="cart-section-single">

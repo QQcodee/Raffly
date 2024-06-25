@@ -243,3 +243,17 @@
     max-width: 23ch;
   }
 }
+
+@media (max-width: 425px) {
+  .title-socio {
+    font-size: 16px;
+    max-width: 11ch;
+  }
+}
+
+@media (max-width: 350px) {
+  .title-socio {
+    font-size: 14px;
+    max-width: 10ch;
+  }
+}

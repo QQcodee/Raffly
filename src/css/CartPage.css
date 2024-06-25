@@ -175,7 +175,7 @@
 .page-title h2 {
   font-size: 30px;
   position: relative;
-  left: 10%;
+  left: 50px;
 }
 
 .divider-title-carrito {
@@ -184,7 +184,7 @@
   border-top: 1px solid #181818; /* Style the divider */
   margin: 10px 0; /* Add margin for spacing */
   position: relative;
-  left: 10%;
+  left: 50px;
 }
 
 @media (max-width: 1200px) {
@@ -201,6 +201,10 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.288);
     margin: auto;
     margin-bottom: 80px;
+  }
+
+  .cart-section-single {
+    width: 90vw;
   }
 
   .cart-section-single p {
@@ -230,7 +234,7 @@
   .page-title h2 {
     font-size: 30px;
     position: relative;
-    left: 10%;
+    left: 30px;
   }
 
   .divider-title-carrito {
@@ -239,7 +243,7 @@
     border-top: 1px solid #181818; /* Style the divider */
     margin: 10px 0; /* Add margin for spacing */
     position: relative;
-    left: 10%;
+    left: 30px;
   }
 }
 
@@ -251,9 +255,9 @@
     font-size: 16px;
     color: #333;
     border: 1px solid #cccccc10;
-    max-width: 400px;
+    width: 95vw;
     padding: 20px;
-    background-color: #f5f5f5;
+    background-color: transparent;
     border-radius: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.288);
     margin: auto;
@@ -264,10 +268,14 @@
     text-align: center;
   }
 
+  .payment-methods {
+    flex-direction: row-reverse;
+  }
+
   .form-container {
     align-items: center;
 
-    width: 400px;
+    width: 100vw;
     padding: 20px;
     position: relative;
     left: -25px;
@@ -287,7 +295,7 @@
   .page-title h2 {
     font-size: 30px;
     position: relative;
-    left: 10%;
+    left: 30px;
   }
 
   .divider-title-carrito {
@@ -296,6 +304,6 @@
     border-top: 1px solid #181818; /* Style the divider */
     margin: 10px 0; /* Add margin for spacing */
     position: relative;
-    left: 10%;
+    left: 30px;
   }
 }
