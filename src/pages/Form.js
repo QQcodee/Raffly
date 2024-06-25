@@ -81,7 +81,7 @@ const CheckoutForm = ({
     return soldTicketsInCart;
   };
 
-  const handleSuccesfulPayment = async (oxxo_url = null, id = null) => {
+  const handleSuccesfulPayment = async (oxxo_url = null, oxxo_id = null) => {
     // Extract ticket numbers from cart items
 
     if (paymentMethodType === "card") {
@@ -138,7 +138,7 @@ const CheckoutForm = ({
           oxxo: true,
           apartado: false,
           oxxo_url: oxxo_url,
-          oxxo_id: id,
+          oxxo_id: oxxo_id,
         },
       ]);
 
