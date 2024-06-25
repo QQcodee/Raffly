@@ -16,6 +16,8 @@ const BoletosDashboard = () => {
   const [searchTelefono, setSearchTelefono] = useState(""); // State for searching by telefono
   const [selectedEstado, setSelectedEstado] = useState(""); // State for selected estado
 
+  const [duplicados, setDuplicados] = useState([]);
+
   const [currentRifa, setCurrentRifa] = useState("");
 
   const { user_id } = useParams();
@@ -25,7 +27,8 @@ const BoletosDashboard = () => {
       const { data, error } = await supabase
         .from("rifas")
         .select() // Select only the ID of rifas
-        .eq("user_id", user_id);
+        .eq("user_id", user_id)
+        .order("created_at", { ascending: false });
 
       if (error) {
         console.log(error);
@@ -62,6 +65,37 @@ const BoletosDashboard = () => {
     };
     fetchBoletos();
   }, [selectedRifa, selectedName]); // Fetch boletos whenever selectedRifa changes
+
+  const findDuplicates = () => {
+    const allNumBoletos = data.flatMap((boleto) => boleto.num_boletos);
+
+    const numBoletosSet = new Set();
+    const duplicates = [];
+
+    // Iterate through allNumBoletos to find duplicates
+    allNumBoletos.forEach((num) => {
+      if (numBoletosSet.has(num)) {
+        if (!duplicates.includes(num)) {
+          duplicates.push(num);
+        }
+      } else {
+        numBoletosSet.add(num);
+      }
+    });
+
+    return duplicates;
+  };
+
+  const handleCheckDuplicates = () => {
+    const duplicates = findDuplicates();
+    if (duplicates.length > 0) {
+      alert(`Numeros duplicados: ${duplicates.join(", ")}`);
+      setSearchNumber(String(duplicates[0]));
+      setDuplicados(duplicates);
+    } else {
+      alert("No se encontraron duplicados.");
+    }
+  };
 
   // Function to handle sorting
   const handleSort = (field) => {
@@ -247,6 +281,35 @@ const BoletosDashboard = () => {
             <option value="Apartado">Apartado</option>
           </select>
         </div>
+        <button
+          style={{
+            margin: "10px",
+            padding: "10px",
+            borderRadius: "15px",
+            boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+            cursor: "pointer",
+            fontFamily: "Poppins",
+          }}
+          onClick={handleCheckDuplicates}
+        >
+          Buscar Numeros Duplicados
+        </button>
+        {duplicados.length > 0 && (
+          <p
+            style={{
+              color: "red",
+              marginLeft: "10px",
+              marginTop: "10px",
+              fontWeight: "bold",
+              fontFamily: "Poppins",
+              fontSize: "14px",
+              textAlign: "center",
+              padding: "10px",
+            }}
+          >
+            Numeros Duplicados: {duplicados.join(", ")}
+          </p>
+        )}
       </div>
       <div
         style={{
