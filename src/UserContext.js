@@ -67,13 +67,19 @@ export const UserProvider = ({ children }) => {
   }, [user]);
 
   useEffect(() => {
-    // Fetch user role when user changes
     async function fetchUserRole() {
       if (!user) return;
 
       const { data, error } = await supabase
-        .from("user_roles_view")
-        .select()
+        .from("user_roles")
+        .select(
+          `
+          *,
+          role_id (
+            role_name
+          )
+        `
+        )
         .eq("user_id", user.id);
 
       if (error) {
@@ -81,14 +87,23 @@ export const UserProvider = ({ children }) => {
         return;
       }
 
-      if (data) {
-        setUserRole(data[0]?.roles[0]);
+      if (
+        data &&
+        data.length > 0 &&
+        data[0].role_id &&
+        data[0].role_id.role_name
+      ) {
+        console.log(data[0].role_id.role_name);
+        setUserRole(data[0].role_id.role_name);
       }
     }
 
     fetchUserRole();
   }, [user]);
 
+  useEffect(() => {
+    console.log(userRole);
+  }, [userRole]);
   return (
     <UserContext.Provider value={{ user, userRole, userMetaData }}>
       {children}
