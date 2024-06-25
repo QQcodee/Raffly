@@ -23,7 +23,7 @@ app.post("/api/payment-status-oxxo/", async (req, res) => {
     const paymentIntent = await stripe.paymentIntents.retrieve(oxxo_id);
     res.json({ status: paymentIntent.status });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error.message, message: oxxo_id });
   }
 });
 
