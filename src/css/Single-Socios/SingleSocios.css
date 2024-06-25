@@ -9,10 +9,9 @@
 }
 
 .div-grid-archive {
-  width: 1500 px;
+  width: auto;
   position: relative;
   padding: 20px;
-  left: 2%;
   align-items: center;
   justify-content: center;
 }
@@ -38,7 +37,7 @@
 }
 
 .body-socios {
-  width: 100vw;
+  width: auto;
   margin: auto;
   align-items: center;
   margin-bottom: 50px;

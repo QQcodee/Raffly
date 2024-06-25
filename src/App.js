@@ -35,6 +35,7 @@ import SingleCarrito from "./pages/SingleCarrito";
 import LoginSingle from "./pages/LoginSIngle";
 import OxxoPaymentStatus from "./components/OxxoPaymentStatus";
 import SocioConfig from "./pages/dashboard/SocioConfig";
+import FooterGlobal from "./components/FooterGlobal";
 
 //import HeaderLogin from "./pages/HeaderLogin.js";
 //import Topbar from "./pages/dashboard/Topbar.js";
@@ -105,6 +106,7 @@ function App() {
           </Route>
         </Routes>
       </Router>
+      <FooterGlobal />
     </CartProvider>
   );
 }
