@@ -2,9 +2,8 @@
   margin-top: 40px;
   display: grid;
   grid-template-columns: repeat(auto-fill, 300px);
-  gap: 150px;
-  left: 10%;
-  position: relative;
+  gap: 130px;
+  margin-left: 30px;
 }
 .rifas-grid-home {
   margin-top: 40px;
