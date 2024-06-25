@@ -155,6 +155,45 @@ const CheckoutForm = ({
         );
       }
     }
+
+    if (paymentMethodType === "transferencia") {
+      const now = new Date();
+      const apartadoUntil = new Date(now.getTime() + 12 * 60 * 60 * 1000);
+
+      const { data, error } = await supabase.from("boletos").insert([
+        {
+          id_rifa: rifa.id,
+          num_boletos: ticketNumbersArray,
+          user_id: user.id,
+          precio: rifa.precioboleto,
+          desc: rifa.desc,
+          nombre_rifa: rifa.nombre,
+          email: email,
+          telefono: phone,
+          img_rifa: rifa.img,
+          socio: rifa.socio,
+          nombre: firstName + " " + lastName,
+          fecharifa: rifa.fecharifa,
+          socio_user_id: rifa.user_id,
+
+          apartado: true,
+          apartado_fecha: apartadoUntil,
+        },
+      ]);
+
+      if (error) {
+        console.error("Error inserting data: ", error);
+      } else {
+        clearCart();
+        navigate(
+          "/" +
+            encodeURIComponent(rifa.socio.replace(/\s+/g, "-")) +
+            "/" +
+            encodeURIComponent(rifa.user_id.replace(/\s+/g, "-")) +
+            "/mis-boletos"
+        );
+      }
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -258,7 +297,9 @@ const CheckoutForm = ({
           socioMetaData[0].phone +
           "&text=Hola aparte " +
           cartCount +
-          " boletos para el combo millonario: %0A ———————————— %0A Nombre: " +
+          " boletos para el sorteo " +
+          encodeURIComponent(rifa.nombre) +
+          ": %0A ———————————— %0A Nombre: " +
           firstName +
           "%0A Apellido: " +
           lastName +
@@ -270,6 +311,8 @@ const CheckoutForm = ({
           totalAmount +
           " %0A%0A CUENTAS DE PAGO AQUI: www.raffly.com.mx %0A %0A El siguiente paso es enviar foto del comprobante de pago por aqui"
       );
+
+      handleSuccesfulPayment();
     }
 
     setIsLoading(false);

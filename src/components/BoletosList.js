@@ -42,7 +42,9 @@ const BoletosList = ({ boleto }) => {
         socioMetaData[0].phone +
         "&text=Porfavor envia una foto del comprobante de pago para asegurar tus " +
         count +
-        " boletos para el combo millonario: %0A ———————————— %0A Nombre: " +
+        " boletos para el sorteo " +
+        encodeURIComponent(boleto.nombre_rifa) +
+        ": %0A ———————————— %0A Nombre: " +
         boleto.nombre +
         "%0A Telefono: " +
         boleto.telefono +
@@ -55,6 +57,7 @@ const BoletosList = ({ boleto }) => {
         " %0A%0A Una vez enviado el comprobante de pago activaremos tu boleto en un periodo de 24hrs."
     );
   };
+
   return (
     <>
       {socioMetaData[0] ? (
@@ -135,9 +138,9 @@ const BoletosList = ({ boleto }) => {
           <section className="ticket__third-section">
             {boleto.comprado === true ? (
               <h4>¡MUCHA SUERTE!</h4>
-            ) : boleto.oxxo ? (
+            ) : boleto.oxxo === true ? (
               <OxxoPaymentStatus boleto={boleto} />
-            ) : boleto.apartado ? (
+            ) : boleto.apartado === true ? (
               <button onClick={handlePagarTransferencia}>Pagar boleto</button>
             ) : null}
           </section>
