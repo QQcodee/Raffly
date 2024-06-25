@@ -16,14 +16,18 @@ app.use(cors({ origin: clientURL }));
 app.use(express.json());
 app.use(bodyParser.json());
 
-app.post("/api/payment-status-oxxo/", async (req, res) => {
-  const { oxxo_id } = req.params;
+app.post("/api/payment-status-oxxo", async (req, res) => {
+  const { oxxo_id } = req.body;
+
+  if (!oxxo_id) {
+    return res.status(400).json({ error: "oxxo_id is required" });
+  }
 
   try {
     const paymentIntent = await stripe.paymentIntents.retrieve(oxxo_id);
     res.json({ status: paymentIntent.status });
   } catch (error) {
-    res.status(500).json({ error: error.message, message: oxxo_id });
+    res.status(500).json({ error: error.message });
   }
 });
 

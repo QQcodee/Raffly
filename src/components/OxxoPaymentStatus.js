@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useEffect } from "react";
 import axios from "axios";
 import supabase from "../config/supabaseClient";
 
@@ -7,25 +8,25 @@ const OxxoPaymentStatus = ({ boleto }) => {
   const [status, setStatus] = useState("default");
   const [error, setError] = useState(null);
 
-  const fetchPaymentStatus = async (oxxo_id = null) => {
+  const fetchPaymentStatus = async () => {
     setStatus("cargando...");
+    const oxxo_id = boleto.oxxo_id;
+
     try {
-      const { response } = await axios.post(
+      const response = await axios.post(
         "https://www.raffly.com.mx/api/payment-status-oxxo",
-        {
-          oxxo_id: oxxo_id,
-        }
+        { oxxo_id }
       );
 
-      if (!response.ok) {
-        throw new Error("Failed to fetch payment status");
-      }
-      const data = await response.json();
+      const data = response.data; // Axios already parses JSON
+
       if (data.status === "succeeded") {
         setStatus("Pagado");
-        handleSuccesfulStatus();
+        handleSuccesfulStatus(); // Ensure handleSuccesfulStatus is defined
       } else if (data.status === "requires_action") {
         setStatus("Pendiente de pago");
+      } else {
+        setStatus("Desconocido");
       }
     } catch (err) {
       setError(err.message);
@@ -73,7 +74,7 @@ const OxxoPaymentStatus = ({ boleto }) => {
             fontSize: "16px",
             cursor: "pointer",
           }}
-          onClick={() => fetchPaymentStatus(oxxo_id)}
+          onClick={() => fetchPaymentStatus()}
         >
           Verificar estado pago oxxo
         </button>
@@ -99,7 +100,7 @@ const OxxoPaymentStatus = ({ boleto }) => {
             Pagar
           </button>
           <i
-            onClick={() => fetchPaymentStatus(oxxo_id)}
+            onClick={() => fetchPaymentStatus()}
             style={{ cursor: "pointer" }}
             className="material-icons"
           >

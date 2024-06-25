@@ -240,7 +240,7 @@ app.get("/payment-status-oxxo/:oxxo_id", async (req, res) => {
     console.log(error);
   }
 });
-
+/*
 app.post("/update-oxxo-status", async (req, res) => {
   const { boleto_id } = req.body;
 
@@ -258,6 +258,22 @@ app.post("/update-oxxo-status", async (req, res) => {
     res.status(200).send({ success: true, data });
   } catch (error) {
     res.status(500).send({ error: error.message });
+  }
+});
+*/
+
+app.post("/payment-status-oxxo", async (req, res) => {
+  const { oxxo_id } = req.body;
+
+  if (!oxxo_id) {
+    return res.status(400).json({ error: "oxxo_id is required" });
+  }
+
+  try {
+    const paymentIntent = await stripe.paymentIntents.retrieve(oxxo_id);
+    res.json({ status: paymentIntent.status });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 });
 
