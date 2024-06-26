@@ -323,49 +323,46 @@ const CheckoutForm = ({
       <h2 style={{ fontSize: "32px" }} className="form-header">
         Datos de pago
       </h2>
-      <form onSubmit={handleSubmit}>
-        <div className="payment-methods">
-          <label className="payment-method">
-            <input
-              type="radio"
-              name="paymentMethod"
-              value="card"
-              checked={paymentMethodType === "card"}
-              onChange={(e) => setPaymentMethodType(e.target.value)}
-            />
-            <img
-              src="https://ivltiudjxnrytalzxfwr.supabase.co/storage/v1/object/public/imagenes-rifas/public/pngwing.com__5_.png"
-              alt="Tarjeta"
-            />
-            Tarjeta
-          </label>
-          <label className="payment-method">
-            <input
-              type="radio"
-              name="paymentMethod"
-              value="oxxo"
-              checked={paymentMethodType === "oxxo"}
-              onChange={(e) => setPaymentMethodType(e.target.value)}
-            />
-            <img
-              src="https://ivltiudjxnrytalzxfwr.supabase.co/storage/v1/object/public/imagenes-rifas/public/logooxxo__1_.png"
-              alt="OXXO"
-            />
-            OXXO
-          </label>
-          <label className="payment-method">
-            <input
-              type="radio"
-              name="paymentMethod"
-              value="transferencia"
-              checked={paymentMethodType === "transferencia"}
-              onChange={(e) => setPaymentMethodType(e.target.value)}
-            />
-            <i className="material-icons">currency_exchange</i>
-            Transferencia
-          </label>
-        </div>
 
+      <div className="buttons-payment">
+        <button
+          onClick={() => setPaymentMethodType("card")}
+          className={paymentMethodType === "card" ? "active" : ""}
+        >
+          <img
+            src="https://ivltiudjxnrytalzxfwr.supabase.co/storage/v1/object/public/imagenes-rifas/public/pngwing.com__5_.png"
+            alt="Tarjeta"
+          />
+          Tarjeta
+        </button>
+        <button
+          onClick={() => setPaymentMethodType("oxxo")}
+          className={paymentMethodType === "oxxo" ? "active" : ""}
+        >
+          <img
+            src="https://ivltiudjxnrytalzxfwr.supabase.co/storage/v1/object/public/imagenes-rifas/public/logooxxo__1_.png"
+            alt="OXXO"
+          />
+          OXXO
+        </button>
+        <button
+          onClick={() => setPaymentMethodType("transferencia")}
+          className={paymentMethodType === "transferencia" ? "active" : ""}
+        >
+          <i
+            style={{
+              display: "flex",
+              alignItems: "center",
+            }}
+            className="material-icons"
+          >
+            currency_exchange
+          </i>
+          Transferencia
+        </button>
+      </div>
+
+      <form onSubmit={handleSubmit}>
         {paymentMethodType === "card" && (
           <>
             <div
