@@ -375,7 +375,7 @@ const HeaderSocios = () => {
                 </li>
 
                 <li>
-                  <a href="#metodos-de-pago">Metodos de pago</a>
+                  <a href="/metodos-de-pago">Metodos de pago</a>
                 </li>
 
                 {user || userRole === "Socio" ? (
