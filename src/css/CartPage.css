@@ -239,6 +239,7 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.288);
     margin: auto;
     margin-bottom: 80px;
+    justify-content: center;
   }
 
   .cart-section-single {

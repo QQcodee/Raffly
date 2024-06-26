@@ -4,10 +4,15 @@ import BoletosList from "../components/BoletosList";
 
 import { useState, useEffect } from "react";
 import { useUser } from "../UserContext";
+import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const MisBoletos = () => {
   const { user } = useUser();
+  const { user_id, nombre_negocio } = useParams();
   const [boletos, setBoletos] = useState([]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchBoletos = async () => {
@@ -37,6 +42,53 @@ const MisBoletos = () => {
           ))}
         </div>
       )}
+
+      {boletos.length === 0 ? (
+        <>
+          <h1 style={{ textAlign: "center", fontFamily: "Poppins" }}>
+            No tienes boletos comprados
+          </h1>
+
+          <div
+            style={{
+              alignContent: "center",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <button
+              style={{
+                borderRadius: "10px",
+                padding: "10px 20px",
+                backgroundColor: "#007bff",
+                color: "#fff",
+                border: "none",
+                cursor: "pointer",
+
+                fontFamily: "Poppins",
+                fontSize: "16px",
+                margin: "10px",
+
+                marginTop: "20px",
+                marginBottom: "20px",
+                boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
+                transition: "all 0.3s ease",
+              }}
+              onClick={() =>
+                navigate(
+                  "/" +
+                    encodeURIComponent(nombre_negocio.replace(/\s+/g, "-")) +
+                    "/" +
+                    encodeURIComponent(user_id.replace(/\s+/g, "-"))
+                )
+              }
+            >
+              Ir a rifas Activas
+            </button>
+          </div>
+          <div style={{ height: "50vh" }}></div>
+        </>
+      ) : null}
     </>
   );
 };

@@ -317,7 +317,6 @@ const RenderRifa = () => {
   return (
     <>
       <div>
-        <HeaderHome textdecoration="none" />
         <HeaderSocios socioMetaData={socioMetaData} />
         <CustomAlertDialog
           open={open}
