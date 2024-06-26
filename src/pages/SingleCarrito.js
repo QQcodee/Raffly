@@ -12,7 +12,7 @@ import HeaderSocios from "../components/HeaderSocios";
 import "../css/CartPage.css";
 
 const SingleCarrito = () => {
-  const { cart, removeItem, clearCart } = useCart();
+  const { cart, removeItem } = useCart();
 
   const [socioMetaData, setSocioMetaData] = useState([]);
 
@@ -179,6 +179,7 @@ const SingleCarrito = () => {
               </button>
             </div>
           </div>
+          <div style={{ height: "70vh" }}></div>
         </>
       )}
     </>

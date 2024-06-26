@@ -8,6 +8,7 @@ import HeaderLogin from "./HeaderLogin";
 // Import dashboard.css
 import "../css/dashboard.css";
 import { Today } from "@mui/icons-material";
+import Switch from "react-switch";
 
 const Create = () => {
   const [nombre, setNombre] = useState("");
@@ -15,16 +16,40 @@ const Create = () => {
   // const [fecharifa,setfecharifa] = useState("")
   const [precioboleto, setprecioboleto] = useState("");
   const [numboletos, setnumboletos] = useState("");
-  const [socio, setSocio] = useState("");
   const [formError, setFormError] = useState(null);
   const { user, userRole, userMetaData } = useUser();
   const [categoria, setCategoria] = useState(null);
+
+  const [tarjeta, setTarjeta] = useState(false);
+  const [oxxo, setOxxo] = useState(false);
+  const [transferencia, setTransferencia] = useState(false);
 
   const [imagePreview, setImagePreview] = useState(null);
   const [image, setImageURL] = useState(null);
   const [date, setDate] = useState("");
 
   const [startDate, setStartDate] = useState("");
+
+  const handleSwitchTarjeta = (checked) => {
+    setTarjeta({
+      ...tarjeta,
+      booleanValue: checked,
+    });
+  };
+
+  const handleSwitchOxxo = (checked) => {
+    setOxxo({
+      ...oxxo,
+      booleanValue: checked,
+    });
+  };
+
+  const handleSwitchTransferencia = (checked) => {
+    setTransferencia({
+      ...transferencia,
+      booleanValue: checked,
+    });
+  };
 
   const navigate = useNavigate();
 
@@ -57,6 +82,11 @@ const Create = () => {
       return;
     }
 
+    if (!(oxxo || tarjeta || transferencia)) {
+      alert("Tienes que elegir almenos un metodo de pago");
+      return;
+    }
+
     const { data, error } = await supabase.from("rifas").insert([
       {
         nombre,
@@ -68,6 +98,9 @@ const Create = () => {
         categoria: categoria,
         img: image,
         fecharifa: date,
+        oxxo: oxxo.booleanValue,
+        tarjeta: tarjeta.booleanValue,
+        transferencia: transferencia.booleanValue,
       },
     ]);
 
@@ -181,6 +214,90 @@ const Create = () => {
               <option value="Otro">Otro</option>
               {/* Add more options as needed */}
             </select>
+
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                }}
+              >
+                <p>Pagos con tarjeta:</p>
+                <label>
+                  <Switch
+                    onChange={handleSwitchTarjeta}
+                    checked={tarjeta.booleanValue}
+                    onColor="#86d3ff"
+                    onHandleColor="#2693e6"
+                    handleDiameter={30}
+                    uncheckedIcon={false}
+                    checkedIcon={false}
+                    boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                    activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+                    height={20}
+                    width={48}
+                    className="react-switch"
+                    id="material-switch"
+                  />
+                </label>
+              </div>
+
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                }}
+              >
+                <label>
+                  <p>Pagos con oxxo:</p>
+
+                  <Switch
+                    onChange={handleSwitchOxxo}
+                    checked={oxxo.booleanValue}
+                    onColor="#86d3ff"
+                    onHandleColor="#2693e6"
+                    handleDiameter={30}
+                    uncheckedIcon={false}
+                    checkedIcon={false}
+                    boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                    activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+                    height={20}
+                    width={48}
+                    className="react-switch"
+                    id="material-switch"
+                  />
+                </label>
+              </div>
+
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                }}
+              >
+                <p>Pagos con transferencia:</p>
+                <label>
+                  <Switch
+                    onChange={handleSwitchTransferencia}
+                    checked={transferencia.booleanValue}
+                    onColor="#86d3ff"
+                    onHandleColor="#2693e6"
+                    handleDiameter={30}
+                    uncheckedIcon={false}
+                    checkedIcon={false}
+                    boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                    activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+                    height={20}
+                    width={48}
+                    className="react-switch"
+                    id="material-switch"
+                  />
+                </label>
+              </div>
+            </div>
 
             <label htmlFor="image">Imagen:</label>
             <input

@@ -31,7 +31,15 @@ const CheckoutForm = ({
 }) => {
   const stripe = useStripe();
   const elements = useElements();
-  const [paymentMethodType, setPaymentMethodType] = useState("card");
+  const [paymentMethodType, setPaymentMethodType] = useState(
+    rifa.tarjeta === true
+      ? "card"
+      : rifa.oxxo === true
+      ? "oxxo"
+      : rifa.transferencia === true
+      ? "transferencia"
+      : null
+  );
   const [errorMessage, setErrorMessage] = useState("");
   const { user } = useUser();
   const [oxxoResponse, setOxxoResponse] = useState("");
@@ -325,41 +333,49 @@ const CheckoutForm = ({
       </h2>
 
       <div className="buttons-payment">
-        <button
-          onClick={() => setPaymentMethodType("card")}
-          className={paymentMethodType === "card" ? "active" : ""}
-        >
-          <img
-            src="https://ivltiudjxnrytalzxfwr.supabase.co/storage/v1/object/public/imagenes-rifas/public/pngwing.com__5_.png"
-            alt="Tarjeta"
-          />
-          Tarjeta
-        </button>
-        <button
-          onClick={() => setPaymentMethodType("oxxo")}
-          className={paymentMethodType === "oxxo" ? "active" : ""}
-        >
-          <img
-            src="https://ivltiudjxnrytalzxfwr.supabase.co/storage/v1/object/public/imagenes-rifas/public/logooxxo__1_.png"
-            alt="OXXO"
-          />
-          OXXO
-        </button>
-        <button
-          onClick={() => setPaymentMethodType("transferencia")}
-          className={paymentMethodType === "transferencia" ? "active" : ""}
-        >
-          <i
-            style={{
-              display: "flex",
-              alignItems: "center",
-            }}
-            className="material-icons"
+        {rifa.tarjeta === true ? (
+          <button
+            onClick={() => setPaymentMethodType("card")}
+            className={paymentMethodType === "card" ? "active" : ""}
           >
-            currency_exchange
-          </i>
-          Transferencia
-        </button>
+            <img
+              src="https://ivltiudjxnrytalzxfwr.supabase.co/storage/v1/object/public/imagenes-rifas/public/pngwing.com__5_.png"
+              alt="Tarjeta"
+            />
+            Tarjeta
+          </button>
+        ) : null}
+
+        {rifa.oxxo === true ? (
+          <button
+            onClick={() => setPaymentMethodType("oxxo")}
+            className={paymentMethodType === "oxxo" ? "active" : ""}
+          >
+            <img
+              src="https://ivltiudjxnrytalzxfwr.supabase.co/storage/v1/object/public/imagenes-rifas/public/logooxxo__1_.png"
+              alt="OXXO"
+            />
+            OXXO
+          </button>
+        ) : null}
+
+        {rifa.transferencia === true ? (
+          <button
+            onClick={() => setPaymentMethodType("transferencia")}
+            className={paymentMethodType === "transferencia" ? "active" : ""}
+          >
+            <i
+              style={{
+                display: "flex",
+                alignItems: "center",
+              }}
+              className="material-icons"
+            >
+              currency_exchange
+            </i>
+            Transferencia
+          </button>
+        ) : null}
       </div>
 
       <form onSubmit={handleSubmit}>

@@ -64,11 +64,9 @@ const MisBoletos = () => {
                 color: "#fff",
                 border: "none",
                 cursor: "pointer",
-
                 fontFamily: "Poppins",
                 fontSize: "16px",
                 margin: "10px",
-
                 marginTop: "20px",
                 marginBottom: "20px",
                 boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
