@@ -9,6 +9,7 @@ import HeaderLogin from "./HeaderLogin";
 import "../css/dashboard.css";
 import { Today } from "@mui/icons-material";
 import Switch from "react-switch";
+import UploadImage from "../components/UploadImage";
 
 const Create = () => {
   const [nombre, setNombre] = useState("");
@@ -29,6 +30,14 @@ const Create = () => {
   const [date, setDate] = useState("");
 
   const [startDate, setStartDate] = useState("");
+
+  const [imageUrls, setImageUrls] = useState([]);
+  console.log(imageUrls);
+
+  const handleImageUrls = (urls) => {
+    setImageUrls((prevUrls) => [...prevUrls, ...urls]);
+    console.log("Received URLs:", urls);
+  };
 
   const handleSwitchTarjeta = (checked) => {
     setTarjeta({
@@ -76,14 +85,11 @@ const Create = () => {
       !image ||
       !date ||
       !userMetaData ||
-      !categoria
+      !categoria ||
+      !imageUrls ||
+      (oxxo === false && tarjeta === false && transferencia === false)
     ) {
       setFormError("Please fill in all the fields correctly.");
-      return;
-    }
-
-    if (!(oxxo || tarjeta || transferencia)) {
-      alert("Tienes que elegir almenos un metodo de pago");
       return;
     }
 
@@ -101,6 +107,7 @@ const Create = () => {
         oxxo: oxxo.booleanValue,
         tarjeta: tarjeta.booleanValue,
         transferencia: transferencia.booleanValue,
+        galeria: imageUrls,
       },
     ]);
 
@@ -120,10 +127,6 @@ const Create = () => {
       const { data, error } = await supabase.storage
         .from("imagenes-rifas")
         .upload(filePath, file);
-
-      if (error) {
-        throw error;
-      }
 
       // Retrieve the public URL for the uploaded image
       const { data: publicURLData, error: publicURLError } = supabase.storage
@@ -323,6 +326,8 @@ const Create = () => {
               value={date}
               onChange={(e) => setDate(e.target.value)}
             />
+
+            <UploadImage onUploadComplete={handleImageUrls} />
             {userMetaData[0] ? <p> {userMetaData[0].nombre_negocio}</p> : null}
 
             <p style={{ color: "red" }}>

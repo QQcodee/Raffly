@@ -2,16 +2,26 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&family=VT323&display=swap");
 
+.h-container {
+  background-color: #272727;
+  height: 150px;
+  box-shadow: 0 8px 5px rgba(0, 0, 0, 0.2);
+}
+
 .header-socio {
   display: flex;
   justify-content: space-between;
   align-items: center; /* Ensure all items in the header are vertically centered */
   padding: 15px 30px;
   color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(230, 230, 230, 0.1);
   height: 80px;
   vertical-align: middle;
-  margin-top: 50px;
+  width: 100%;
+  position: relative;
+  top: 25%;
+  background-color: #212121;
+
   margin-bottom: 80px;
 }
 
@@ -242,12 +252,54 @@
     font-size: 16px;
     max-width: 23ch;
   }
+
+  .h-container {
+    background-color: #272727;
+    height: 80px;
+    box-shadow: 0 8px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  .header-socio {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Ensure all items in the header are vertically centered */
+    padding: 15px 30px;
+    color: #fff;
+    box-shadow: 0 2px 4px rgba(230, 230, 230, 0.1);
+    height: 40px;
+    vertical-align: middle;
+    width: 100%;
+    position: relative;
+    top: 25%;
+    background-color: #212121;
+
+    margin-bottom: 80px;
+  }
+
+  .logo-title-socio {
+    display: flex;
+    align-items: center; /* Ensure logo and title are vertically centered */
+    vertical-align: middle;
+  }
+
+  .logo-socio {
+    height: 70px;
+    width: auto; /* Maintain aspect ratio */
+    max-width: 70px;
+    object-fit: cover;
+    object-position: center;
+    margin-right: 15px;
+    border: 0.5px solid rgba(44, 44, 44, 0.9);
+    border-radius: 90px;
+
+    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.4);
+  }
 }
 
 @media (max-width: 425px) {
   .title-socio {
     font-size: 16px;
-    max-width: 11ch;
+    max-width: 17ch;
   }
 }
 

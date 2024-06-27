@@ -66,29 +66,24 @@ const SingleSocio = () => {
   return (
     <>
       <HeaderSocios />
+      <div className="single-archive">
+        <div className="div-grid-archive">
+          {fetchError && <p>{fetchError}</p>}
 
-      <div className="div-grid-archive">
-        {fetchError && <p>{fetchError}</p>}
-        <div className="rifas-title">
-          <h2>Rifas Activas </h2>
-          <hr className="divider-title-rifas-activas" />
+          {rifas && (
+            <div className="rifas-grid-archive">
+              {rifas.map((rifa) => (
+                <RifaList key={rifa.id} rifa={rifa} />
+              ))}
+            </div>
+          )}
         </div>
-
-        {rifas && (
-          <div className="rifas-grid-archive">
-            {rifas.map((rifa) => (
-              <RifaList key={rifa.id} rifa={rifa} />
-            ))}
-          </div>
-        )}
       </div>
       <div
         style={{
-          marginTop: "50px",
-
           maxWidth: "100vw",
-
           textAlign: "center  ",
+          boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
         }}
         className="home-socios"
       >
@@ -115,7 +110,12 @@ const SingleSocio = () => {
         </div>
 
         <div className="body-socios">
-          <p className="tittle-faq">¿CÓMO SE ELIGE A LOS GANADORES?</p>
+          <p
+            style={{ color: socioMetaData[0] ? socioMetaData[0].color : "Red" }}
+            className="tittle-faq"
+          >
+            ¿CÓMO SE ELIGE A LOS GANADORES?
+          </p>
 
           {socioMetaData[0] ? (
             <p className="p-faq">
@@ -128,7 +128,10 @@ const SingleSocio = () => {
             </p>
           ) : null}
 
-          <p className="tittle-faq">
+          <p
+            style={{ color: socioMetaData[0] ? socioMetaData[0].color : "Red" }}
+            className="tittle-faq"
+          >
             ¿QUÉ SUCEDE CUANDO EL NÚMERO GANADOR ES UN BOLETO NO VENDIDO?
           </p>
 
@@ -139,7 +142,12 @@ const SingleSocio = () => {
             tu mismo boleto!
           </p>
 
-          <p className="tittle-faq">¿DÓNDE SE PUBLICA A LOS GANADORES?</p>
+          <p
+            style={{ color: socioMetaData[0] ? socioMetaData[0].color : "Red" }}
+            className="tittle-faq"
+          >
+            ¿DÓNDE SE PUBLICA A LOS GANADORES?
+          </p>
 
           {socioMetaData[0] ? (
             <>
@@ -234,7 +242,15 @@ const SingleSocio = () => {
           ) : null}
         </div>
       </div>
-      <div className="whatsapp-sticky">
+    </>
+  );
+};
+
+export default SingleSocio;
+
+/*
+
+ <div className="whatsapp-sticky">
         <a
           onClick={() =>
             window.open(
@@ -252,12 +268,11 @@ const SingleSocio = () => {
               marginTop: "20px",
               padding: "10px",
               cursor: "pointer",
+              marginRight: "20px",
+              marginBottom: "20px",
             }}
           />
         </a>
       </div>
-    </>
-  );
-};
 
-export default SingleSocio;
+      */

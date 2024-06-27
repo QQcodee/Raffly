@@ -14,6 +14,25 @@
   padding: 20px;
   align-items: center;
   justify-content: center;
+  padding-bottom: 100px;
+}
+
+.single-archive {
+  background-color: #b0b9c421;
+}
+
+.div-grid-archive::before {
+  content: "";
+
+  background-image: url(https://ivltiudjxnrytalzxfwr.supabase.co/storage/v1/object/public/imagenes-rifas/No-borrar/pattern_300.png);
+  background-repeat: repeat;
+  opacity: 0.1; /* Adjust this value to change the opacity */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1; /* Ensure the pseudo-element is behind the content */
 }
 
 .divider-title-rifas-activas {
@@ -29,6 +48,7 @@
   left: 0;
   font-size: 30px;
   margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 .rifas-title h2 {
@@ -130,20 +150,17 @@
 
 @media (max-width: 570px) {
   .div-grid-archive {
-    width: 350px;
     position: relative;
     margin: auto;
   }
 
   .rifas-grid-archive {
-    left: -50px;
     gap: 100px;
   }
 
   .rifas-title {
     width: 350px;
     position: relative;
-    left: -40px;
     font-size: 30px;
     margin-bottom: 20px;
   }

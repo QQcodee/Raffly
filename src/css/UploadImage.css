@@ -1,0 +1,56 @@
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+input[type="file"] {
+  display: block;
+  margin-bottom: 20px;
+}
+
+/* Styling for the button */
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+button:disabled {
+  background-color: #d3d3d3;
+  cursor: not-allowed;
+}
+
+/* Styling for the image gallery */
+.image-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* Styling for each image item */
+.image-item {
+  background-color: white;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for the checkbox */
+.image-item input[type="checkbox"] {
+  margin-bottom: 10px;
+}
+
+/* Styling for the images */
+.image-item img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 5px;
+}

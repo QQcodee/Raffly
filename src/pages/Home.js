@@ -61,7 +61,11 @@ const Home = () => {
       <div>
         <h2>Como funciona?</h2>
       </div>
-      <div style={{ backgroundColor: "#DAECFF" }}>
+      <div
+        style={{
+          backgroundColor: "#DAECFF",
+        }}
+      >
         <div className="div-grid-home">
           {fetchError && <p>{fetchError}</p>}
           <h1>Bienvenido a Raffly</h1>

@@ -4,6 +4,7 @@
   position: relative;
   width: 300px; /* Adjust as needed */
   height: 400px; /* Adjust as needed */
+  margin-top: 20px;
 }
 
 .back-container {
@@ -16,6 +17,7 @@
   border-radius: 20px;
   transition: transform 0.5s ease, width 0.5s ease; /* Add transitions for both transform and width properties */
   z-index: 1;
+  border: 1px solid #6b6b6b25;
 }
 
 .hovered .back-container {
@@ -75,6 +77,7 @@
   -webkit-backdrop-filter: blur(17.6px);
   z-index: 2; /* Ensure front container is above back container when revealed */
   cursor: pointer;
+  border: 1px solid rgba(131, 131, 131, 0.5);
 }
 
 .hovered .front-container {
@@ -219,5 +222,7 @@
 @media (max-width: 600px) {
   .listing-container {
     transform: scale(0.8);
+
+    left: -20px;
   }
 }

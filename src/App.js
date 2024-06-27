@@ -87,10 +87,6 @@ function App() {
             element={<SingleCarrito />}
           />
 
-          <Route path="/loginform" element={<LoginForm />} />
-
-          <Route path="/oxxo" element={<OxxoPaymentStatus />} />
-
           {/* Dashboard routes */}
 
           <Route path="/dashboard/:user_id" element={<DashboardLayout />}>
