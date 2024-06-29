@@ -6,20 +6,17 @@ const LoadingBar = ({ boletosVendidos, rifa }) => {
       <div className="loading-bar">
         <div
           className="loading-bar-fill"
-          style={{ width: `${percentage}%` }}
-        ></div>
+          style={{
+            width: `${percentage}%`,
+            fontFamily: "Poppins",
+
+            fontWeight: "600",
+          }}
+        >
+          {" "}
+          {boletosVendidos}/{rifa.numboletos}
+        </div>
       </div>
-      <p
-        style={{
-          color: "black",
-          top: "-22px",
-          position: "relative",
-          fontWeight: "400",
-          fontSize: "14px",
-        }}
-      >
-        {boletosVendidos}/{rifa.numboletos} vendidos
-      </p>
     </div>
   );
 };

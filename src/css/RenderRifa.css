@@ -1,350 +1,93 @@
 /* Styles for the cart section */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&family=VT323&display=swap");
 
-.rifa-card {
-  display: flex;
-  justify-content: space-between;
-  font-family: Arial, sans-serif;
-  font-size: 16px;
-
-  color: #333;
-  border: 1px solid #cccccc10;
-
-  max-width: 1500px;
-  padding: 20px;
-  background-color: #f5f5f5;
-  border-radius: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.288);
-  margin: auto;
-  margin-bottom: 80px;
+.background {
+  background-image: url("https://ivltiudjxnrytalzxfwr.supabase.co/storage/v1/object/public/imagenes-rifas/No-borrar/Patern_20p.png");
+  background-repeat: repeat;
 }
 
-.rifa-info-render {
+.content {
+  z-index: 5;
   display: flex;
   flex-direction: column;
   padding: 20px;
-  width: 600px;
-}
-
-.rifa-img {
-  width: 900px;
-  max-height: 500px;
-  height: auto;
-  border-radius: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-}
-
-.buy-button-container-mobile {
-  display: none;
-}
-
-.rifa-img img {
-  height: auto;
-  width: 100%;
-  object-fit: cover;
-}
-
-.rifa-tittle {
-  display: flex;
-  font-size: 16px;
-  font-weight: 800;
   font-family: "Poppins";
-  color: #000;
 }
 
-.divider-rifa-render {
-  width: 100%;
-  height: 1px;
-  border-top: #000 2px solid;
+.tituloYFecha h1 {
+  font-size: 30px;
+  color: #000000;
+  font-weight: "medium";
+  max-width: 15ch;
 }
 
-.rifa-desc-render {
-  height: 260px;
-  max-height: calc(1.2em * 14);
-
-  overflow: hidden;
-  overflow-y: scroll;
+.tituloYFecha h2 {
+  font-size: 15px;
+  color: #000000;
+  font-weight: "medium";
 }
 
-.cart-section {
-  margin: 20px auto;
-  padding: 20px;
-  width: 350px;
-  text-align: left;
-  height: 600px;
-}
-
-.cart-section h2 {
-  font-size: 24px;
-  margin-bottom: 10px;
-}
-
-.cart-section ul {
-  list-style-type: none;
-  padding-left: 20px;
-  height: 330px;
-  overflow-y: scroll;
-}
-
-.cart-section ul li {
+.precioYContador {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 10px 0;
-  border-bottom: 1px solid #ddd;
+  align-items: stretch;
+
+  margin-top: 10px;
 }
 
-.cart-section ul li:last-child {
-  border-bottom: none;
+.precioYContador p {
+  font-size: 24px;
+  color: #000000;
+  font-weight: 600;
 }
 
-.cart-section ul li button {
-  background-color: #dc3545;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 3px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+.loading-bar-container-render {
+  width: 60%;
+  text-align: center;
+  height: 31px;
 }
 
-.cart-section ul li button:hover {
-  background-color: #c82333;
+.loading-bar-render {
+  width: 100%;
+  background-color: #ffffff00;
+  border-radius: 15px;
+  overflow: hidden;
+  height: 24px;
+  position: relative;
+  top: 3px;
+  left: 3px;
 }
 
-.cart-section p {
-  font-size: 18px;
-  font-weight: bold;
-  text-align: right;
+.loading-bar-fill-render {
+  height: 25px;
+  background-color: #4caf50;
+  width: 0;
+  transition: width 0.3s ease-in-out;
+  text-align: center;
+  border-radius: 15px;
 }
 
-/* Styles for the random ticket button */
-.random-ticket-button {
-  display: block;
-  margin: 20px auto;
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+.contanier-img-principal {
+  width: 400px;
+  height: 295px;
+  overflow: hidden;
+  border-radius: 15px;
+  margin-top: 10px;
+  margin-bottom: 30px;
 }
 
-.random-ticket-button:hover {
-  background-color: #0056b3;
+.contanier-img-principal img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 15px;
 }
 
-.boletos-carrito {
-  margin: auto;
-  display: flex;
-  font-family: Arial, sans-serif;
-  font-size: 16px;
+.contanier-counter {
+  z-index: 1;
+  margin-top: 20px;
 
-  color: #333;
-  border: 1px solid #cccccc10;
-
-  max-width: 1500px;
-  padding: 20px;
-  background-color: #f5f5f5;
-  border-radius: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.288);
-}
-
-.search-mobile {
-  display: none;
-}
-
-@media (max-width: 768px) {
-  .rifa-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-
-    color: #333;
-    border: 1px solid #cccccc10;
-
-    max-width: 400px;
-    padding: 20px;
-    background-color: #f5f5f5;
-    border-radius: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.288);
-    margin: auto;
-    margin-bottom: 80px;
-  }
-
-  .rifa-info-render {
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    width: 360px;
-  }
-  .rifa-info-render h2 {
-    text-align: center;
-  }
-
-  .rifa-img {
-    width: 360px;
-    max-height: 300px;
-    height: auto;
-    border-radius: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-  }
-
-  .rifa-img img {
-    height: auto;
-    width: 100%;
-    object-fit: cover;
-  }
-
-  .rifa-tittle {
-    display: flex;
-    flex-direction: column;
-    font-size: 13px;
-    font-weight: 800;
-    font-family: "Poppins";
-    color: #000;
-    align-items: center;
-  }
-
-  .divider-rifa-render {
-    width: 320px;
-    height: 1px;
-    border-top: #000 2px solid;
-  }
-
-  .rifa-desc-render {
-    height: 250px;
-    max-height: calc(1.2em * 9);
-    overflow: hidden;
-    overflow-y: scroll;
-  }
-
-  .cart-section {
-    margin: 20px auto;
-    padding: 20px;
-    width: 350px;
-    text-align: left;
-    height: auto;
-    max-height: 600px;
-    margin-bottom: 30px;
-  }
-
-  .cart-header {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    background-color: #f5f5f5c4;
-    margin-top: 20px;
-    padding: 10px;
-  }
-
-  .cart-section h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-
-  .cart-section ul {
-    list-style-type: none;
-    padding-left: 20px;
-    height: 350px;
-    overflow-y: scroll;
-  }
-
-  .cart-section ul li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid #ddd;
-  }
-
-  .cart-section ul li:last-child {
-    border-bottom: none;
-  }
-
-  .cart-section ul li button {
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-
-  .cart-section ul li button:hover {
-    background-color: #c82333;
-  }
-
-  .cart-section p {
-    font-size: 18px;
-    font-weight: bold;
-    text-align: right;
-  }
-
-  /* Styles for the random ticket button */
-  .random-ticket-button {
-    display: block;
-    margin: 20px auto;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-
-  .random-ticket-button:hover {
-    background-color: #0056b3;
-  }
-
-  .boletos-carrito {
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-
-    color: #333;
-    border: 1px solid #cccccc10;
-
-    max-width: 400px;
-    padding: 20px;
-    background-color: #f5f5f5;
-    border-radius: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.288);
-  }
-
-  .buy-button-container {
-    display: none;
-  }
-
-  .buy-button-container-mobile {
-    display: flex;
-  }
-
-  .search-container {
-    display: none;
-  }
-
-  .search-mobile {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10px;
-  }
+  position: relative;
+  left: 130px;
+  top: 70px;
 }

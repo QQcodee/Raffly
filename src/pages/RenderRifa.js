@@ -20,6 +20,10 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import HeaderGlobal from "../components/HeaderGlobal";
+import FooterGlobal from "../components/FooterGlobal";
+import LoadingBarRender from "../components/LoadingBarRender";
+import Carousel from "../components/Carousel";
 
 const CustomAlertDialog = ({ open, handleClose, handleConfirm }) => {
   return (
@@ -316,13 +320,246 @@ const RenderRifa = () => {
 
   return (
     <>
-      <div>
-        <HeaderSocios socioMetaData={socioMetaData} />
-        <CustomAlertDialog
-          open={open}
-          handleClose={handleClose}
-          handleConfirm={handleConfirm}
-        />
+      <HeaderGlobal />
+
+      <CustomAlertDialog
+        open={open}
+        handleClose={handleClose}
+        handleConfirm={handleConfirm}
+      />
+
+      <div className="background">
+        <div className="content">
+          <section className="tituloYFecha">
+            <h1>{rifaDetails && rifaDetails.nombre}</h1>
+            <p>Delicias/Chihuahua</p>
+            <h2>Fecha del sorteo: {rifaDetails && rifaDetails.fecharifa}</h2>
+          </section>
+          <section className="precioYContador">
+            <p>${rifaDetails && rifaDetails.precioboleto} MXN</p>
+            {soldTickets
+              ? soldTickets.length > 50 && (
+                  <LoadingBarRender
+                    boletosVendidos={soldTickets.length}
+                    rifa={rifaDetails}
+                  />
+                )
+              : null}
+          </section>
+
+          <section className="galeria">
+            <div className="contanier-img-principal">
+              {rifaDetails.galeria && rifaDetails.fecharifa ? (
+                rifaDetails.fecharifa ? (
+                  <Carousel
+                    images={rifaDetails.galeria}
+                    fecha={rifaDetails.fecharifa}
+                  />
+                ) : null
+              ) : rifaDetails.fecharifa ? (
+                <Carousel
+                  images={[rifaDetails.img]}
+                  fecha={rifaDetails.fecharifa}
+                />
+              ) : null}
+            </div>
+          </section>
+
+          <section className="premios">
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                backgroundColor: "#6FCF85",
+                width: "165px",
+                marginLeft: "-20px",
+                paddingTop: "10px",
+                paddingRight: "20px",
+                borderRadius: "0 20px 20px 0",
+                height: "40px",
+                alignItems: "center",
+              }}
+            >
+              <h3
+                style={{
+                  color: "white",
+                  fontFamily: "Poppins",
+                  fontSize: "24px",
+                  fontWeight: "800",
+                }}
+              >
+                Premios
+              </h3>
+            </div>
+
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                marginTop: "20px",
+                marginBottom: "20px",
+                gap: "20px",
+              }}
+              className="premios"
+            >
+              <div style={{ display: "flex" }} className="1er-premio">
+                <img
+                  style={{ width: "100px", height: "100px", zIndex: "10" }}
+                  src="https://ivltiudjxnrytalzxfwr.supabase.co/storage/v1/object/public/imagenes-rifas/No-borrar/1st.png"
+                ></img>
+                <div
+                  style={{
+                    backgroundColor: "#212121",
+                    width: "285px",
+                    borderRadius: "15px",
+                    marginLeft: "-60px",
+                    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                    display: "flex",
+                  }}
+                  className="1er-premio-texto"
+                >
+                  <div style={{ width: "100px" }}></div>
+                  <p
+                    style={{
+                      color: "white",
+                      maxWidth: "30ch",
+                      fontFamily: "Poppins",
+                      fontSize: "10px",
+                      fontWeight: "800",
+
+                      marginTop: "10px",
+                    }}
+                  >
+                    Premio 1
+                  </p>
+                </div>
+              </div>
+
+              <div style={{ display: "flex" }} className="2do-premio">
+                <img
+                  style={{ width: "100px", height: "100px", zIndex: "10" }}
+                  src="https://ivltiudjxnrytalzxfwr.supabase.co/storage/v1/object/public/imagenes-rifas/No-borrar/2d.png"
+                />
+                <div
+                  style={{
+                    backgroundColor: "#212121",
+                    width: "285px",
+                    borderRadius: "15px",
+                    marginLeft: "-60px",
+                    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                    display: "flex",
+                  }}
+                  className="2er-premio-texto"
+                >
+                  <div style={{ width: "100px" }}></div>
+                  <p
+                    style={{
+                      color: "white",
+                      maxWidth: "30ch",
+                      fontFamily: "Poppins",
+                      fontSize: "10px",
+                      fontWeight: "800",
+
+                      marginTop: "10px",
+                    }}
+                  >
+                    Premio 2
+                  </p>
+                </div>
+              </div>
+
+              <div style={{ display: "flex" }} className="3er-premio">
+                <img
+                  style={{ width: "100px", height: "100px", zIndex: "10" }}
+                  src="https://ivltiudjxnrytalzxfwr.supabase.co/storage/v1/object/public/imagenes-rifas/No-borrar/3rd.png"
+                />
+                <div
+                  style={{
+                    backgroundColor: "#212121",
+                    width: "285px",
+                    borderRadius: "15px",
+                    marginLeft: "-60px",
+                    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                    display: "flex",
+                  }}
+                  className="3er-premio-texto"
+                >
+                  <div style={{ width: "100px" }}></div>
+                  <p
+                    style={{
+                      color: "white",
+                      maxWidth: "30ch",
+                      fontFamily: "Poppins",
+                      fontSize: "10px",
+                      fontWeight: "800",
+
+                      marginTop: "10px",
+                    }}
+                  >
+                    Premio 3
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section
+            style={{ display: "flex", justifyContent: "center" }}
+            className="tarjeta-verificado"
+          >
+            <div
+              style={{
+                height: "130px",
+                width: "370px",
+                backgroundImage: `url(https://ivltiudjxnrytalzxfwr.supabase.co/storage/v1/object/public/imagenes-rifas/No-borrar/Tarjeta_oro.png)`,
+                borderRadius: "7px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <h1 style={{ textAlign: "center", marginTop: "30px" }}>
+                Verificado
+              </h1>
+              <img
+                style={{ width: "25px", height: "25px" }}
+                src="https://ivltiudjxnrytalzxfwr.supabase.co/storage/v1/object/public/imagenes-rifas/No-borrar/verificado.png"
+              />
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <FooterGlobal />
+    </>
+  );
+};
+
+export default RenderRifa;
+
+/*
+        {rifaDetails && socioMetaData[0] ? (
+          <Form
+            precioBoleto={rifaDetails.precioboleto}
+            rifa={rifaDetails}
+            totalAmount={totalAmount}
+            stripe_id={socioMetaData[0].stripe_id}
+            descripcion={
+              "Ticket:" +
+              rifaDetails.nombre +
+              "(" +
+              rifaDetails.id +
+              ")" +
+              "Numeros:" +
+              ticketNumbersArray
+            }
+          />
+        ) : null}
+         */
+
+/*
 
         {rifaDetails.fecharifa ? (
           <>
@@ -402,72 +639,17 @@ const RenderRifa = () => {
                   }}
                 />
                 <div>{searchResult}</div>
-                {/* Other component code */}
-              </div>
-              {socioMetaData[0] ? (
-                <div className="buy-button-container-mobile">
-                  <button
-                    className="buy-button"
-                    onClick={() => {
-                      navigate(
-                        "/" +
-                          encodeURIComponent(
-                            socioMetaData[0].nombre_negocio.replace(/\s+/g, "-")
-                          ) +
-                          "/" +
-                          encodeURIComponent(
-                            socioMetaData[0].user_id.replace(/\s+/g, "-")
-                          ) +
-                          "/carrito"
-                      );
-                    }}
-                    style={{
-                      backgroundColor: socioMetaData[0].color,
-                      color: "white",
-                      borderRadius: "15px",
-                      border: "none",
-                      padding: "10px 20px",
-                      fontSize: "16px",
-                      cursor: "pointer",
-                      width: "100%",
-                      marginTop: "20px",
-                    }}
-                  >
-                    Comprar
-                  </button>
+              
                 </div>
-              ) : null}
-            </div>
-            {cart.length === 0 ? (
-              <p style={{ textAlign: "center", fontWeight: "400" }}>
-                Ningun boleto seleccionado
-              </p>
-            ) : (
-              <>
-                <ul>
-                  {cart.map((item) => (
-                    <li key={item.id}>
-                      #{item.ticketNumber} - ${item.price}
-                      <button
-                        onClick={() => handleRemoveTicketFromCart(item.id)}
-                      >
-                        Eliminar
-                      </button>
-                    </li>
-                  ))}
-                </ul>
                 {socioMetaData[0] ? (
-                  <div className="buy-button-container">
+                  <div className="buy-button-container-mobile">
                     <button
                       className="buy-button"
                       onClick={() => {
                         navigate(
                           "/" +
                             encodeURIComponent(
-                              socioMetaData[0].nombre_negocio.replace(
-                                /\s+/g,
-                                "-"
-                              )
+                              socioMetaData[0].nombre_negocio.replace(/\s+/g, "-")
                             ) +
                             "/" +
                             encodeURIComponent(
@@ -485,103 +667,488 @@ const RenderRifa = () => {
                         fontSize: "16px",
                         cursor: "pointer",
                         width: "100%",
+                        marginTop: "20px",
                       }}
                     >
                       Comprar
                     </button>
                   </div>
                 ) : null}
-              </>
-            )}
-          </div>
-
-          <Grid
-            className="boletos-grid"
-            columnCount={columnCount}
-            overscanRowCount={5}
-            style={{ border: "none", overflowX: "hidden" }}
-            columnWidth={columnWidth}
-            height={600}
-            rowCount={Math.ceil(rifaDetails.numboletos / columnCount)}
-            rowHeight={rowHeight}
-            width={responsiveWidth}
-          >
-            {Cell}
-          </Grid>
-          <div className="search-mobile">
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Buscar boleto por numero"
-              style={{
-                padding: "10px",
-                borderRadius: "5px",
-                border: "1px solid #ccc",
-                width: "100%",
-                maxWidth: "300px",
-              }}
-            />
-            <div>{searchResult}</div>
-            {/* Other component code */}
-          </div>
-          {socioMetaData[0] ? (
-            <div className="buy-button-container-mobile">
-              <button
-                className="buy-button"
-                onClick={() => {
-                  navigate(
-                    "/" +
-                      encodeURIComponent(
-                        socioMetaData[0].nombre_negocio.replace(/\s+/g, "-")
-                      ) +
-                      "/" +
-                      encodeURIComponent(
-                        socioMetaData[0].user_id.replace(/\s+/g, "-")
-                      ) +
-                      "/carrito"
-                  );
-                }}
-                style={{
-                  backgroundColor: socioMetaData[0].color,
-                  color: "white",
-                  borderRadius: "15px",
-                  border: "none",
-                  padding: "10px 20px",
-                  fontSize: "16px",
-                  cursor: "pointer",
-                  width: "100%",
-                  marginTop: "20px",
-                }}
-              >
-                Comprar
-              </button>
+              </div>
+              {cart.length === 0 ? (
+                <p style={{ textAlign: "center", fontWeight: "400" }}>
+                  Ningun boleto seleccionado
+                </p>
+              ) : (
+                <>
+                  <ul>
+                    {cart.map((item) => (
+                      <li key={item.id}>
+                        #{item.ticketNumber} - ${item.price}
+                        <button
+                          onClick={() => handleRemoveTicketFromCart(item.id)}
+                        >
+                          Eliminar
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                  {socioMetaData[0] ? (
+                    <div className="buy-button-container">
+                      <button
+                        className="buy-button"
+                        onClick={() => {
+                          navigate(
+                            "/" +
+                              encodeURIComponent(
+                                socioMetaData[0].nombre_negocio.replace(
+                                  /\s+/g,
+                                  "-"
+                                )
+                              ) +
+                              "/" +
+                              encodeURIComponent(
+                                socioMetaData[0].user_id.replace(/\s+/g, "-")
+                              ) +
+                              "/carrito"
+                          );
+                        }}
+                        style={{
+                          backgroundColor: socioMetaData[0].color,
+                          color: "white",
+                          borderRadius: "15px",
+                          border: "none",
+                          padding: "10px 20px",
+                          fontSize: "16px",
+                          cursor: "pointer",
+                          width: "100%",
+                        }}
+                      >
+                        Comprar
+                      </button>
+                    </div>
+                  ) : null}
+                </>
+              )}
             </div>
-          ) : null}
+  
+            <Grid
+              className="boletos-grid"
+              columnCount={columnCount}
+              overscanRowCount={5}
+              style={{ border: "none", overflowX: "hidden" }}
+              columnWidth={columnWidth}
+              height={600}
+              rowCount={Math.ceil(rifaDetails.numboletos / columnCount)}
+              rowHeight={rowHeight}
+              width={responsiveWidth}
+            >
+              {Cell}
+            </Grid>
+            <div className="search-mobile">
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Buscar boleto por numero"
+                style={{
+                  padding: "10px",
+                  borderRadius: "5px",
+                  border: "1px solid #ccc",
+                  width: "100%",
+                  maxWidth: "300px",
+                }}
+              />
+              <div>{searchResult}</div>
+           
+            </div>
+            {socioMetaData[0] ? (
+              <div className="buy-button-container-mobile">
+                <button
+                  className="buy-button"
+                  onClick={() => {
+                    navigate(
+                      "/" +
+                        encodeURIComponent(
+                          socioMetaData[0].nombre_negocio.replace(/\s+/g, "-")
+                        ) +
+                        "/" +
+                        encodeURIComponent(
+                          socioMetaData[0].user_id.replace(/\s+/g, "-")
+                        ) +
+                        "/carrito"
+                    );
+                  }}
+                  style={{
+                    backgroundColor: socioMetaData[0].color,
+                    color: "white",
+                    borderRadius: "15px",
+                    border: "none",
+                    padding: "10px 20px",
+                    fontSize: "16px",
+                    cursor: "pointer",
+                    width: "100%",
+                    marginTop: "20px",
+                  }}
+                >
+                  Comprar
+                </button>
+              </div>
+            ) : null}
+          </div>
         </div>
-      </div>
-    </>
-  );
-};
 
-export default RenderRifa;
+        */
+
+/*CSS RENDER RIFA*/
 
 /*
-        {rifaDetails && socioMetaData[0] ? (
-          <Form
-            precioBoleto={rifaDetails.precioboleto}
-            rifa={rifaDetails}
-            totalAmount={totalAmount}
-            stripe_id={socioMetaData[0].stripe_id}
-            descripcion={
-              "Ticket:" +
-              rifaDetails.nombre +
-              "(" +
-              rifaDetails.id +
-              ")" +
-              "Numeros:" +
-              ticketNumbersArray
-            }
-          />
-        ) : null}
-         */
+
+        .rifa-card {
+  display: flex;
+  justify-content: space-between;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+
+  color: #333;
+  border: 1px solid #cccccc10;
+
+  max-width: 1500px;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.288);
+  margin: auto;
+  margin-bottom: 80px;
+}
+
+.rifa-info-render {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  width: 600px;
+}
+
+.rifa-img {
+  width: 900px;
+  max-height: 500px;
+  height: auto;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.buy-button-container-mobile {
+  display: none;
+}
+
+.rifa-img img {
+  height: auto;
+  width: 100%;
+  object-fit: cover;
+}
+
+.rifa-tittle {
+  display: flex;
+  font-size: 16px;
+  font-weight: 800;
+  font-family: "Poppins";
+  color: #000;
+}
+
+.divider-rifa-render {
+  width: 100%;
+  height: 1px;
+  border-top: #000 2px solid;
+}
+
+.rifa-desc-render {
+  height: 260px;
+  max-height: calc(1.2em * 14);
+
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+.cart-section {
+  margin: 20px auto;
+  padding: 20px;
+  width: 350px;
+  text-align: left;
+  height: 600px;
+}
+
+.cart-section h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.cart-section ul {
+  list-style-type: none;
+  padding-left: 20px;
+  height: 330px;
+  overflow-y: scroll;
+}
+
+.cart-section ul li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.cart-section ul li:last-child {
+  border-bottom: none;
+}
+
+.cart-section ul li button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cart-section ul li button:hover {
+  background-color: #c82333;
+}
+
+.cart-section p {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: right;
+}
+
+.random-ticket-button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.random-ticket-button:hover {
+  background-color: #0056b3;
+}
+
+.boletos-carrito {
+  margin: auto;
+  display: flex;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+
+  color: #333;
+  border: 1px solid #cccccc10;
+
+  max-width: 1500px;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.288);
+}
+
+.search-mobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .rifa-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+
+    color: #333;
+    border: 1px solid #cccccc10;
+
+    max-width: 400px;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.288);
+    margin: auto;
+    margin-bottom: 80px;
+  }
+
+  .rifa-info-render {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    width: 360px;
+  }
+  .rifa-info-render h2 {
+    text-align: center;
+  }
+
+  .rifa-img {
+    width: 360px;
+    max-height: 300px;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  }
+
+  .rifa-img img {
+    height: auto;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .rifa-tittle {
+    display: flex;
+    flex-direction: column;
+    font-size: 13px;
+    font-weight: 800;
+    font-family: "Poppins";
+    color: #000;
+    align-items: center;
+  }
+
+  .divider-rifa-render {
+    width: 320px;
+    height: 1px;
+    border-top: #000 2px solid;
+  }
+
+  .rifa-desc-render {
+    height: 250px;
+    max-height: calc(1.2em * 9);
+    overflow: hidden;
+    overflow-y: scroll;
+  }
+
+  .cart-section {
+    margin: 20px auto;
+    padding: 20px;
+    width: 350px;
+    text-align: left;
+    height: auto;
+    max-height: 600px;
+    margin-bottom: 30px;
+  }
+
+  .cart-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: #f5f5f5c4;
+    margin-top: 20px;
+    padding: 10px;
+  }
+
+  .cart-section h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  .cart-section ul {
+    list-style-type: none;
+    padding-left: 20px;
+    height: 350px;
+    overflow-y: scroll;
+  }
+
+  .cart-section ul li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .cart-section ul li:last-child {
+    border-bottom: none;
+  }
+
+  .cart-section ul li button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .cart-section ul li button:hover {
+    background-color: #c82333;
+  }
+
+  .cart-section p {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: right;
+  }
+
+  .random-ticket-button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .random-ticket-button:hover {
+    background-color: #0056b3;
+  }
+
+  .boletos-carrito {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+
+    color: #333;
+    border: 1px solid #cccccc10;
+
+    max-width: 400px;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.288);
+  }
+
+  .buy-button-container {
+    display: none;
+  }
+
+  .buy-button-container-mobile {
+    display: flex;
+  }
+
+  .search-container {
+    display: none;
+  }
+
+  .search-mobile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+  }
+}
+
+
+*/
