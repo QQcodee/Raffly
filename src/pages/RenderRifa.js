@@ -347,7 +347,10 @@ const RenderRifa = () => {
               : null}
           </section>
 
-          <section className="galeria">
+          <section
+            style={{ display: "flex", justifyContent: "center" }}
+            className="galeria"
+          >
             <div className="contanier-img-principal">
               {rifaDetails.galeria && rifaDetails.fecharifa ? (
                 rifaDetails.fecharifa ? (
@@ -396,15 +399,15 @@ const RenderRifa = () => {
               style={{
                 display: "flex",
                 flexDirection: "column",
-                justifyContent: "center",
                 alignItems: "center",
-                marginTop: "20px",
+
+                marginTop: "60px",
                 marginBottom: "20px",
-                gap: "20px",
+                gap: "40px",
               }}
               className="premios"
             >
-              <div style={{ display: "flex" }} className="1er-premio">
+              <div style={{ display: "flex" }} className="primer-premio">
                 <img
                   style={{ width: "100px", height: "100px", zIndex: "10" }}
                   src="https://ivltiudjxnrytalzxfwr.supabase.co/storage/v1/object/public/imagenes-rifas/No-borrar/1st.png"
@@ -437,7 +440,7 @@ const RenderRifa = () => {
                 </div>
               </div>
 
-              <div style={{ display: "flex" }} className="2do-premio">
+              <div style={{ display: "flex" }} className="segundo-premio">
                 <img
                   style={{ width: "100px", height: "100px", zIndex: "10" }}
                   src="https://ivltiudjxnrytalzxfwr.supabase.co/storage/v1/object/public/imagenes-rifas/No-borrar/2d.png"
@@ -470,7 +473,7 @@ const RenderRifa = () => {
                 </div>
               </div>
 
-              <div style={{ display: "flex" }} className="3er-premio">
+              <div style={{ display: "flex" }} className="tercer-premio">
                 <img
                   style={{ width: "100px", height: "100px", zIndex: "10" }}
                   src="https://ivltiudjxnrytalzxfwr.supabase.co/storage/v1/object/public/imagenes-rifas/No-borrar/3rd.png"
@@ -514,19 +517,89 @@ const RenderRifa = () => {
                 height: "130px",
                 width: "370px",
                 backgroundImage: `url(https://ivltiudjxnrytalzxfwr.supabase.co/storage/v1/object/public/imagenes-rifas/No-borrar/Tarjeta_oro.png)`,
-                borderRadius: "7px",
+                borderRadius: "9px",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
               }}
             >
-              <h1 style={{ textAlign: "center", marginTop: "30px" }}>
-                Verificado
-              </h1>
-              <img
-                style={{ width: "25px", height: "25px" }}
-                src="https://ivltiudjxnrytalzxfwr.supabase.co/storage/v1/object/public/imagenes-rifas/No-borrar/verificado.png"
-              />
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  width: "30%",
+                  textAlign: "center",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                {socioMetaData[0] && (
+                  <img
+                    style={{
+                      width: "80px",
+                      height: "80px",
+                      boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                      borderRadius: "50%",
+                    }}
+                    src={socioMetaData[0].image_url}
+                  />
+                )}
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  width: "70%",
+                  marginTop: "-20px",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+
+                    alignItems: "center",
+
+                    gap: "5px",
+                  }}
+                >
+                  <p
+                    style={{
+                      marginTop: "30px",
+                      fontSize: "21px",
+                      textTransform: "uppercase",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Verificado
+                  </p>
+                  <img
+                    style={{ width: "25px", height: "25px" }}
+                    src="https://ivltiudjxnrytalzxfwr.supabase.co/storage/v1/object/public/imagenes-rifas/No-borrar/verificado.png"
+                  />
+                </div>
+
+                <p
+                  style={{
+                    fontSize: "9px",
+                    marginTop: "-10px",
+                    maxWidth: "38ch",
+                    fontWeight: "500",
+                  }}
+                >
+                  Somos una constructora dedicada a realizar las casas con
+                  mejores estandares de calidad de toda la republica Mexicana
+                </p>
+
+                <p
+                  style={{
+                    fontSize: "10px",
+                    marginTop: "-10px",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Certificado de Socio aprovado por Raffly
+                </p>
+              </div>
             </div>
           </section>
         </div>
