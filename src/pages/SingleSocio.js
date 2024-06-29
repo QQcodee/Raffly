@@ -10,6 +10,8 @@ import HeaderSocios from "../components/HeaderSocios";
 
 //import SingleSocio.css
 import "../css/Single-Socios/SingleSocios.css";
+import HeaderGlobal from "../components/HeaderGlobal";
+import FooterGlobal from "../components/FooterGlobal";
 
 const SingleSocio = () => {
   const { user_id } = useParams();
@@ -65,7 +67,8 @@ const SingleSocio = () => {
 
   return (
     <>
-      <HeaderSocios />
+      <HeaderGlobal />
+
       <div className="single-archive">
         <div className="div-grid-archive">
           {fetchError && <p>{fetchError}</p>}
@@ -242,6 +245,7 @@ const SingleSocio = () => {
           ) : null}
         </div>
       </div>
+      <FooterGlobal />
     </>
   );
 };

@@ -110,7 +110,7 @@ const RifaList = ({ rifa }) => {
             <hr className="divider" />
 
             {/* Rifa name */}
-            <div className="rifa-name">{rifa.nombre}</div>
+            <div className="rifa-name-list">{rifa.nombre}</div>
 
             {/* Description */}
             <div className="description">

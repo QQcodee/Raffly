@@ -128,10 +128,15 @@
   text-transform: uppercase;
 }
 
-.rifa-name {
+.rifa-name-list {
   font-weight: bold;
-  height: 20px;
+  max-height: 4rem;
+  height: auto;
+  max-width: 44ch;
   font-size: 21px;
+  text-align: center;
+  font-family: "Poppins";
+  overflow: hidden;
 }
 
 .description {

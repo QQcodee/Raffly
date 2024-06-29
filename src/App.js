@@ -36,6 +36,7 @@ import LoginSingle from "./pages/LoginSIngle";
 import OxxoPaymentStatus from "./components/OxxoPaymentStatus";
 import SocioConfig from "./pages/dashboard/SocioConfig";
 import FooterGlobal from "./components/FooterGlobal";
+import HeaderGlobal from "./components/HeaderGlobal";
 
 //import HeaderLogin from "./pages/HeaderLogin.js";
 //import Topbar from "./pages/dashboard/Topbar.js";
@@ -86,6 +87,7 @@ function App() {
             path="/:nombre_negocio/:user_id/perfil"
             element={<SingleCarrito />}
           />
+          <Route path="/hed" element={<HeaderGlobal />} />
 
           {/* Dashboard routes */}
 
@@ -102,7 +104,6 @@ function App() {
           </Route>
         </Routes>
       </Router>
-      <FooterGlobal />
     </CartProvider>
   );
 }

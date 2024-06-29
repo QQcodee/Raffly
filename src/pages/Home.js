@@ -7,11 +7,12 @@ import { useUser } from "../UserContext";
 
 //import css
 import "../css/index.css";
-import "../css/NavHome.css";
 
 //import components
 import HeaderHome from "../components/HeaderHome";
 import RifaList from "../components/RifaList";
+import HeaderGlobal from "../components/HeaderGlobal";
+import FooterGlobal from "../components/FooterGlobal";
 
 const Home = () => {
   const [fetchError, setFetchError] = useState(null);
@@ -40,9 +41,19 @@ const Home = () => {
   //console.log(rifas);
   return (
     <>
-      <HeaderHome textDecoration="none" />
+      <div>
+        <HeaderGlobal />
+      </div>
+      <FooterGlobal />
+    </>
+  );
+};
 
-      <div className="hero">
+export default Home;
+
+/*
+
+<div className="hero">
         <h1>Bienvenido a Raffly!</h1>
 
         <hr className="solid"></hr>
@@ -78,8 +89,5 @@ const Home = () => {
           )}
         </div>
       </div>
-    </>
-  );
-};
 
-export default Home;
+      */

@@ -1,0 +1,840 @@
+//import HeaderGlobal.css
+import "./HeaderGlobal.css";
+
+import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import supabase from "../config/supabaseClient";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { useUser } from "../UserContext";
+
+import AccountMenu from "./AccountMenu";
+
+import { useCart } from "../CartContext";
+
+const HeaderGlobal = () => {
+  const { user_id, nombre_negocio } = useParams();
+
+  const [socioMetaData, setSocioMetaData] = useState([]);
+  console.log(socioMetaData);
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { cartCount, cart } = useCart();
+  console.log(cart);
+
+  const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
+  const toggleHamburger = () => {
+    setIsHamburgerOpen(!isHamburgerOpen);
+    setMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const closeHamburger = () => {
+    setIsHamburgerOpen(false);
+  };
+
+  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const { user, userRole } = useUser();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchUserMetaData = async () => {
+      const { data, error } = await supabase
+        .from("user_metadata")
+        .select()
+        .eq("user_id", user_id);
+
+      if (error) {
+        console.log(error);
+      }
+      if (data) {
+        setSocioMetaData(data);
+
+        //console.log(data);
+      }
+    };
+    fetchUserMetaData();
+  }, []);
+  return (
+    <>
+      <header className="header-global">
+        <h2 onClick={() => navigate("/")}>Raffly</h2>
+
+        <div className="search">
+          <input type="text" />
+          <i
+            style={{
+              color: "#343a40",
+              marginLeft: "-25px",
+              transform: "scale(0.8)",
+              position: "absolute",
+              left: "280px",
+            }}
+            className="material-icons"
+          >
+            search
+          </i>
+        </div>
+
+        <div className="ham-menu">
+          {socioMetaData[0] && (
+            <>
+              <i
+                style={{
+                  color: "white",
+                  display: "flex",
+                  cursor: "pointer",
+                }}
+                className="material-icons"
+                onClick={() =>
+                  navigate(
+                    "/" +
+                      encodeURIComponent(
+                        socioMetaData[0].nombre_negocio.replace(/\s+/g, "-")
+                      ) +
+                      "/" +
+                      encodeURIComponent(
+                        socioMetaData[0].user_id.replace(/\s+/g, "-")
+                      ) +
+                      "/carrito"
+                  )
+                }
+              >
+                local_mall
+              </i>
+              <p
+                style={{
+                  color: "white",
+                  position: "relative",
+                  top: "2px",
+                  left: "-10px",
+                  fontFamily: "Poppins",
+                  backgroundColor: "red",
+                  borderRadius: "100%",
+                  width: "20px",
+                  height: "20px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  fontSize: "12px",
+                  fontWeight: "bold",
+                }}
+              >
+                {cartCount}
+              </p>
+            </>
+          )}
+          {socioMetaData[0] === undefined && (
+            <>
+              <i
+                style={{
+                  color: "white",
+                  display: "flex",
+                  cursor: "pointer",
+                }}
+                className="material-icons"
+                onClick={() =>
+                  navigate(
+                    "/" +
+                      encodeURIComponent(
+                        cart[0].rifa.socio.replace(/\s+/g, "-")
+                      ) +
+                      "/" +
+                      encodeURIComponent(
+                        cart[0].rifa.user_id.replace(/\s+/g, "-")
+                      ) +
+                      "/carrito"
+                  )
+                }
+              >
+                local_mall
+              </i>
+              <p
+                style={{
+                  color: "white",
+                  position: "relative",
+                  top: "2px",
+                  left: "-10px",
+                  fontFamily: "Poppins",
+                  backgroundColor: "red",
+                  borderRadius: "100%",
+                  width: "20px",
+                  height: "20px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  fontSize: "12px",
+                  fontWeight: "bold",
+                }}
+              >
+                {cartCount}
+              </p>
+            </>
+          )}
+          <i
+            style={{
+              color: "white",
+              transform: "scale(1.2)",
+              display: "flex",
+            }}
+            className="material-icons"
+            onClick={toggleHamburger}
+          >
+            menu
+          </i>
+        </div>
+
+        <div
+          className={`mobile-menu-overlay ${isMobileMenuOpen ? "open" : ""}`}
+          onClick={toggleHamburger}
+        ></div>
+
+        {socioMetaData[0] && (
+          <nav className={`mobile-menu ${isMobileMenuOpen ? "open" : ""}`}>
+            <ul>
+              {user ? (
+                <>
+                  <Link
+                    style={{
+                      textDecoration: "none",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      display: "flex",
+                      gap: "0.5rem",
+                      marginBottom: "1rem",
+                    }}
+                    className="nav-home-item"
+                    to={"#"}
+                    onClick={toggleMenu}
+                  >
+                    <i className="material-icons">account_circle</i>
+                    {user.user_metadata.name}
+                  </Link>
+                  {isMenuOpen && (
+                    <AccountMenu
+                      onClose={closeMenu}
+                      user={user}
+                      socio_id={user_id}
+                      nombre_negocio={nombre_negocio}
+                    />
+                  )}
+                </>
+              ) : (
+                <Link
+                  style={{
+                    textDecoration: "none",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    display: "flex",
+                    gap: "0.5rem",
+                  }}
+                  className="nav-home-item"
+                  to={
+                    "/" +
+                    encodeURIComponent(
+                      socioMetaData[0].nombre_negocio.replace(/\s+/g, "-")
+                    ) +
+                    "/" +
+                    encodeURIComponent(
+                      socioMetaData[0].user_id.replace(/\s+/g, "-")
+                    ) +
+                    "/login"
+                  }
+                >
+                  <i
+                    onClick={() =>
+                      navigate(
+                        "/" +
+                          encodeURIComponent(
+                            socioMetaData[0].nombre_negocio.replace(/\s+/g, "-")
+                          ) +
+                          "/" +
+                          encodeURIComponent(
+                            socioMetaData[0].user_id.replace(/\s+/g, "-")
+                          ) +
+                          "/login"
+                      )
+                    }
+                    className="material-icons"
+                  >
+                    account_circle
+                  </i>
+                  Iniciar Sesion
+                </Link>
+              )}
+              <hr className="divider-title"></hr>
+
+              {user ? (
+                <li>
+                  <a
+                    href={
+                      "/" +
+                      encodeURIComponent(
+                        socioMetaData[0].nombre_negocio.replace(/\s+/g, "-")
+                      ) +
+                      "/" +
+                      encodeURIComponent(
+                        socioMetaData[0].user_id.replace(/\s+/g, "-")
+                      ) +
+                      "/mis-boletos"
+                    }
+                  >
+                    Mis Boletos
+                  </a>
+                </li>
+              ) : null}
+
+              <li>
+                <a
+                  href={
+                    "/" +
+                    encodeURIComponent(
+                      socioMetaData[0].nombre_negocio.replace(/\s+/g, "-")
+                    ) +
+                    "/" +
+                    encodeURIComponent(
+                      socioMetaData[0].user_id.replace(/\s+/g, "-")
+                    )
+                  }
+                >
+                  Rifas Activas
+                </a>
+              </li>
+
+              <li>
+                <a href="/socios">Socios</a>
+              </li>
+              <li>
+                <a
+                  href={
+                    "/" +
+                    encodeURIComponent(
+                      socioMetaData[0].nombre_negocio.replace(/\s+/g, "-")
+                    ) +
+                    "/" +
+                    encodeURIComponent(
+                      socioMetaData[0].user_id.replace(/\s+/g, "-")
+                    ) +
+                    "/#FAQ"
+                  }
+                >
+                  FAQ
+                </a>
+              </li>
+
+              <li>
+                <a
+                  href={
+                    "/" +
+                    encodeURIComponent(
+                      socioMetaData[0].nombre_negocio.replace(/\s+/g, "-")
+                    ) +
+                    "/" +
+                    encodeURIComponent(
+                      socioMetaData[0].user_id.replace(/\s+/g, "-")
+                    ) +
+                    "/#Contacto"
+                  }
+                >
+                  Contacto
+                </a>
+              </li>
+
+              <li>
+                <a href="#metodos-de-pago">Metodos de pago</a>
+              </li>
+
+              {user || userRole === "Socio" ? (
+                <li>
+                  <a href={"/dashboard/" + user?.id}>Panel de socio</a>
+                </li>
+              ) : null}
+
+              <hr className="divider-title"></hr>
+
+              <button
+                style={{
+                  marginTop: "1rem",
+                  borderRadius: "0.5rem",
+                  border: "none",
+                  padding: "0.5rem 1rem",
+                  cursor: "pointer",
+                }}
+                onClick={toggleHamburger}
+              >
+                Cerrar
+              </button>
+            </ul>
+          </nav>
+        )}
+
+        {socioMetaData[0] && (
+          <nav className="nav-menu-socio">
+            <ul>
+              {user ? (
+                <li>
+                  <a
+                    href={
+                      "/" +
+                      encodeURIComponent(
+                        socioMetaData[0].nombre_negocio.replace(/\s+/g, "-")
+                      ) +
+                      "/" +
+                      encodeURIComponent(
+                        socioMetaData[0].user_id.replace(/\s+/g, "-")
+                      ) +
+                      "/mis-boletos"
+                    }
+                  >
+                    Mis Boletos
+                  </a>
+                </li>
+              ) : null}
+
+              <li>
+                <a
+                  href={
+                    "/" +
+                    encodeURIComponent(
+                      socioMetaData[0].nombre_negocio.replace(/\s+/g, "-")
+                    ) +
+                    "/" +
+                    encodeURIComponent(
+                      socioMetaData[0].user_id.replace(/\s+/g, "-")
+                    )
+                  }
+                >
+                  Rifas Activas
+                </a>
+              </li>
+              <li>
+                <a
+                  href={
+                    "/" +
+                    encodeURIComponent(
+                      socioMetaData[0].nombre_negocio.replace(/\s+/g, "-")
+                    ) +
+                    "/" +
+                    encodeURIComponent(
+                      socioMetaData[0].user_id.replace(/\s+/g, "-")
+                    ) +
+                    "/#FAQ"
+                  }
+                >
+                  FAQ
+                </a>
+              </li>
+
+              <li>
+                <a
+                  href={
+                    "/" +
+                    encodeURIComponent(
+                      socioMetaData[0].nombre_negocio.replace(/\s+/g, "-")
+                    ) +
+                    "/" +
+                    encodeURIComponent(
+                      socioMetaData[0].user_id.replace(/\s+/g, "-")
+                    ) +
+                    "/#Contacto"
+                  }
+                >
+                  Contacto
+                </a>
+              </li>
+
+              <li>
+                <a href="#metodos-de-pago">Metodos de pago</a>
+              </li>
+
+              {user || userRole === "Socio" ? (
+                <li>
+                  <a href={"/dashboard/" + user?.id}>Panel de socio</a>
+                </li>
+              ) : null}
+
+              <li>
+                <Link
+                  className="nav-home-item"
+                  to={
+                    "/" +
+                    encodeURIComponent(
+                      socioMetaData[0].nombre_negocio.replace(/\s+/g, "-")
+                    ) +
+                    "/" +
+                    encodeURIComponent(
+                      socioMetaData[0].user_id.replace(/\s+/g, "-")
+                    ) +
+                    "/carrito"
+                  }
+                >
+                  <i className="material-icons">local_mall</i>
+                  <sub>{cartCount}</sub>
+                </Link>
+              </li>
+
+              <li>
+                {user ? (
+                  <>
+                    <Link
+                      style={{
+                        textDecoration: "none",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        display: "flex",
+                        gap: "0.5rem",
+                      }}
+                      className="nav-home-item"
+                      to={"#"}
+                      onClick={toggleMenu}
+                    >
+                      <i className="material-icons">account_circle</i>
+                      {user.user_metadata.name}
+                    </Link>
+                    {isMenuOpen && (
+                      <AccountMenu
+                        onClose={closeMenu}
+                        user={user}
+                        socio_id={user_id}
+                        nombre_negocio={nombre_negocio}
+                      />
+                    )}
+                  </>
+                ) : (
+                  <Link
+                    style={{
+                      textDecoration: "none",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      display: "flex",
+                      gap: "0.5rem",
+                    }}
+                    className="nav-home-item"
+                    to={
+                      "/" +
+                      encodeURIComponent(
+                        socioMetaData[0].nombre_negocio.replace(/\s+/g, "-")
+                      ) +
+                      "/" +
+                      encodeURIComponent(
+                        socioMetaData[0].user_id.replace(/\s+/g, "-")
+                      ) +
+                      "/login"
+                    }
+                  >
+                    <i
+                      onClick={() =>
+                        navigate(
+                          "/" +
+                            encodeURIComponent(
+                              socioMetaData[0].nombre_negocio.replace(
+                                /\s+/g,
+                                "-"
+                              )
+                            ) +
+                            "/" +
+                            encodeURIComponent(
+                              socioMetaData[0].user_id.replace(/\s+/g, "-")
+                            ) +
+                            "/login"
+                        )
+                      }
+                      className="material-icons"
+                    >
+                      account_circle
+                    </i>
+                    Iniciar Sesion
+                  </Link>
+                )}
+              </li>
+            </ul>
+          </nav>
+        )}
+
+        {socioMetaData[0] === undefined && (
+          <nav className="nav-menu-socio">
+            <ul>
+              {user ? (
+                <li>
+                  <a href={"/mis-boletos"}>Mis Boletos</a>
+                </li>
+              ) : null}
+
+              <li>
+                <a href={"/"}>Rifas Activas</a>
+              </li>
+
+              <li>
+                <a href={"/socios"}>Socios</a>
+              </li>
+              <li>
+                <a href={"/#FAQ"}>FAQ</a>
+              </li>
+
+              <li>
+                <a href={"/#Contacto"}>Contacto</a>
+              </li>
+
+              <li>
+                <a href="#metodos-de-pago">Metodos de pago</a>
+              </li>
+
+              {user || userRole === "Socio" ? (
+                <li>
+                  <a href={"/dashboard/" + user?.id}>Panel de socio</a>
+                </li>
+              ) : null}
+
+              <li>
+                <Link className="nav-home-item" to={"/carrito"}>
+                  <i className="material-icons">local_mall</i>
+                  <sub>{cartCount}</sub>
+                </Link>
+              </li>
+
+              <li>
+                {user ? (
+                  <>
+                    <Link
+                      style={{
+                        textDecoration: "none",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        display: "flex",
+                        gap: "0.5rem",
+                      }}
+                      className="nav-home-item"
+                      to={"#"}
+                      onClick={toggleMenu}
+                    >
+                      <i className="material-icons">account_circle</i>
+                      {user.user_metadata.name}
+                    </Link>
+                    {isMenuOpen && (
+                      <AccountMenu
+                        onClose={closeMenu}
+                        user={user}
+                        socio_id={user_id}
+                        nombre_negocio={nombre_negocio}
+                      />
+                    )}
+                  </>
+                ) : (
+                  <Link
+                    style={{
+                      textDecoration: "none",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      display: "flex",
+                      gap: "0.5rem",
+                    }}
+                    className="nav-home-item"
+                    to={"/login"}
+                  >
+                    <i
+                      onClick={() => navigate("/login")}
+                      className="material-icons"
+                    >
+                      account_circle
+                    </i>
+                    Iniciar Sesion
+                  </Link>
+                )}
+              </li>
+            </ul>
+          </nav>
+        )}
+
+        {socioMetaData[0] === undefined && (
+          <>
+            <nav className={`mobile-menu ${isMobileMenuOpen ? "open" : ""}`}>
+              <ul>
+                {user ? (
+                  <>
+                    <Link
+                      style={{
+                        textDecoration: "none",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        display: "flex",
+                        gap: "0.5rem",
+                        marginBottom: "1rem",
+                      }}
+                      className="nav-home-item"
+                      to={"#"}
+                      onClick={toggleMenu}
+                    >
+                      <i className="material-icons">account_circle</i>
+                      {user.user_metadata.name}
+                    </Link>
+                    {isMenuOpen && (
+                      <AccountMenu
+                        onClose={closeMenu}
+                        user={user}
+                        socio_id={undefined}
+                        nombre_negocio={undefined}
+                      />
+                    )}
+                  </>
+                ) : (
+                  <Link
+                    style={{
+                      textDecoration: "none",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      display: "flex",
+                      gap: "0.5rem",
+                    }}
+                    className="nav-home-item"
+                    to={"/login"}
+                  >
+                    <i
+                      onClick={() => navigate("/login")}
+                      className="material-icons"
+                    >
+                      account_circle
+                    </i>
+                    Iniciar Sesion
+                  </Link>
+                )}
+                <hr className="divider-title"></hr>
+
+                {user ? (
+                  <li>
+                    <a href={"/mis-boletos"}>Mis Boletos</a>
+                  </li>
+                ) : null}
+
+                <li>
+                  <a href={"/"}>Rifas Activas</a>
+                </li>
+
+                <li>
+                  <a href="/socios">Socios</a>
+                </li>
+                <li>
+                  <a href={"/#FAQ"}>FAQ</a>
+                </li>
+
+                <li>
+                  <a href={"/#Contacto"}>Contacto</a>
+                </li>
+
+                <li>
+                  <a href="#metodos-de-pago">Metodos de pago</a>
+                </li>
+
+                {user || userRole === "Socio" ? (
+                  <li>
+                    <a href={"/dashboard/" + user?.id}>Panel de socio</a>
+                  </li>
+                ) : null}
+
+                <hr className="divider-title"></hr>
+
+                <button
+                  style={{
+                    marginTop: "1rem",
+                    borderRadius: "0.5rem",
+                    border: "none",
+                    padding: "0.5rem 1rem",
+                    cursor: "pointer",
+                  }}
+                  onClick={toggleHamburger}
+                >
+                  Cerrar
+                </button>
+              </ul>
+            </nav>
+          </>
+        )}
+      </header>
+
+      {socioMetaData[0] && (
+        <div className="headerIfSocio">
+          <div
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              display: "flex",
+            }}
+            className="headerIfSocioLogo"
+          >
+            <img src={socioMetaData[0].image_url} className="img-logo"></img>
+            <img
+              src="https://ivltiudjxnrytalzxfwr.supabase.co/storage/v1/object/public/imagenes-rifas/No-borrar/verificado.png"
+              className="verificado"
+            ></img>
+          </div>
+          <div
+            style={{ display: "flex", flexDirection: "column" }}
+            className="headerIfSocioMenu"
+          >
+            <h1
+              style={{
+                fontSize: "27px",
+                fontFamily: "Poppins",
+                fontWeight: "bold",
+                color: "white",
+                textTransform: "uppercase",
+              }}
+            >
+              {socioMetaData[0].nombre_negocio}
+            </h1>
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+
+export default HeaderGlobal;
+
+/*
+
+<div
+              style={{ display: "flex", flexDirection: "row", gap: "25px" }}
+              className="headerIfSocionNav"
+            >
+              <p
+                style={{
+                  color: "white",
+                  fontFamily: "Poppins",
+                  fontSize: "18px",
+                  fontWeight: "500",
+                  backgroundColor: "#6FCF85",
+                  borderRadius: "10px",
+                  padding: "5px",
+                  cursor: "pointer",
+                }}
+              >
+                Rifas Activas
+              </p>
+              <p
+                style={{
+                  color: "white",
+                  fontFamily: "Poppins",
+                  fontSize: "18px",
+                  fontWeight: "500",
+                  backgroundColor: "#6FCF85",
+                  borderRadius: "10px",
+                  padding: "5px",
+                  cursor: "pointer",
+                }}
+              >
+                Mis Boletos
+              </p>
+            </div>
+
+            */

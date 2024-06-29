@@ -7,6 +7,7 @@ import supabase from "../config/supabaseClient";
 import "../css/index.css"; // Ensure this is correctly linked
 import "../css/NavHome.css";
 import HeaderHome from "../components/HeaderHome";
+import HeaderGlobal from "../components/HeaderGlobal";
 
 //import HeaderLogin from "./HeaderLogin";
 
@@ -26,7 +27,7 @@ function Login() {
   return (
     <div>
       <div>
-        <HeaderHome />
+        <HeaderGlobal />
       </div>
       <div className="login-container">
         <div className="auth-component">

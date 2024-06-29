@@ -7,6 +7,7 @@ import HeaderHome from "../components/HeaderHome";
 
 //import SociosArchive.css
 import "../css//Single-Socios/SocioArchive.css";
+import HeaderGlobal from "../components/HeaderGlobal";
 
 const Socios = () => {
   const [socios, setSocios] = useState([]);
@@ -28,7 +29,7 @@ const Socios = () => {
 
   return (
     <>
-      <HeaderHome />
+      <HeaderGlobal />
       <div>
         <div className="div-grid-archive">
           <h1>Socios </h1>

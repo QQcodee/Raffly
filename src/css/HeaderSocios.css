@@ -217,10 +217,6 @@
     margin-right: 15px;
   }
 
-  .nav-menu-socio li {
-    display: none;
-  }
-
   .hamburger {
     cursor: pointer;
     align-items: center;

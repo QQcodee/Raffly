@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { useUser } from "../UserContext";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import HeaderGlobal from "../components/HeaderGlobal";
 
 const MisBoletos = () => {
   const { user } = useUser();
@@ -31,7 +32,7 @@ const MisBoletos = () => {
 
   return (
     <>
-      <HeaderSocios />
+      <HeaderGlobal />
       <h1 style={{ textAlign: "left", marginLeft: "40px", marginTop: "60px" }}>
         Mis Boletos
       </h1>
