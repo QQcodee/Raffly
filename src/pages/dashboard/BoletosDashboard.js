@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import CountdownTimer from "../../components/CountdownTimer";
 import LoadingBar from "../../components/LoadingBar";
+import axios from "axios";
 
 const BoletosDashboard = () => {
   const [data, setData] = useState([]);
@@ -65,6 +66,77 @@ const BoletosDashboard = () => {
     };
     fetchBoletos();
   }, [selectedRifa, selectedName]); // Fetch boletos whenever selectedRifa changes
+
+  const actualizarStatus = async (boleto) => {
+    const confirmed = window.confirm(
+      `Seguro que quieres marcar este boleto como pagado? \n \n  ${boleto.nombre} - ${boleto.num_boletos}`
+    );
+    if (!confirmed) {
+      return;
+    }
+    const { data, error } = await supabase
+      .from("boletos")
+      .update({ comprado: true, apartado: false })
+      .eq("id", boleto.id);
+
+    if (error) {
+      console.error("Error updating ticket status:", error);
+    } else {
+      setData(
+        filteredData.map((item) =>
+          item.id === item.id
+            ? { ...item, comprado: true, apartado: false }
+            : item
+        )
+      );
+    }
+  };
+
+  const [status, setStatus] = useState("default");
+  const [error, setError] = useState(null);
+
+  const fetchPaymentStatus = async (boleto) => {
+    setStatus("cargando...");
+    const oxxo_id = boleto.oxxo_id;
+
+    try {
+      const response = await axios.post(
+        "https://www.raffly.com.mx/api/payment-status-oxxo",
+        { oxxo_id }
+      );
+
+      const data = response.data; // Axios already parses JSON
+
+      if (data.status === "succeeded") {
+        setStatus("Pagado");
+        handleSuccesfulStatus(boleto); // Ensure handleSuccesfulStatus is defined
+      } else if (data.status === "requires_action") {
+        setStatus("Pendiente de pago");
+      } else {
+        setStatus("Desconocido");
+      }
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  const handleSuccesfulStatus = async (boleto) => {
+    const { data, error } = await supabase
+      .from("boletos")
+      .update({ comprado: true })
+      .eq("id", boleto.id);
+
+    if (error) {
+      console.error("Error updating data: ", error);
+    } else {
+      console.log("Data updated successfully: ", data);
+      setData(
+        filteredData.map((item) =>
+          item.id === item.id ? { ...item, comprado: true, oxxo: false } : item
+        )
+      );
+    }
+  };
 
   const findDuplicates = () => {
     const allNumBoletos = data.flatMap((boleto) => boleto.num_boletos);
@@ -339,6 +411,8 @@ const BoletosDashboard = () => {
               >
                 Estado <i className="material-icons">swap_vert</i>
               </th>
+
+              <th></th>
               <th>Email</th>
               <th>Telefono</th>
 
@@ -365,6 +439,47 @@ const BoletosDashboard = () => {
                     : item.apartado === true
                     ? "Apartado"
                     : "Error"}
+                </td>
+                <td>
+                  {item.apartado === true && (
+                    <button
+                      style={{
+                        cursor: "pointer",
+                        backgroundColor: "#3D9BE9",
+                        color: "white",
+                        padding: "10px",
+                        borderRadius: "15px",
+                        boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+                        border: "none",
+                        fontFamily: "Poppins",
+                        fontSize: "12px",
+                        width: "150px",
+                      }}
+                      onClick={() => actualizarStatus(item)}
+                    >
+                      Marcar pagado
+                    </button>
+                  )}
+
+                  {item.oxxo === true && (
+                    <button
+                      style={{
+                        cursor: "pointer",
+                        backgroundColor: "#3D9BE9",
+                        color: "white",
+                        padding: "10px",
+                        borderRadius: "15px",
+                        boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+                        border: "none",
+                        fontFamily: "Poppins",
+                        fontSize: "12px",
+                        width: "150px",
+                      }}
+                      onClick={() => fetchPaymentStatus(item)}
+                    >
+                      Verificar pago oxxo
+                    </button>
+                  )}
                 </td>
                 <td>{item.email}</td>
                 <td>{item.telefono}</td>

@@ -4,7 +4,6 @@ import axios from "axios";
 import supabase from "../config/supabaseClient";
 
 const OxxoPaymentStatus = ({ boleto }) => {
-  const oxxo_id = boleto.oxxo_id;
   const [status, setStatus] = useState("default");
   const [error, setError] = useState(null);
 
