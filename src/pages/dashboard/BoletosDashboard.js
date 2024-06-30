@@ -112,6 +112,7 @@ const BoletosDashboard = () => {
         handleSuccesfulStatus(boleto); // Ensure handleSuccesfulStatus is defined
       } else if (data.status === "requires_action") {
         setStatus("Pendiente de pago");
+        alert("Pendiente de pago o aun no se refleja");
       } else {
         setStatus("Desconocido");
       }
@@ -123,7 +124,7 @@ const BoletosDashboard = () => {
   const handleSuccesfulStatus = async (boleto) => {
     const { data, error } = await supabase
       .from("boletos")
-      .update({ comprado: true })
+      .update({ comprado: true, oxxo: false })
       .eq("id", boleto.id);
 
     if (error) {
