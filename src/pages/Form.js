@@ -128,6 +128,9 @@ const CheckoutForm = ({
       }
     }
     if (paymentMethodType === "oxxo") {
+      const now = new Date();
+      const apartadoUntil = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+
       const { data, error } = await supabase.from("boletos").insert([
         {
           id_rifa: rifa.id,
@@ -147,6 +150,7 @@ const CheckoutForm = ({
           apartado: false,
           oxxo_url: oxxo_url,
           oxxo_id: oxxo_id,
+          apartado_fecha: apartadoUntil,
         },
       ]);
 
@@ -573,27 +577,37 @@ const CheckoutForm = ({
             </button>
           ) : null
         ) : (
-          <div className="error-message">
-            Inicia sesion para realizar el pago
-            <button
-              className="button"
-              onClick={() =>
-                navigate(
-                  "/" +
-                    encodeURIComponent(
-                      socioMetaData[0].nombre_negocio.replace(/\s+/g, "-")
-                    ) +
-                    "/" +
-                    encodeURIComponent(
-                      socioMetaData[0].user_id.replace(/\s+/g, "-")
-                    ) +
-                    "/login"
-                )
-              }
-            >
-              Iniciar sesion
-            </button>
-          </div>
+          <>
+            {paymentMethodType === "card" || paymentMethodType === "oxxo" ? (
+              <div className="error-message">
+                Inicia sesion para realizar el pago
+                <button
+                  className="button"
+                  onClick={() =>
+                    navigate(
+                      "/" +
+                        encodeURIComponent(
+                          socioMetaData[0].nombre_negocio.replace(/\s+/g, "-")
+                        ) +
+                        "/" +
+                        encodeURIComponent(
+                          socioMetaData[0].user_id.replace(/\s+/g, "-")
+                        ) +
+                        "/login"
+                    )
+                  }
+                >
+                  Iniciar sesion
+                </button>
+              </div>
+            ) : null}
+
+            {paymentMethodType === "transferencia" ? (
+              <button type="submit" className="button">
+                Apartar
+              </button>
+            ) : null}
+          </>
         )}
       </form>
     </div>

@@ -68,3 +68,19 @@
   border-radius: 15px 15px 0 0;
   border: 1px solid rgba(131, 131, 131, 0.5);
 }
+
+.search-boleto {
+  flex-direction: row;
+  justify-content: unset;
+}
+
+@media screen and (max-width: 550px) {
+  .search-boleto {
+    flex-direction: column;
+  }
+
+  .boletos-grid-archive {
+    justify-content: center;
+    margin-left: -50px;
+  }
+}

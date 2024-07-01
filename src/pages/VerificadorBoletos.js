@@ -9,7 +9,10 @@ import { useParams } from "react-router-dom";
 import HeaderGlobal from "../components/HeaderGlobal";
 import FooterGloal from "../components/FooterGlobal";
 
-const MisBoletos = () => {
+//import BoletosList.css
+import "../css/Single-Socios/BoletosList.css";
+
+const VerificadorBoletos = () => {
   const { user } = useUser();
   const { user_id, nombre_negocio } = useParams();
   const [boletos, setBoletos] = useState([]);
@@ -40,8 +43,7 @@ const MisBoletos = () => {
     const { data, error } = await supabase
       .from("boletos")
       .select()
-      .eq("email", buscarBoleto)
-      .eq("socio_user_id", user_id);
+      .eq("email", buscarBoleto);
 
     if (error) {
       console.log(error);
@@ -59,39 +61,72 @@ const MisBoletos = () => {
       <div
         style={{
           display: "flex",
-          alignItems: "center",
+
           marginTop: "20px",
-          flexDirection: "column",
         }}
       >
-        <h1 style={{ textAlign: "left", marginLeft: "40px" }}>Mis Boletos</h1>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+          className="search-boleto"
+        >
+          <h1
+            style={{
+              textAlign: "left",
+              marginLeft: "40px",
+              fontFamily: "Poppins",
+              fontWeight: "600",
+              fontSize: "30px",
+            }}
+          >
+            Verificador de Boletos
+          </h1>
 
-        <div>
-          <div style={{ display: "flex", justifyContent: "center" }}>
-            <form
-              style={{ display: "flex", alignItems: "center" }}
-              onSubmit={handleBuscarBoleto}
-            >
-              <input
-                type="text"
-                id="nombreInput"
-                placeholder="Buscar boleto por email"
-                value={buscarBoleto}
-                onChange={(e) => setBuscarBoleto(e.target.value)}
-                style={{
-                  width: "250px",
-                  color: "black",
-                  padding: "10px",
-                  margin: "10px",
-                  borderRadius: "15px",
-                  border: "1px solid #ccc",
-                  boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
-                }}
-              />
+          <input
+            type="text"
+            id="nombreInput"
+            placeholder="Buscar boleto por email"
+            value={buscarBoleto}
+            onChange={(e) => setBuscarBoleto(e.target.value)}
+            style={{
+              width: "250px",
+              color: "black",
+              padding: "10px",
+              marginLeft: "40px",
+              marginBottom: "15px",
+              borderRadius: "15px",
+              border: "1px solid #ccc",
+              boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+              marginTop: "20px",
+            }}
+          />
 
-              <button type="submit">Buscar Boleto</button>
-            </form>
-          </div>
+          <button
+            style={{
+              backgroundColor: "#007BFF",
+              color: "white",
+              border: "none",
+              padding: "10px",
+              borderRadius: "10px",
+              cursor: "pointer",
+              marginLeft: "40px",
+              marginBottom: "15px",
+              boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
+              transition: "all 0.3s ease",
+              fontFamily: "Poppins",
+              fontSize: "16px",
+              marginTop: "20px",
+
+              width: "200px",
+            }}
+            type="submit"
+            onClick={handleBuscarBoleto}
+          >
+            Buscar Boleto
+          </button>
         </div>
       </div>
       {boletos && (
@@ -147,11 +182,13 @@ const MisBoletos = () => {
             <div style={{ height: "50vh" }}></div>
           </>
         ) : null
-      ) : null}
+      ) : (
+        <div style={{ height: "50vh" }}></div>
+      )}
 
       <FooterGloal />
     </>
   );
 };
 
-export default MisBoletos;
+export default VerificadorBoletos;

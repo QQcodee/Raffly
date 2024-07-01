@@ -5,6 +5,7 @@ import supabase from "../config/supabaseClient";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import OxxoPaymentStatus from "./OxxoPaymentStatus";
+import CountdownTimer from "./CountdownTimer";
 
 const BoletosList = ({ boleto }) => {
   // Joining num_boletos array elements with commas
@@ -61,95 +62,175 @@ const BoletosList = ({ boleto }) => {
   return (
     <>
       {socioMetaData[0] ? (
-        <div
-          className="ticket"
-          style={{ backgroundColor: socioMetaData[0].color }}
-        >
-          {boleto.comprado === true ? (
-            <aside style={{ color: "#6FCF85" }}>{boleto.nombre_rifa}</aside>
-          ) : (
-            <aside style={{ color: "black" }}>Falta Pagar</aside>
-          )}
+        <>
+          <div
+            style={{ display: "flex", flexDirection: "column", gap: "10px" }}
+          >
+            <div
+              className="ticket"
+              style={{
+                backgroundColor: "#3D3D3D",
+                boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
+              }}
+            >
+              {boleto.comprado === true ? (
+                <aside style={{ color: "#6FCF85" }}>{boleto.nombre_rifa}</aside>
+              ) : (
+                <aside style={{ color: "#DC3545" }}>Pago pendiente</aside>
+              )}
 
-          <section className="ticket__first-section">
-            <section>
-              <img src={socioMetaData[0].image_url} alt="logo" />
-              <h4>{boleto.socio}</h4>
-            </section>
+              <section className="ticket__first-section">
+                <section>
+                  <img
+                    onClick={() =>
+                      navigate(
+                        "/" +
+                          encodeURIComponent(
+                            boleto.socio.replace(/\s+/g, "-")
+                          ) +
+                          "/" +
+                          boleto.socio_user_id
+                      )
+                    }
+                    src={socioMetaData[0].image_url}
+                    alt="logo"
+                    style={{ cursor: "pointer", borderRadius: "50%" }}
+                  />
+                  <h4
+                    onClick={() =>
+                      navigate(
+                        "/" +
+                          encodeURIComponent(
+                            boleto.socio.replace(/\s+/g, "-")
+                          ) +
+                          "/" +
+                          boleto.socio_user_id
+                      )
+                    }
+                    style={{ cursor: "pointer", borderRadius: "50%" }}
+                  >
+                    {boleto.socio}
+                  </h4>
+                </section>
 
-            <section>
-              <strong style={{ fontSize: "16px" }}>
-                Numeros:{" "}
-                <span style={{ fontSize: "11px" }}> {numBoletosString}</span>
-              </strong>
-              <div>
-                <span></span>
-                <ul></ul>
-              </div>
-            </section>
-            <ul>
-              <li>
-                <p>
-                  <strong>SORTEO:</strong>
-                </p>
-                <p>{boleto.nombre_rifa}</p>
-              </li>
-              <li>
-                <p>
-                  <strong>NOMBRE:</strong>
-                </p>
-                <p>{boleto.nombre}</p>
-              </li>
+                <section>
+                  <strong style={{ fontSize: "16px" }}>
+                    Numeros:{" "}
+                    <span style={{ fontSize: "11px" }}>
+                      {" "}
+                      {numBoletosString}
+                    </span>
+                  </strong>
+                  <div>
+                    <span></span>
+                    <ul></ul>
+                  </div>
+                </section>
+                <ul>
+                  <li>
+                    <p>
+                      <strong>SORTEO:</strong>
+                    </p>
+                    <p>{boleto.nombre_rifa}</p>
+                  </li>
+                  <li>
+                    <p>
+                      <strong>NOMBRE:</strong>
+                    </p>
+                    <p>{boleto.nombre}</p>
+                  </li>
 
-              <li>
-                <p>
-                  <strong>ESTADO:</strong>
-                </p>
-                <p>CHIHUAHUA</p>
-              </li>
-              <li>
-                <p>
-                  <strong>ESTADO:</strong>
-                </p>
-                <p>
-                  {boleto.comprado === true
-                    ? "Pagado"
-                    : boleto.apartado === true
-                    ? "Apartado pago pendiente"
-                    : boleto.oxxo === true
-                    ? "Pago con oxxo pendiente"
-                    : "Falta Pagar"}
-                </p>
-              </li>
-              <li>
-                <p>
-                  <strong>FECHA:</strong>
-                </p>
-                <p>{boleto.fecharifa}</p>
-              </li>
-            </ul>
-          </section>
-          <section
-            className="ticket__second-section"
-            style={{
-              backgroundImage: `url(${boleto.img_rifa})`,
-            }}
-          ></section>
-          <section className="ticket__third-section">
-            {boleto.comprado === true ? (
-              <h4>¡MUCHA SUERTE!</h4>
-            ) : boleto.oxxo === true ? (
-              <OxxoPaymentStatus boleto={boleto} />
-            ) : boleto.apartado === true ? (
-              <button onClick={handlePagarTransferencia}>Pagar boleto</button>
-            ) : null}
-          </section>
-          {boleto.comprado === true ? (
-            <aside style={{ color: "#6FCF85" }}>{boleto.nombre_rifa}</aside>
-          ) : (
-            <aside style={{ color: "red" }}>Falta Pagar</aside>
-          )}
-        </div>
+                  <li>
+                    <p>
+                      <strong>ESTADO:</strong>
+                    </p>
+                    <p>CHIHUAHUA</p>
+                  </li>
+                  <li>
+                    <p>
+                      <strong>ESTADO:</strong>
+                    </p>
+                    <p>
+                      {boleto.comprado === true
+                        ? "Pagado"
+                        : boleto.apartado === true
+                        ? "Apartado pago pendiente"
+                        : boleto.oxxo === true
+                        ? "Pago con oxxo pendiente"
+                        : "Pago pendiente"}
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      <strong>FECHA:</strong>
+                    </p>
+                    <p>{boleto.fecharifa}</p>
+                  </li>
+                </ul>
+              </section>
+              <section
+                className="ticket__second-section"
+                style={{
+                  backgroundImage: `url(${boleto.img_rifa})`,
+                }}
+              ></section>
+              <section className="ticket__third-section">
+                {boleto.comprado === true ? (
+                  <h4>¡MUCHA SUERTE!</h4>
+                ) : boleto.oxxo === true ? (
+                  <h4>¡PAGO PENDIENTE OXXO!</h4>
+                ) : boleto.apartado === true ? (
+                  <h4>¡PAGO PENDIENTE!</h4>
+                ) : null}
+              </section>
+
+              {boleto.comprado === true ? (
+                <aside style={{ color: "#6FCF85" }}>{boleto.nombre_rifa}</aside>
+              ) : (
+                <aside style={{ color: "#DC3545" }}>Pago pendiente</aside>
+              )}
+            </div>
+
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                marginLeft: "60px",
+              }}
+            >
+              {boleto.comprado === true ? (
+                <h4 style={{ height: "90px" }}> </h4>
+              ) : boleto.oxxo === true ? (
+                <>
+                  <CountdownTimer fecha={boleto.apartado_fecha} />
+                  <OxxoPaymentStatus boleto={boleto} />
+                </>
+              ) : boleto.apartado === true ? (
+                <>
+                  <CountdownTimer fecha={boleto.apartado_fecha} />
+                  <button
+                    style={{
+                      justify: "center",
+                      display: "flex",
+                      margin: "0 auto",
+                      padding: "10px 20px",
+                      backgroundColor: "#007BFF",
+                      color: "white",
+                      border: "none",
+                      borderRadius: "5px",
+                      fontSize: "16px",
+                      cursor: "pointer",
+                    }}
+                    onClick={handlePagarTransferencia}
+                  >
+                    Pagar boleto
+                  </button>
+                </>
+              ) : null}
+            </div>
+          </div>
+        </>
       ) : null}
     </>
   );

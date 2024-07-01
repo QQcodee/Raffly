@@ -37,6 +37,7 @@ import OxxoPaymentStatus from "./components/OxxoPaymentStatus";
 import SocioConfig from "./pages/dashboard/SocioConfig";
 import FooterGlobal from "./components/FooterGlobal";
 import HeaderGlobal from "./components/HeaderGlobal";
+import VerificadorBoletos from "./pages/VerificadorBoletos";
 
 //import HeaderLogin from "./pages/HeaderLogin.js";
 //import Topbar from "./pages/dashboard/Topbar.js";
@@ -61,10 +62,12 @@ function App() {
 
           <Route path="/login" element={<Login />} />
           <Route path="/success" element={<Success />} />
-          <Route path="/stripe" element={<Onboarding />} />
+
           <Route path="/socios" element={<Socios />} />
+          <Route path="/verificador" element={<VerificadorBoletos />} />
+
           <Route path="/:nombre_negocio/:user_id" element={<SingleSocio />} />
-          <Route path="/boleto" element={<BoletoNuevo />} />
+
           <Route
             path="/:nombre_negocio/:user_id/contacto"
             element={<SingleContacto />}

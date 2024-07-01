@@ -12,6 +12,8 @@ import { useUser } from "../UserContext";
 import HeaderSocios from "../components/HeaderSocios";
 
 import "../css/index.css"; // Ensure this is correctly linked
+import HeaderGlobal from "../components/HeaderGlobal";
+import FooterGlobal from "../components/FooterGlobal";
 
 //import HeaderLogin from "./HeaderLogin";
 
@@ -45,7 +47,7 @@ function LoginSingle() {
 
   return (
     <>
-      <HeaderSocios />
+      <HeaderGlobal />
 
       <div className="login-container">
         <div className="auth-component">
@@ -182,6 +184,7 @@ function LoginSingle() {
           </div>
         </div>
       </div>
+      <FooterGlobal />
     </>
   );
 }

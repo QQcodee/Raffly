@@ -67,7 +67,9 @@ const HeaderGlobal = () => {
   return (
     <>
       <header className="header-global">
-        <h2 onClick={() => navigate("/")}>Raffly</h2>
+        <h2 style={{ cursor: "pointer" }} onClick={() => navigate("/")}>
+          Raffly
+        </h2>
 
         <div className="search">
           <input type="text" />
@@ -78,6 +80,7 @@ const HeaderGlobal = () => {
               transform: "scale(0.8)",
               position: "absolute",
               left: "280px",
+              cursor: "pointer",
             }}
             className="material-icons"
           >
@@ -135,29 +138,46 @@ const HeaderGlobal = () => {
           )}
           {socioMetaData[0] === undefined && (
             <>
-              <i
-                style={{
-                  color: "white",
-                  display: "flex",
-                  cursor: "pointer",
-                }}
-                className="material-icons"
-                onClick={() =>
-                  navigate(
-                    "/" +
-                      encodeURIComponent(
-                        cart[0].rifa.socio.replace(/\s+/g, "-")
-                      ) +
+              {cartCount > 0 && (
+                <i
+                  style={{
+                    color: "white",
+                    display: "flex",
+                    cursor: "pointer",
+                  }}
+                  className="material-icons"
+                  onClick={() =>
+                    navigate(
                       "/" +
-                      encodeURIComponent(
-                        cart[0].rifa.user_id.replace(/\s+/g, "-")
-                      ) +
-                      "/carrito"
-                  )
-                }
-              >
-                local_mall
-              </i>
+                        encodeURIComponent(
+                          cart[0].rifa.socio.replace(/\s+/g, "-")
+                        ) +
+                        "/" +
+                        encodeURIComponent(
+                          cart[0].rifa.user_id.replace(/\s+/g, "-")
+                        ) +
+                        "/carrito"
+                    )
+                  }
+                >
+                  local_mall
+                </i>
+              )}
+
+              {cartCount === 0 && (
+                <i
+                  style={{
+                    color: "white",
+                    display: "flex",
+                    cursor: "pointer",
+                  }}
+                  className="material-icons"
+                  onClick={() => navigate("/carrito")}
+                >
+                  local_mall
+                </i>
+              )}
+
               <p
                 style={{
                   color: "white",
@@ -563,11 +583,9 @@ const HeaderGlobal = () => {
         {socioMetaData[0] === undefined && (
           <nav className="nav-menu-socio">
             <ul>
-              {user ? (
-                <li>
-                  <a href={"/mis-boletos"}>Mis Boletos</a>
-                </li>
-              ) : null}
+              <li>
+                <a href={"/verificador"}>Verificador de boletos</a>
+              </li>
 
               <li>
                 <a href={"/"}>Rifas Activas</a>
@@ -595,10 +613,30 @@ const HeaderGlobal = () => {
               ) : null}
 
               <li>
-                <Link className="nav-home-item" to={"/carrito"}>
-                  <i className="material-icons">local_mall</i>
-                  <sub>{cartCount}</sub>
-                </Link>
+                {cartCount > 0 ? (
+                  <Link
+                    className="nav-home-item"
+                    to={
+                      "/" +
+                      encodeURIComponent(
+                        cart[0].rifa.socio.replace(/\s+/g, "-")
+                      ) +
+                      "/" +
+                      encodeURIComponent(
+                        cart[0].rifa.user_id.replace(/\s+/g, "-")
+                      ) +
+                      "/carrito"
+                    }
+                  >
+                    <i className="material-icons">local_mall</i>
+                    <sub>{cartCount}</sub>
+                  </Link>
+                ) : (
+                  <Link className="nav-home-item" to={"/carrito"}>
+                    <i className="material-icons">local_mall</i>
+                    <sub>{cartCount}</sub>
+                  </Link>
+                )}
               </li>
 
               <li>

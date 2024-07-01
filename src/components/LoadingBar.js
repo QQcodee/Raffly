@@ -1,5 +1,5 @@
 const LoadingBar = ({ boletosVendidos, rifa }) => {
-  const percentage = (boletosVendidos + 1 / rifa.numboletos) * 100;
+  const percentage = ((boletosVendidos + 1) / rifa.numboletos) * 100;
 
   return (
     <div className="loading-bar-container">
