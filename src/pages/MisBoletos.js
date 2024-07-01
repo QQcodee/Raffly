@@ -41,7 +41,8 @@ const MisBoletos = () => {
       .from("boletos")
       .select()
       .eq("email", buscarBoleto)
-      .eq("socio_user_id", user_id);
+      .eq("socio_user_id", user_id)
+      .order("created_at", { ascending: false });
 
     if (error) {
       console.log(error);
