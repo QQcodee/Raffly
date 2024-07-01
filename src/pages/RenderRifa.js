@@ -80,6 +80,7 @@ const RenderRifa = () => {
 
       if (data) {
         setRifaDetails(data);
+        console.log(data);
         setDescItems(data.desc.split("\n"));
       }
     };
@@ -257,6 +258,8 @@ const RenderRifa = () => {
   const [rowHeight, setRowHeight] = useState(200);
   const [responsiveWidth, setresponsiveWidth] = useState(1150);
 
+  console.log(window.innerWidth);
+
   useEffect(() => {
     const updateGridLayout = () => {
       const width = window.innerWidth;
@@ -318,6 +321,15 @@ const RenderRifa = () => {
     }
   };
 
+  const formatDate = (dateValue) => {
+    const date = new Date(dateValue); // Convert to Date object
+    return date.toLocaleDateString("es-ES", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+  };
+
   return (
     <>
       <HeaderGlobal />
@@ -333,38 +345,49 @@ const RenderRifa = () => {
           <section className="tituloYFecha">
             <h1>{rifaDetails && rifaDetails.nombre}</h1>
             <p>Delicias/Chihuahua</p>
-            <h2>Fecha del sorteo: {rifaDetails && rifaDetails.fecharifa}</h2>
+            <h2>
+              Fecha del sorteo:{" "}
+              {rifaDetails && formatDate(rifaDetails.fecharifa)}
+            </h2>
           </section>
           <section className="precioYContador">
             <p>${rifaDetails && rifaDetails.precioboleto} MXN</p>
-            {soldTickets
-              ? soldTickets.length > 50 && (
-                  <LoadingBarRender
-                    boletosVendidos={soldTickets.length}
-                    rifa={rifaDetails}
-                  />
-                )
-              : null}
+
+            {soldTickets ? (
+              <LoadingBarRender
+                boletosVendidos={soldTickets.length}
+                rifa={rifaDetails}
+              />
+            ) : null}
           </section>
+
+          {rifaDetails.fecharifa ? (
+            <div className="contanier-counter">
+              <CountdownTimer
+                fecha={rifaDetails.fecharifa}
+                escala={window.innerWidth / 1000}
+              />
+            </div>
+          ) : null}
 
           <section
             style={{ display: "flex", justifyContent: "center" }}
             className="galeria"
           >
             <div className="contanier-img-principal">
-              {rifaDetails.galeria && rifaDetails.fecharifa ? (
-                rifaDetails.fecharifa ? (
-                  <Carousel
-                    images={rifaDetails.galeria}
-                    fecha={rifaDetails.fecharifa}
-                  />
-                ) : null
-              ) : rifaDetails.fecharifa ? (
+              {rifaDetails.galeria ? (
                 <Carousel
-                  images={[rifaDetails.img]}
+                  images={rifaDetails.galeria}
                   fecha={rifaDetails.fecharifa}
                 />
-              ) : null}
+              ) : (
+                rifaDetails.img && (
+                  <Carousel
+                    images={[rifaDetails.img, rifaDetails.img]}
+                    fecha={rifaDetails.fecharifa}
+                  />
+                )
+              )}
             </div>
           </section>
 
@@ -375,7 +398,7 @@ const RenderRifa = () => {
                 justifyContent: "center",
                 backgroundColor: "#6FCF85",
                 width: "165px",
-                marginLeft: "-20px",
+                marginLeft: "-40px",
                 paddingTop: "10px",
                 paddingRight: "20px",
                 borderRadius: "0 20px 20px 0",
@@ -389,6 +412,7 @@ const RenderRifa = () => {
                   fontFamily: "Poppins",
                   fontSize: "24px",
                   fontWeight: "800",
+                  marginLeft: "20px",
                 }}
               >
                 Premios
@@ -586,8 +610,8 @@ const RenderRifa = () => {
                     fontWeight: "500",
                   }}
                 >
-                  Somos una constructora dedicada a realizar las casas con
-                  mejores estandares de calidad de toda la republica Mexicana
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem
+                  ipsum dolor sit amet consectetur adipisicing elit.
                 </p>
 
                 <p
@@ -606,8 +630,61 @@ const RenderRifa = () => {
       </div>
 
       <div className="boletos-carrito">
+        <Grid
+          className="boletos-grid"
+          columnCount={columnCount}
+          overscanRowCount={5}
+          style={{ border: "none", overflowX: "hidden" }}
+          columnWidth={columnWidth}
+          height={600}
+          rowCount={Math.ceil(rifaDetails.numboletos / columnCount)}
+          rowHeight={rowHeight}
+          width={responsiveWidth}
+        >
+          {Cell}
+        </Grid>
+        <div className="search-mobile">
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Buscar boleto por numero"
+            style={{
+              padding: "10px",
+              borderRadius: "5px",
+              border: "1px solid #ccc",
+              width: "100%",
+              maxWidth: "300px",
+            }}
+          />
+          <div>{searchResult}</div>
+        </div>
+        {socioMetaData[0] ? (
+          <div className="buy-button-container-mobile">
+            <a
+              href="#comprar"
+              style={{
+                backgroundColor: socioMetaData[0].color,
+                color: "white",
+                borderRadius: "15px",
+                border: "none",
+                padding: "10px 20px",
+                fontSize: "16px",
+                cursor: "pointer",
+                width: "100%",
+                marginTop: "20px",
+                textAlign: "center",
+                textDecoration: "none",
+              }}
+            >
+              {" "}
+              Comprar
+            </a>
+          </div>
+        ) : null}
+
         <div className="cart-section">
-          <div className="cart-header">
+          <div id="comprar" className="cart-header">
             <h2
               style={{
                 textAlign: "center",
@@ -642,39 +719,6 @@ const RenderRifa = () => {
               />
               <div>{searchResult}</div>
             </div>
-            {socioMetaData[0] ? (
-              <div className="buy-button-container-mobile">
-                <button
-                  className="buy-button"
-                  onClick={() => {
-                    navigate(
-                      "/" +
-                        encodeURIComponent(
-                          socioMetaData[0].nombre_negocio.replace(/\s+/g, "-")
-                        ) +
-                        "/" +
-                        encodeURIComponent(
-                          socioMetaData[0].user_id.replace(/\s+/g, "-")
-                        ) +
-                        "/carrito"
-                    );
-                  }}
-                  style={{
-                    backgroundColor: socioMetaData[0].color,
-                    color: "white",
-                    borderRadius: "15px",
-                    border: "none",
-                    padding: "10px 20px",
-                    fontSize: "16px",
-                    cursor: "pointer",
-                    width: "100%",
-                    marginTop: "20px",
-                  }}
-                >
-                  Comprar
-                </button>
-              </div>
-            ) : null}
           </div>
           {cart.length === 0 ? (
             <p style={{ textAlign: "center", fontWeight: "400" }}>
@@ -724,72 +768,43 @@ const RenderRifa = () => {
                   </button>
                 </div>
               ) : null}
+
+              {socioMetaData[0] ? (
+                <div className="buy-button-container-mobile">
+                  <button
+                    className="buy-button"
+                    onClick={() => {
+                      navigate(
+                        "/" +
+                          encodeURIComponent(
+                            socioMetaData[0].nombre_negocio.replace(/\s+/g, "-")
+                          ) +
+                          "/" +
+                          encodeURIComponent(
+                            socioMetaData[0].user_id.replace(/\s+/g, "-")
+                          ) +
+                          "/carrito"
+                      );
+                    }}
+                    style={{
+                      backgroundColor: socioMetaData[0].color,
+                      color: "white",
+                      borderRadius: "15px",
+                      border: "none",
+                      padding: "10px 20px",
+                      fontSize: "16px",
+                      cursor: "pointer",
+                      width: "100%",
+                      marginTop: "20px",
+                    }}
+                  >
+                    Comprar
+                  </button>
+                </div>
+              ) : null}
             </>
           )}
         </div>
-
-        <Grid
-          className="boletos-grid"
-          columnCount={columnCount}
-          overscanRowCount={5}
-          style={{ border: "none", overflowX: "hidden" }}
-          columnWidth={columnWidth}
-          height={600}
-          rowCount={Math.ceil(rifaDetails.numboletos / columnCount)}
-          rowHeight={rowHeight}
-          width={responsiveWidth}
-        >
-          {Cell}
-        </Grid>
-        <div className="search-mobile">
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Buscar boleto por numero"
-            style={{
-              padding: "10px",
-              borderRadius: "5px",
-              border: "1px solid #ccc",
-              width: "100%",
-              maxWidth: "300px",
-            }}
-          />
-          <div>{searchResult}</div>
-        </div>
-        {socioMetaData[0] ? (
-          <div className="buy-button-container-mobile">
-            <button
-              className="buy-button"
-              onClick={() => {
-                navigate(
-                  "/" +
-                    encodeURIComponent(
-                      socioMetaData[0].nombre_negocio.replace(/\s+/g, "-")
-                    ) +
-                    "/" +
-                    encodeURIComponent(
-                      socioMetaData[0].user_id.replace(/\s+/g, "-")
-                    ) +
-                    "/carrito"
-                );
-              }}
-              style={{
-                backgroundColor: socioMetaData[0].color,
-                color: "white",
-                borderRadius: "15px",
-                border: "none",
-                padding: "10px 20px",
-                fontSize: "16px",
-                cursor: "pointer",
-                width: "100%",
-                marginTop: "20px",
-              }}
-            >
-              Comprar
-            </button>
-          </div>
-        ) : null}
       </div>
 
       <FooterGlobal />

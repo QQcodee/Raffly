@@ -1,5 +1,5 @@
 const LoadingBar = ({ boletosVendidos, rifa }) => {
-  const percentage = (boletosVendidos / rifa.numboletos) * 100;
+  const percentage = (boletosVendidos + 1 / rifa.numboletos) * 100;
 
   return (
     <div className="loading-bar-container">
@@ -11,12 +11,23 @@ const LoadingBar = ({ boletosVendidos, rifa }) => {
             fontFamily: "Poppins",
 
             fontWeight: "600",
+            backgroundColor: "#6FCF85",
           }}
-        >
-          {" "}
-          {boletosVendidos}/{rifa.numboletos}
-        </div>
+        ></div>
       </div>
+      <p
+        style={{
+          color: percentage < 50 ? "black" : "white",
+          position: percentage < 50 ? "relative" : "relative",
+          left: percentage < 50 ? "5px" : "-30px",
+          left: percentage > 90 ? "0px" : "0px",
+          top: "-22px",
+          fontFamily: "Poppins",
+
+          fontWeight: "600",
+          fontSize: "15px",
+        }}
+      >{`${boletosVendidos + 1}/${rifa.numboletos}`}</p>
     </div>
   );
 };

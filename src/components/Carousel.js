@@ -20,10 +20,6 @@ const Carousel = ({ images, fecha }) => {
 
   return (
     <div className="carousel-container">
-      <div className="contanier-counter">
-        <CountdownTimer fecha={fecha} />
-      </div>
-
       <Slider {...settings}>
         {images.map((url, index) => (
           <div key={index} className="carousel-slide">
@@ -36,3 +32,11 @@ const Carousel = ({ images, fecha }) => {
 };
 
 export default Carousel;
+
+/*
+
+ <div className="contanier-counter">
+        <CountdownTimer fecha={fecha} />
+      </div>
+
+      */

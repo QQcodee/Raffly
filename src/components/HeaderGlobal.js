@@ -17,11 +17,9 @@ const HeaderGlobal = () => {
   const { user_id, nombre_negocio } = useParams();
 
   const [socioMetaData, setSocioMetaData] = useState([]);
-  console.log(socioMetaData);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { cartCount, cart } = useCart();
-  console.log(cart);
 
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
 

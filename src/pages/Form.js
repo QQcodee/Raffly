@@ -561,7 +561,7 @@ const CheckoutForm = ({
                 className="button"
                 disabled={!stripe || isLoading}
               >
-                {isLoading ? "Processing..." : "Pagar"}
+                {isLoading ? "Processing..." : `Pagar $${totalAmount} MXN`}
               </button>
               {errorMessage && (
                 <div className="error-message">{errorMessage}</div>

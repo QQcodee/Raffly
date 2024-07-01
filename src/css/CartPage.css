@@ -20,6 +20,7 @@
   padding: 0;
   height: 440px;
   overflow-y: scroll;
+  direction: rtl;
 }
 
 .cart-section-single ul li {
@@ -57,7 +58,6 @@
 .carrito-card {
   margin: auto;
   display: flex;
-  flex-direction: row-reverse;
   justify-content: space-around;
   font-family: Arial, sans-serif;
   font-size: 16px;
@@ -301,6 +301,7 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.288);
     margin: auto;
     margin-bottom: 80px;
+    flex-direction: column-reverse;
   }
 
   .cart-section-single p {

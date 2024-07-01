@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import supabase from "../config/supabaseClient";
 
 import { useState, useEffect } from "react";
+import HeaderGlobal from "../components/HeaderGlobal";
 
 const SingleContacto = () => {
   const { user_id } = useParams();

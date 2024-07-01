@@ -10,6 +10,7 @@ import HeaderSocios from "../components/HeaderSocios";
 
 //import CartPage.css
 import "../css/CartPage.css";
+import HeaderGlobal from "../components/HeaderGlobal";
 
 const SingleCarrito = () => {
   const { cart, removeItem } = useCart();
@@ -63,10 +64,10 @@ const SingleCarrito = () => {
 
   return (
     <>
-      <HeaderSocios />
+      <HeaderGlobal />
 
       {cart[0] ? (
-        <div className="carrito-card">
+        <div style={{ marginTop: "60px" }} className="carrito-card">
           <div className="cart-section-single">
             <h2
               style={{
@@ -137,7 +138,12 @@ const SingleCarrito = () => {
       ) : (
         <>
           <div
-            style={{ width: "500px", marginLeft: "auto", marginRight: "auto" }}
+            style={{
+              width: "500px",
+              marginLeft: "auto",
+              marginRight: "auto",
+              marginTop: "100px",
+            }}
             className="carrito-card"
           >
             <div
