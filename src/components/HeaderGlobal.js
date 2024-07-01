@@ -748,9 +748,13 @@ const HeaderGlobal = () => {
 
                 {user ? (
                   <li>
-                    <a href={"/mis-boletos"}>Mis Boletos</a>
+                    <a href={"/verificador"}>Mis Boletos</a>
                   </li>
-                ) : null}
+                ) : (
+                  <li>
+                    <a href={"/verificador"}>Verificador de boletos</a>
+                  </li>
+                )}
 
                 <li>
                   <a href={"/"}>Rifas Activas</a>

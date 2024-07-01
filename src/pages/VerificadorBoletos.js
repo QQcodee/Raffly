@@ -167,14 +167,7 @@ const VerificadorBoletos = () => {
                   boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
                   transition: "all 0.3s ease",
                 }}
-                onClick={() =>
-                  navigate(
-                    "/" +
-                      encodeURIComponent(nombre_negocio.replace(/\s+/g, "-")) +
-                      "/" +
-                      encodeURIComponent(user_id.replace(/\s+/g, "-"))
-                  )
-                }
+                onClick={() => navigate("/")}
               >
                 Ir a rifas Activas
               </button>

@@ -59,6 +59,15 @@ const BoletosList = ({ boleto }) => {
     );
   };
 
+  const formatDate = (dateValue) => {
+    const date = new Date(dateValue); // Convert to Date object
+    return date.toLocaleDateString("es-ES", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+  };
+
   return (
     <>
       {socioMetaData[0] ? (
@@ -74,7 +83,17 @@ const BoletosList = ({ boleto }) => {
               }}
             >
               {boleto.comprado === true ? (
-                <aside style={{ color: "#6FCF85" }}>{boleto.nombre_rifa}</aside>
+                <aside
+                  style={{
+                    color: "#6FCF85",
+                    color: "#6FCF85",
+                    height: "1.2em",
+
+                    overflow: "hidden",
+                  }}
+                >
+                  {boleto.nombre_rifa}
+                </aside>
               ) : (
                 <aside style={{ color: "#DC3545" }}>Pago pendiente</aside>
               )}
@@ -164,7 +183,7 @@ const BoletosList = ({ boleto }) => {
                     <p>
                       <strong>FECHA:</strong>
                     </p>
-                    <p>{boleto.fecharifa}</p>
+                    <p>{formatDate(boleto.fecharifa)}</p>
                   </li>
                 </ul>
               </section>
@@ -185,7 +204,16 @@ const BoletosList = ({ boleto }) => {
               </section>
 
               {boleto.comprado === true ? (
-                <aside style={{ color: "#6FCF85" }}>{boleto.nombre_rifa}</aside>
+                <aside
+                  style={{
+                    color: "#6FCF85",
+                    height: "1.2em",
+
+                    overflow: "hidden",
+                  }}
+                >
+                  {boleto.nombre_rifa}
+                </aside>
               ) : (
                 <aside style={{ color: "#DC3545" }}>Pago pendiente</aside>
               )}
