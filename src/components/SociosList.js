@@ -17,7 +17,11 @@ const SociosList = ({ socio }) => {
   };
 
   return (
-    <div class="card-container" key={socio.user_id}>
+    <div
+      style={{ cursor: "pointer", backgroundColor: "white" }}
+      class="card-container"
+      key={socio.user_id}
+    >
       <h1>{socio.nombre_negocio}</h1>
       <img onClick={handleClick} src={socio.image_url} alt="socio" />
 

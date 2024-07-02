@@ -31,10 +31,7 @@ const Socios = () => {
     <>
       <HeaderGlobal />
       <div>
-        <div className="div-grid-archive">
-          <h1>Socios </h1>
-          <hr className="divider-title" />
-
+        <div className="div-grid-archive-socios">
           {socios && (
             <div className="socios-grid">
               {socios.map((socio) => (

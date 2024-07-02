@@ -5,6 +5,30 @@
   gap: 130px;
   margin-left: 30px;
 }
+
+.div-grid-archive-socios {
+  width: auto;
+  position: relative;
+  padding: 20px;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 100px;
+}
+
+.div-grid-archive-socios::before {
+  content: "";
+
+  background-image: url(https://ivltiudjxnrytalzxfwr.supabase.co/storage/v1/object/public/imagenes-rifas/No-borrar/pattern_300.png);
+  background-repeat: repeat;
+  opacity: 0.1; /* Adjust this value to change the opacity */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1; /* Ensure the pseudo-element is behind the content */
+}
+
 .rifas-grid-home {
   margin-top: 40px;
   display: grid;
@@ -15,8 +39,11 @@
 .socios-grid {
   margin-top: 40px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  gap: 40px;
+  grid-template-columns: repeat(auto-fill, 300px);
+  gap: 300px;
+  left: 8%;
+  position: relative;
+  max-width: 90%;
 }
 
 .div-grid-home {
