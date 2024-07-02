@@ -253,7 +253,7 @@ const BoletosDashboard = () => {
   return (
     <div className="boletos-dashboard">
       <div className="boletos-dashboard-top">
-        <h2>Data Table</h2>
+        <h2 style={{ padding: "10px", margin: "10px" }}>Boletos</h2>
 
         <div className="select-container">
           <select

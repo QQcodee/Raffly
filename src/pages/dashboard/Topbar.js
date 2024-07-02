@@ -4,7 +4,6 @@ import { useState } from "react";
 import AccountMenu from "../../components/AccountMenu";
 
 //import navHome.css
-import "../../css/NavHome.css";
 
 const Topbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
