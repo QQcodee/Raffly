@@ -8,6 +8,7 @@ import HeaderHome from "../components/HeaderHome";
 //import SociosArchive.css
 import "../css//Single-Socios/SocioArchive.css";
 import HeaderGlobal from "../components/HeaderGlobal";
+import FooterGlobal from "../components/FooterGlobal";
 
 const Socios = () => {
   const [socios, setSocios] = useState([]);
@@ -41,6 +42,8 @@ const Socios = () => {
           )}
         </div>
       </div>
+
+      <FooterGlobal />
     </>
   );
 };
