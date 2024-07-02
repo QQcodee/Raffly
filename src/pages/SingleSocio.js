@@ -74,7 +74,7 @@ const SingleSocio = () => {
           {fetchError && <p>{fetchError}</p>}
 
           {rifas && (
-            <div className="rifas-grid-archive-socios">
+            <div className="rifas-grid-archive">
               {rifas.map((rifa) => (
                 <RifaList key={rifa.id} rifa={rifa} />
               ))}
