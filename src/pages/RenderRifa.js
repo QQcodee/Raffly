@@ -494,7 +494,7 @@ const RenderRifa = () => {
             </section>
           </div>
 
-          <section className="premios">
+          <section style={{ marginBottom: "80px" }} className="premios">
             <div
               style={{
                 display: "flex",
@@ -504,6 +504,7 @@ const RenderRifa = () => {
                 marginLeft: "-40px",
                 paddingTop: "10px",
                 paddingRight: "20px",
+
                 borderRadius: "0 20px 20px 0",
                 height: "40px",
                 alignItems: "center",
@@ -522,116 +523,12 @@ const RenderRifa = () => {
               </h3>
             </div>
 
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-
-                marginTop: "60px",
-                marginBottom: "20px",
-                gap: "40px",
-              }}
-              className="premios"
-            >
-              <div style={{ display: "flex" }} className="primer-premio">
-                <img
-                  style={{ width: "100px", height: "100px", zIndex: "10" }}
-                  src="https://ivltiudjxnrytalzxfwr.supabase.co/storage/v1/object/public/imagenes-rifas/No-borrar/1st.png"
-                ></img>
-                <div
-                  style={{
-                    backgroundColor: "#212121",
-                    width: "285px",
-                    borderRadius: "15px",
-                    marginLeft: "-60px",
-                    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-                    display: "flex",
-                  }}
-                  className="1er-premio-texto"
-                >
-                  <div style={{ width: "100px" }}></div>
-                  <p
-                    style={{
-                      color: "white",
-                      maxWidth: "30ch",
-                      fontFamily: "Poppins",
-                      fontSize: "10px",
-                      fontWeight: "800",
-
-                      marginTop: "10px",
-                    }}
-                  >
-                    Premio 1
-                  </p>
-                </div>
-              </div>
-
-              <div style={{ display: "flex" }} className="segundo-premio">
-                <img
-                  style={{ width: "100px", height: "100px", zIndex: "10" }}
-                  src="https://ivltiudjxnrytalzxfwr.supabase.co/storage/v1/object/public/imagenes-rifas/No-borrar/2d.png"
-                />
-                <div
-                  style={{
-                    backgroundColor: "#212121",
-                    width: "285px",
-                    borderRadius: "15px",
-                    marginLeft: "-60px",
-                    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-                    display: "flex",
-                  }}
-                  className="2er-premio-texto"
-                >
-                  <div style={{ width: "100px" }}></div>
-                  <p
-                    style={{
-                      color: "white",
-                      maxWidth: "30ch",
-                      fontFamily: "Poppins",
-                      fontSize: "10px",
-                      fontWeight: "800",
-
-                      marginTop: "10px",
-                    }}
-                  >
-                    Premio 2
-                  </p>
-                </div>
-              </div>
-
-              <div style={{ display: "flex" }} className="tercer-premio">
-                <img
-                  style={{ width: "100px", height: "100px", zIndex: "10" }}
-                  src="https://ivltiudjxnrytalzxfwr.supabase.co/storage/v1/object/public/imagenes-rifas/No-borrar/3rd.png"
-                />
-                <div
-                  style={{
-                    backgroundColor: "#212121",
-                    width: "285px",
-                    borderRadius: "15px",
-                    marginLeft: "-60px",
-                    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-                    display: "flex",
-                  }}
-                  className="3er-premio-texto"
-                >
-                  <div style={{ width: "100px" }}></div>
-                  <p
-                    style={{
-                      color: "white",
-                      maxWidth: "30ch",
-                      fontFamily: "Poppins",
-                      fontSize: "10px",
-                      fontWeight: "800",
-
-                      marginTop: "10px",
-                    }}
-                  >
-                    Premio 3
-                  </p>
-                </div>
-              </div>
+            <div style={{ marginTop: "80px" }}>
+              <ul style={{ listStyle: "none" }} className="rifa-desc-render">
+                {descItems.map((item, index) => (
+                  <li key={index}>{item}</li>
+                ))}
+              </ul>
             </div>
           </section>
 
@@ -920,6 +817,132 @@ const RenderRifa = () => {
 };
 
 export default RenderRifa;
+
+/*
+
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+
+                marginTop: "60px",
+                marginBottom: "20px",
+                gap: "40px",
+              }}
+              className="premios"
+            >
+              <div
+                style={{ display: "flex", transform: "scale(1.5)" }}
+                className="primer-premio"
+              >
+                <img
+                  style={{ width: "100px", height: "100px", zIndex: "10" }}
+                  src="https://ivltiudjxnrytalzxfwr.supabase.co/storage/v1/object/public/imagenes-rifas/No-borrar/1st.png"
+                ></img>
+                <div
+                  style={{
+                    backgroundColor: "#212121",
+                    width: "285px",
+                    borderRadius: "15px",
+                    marginLeft: "-60px",
+                    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                    display: "flex",
+                  }}
+                  className="1er-premio-texto"
+                >
+                  <div style={{ width: "70px" }}></div>
+                  <p
+                    style={{
+                      color: "white",
+                      maxWidth: "30ch",
+                      fontFamily: "Poppins",
+                      fontSize: "10px",
+                      fontWeight: "800",
+                      justifyContent: "center",
+                      display: "flex",
+                      alignItems: "center",
+
+                      marginTop: "10px",
+                    }}
+                  >
+                    {rifaDetails.desc}
+                  </p>
+                </div>
+              </div>
+
+              <div
+                style={{ display: "flex", transform: "scale(1.1)" }}
+                className="segundo-premio"
+              >
+                <img
+                  style={{ width: "100px", height: "100px", zIndex: "10" }}
+                  src="https://ivltiudjxnrytalzxfwr.supabase.co/storage/v1/object/public/imagenes-rifas/No-borrar/2d.png"
+                />
+                <div
+                  style={{
+                    backgroundColor: "#212121",
+                    width: "285px",
+                    borderRadius: "15px",
+                    marginLeft: "-60px",
+                    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                    display: "flex",
+                  }}
+                  className="2er-premio-texto"
+                >
+                  <div style={{ width: "100px" }}></div>
+                  <p
+                    style={{
+                      color: "white",
+                      maxWidth: "30ch",
+                      fontFamily: "Poppins",
+                      fontSize: "10px",
+                      fontWeight: "800",
+
+                      marginTop: "10px",
+                    }}
+                  >
+                    Premio 2
+                  </p>
+                </div>
+              </div>
+
+              <div style={{ display: "flex" }} className="tercer-premio">
+                <img
+                  style={{ width: "100px", height: "100px", zIndex: "10" }}
+                  src="https://ivltiudjxnrytalzxfwr.supabase.co/storage/v1/object/public/imagenes-rifas/No-borrar/3rd.png"
+                />
+                <div
+                  style={{
+                    backgroundColor: "#212121",
+                    width: "285px",
+                    borderRadius: "15px",
+                    marginLeft: "-60px",
+                    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                    display: "flex",
+                  }}
+                  className="3er-premio-texto"
+                >
+                  <div style={{ width: "100px" }}></div>
+                  <p
+                    style={{
+                      color: "white",
+                      maxWidth: "30ch",
+                      fontFamily: "Poppins",
+                      fontSize: "10px",
+                      fontWeight: "800",
+
+                      marginTop: "10px",
+                    }}
+                  >
+                    Premio 3
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          */
 
 /*
         {rifaDetails && socioMetaData[0] ? (

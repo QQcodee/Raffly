@@ -4,6 +4,7 @@ import { useUser } from "../UserContext";
 
 //import UploadImage.css
 //import "../css/UploadImage.css";
+import "../css/UploadImage.css";
 
 const UploadImage = ({ onUploadComplete }) => {
   const [imagePreviews, setImagePreviews] = useState([]);
@@ -71,51 +72,44 @@ const UploadImage = ({ onUploadComplete }) => {
     }
   };
 
-  const handleDeleteImages = async (url) => {
-    try {
-      // Extract the file path from the URL
-      const filePath = new URL(url).pathname;
+  const handleDeleteImagen = (url) => {
+    const updatedImages = images.filter((imageUrl) => imageUrl !== url);
+    setGaleria(updatedImages);
+    setItems(updatedImages);
+    setImagePreviews(updatedImages);
+    setImages(updatedImages);
 
-      // Adjust the file path to match the bucket structure
-      const bucketPathPrefix = "/storage/v1/object/public/imagenes-rifas/";
-      if (!filePath.startsWith(bucketPathPrefix)) {
-        console.error("Invalid URL format");
-        return;
-      }
-      const adjustedFilePath = filePath.replace(bucketPathPrefix, "");
-
-      console.log("Extracted file path:", adjustedFilePath);
-
-      if (!adjustedFilePath) {
-        console.error("File path is empty or undefined");
-        return;
-      }
-
-      const { data, error } = await supabase.storage
-        .from("imagenes-rifas")
-        .remove([url]);
-
-      if (error) {
-        console.error("Error deleting image:", error.message);
-      } else {
-        console.log("Image deleted successfully", data);
-      }
-    } catch (error) {
-      console.error("Error processing the URL:", error.message);
+    if (onUploadComplete) {
+      onUploadComplete(updatedImages);
     }
   };
-
   return (
     <>
       <h1>
-        <div>
-          <label htmlFor="images">Imágenes:</label>
+        <div style={{ padding: "20px", width: "100%" }}>
+          <label
+            style={{ fontSize: "16px", fontWeight: "400" }}
+            htmlFor="images"
+          >
+            Imágenes:
+          </label>
           <input
             type="file"
             id="images"
             accept="image/*"
             multiple
             onChange={(e) => handleImageUpload(e.target.files)}
+            style={{
+              width: "100%",
+              color: "black",
+              padding: "10px",
+
+              borderRadius: "15px",
+              border: "1px solid #ccc",
+              boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+              marginTop: "10px",
+              marginBottom: "10px",
+            }}
           />
         </div>
       </h1>
@@ -133,6 +127,13 @@ const UploadImage = ({ onUploadComplete }) => {
               alt={url}
               style={{ width: "100px", height: "100px" }}
             />
+
+            <button
+              onClick={() => handleDeleteImagen(url)}
+              className="delete-button"
+            >
+              Eliminar
+            </button>
           </div>
         ))}
       </div>

@@ -50,7 +50,7 @@ const Dashboard = () => {
       if (!selectedRifa) return; // Exit early if no rifa is selected
 
       const { data, error } = await supabase
-        .from("aggregated_boletos")
+        .from("boletos_view")
         .select()
         .eq("id_rifa", selectedRifa);
 

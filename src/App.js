@@ -39,6 +39,7 @@ import FooterGlobal from "./components/FooterGlobal";
 import HeaderGlobal from "./components/HeaderGlobal";
 import VerificadorBoletos from "./pages/VerificadorBoletos";
 import Rifas from "./pages/Rifas";
+import CrearRifa from "./pages/dashboard/CrearRifa";
 
 //import HeaderLogin from "./pages/HeaderLogin.js";
 //import Topbar from "./pages/dashboard/Topbar.js";
@@ -60,6 +61,7 @@ function App() {
           <Route path="/cart" element={<CartPage />} />
 
           <Route path="/editar/:id" element={<Update />} />
+          <Route path="/crear" element={<CrearRifa />} />
 
           <Route path="/login" element={<Login />} />
           <Route path="/success" element={<Success />} />
@@ -103,7 +105,7 @@ function App() {
             <Route path="mis-rifas" element={<MisRifas />} />
             <Route path="boletos" element={<BoletosDashboard />} />
 
-            <Route path="crear-rifa" element={<Create />} />
+            <Route path="crear-rifa" element={<CrearRifa />} />
             <Route path="editar/:id" element={<Update />} />
             <Route path="config" element={<SocioConfig />} />
             <Route path="stripe-config" element={<Onboarding />} />

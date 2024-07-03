@@ -41,7 +41,7 @@ const RifaList = ({ rifa }) => {
       if (!rifa.id) return;
 
       const { data, error } = await supabase
-        .from("boletos")
+        .from("boletos_view")
         .select()
         .eq("id_rifa", rifa.id);
 
@@ -50,10 +50,9 @@ const RifaList = ({ rifa }) => {
       }
       if (data) {
         // Flatten the arrays of ticket numbers into a single array
-        const soldTicketsArray = data.reduce((acc, ticket) => {
-          return acc.concat(ticket.num_boletos);
-        }, []);
-        setSoldTickets(soldTicketsArray);
+        console.log(data[0].totalsold);
+
+        setSoldTickets(data[0].totalsold);
       }
     };
     fetchSoldTickets();
@@ -123,7 +122,7 @@ const RifaList = ({ rifa }) => {
 
             {/* Loading bar and time counter */}
             <div className="loading-bar-container">
-              <LoadingBar boletosVendidos={soldTickets.length} rifa={rifa} />
+              <LoadingBar boletosVendidos={soldTickets} rifa={rifa} />
             </div>
 
             <div className="countdown-container">

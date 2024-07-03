@@ -7,6 +7,7 @@ label {
 input[type="file"] {
   display: block;
   margin-bottom: 20px;
+  font-size: 15px;
 }
 
 /* Styling for the button */
@@ -35,11 +36,10 @@ button:disabled {
 /* Styling for each image item */
 .image-item {
   background-color: white;
-  border: 1px solid #ddd;
+
   padding: 10px;
-  border-radius: 5px;
+
   text-align: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Styling for the checkbox */
@@ -49,8 +49,7 @@ button:disabled {
 
 /* Styling for the images */
 .image-item img {
-  width: 100px;
+  width: auto;
   height: 100px;
   object-fit: cover;
-  border-radius: 5px;
 }

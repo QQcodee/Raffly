@@ -169,6 +169,7 @@ form button {
 }
 .num-boletos {
   display: flex;
+  color: #000;
   align-items: center;
   justify-content: center;
   width: 100%; /* Makes the button expand to fill the cell */
@@ -176,7 +177,7 @@ form button {
   padding: 8px 12px; /* Optional: Adjust padding as needed */
   font-size: 14px; /* Adjust font size as needed */
   border: 1px solid #ccc; /* Optional: Adds border to buttons */
-  background-color: #f7f7f7; /* Optional: Background color for the button */
+  background-color: #dfdfdf; /* Optional: Background color for the button */
   cursor: pointer; /* Changes cursor to pointer to indicate it's clickable */
   overflow: hidden; /* Keeps the content within the button's boundaries */
   white-space: nowrap; /* Ensures the text stays in a single line */
