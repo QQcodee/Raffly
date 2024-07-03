@@ -1,64 +1,121 @@
 import React from "react";
 import supabase from "../../config/supabaseClient";
 import { useState, useEffect } from "react";
+import BoletosDoughnutChart from "../../components/DonutChartMetodosPago";
+import { useParams } from "react-router-dom";
+import NumbersSoldDoughnutChart from "../../components/DonutChartPorcentaje";
 
 const Dashboard = () => {
   const [boletos, setBoletos] = useState([]);
 
+  const [data, setData] = useState([]);
+  const [rifas, setRifas] = useState([]);
+  const [selectedRifa, setSelectedRifa] = useState(""); // State to hold the selected rifa ID
+  const [selectedName, setSelectedName] = useState("");
+
+  const [currentRifa, setCurrentRifa] = useState("");
+
+  const { user_id } = useParams();
+
+  console.log(data);
+
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchRifas = async () => {
       const { data, error } = await supabase
-        .from("boletos")
-        .select(`created_at, num_boletos `)
-        .eq("id_rifa", "cc85d357-e75d-45d5-9fa2-9db5abf18343");
+        .from("rifas")
+        .select() // Select only the ID of rifas
+        .eq("user_id", user_id)
+        .order("created_at", { ascending: false });
 
       if (error) {
-        console.error(error);
-      } else {
-        setBoletos(data);
+        console.log(error);
+      }
+
+      if (data) {
+        setRifas(data);
+        // Set default selected rifa to the first one in the list
+        if (data.length > 0) {
+          setSelectedRifa(data[0].id);
+          setSelectedName(data[0].nombre);
+        }
       }
     };
 
-    fetchData();
-  }, []);
+    fetchRifas();
+  }, [user_id]); // Add user_id to dependencies array to fetch rifas when it changes
 
-  console.log(boletos);
+  useEffect(() => {
+    const fetchBoletos = async () => {
+      if (!selectedRifa) return; // Exit early if no rifa is selected
 
-  const getDayFromDate = (timestamp) => {
-    const date = new Date(timestamp);
-    // Get day in YYYY-MM-DD format
-    return date.toISOString().split("T")[0];
-  };
+      const { data, error } = await supabase
+        .from("aggregated_boletos")
+        .select()
+        .eq("id_rifa", selectedRifa);
 
-  // Group objects by day
-  const groupedByDay = boletos.reduce((acc, obj) => {
-    const day = getDayFromDate(obj.created_at);
-    if (!acc[day]) {
-      acc[day] = [];
+      if (error) {
+        console.log(error);
+      }
+      if (data) {
+        setData(data);
+      }
+    };
+    fetchBoletos();
+  }, [selectedRifa, selectedName]); // Fetch boletos whenever selectedRifa changes
+
+  const handleRifaChange = (e) => {
+    const selectedRifaId = e.target.value;
+    const selectedRifa = rifas.find((rifa) => rifa.id === selectedRifaId);
+    if (selectedRifa) {
+      setSelectedRifa(selectedRifa.id);
+      setSelectedName(selectedRifa.name);
+      setCurrentRifa(selectedRifa);
     }
-    acc[day].push(obj);
-    return acc;
-  }, {});
-
-  // Calculate the sum of lengths for each day
-  const sumOfLengthsByDay = Object.keys(groupedByDay).reduce((result, day) => {
-    const sumLengths = groupedByDay[day].reduce(
-      (sum, obj) => sum + obj.num_boletos.length,
-      0
-    );
-    result[day] = sumLengths;
-    return result;
-  }, {});
-
-  console.log(sumOfLengthsByDay);
+  };
 
   return (
     <div>
       <h1>Panel de Estadisticas</h1>
       <p>
-        Welcome to your dashboard. Here you can manage your account, view
-        statistics, and more.
+        Bienvenido a tu panel de control. Aquí puedes gestionar tu cuenta, ver
+        estadísticas y más.
       </p>
+
+      <div className="select-container">
+        <select
+          id="rifasSelector"
+          onChange={handleRifaChange}
+          value={selectedName}
+          placeholder="Elegir Rifa"
+          style={{
+            width: "200px",
+            color: "black",
+            padding: "10px",
+            margin: "10px",
+            borderRadius: "15px",
+            boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+          }}
+        >
+          {rifas.map((rifa) => (
+            <option key={rifa.id} value={rifa.id}>
+              {rifa.nombre}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div style={{ display: "flex" }}>
+        <div style={{ width: "400px" }}>
+          <BoletosDoughnutChart boletos={data} />
+        </div>
+
+        <div style={{ width: "400px" }}>
+          <NumbersSoldDoughnutChart
+            boletos={data}
+            totalNumbers={currentRifa.numboletos}
+          />
+        </div>
+      </div>
     </div>
   );
 };

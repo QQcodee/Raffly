@@ -109,7 +109,6 @@ const CheckoutForm = ({
           fecharifa: rifa.fecharifa,
           socio_user_id: rifa.user_id,
           comprado: true,
-          apartado: false,
         },
       ]);
 
@@ -147,7 +146,7 @@ const CheckoutForm = ({
           fecharifa: rifa.fecharifa,
           socio_user_id: rifa.user_id,
           oxxo: true,
-          apartado: false,
+
           oxxo_url: oxxo_url,
           oxxo_id: oxxo_id,
           apartado_fecha: apartadoUntil,
@@ -176,7 +175,7 @@ const CheckoutForm = ({
         {
           id_rifa: rifa.id,
           num_boletos: ticketNumbersArray,
-          user_id: user.id,
+          user_id: user ? user.id : null,
           precio: rifa.precioboleto,
           desc: rifa.desc,
           nombre_rifa: rifa.nombre,
