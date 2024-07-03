@@ -326,58 +326,13 @@ const HeaderGlobal = () => {
                     )
                   }
                 >
-                  Rifas Activas
+                  Rifas
                 </a>
               </li>
 
               <li>
                 <a href="/socios">Socios</a>
               </li>
-              <li>
-                <a
-                  href={
-                    "/" +
-                    encodeURIComponent(
-                      socioMetaData[0].nombre_negocio.replace(/\s+/g, "-")
-                    ) +
-                    "/" +
-                    encodeURIComponent(
-                      socioMetaData[0].user_id.replace(/\s+/g, "-")
-                    ) +
-                    "/#FAQ"
-                  }
-                >
-                  FAQ
-                </a>
-              </li>
-
-              <li>
-                <a
-                  href={
-                    "/" +
-                    encodeURIComponent(
-                      socioMetaData[0].nombre_negocio.replace(/\s+/g, "-")
-                    ) +
-                    "/" +
-                    encodeURIComponent(
-                      socioMetaData[0].user_id.replace(/\s+/g, "-")
-                    ) +
-                    "/#Contacto"
-                  }
-                >
-                  Contacto
-                </a>
-              </li>
-
-              <li>
-                <a href="#metodos-de-pago">Metodos de pago</a>
-              </li>
-
-              {user || userRole === "Socio" ? (
-                <li>
-                  <a href={"/dashboard/" + user?.id}>Panel de socio</a>
-                </li>
-              ) : null}
 
               <hr className="divider-title"></hr>
 
@@ -433,52 +388,30 @@ const HeaderGlobal = () => {
                     )
                   }
                 >
-                  Rifas Activas
+                  Rifas
                 </a>
               </li>
-              <li>
-                <a
-                  href={
-                    "/" +
-                    encodeURIComponent(
-                      socioMetaData[0].nombre_negocio.replace(/\s+/g, "-")
-                    ) +
-                    "/" +
-                    encodeURIComponent(
-                      socioMetaData[0].user_id.replace(/\s+/g, "-")
-                    ) +
-                    "/#FAQ"
-                  }
+
+              {userRole === "Admin" || userRole === "Socio" ? (
+                <li
+                  style={{
+                    backgroundColor: "white",
+                    color: "black",
+                    borderRadius: "15px",
+                    padding: "10px",
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
+                  }}
                 >
-                  FAQ
-                </a>
-              </li>
-
-              <li>
-                <a
-                  href={
-                    "/" +
-                    encodeURIComponent(
-                      socioMetaData[0].nombre_negocio.replace(/\s+/g, "-")
-                    ) +
-                    "/" +
-                    encodeURIComponent(
-                      socioMetaData[0].user_id.replace(/\s+/g, "-")
-                    ) +
-                    "/#Contacto"
-                  }
-                >
-                  Contacto
-                </a>
-              </li>
-
-              <li>
-                <a href="#metodos-de-pago">Metodos de pago</a>
-              </li>
-
-              {user || userRole === "Socio" ? (
-                <li>
-                  <a href={"/dashboard/" + user?.id}>Panel de socio</a>
+                  <a
+                    style={{ color: "black", textDecoration: "none" }}
+                    href={"/dashboard/" + user?.id}
+                  >
+                    Panel de socio
+                  </a>
                 </li>
               ) : null}
 
@@ -583,34 +516,38 @@ const HeaderGlobal = () => {
         {socioMetaData[0] === undefined && (
           <nav className="nav-menu-socio">
             <ul>
+              <li
+                style={{
+                  backgroundColor: "#ffa500",
+                  color: "white",
+                  borderRadius: "15px",
+                  padding: "10px",
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
+                }}
+              >
+                <Link
+                  style={{ color: "white", textDecoration: "none" }}
+                  className="nav-home-item"
+                  to={"/crear"}
+                >
+                  Crear Rifa
+                </Link>
+              </li>
+
+              <li>
+                <a href={"/rifas"}>Rifas</a>
+              </li>
               <li>
                 <a href={"/verificador"}>Verificador de boletos</a>
               </li>
 
               <li>
-                <a href={"/"}>Rifas Activas</a>
-              </li>
-
-              <li>
                 <a href={"/socios"}>Socios</a>
               </li>
-              <li>
-                <a href={"/#FAQ"}>FAQ</a>
-              </li>
-
-              <li>
-                <a href={"/#Contacto"}>Contacto</a>
-              </li>
-
-              <li>
-                <a href="#metodos-de-pago">Metodos de pago</a>
-              </li>
-
-              {user || userRole === "Socio" ? (
-                <li>
-                  <a href={"/dashboard/" + user?.id}>Panel de socio</a>
-                </li>
-              ) : null}
 
               <li>
                 {cartCount > 0 ? (
@@ -638,6 +575,29 @@ const HeaderGlobal = () => {
                   </Link>
                 )}
               </li>
+
+              {userRole === "Admin" || userRole === "Socio" ? (
+                <li
+                  style={{
+                    backgroundColor: "white",
+                    color: "black",
+                    borderRadius: "15px",
+                    padding: "10px",
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
+                  }}
+                >
+                  <a
+                    style={{ color: "black", textDecoration: "none" }}
+                    href={"/dashboard/" + user?.id}
+                  >
+                    Panel de socio
+                  </a>
+                </li>
+              ) : null}
 
               <li>
                 {user ? (
@@ -757,29 +717,12 @@ const HeaderGlobal = () => {
                 )}
 
                 <li>
-                  <a href={"/"}>Rifas Activas</a>
+                  <a href={"/rifas"}>Rifas</a>
                 </li>
 
                 <li>
                   <a href="/socios">Socios</a>
                 </li>
-                <li>
-                  <a href={"/#FAQ"}>FAQ</a>
-                </li>
-
-                <li>
-                  <a href={"/#Contacto"}>Contacto</a>
-                </li>
-
-                <li>
-                  <a href="#metodos-de-pago">Metodos de pago</a>
-                </li>
-
-                {user || userRole === "Socio" ? (
-                  <li>
-                    <a href={"/dashboard/" + user?.id}>Panel de socio</a>
-                  </li>
-                ) : null}
 
                 <hr className="divider-title"></hr>
 

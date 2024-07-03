@@ -64,16 +64,12 @@
   font-family: Poppins;
 }
 
-.nav-menu-socio {
-  margin-left: -20px; /* Adjust this value as needed */
-  /* or use transform: translateX(-20px); */
-}
-
 .nav-menu-socio ul {
   list-style: none;
   display: flex;
   margin: 0;
   padding: 0;
+  align-items: center;
 }
 
 .nav-menu-socio li {
@@ -81,15 +77,16 @@
 }
 
 .nav-menu-socio a {
-  color: #f8f8f8;
+  color: #3d3d3d;
+  font-family: "Poppins";
   text-decoration: none;
   font-size: 18px;
-  font-weight: 500;
+  font-weight: 600;
   transition: color 0.3s ease;
 }
 
 .nav-menu-socio a:hover {
-  color: #ff0000;
+  color: white;
 }
 
 .account-menu {

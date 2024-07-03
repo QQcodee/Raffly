@@ -6,13 +6,14 @@ import { useNavigate } from "react-router-dom";
 import { useUser } from "../UserContext";
 
 //import css
-import "../css/index.css";
+import "./Home.css";
 
 //import components
 import HeaderHome from "../components/HeaderHome";
 import RifaList from "../components/RifaList";
 import HeaderGlobal from "../components/HeaderGlobal";
 import FooterGlobal from "../components/FooterGlobal";
+import CarouselRifas from "../components/CarouselRifas";
 
 const Home = () => {
   const [fetchError, setFetchError] = useState(null);
@@ -23,7 +24,11 @@ const Home = () => {
 
   useEffect(() => {
     const fetchRifas = async () => {
-      const { data, error } = await supabase.from("rifas").select();
+      const { data, error } = await supabase
+        .from("rifas")
+        .select()
+        .order("created_at", { ascending: false })
+        .range(0, 20);
 
       if (error) {
         setFetchError("Could not fetch rifas");
@@ -43,7 +48,28 @@ const Home = () => {
     <>
       <div>
         <HeaderGlobal />
+
+        <div className="hero-home">
+          <h1>Bienvenido a Raffly!</h1>
+
+          <h2>
+            La Mejor Plataforma de Rifas <br />
+            Rifas para todos los intereses, Participa y gana premios
+            extraordinarios
+            <br /> <br />
+            ¡Regístrate ahora y participa en tu primera rifa hoy mismo!
+          </h2>
+
+          <button onClick={() => navigate("/rifas")}>Ver Rifas</button>
+        </div>
+
+        {rifas && (
+          <div className="rifas-carousel">
+            <CarouselRifas items={rifas} />
+          </div>
+        )}
       </div>
+
       <FooterGlobal />
     </>
   );
