@@ -133,7 +133,9 @@ const BoletosDashboard = () => {
       console.log("Data updated successfully: ", data);
       setData(
         filteredData.map((item) =>
-          item.id === item.id ? { ...item, comprado: true, oxxo: false } : item
+          item.id === boleto.id
+            ? { ...item, comprado: true, oxxo: false }
+            : item
         )
       );
     }

@@ -37,6 +37,7 @@ const Dashboard = () => {
         if (data.length > 0) {
           setSelectedRifa(data[0].id);
           setSelectedName(data[0].nombre);
+          setCurrentRifa(data[0]);
         }
       }
     };
