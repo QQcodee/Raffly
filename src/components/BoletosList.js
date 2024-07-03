@@ -231,12 +231,17 @@ const BoletosList = ({ boleto }) => {
                 <h4 style={{ height: "90px" }}> </h4>
               ) : boleto.oxxo === true ? (
                 <>
-                  <CountdownTimer fecha={boleto.apartado_fecha} />
+                  <div style={{ marginLeft: "60px" }}>
+                    <CountdownTimer fecha={boleto.apartado_fecha} />
+                  </div>
+
                   <OxxoPaymentStatus boleto={boleto} />
                 </>
               ) : boleto.apartado === true ? (
                 <>
-                  <CountdownTimer fecha={boleto.apartado_fecha} />
+                  <div style={{ marginLeft: "60px" }}>
+                    <CountdownTimer fecha={boleto.apartado_fecha} />
+                  </div>
                   <button
                     style={{
                       justify: "center",
