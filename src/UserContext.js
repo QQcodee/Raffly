@@ -93,7 +93,7 @@ export const UserProvider = ({ children }) => {
         data[0].role_id &&
         data[0].role_id.role_name
       ) {
-        console.log(data[0].role_id.role_name);
+        //console.log(data[0].role_id.role_name);
         setUserRole(data[0].role_id.role_name);
       }
     }
@@ -102,7 +102,7 @@ export const UserProvider = ({ children }) => {
   }, [user]);
 
   useEffect(() => {
-    console.log(userRole);
+    //console.log(userRole);
   }, [userRole]);
   return (
     <UserContext.Provider value={{ user, userRole, userMetaData }}>

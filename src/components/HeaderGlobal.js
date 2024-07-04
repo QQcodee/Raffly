@@ -48,6 +48,8 @@ const HeaderGlobal = () => {
 
   useEffect(() => {
     const fetchUserMetaData = async () => {
+      if (!user_id) return;
+
       const { data, error } = await supabase
         .from("user_metadata")
         .select()
@@ -63,7 +65,7 @@ const HeaderGlobal = () => {
       }
     };
     fetchUserMetaData();
-  }, []);
+  }, [user_id]);
   return (
     <>
       <header className="header-global">

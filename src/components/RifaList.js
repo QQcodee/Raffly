@@ -48,9 +48,19 @@ const RifaList = ({ rifa }) => {
       if (error) {
         console.log(error);
       }
+      if (
+        data
+          ? data[0].totalsold === undefined ||
+            data[0].totalsold === null ||
+            data[0].totalsold === 0
+          : true
+      ) {
+        // Flatten the arrays of ticket numbers into a single array
+
+        setSoldTickets(1);
+      }
       if (data) {
         // Flatten the arrays of ticket numbers into a single array
-        console.log(data[0].totalsold);
 
         setSoldTickets(data[0].totalsold);
       }
@@ -121,16 +131,21 @@ const RifaList = ({ rifa }) => {
             </div>
 
             {/* Loading bar and time counter */}
-            <div className="loading-bar-container">
-              <LoadingBar boletosVendidos={soldTickets} rifa={rifa} />
-            </div>
+            {soldTickets ? (
+              <div className="loading-bar-container">
+                <LoadingBar boletosVendidos={soldTickets} rifa={rifa} />
+              </div>
+            ) : null}
 
             {rifa.fecharifa ? (
               <div className="countdown-container">
                 <CountdownTimer fecha={rifa.fecharifa} />
               </div>
             ) : (
-              <p> La fecha se fijara al liquidar 80% de boletos</p>
+              <p style={{ textAlign: "center", fontWeight: "600" }}>
+                {" "}
+                La fecha se fijara al liquidar 80% de boletos
+              </p>
             )}
 
             {/* Price */}
