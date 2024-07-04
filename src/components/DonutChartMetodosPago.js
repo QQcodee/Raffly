@@ -29,7 +29,7 @@ const BoletosDoughnutChart = ({ boletos }) => {
       // Prepare chart data
       const data = {
         labels: [
-          `Pagados (${counts.paid})`,
+          `Tarjeta (${counts.paid})`,
           `Transferencia (${counts.setApart})`,
           `Pago Oxxo (${counts.inPaymentProcess})`,
         ],
