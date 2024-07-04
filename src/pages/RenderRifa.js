@@ -490,7 +490,10 @@ const RenderRifa = () => {
             </section>
           </div>
 
-          <section style={{ marginBottom: "80px" }} className="premios">
+          <section
+            style={{ marginBottom: "80px", marginTop: "80px" }}
+            className="premios"
+          >
             <div
               style={{
                 display: "flex",
@@ -520,7 +523,17 @@ const RenderRifa = () => {
             </div>
 
             <div style={{ marginTop: "80px" }}>
-              <ul style={{ listStyle: "none" }} className="rifa-desc-render">
+              <ul
+                style={{
+                  listStyle: "none",
+                  paddingLeft: "20px",
+                  paddingRight: "20px",
+                  textAlign: "center",
+                  fontFamily: "Poppins",
+                  fontSize: "32px",
+                }}
+                className="rifa-desc-render"
+              >
                 {descItems.map((item, index) => (
                   <li key={index}>{item}</li>
                 ))}

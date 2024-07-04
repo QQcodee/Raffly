@@ -169,8 +169,9 @@
 
   max-width: 1500px;
   padding: 20px;
-  background-color: #f5f5f5;
+  background-color: #dfdfdf;
   border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.288);
 }
 
 .search-mobile {
