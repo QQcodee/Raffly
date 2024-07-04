@@ -79,7 +79,6 @@ const CrearRifa = () => {
       !precioboleto ||
       !numboletos ||
       !image ||
-      !date ||
       !userMetaData ||
       !categoria ||
       !imageUrls ||
@@ -99,7 +98,7 @@ const CrearRifa = () => {
         user_id: user.id,
         categoria: categoria,
         img: image,
-        fecharifa: date,
+        fecharifa: date ? date : null,
         oxxo: oxxo.booleanValue,
         tarjeta: tarjeta.booleanValue,
         transferencia: transferencia.booleanValue,
@@ -443,7 +442,6 @@ const CrearRifa = () => {
               id="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
-              required
               style={{
                 width: "25%",
                 color: "black",

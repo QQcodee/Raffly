@@ -351,10 +351,18 @@ const RenderRifa = () => {
               <section className="tituloYFecha">
                 <h1>{rifaDetails && rifaDetails.nombre}</h1>
                 <p>Delicias/Chihuahua</p>
-                <h2>
-                  Fecha del sorteo:{" "}
-                  {rifaDetails && formatDate(rifaDetails.fecharifa)}
-                </h2>
+
+                {rifaDetails.fecharifa && (
+                  <h2>Fecha del sorteo: (formatDate(rifaDetails.fecharifa))</h2>
+                )}
+
+                {rifaDetails.fecharifa === null ||
+                rifaDetails.fecharifa === undefined ? (
+                  <h2 style={{ color: "red" }}>
+                    La fecha del sorteo sera fijada al liquidar 80% de los
+                    boletos
+                  </h2>
+                ) : null}
               </section>
               <section
                 style={{ marginTop: "30px" }}
@@ -448,18 +456,6 @@ const RenderRifa = () => {
 
                     <p
                       style={{
-                        fontSize: "9px",
-                        marginTop: "-10px",
-                        maxWidth: "38ch",
-                        fontWeight: "500",
-                      }}
-                    >
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    </p>
-
-                    <p
-                      style={{
                         fontSize: "10px",
                         marginTop: "-10px",
                         fontWeight: "bold",
@@ -479,7 +475,7 @@ const RenderRifa = () => {
               <div className="contanier-img-principal">
                 {rifaDetails.galeria ? (
                   <Carousel
-                    images={rifaDetails.galeria}
+                    images={[rifaDetails.galeria, rifaDetails.galeria]}
                     fecha={rifaDetails.fecharifa}
                   />
                 ) : (
@@ -598,18 +594,6 @@ const RenderRifa = () => {
                     src="https://ivltiudjxnrytalzxfwr.supabase.co/storage/v1/object/public/imagenes-rifas/No-borrar/verificado.png"
                   />
                 </div>
-
-                <p
-                  style={{
-                    fontSize: "9px",
-                    marginTop: "-10px",
-                    maxWidth: "38ch",
-                    fontWeight: "500",
-                  }}
-                >
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem
-                  ipsum dolor sit amet consectetur adipisicing elit.
-                </p>
 
                 <p
                   style={{

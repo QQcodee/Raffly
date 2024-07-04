@@ -128,9 +128,13 @@ const RifaList = ({ rifa }) => {
               <LoadingBar boletosVendidos={soldTickets.length} rifa={rifa} />
             </div>
 
-            <div className="countdown-container">
-              <CountdownTimer fecha={rifa.fecharifa} />
-            </div>
+            {rifa.fecharifa ? (
+              <div className="countdown-container">
+                <CountdownTimer fecha={rifa.fecharifa} />
+              </div>
+            ) : (
+              <p> La fecha se fijara al liquidar 80% de boletos</p>
+            )}
 
             {/* Price */}
           </div>
