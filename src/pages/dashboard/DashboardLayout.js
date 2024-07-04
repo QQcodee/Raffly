@@ -30,7 +30,7 @@ const DashboardLayout = () => {
               </div>
             </div>
           ) : (
-            <>No tienes acceso</>
+            <>No tienes acceso a este panel</>
           )
         ) : (
           <>
@@ -41,10 +41,7 @@ const DashboardLayout = () => {
           </>
         )
       ) : (
-        <>
-          <h1>Debes iniciar sesion</h1>
-          <Login />
-        </>
+        <h1>Cargando...</h1>
       )}
     </>
   );

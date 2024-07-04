@@ -35,11 +35,8 @@ const CrearRifa = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!user) {
-      navigate("/");
-    }
     checkAccountSetup();
-  }, [user, navigate]);
+  }, [user]);
 
   const handleImageUrls = (urls) => {
     setImageUrls((prevUrls) => [...prevUrls, ...urls]);
