@@ -262,33 +262,70 @@ const CrearRifa = () => {
 
   return (
     <>
-      {userRole === "Admin" ||
-        (userRole === "Socio" && (
-          <div>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                padding: "50px",
-              }}
-            >
-              <div>
-                <form
+      {userRole === "Admin" || userRole === "Socio" ? (
+        <div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              padding: "50px",
+            }}
+          >
+            <div>
+              <form
+                style={{
+                  maxWidth: "800px",
+                  fontFamily: "Poppins",
+                  border: "1px solid #ccc",
+                  borderRadius: "15px",
+                  padding: "20px",
+                  boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+                }}
+                onSubmit={handleSubmit}
+              >
+                <input
+                  type="text"
+                  id="nombre"
+                  value={nombre}
+                  onChange={(e) => setNombre(e.target.value)}
+                  required
                   style={{
-                    maxWidth: "800px",
-                    fontFamily: "Poppins",
-                    border: "1px solid #ccc",
+                    width: "100%",
+                    color: "black",
+                    padding: "10px",
+                    margin: "10px",
                     borderRadius: "15px",
-                    padding: "20px",
+                    border: "1px solid #ccc",
                     boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
                   }}
-                  onSubmit={handleSubmit}
+                  placeholder="Nombre de la Rifa"
+                />
+
+                <textarea
+                  id="desc"
+                  value={desc}
+                  onChange={(e) => setDesc(e.target.value)}
+                  required
+                  style={{
+                    width: "100%",
+                    color: "black",
+                    padding: "10px",
+                    margin: "10px",
+                    borderRadius: "15px",
+                    border: "1px solid #ccc",
+                    boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+                  }}
+                  placeholder="Descripcion de la Rifa (Premios, etc.)"
+                />
+
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
                 >
                   <input
-                    type="text"
-                    id="nombre"
-                    value={nombre}
-                    onChange={(e) => setNombre(e.target.value)}
+                    type="number"
+                    id="numboletos"
+                    value={numboletos}
+                    onChange={(e) => setnumboletos(e.target.value)}
                     required
                     style={{
                       width: "100%",
@@ -299,13 +336,14 @@ const CrearRifa = () => {
                       border: "1px solid #ccc",
                       boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
                     }}
-                    placeholder="Nombre de la Rifa"
+                    placeholder="Numero de boletos (Entre 100 y 60,000)"
                   />
 
-                  <textarea
-                    id="desc"
-                    value={desc}
-                    onChange={(e) => setDesc(e.target.value)}
+                  <input
+                    type="number"
+                    id="precioboleto"
+                    value={precioboleto}
+                    onChange={(e) => setprecioboleto(e.target.value)}
                     required
                     style={{
                       width: "100%",
@@ -316,167 +354,61 @@ const CrearRifa = () => {
                       border: "1px solid #ccc",
                       boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
                     }}
-                    placeholder="Descripcion de la Rifa (Premios, etc.)"
+                    placeholder="Precio de cada boleto"
                   />
+                </div>
 
-                  <div
-                    style={{ display: "flex", justifyContent: "space-between" }}
-                  >
-                    <input
-                      type="number"
-                      id="numboletos"
-                      value={numboletos}
-                      onChange={(e) => setnumboletos(e.target.value)}
-                      required
-                      style={{
-                        width: "100%",
-                        color: "black",
-                        padding: "10px",
-                        margin: "10px",
-                        borderRadius: "15px",
-                        border: "1px solid #ccc",
-                        boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
-                      }}
-                      placeholder="Numero de boletos (Entre 100 y 60,000)"
-                    />
+                <select
+                  id="categoria"
+                  value={categoria}
+                  onChange={(e) => setCategoria(e.target.value)}
+                  required
+                  style={{
+                    width: "100%",
+                    color: "black",
+                    padding: "10px",
+                    margin: "10px",
+                    borderRadius: "15px",
+                    border: "1px solid #ccc",
+                    boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+                  }}
+                >
+                  <option value="">Seleccione una categoría</option>
+                  <option value="Vehiculos">Vehiculos</option>
+                  <option value="Celulares">Celulares</option>
+                  <option value="Efectivo">Efectivo</option>
+                  <option value="Joyeria">Joyeria</option>
+                  <option value="Relojes">Relojes</option>
+                  <option value="Propiedades">Propiedades</option>
 
-                    <input
-                      type="number"
-                      id="precioboleto"
-                      value={precioboleto}
-                      onChange={(e) => setprecioboleto(e.target.value)}
-                      required
-                      style={{
-                        width: "100%",
-                        color: "black",
-                        padding: "10px",
-                        margin: "10px",
-                        borderRadius: "15px",
-                        border: "1px solid #ccc",
-                        boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
-                      }}
-                      placeholder="Precio de cada boleto"
-                    />
-                  </div>
+                  <option value="Otro">Otro</option>
+                  {/* Add more options as needed */}
+                </select>
 
-                  <select
-                    id="categoria"
-                    value={categoria}
-                    onChange={(e) => setCategoria(e.target.value)}
-                    required
-                    style={{
-                      width: "100%",
-                      color: "black",
-                      padding: "10px",
-                      margin: "10px",
-                      borderRadius: "15px",
-                      border: "1px solid #ccc",
-                      boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
-                    }}
-                  >
-                    <option value="">Seleccione una categoría</option>
-                    <option value="Vehiculos">Vehiculos</option>
-                    <option value="Celulares">Celulares</option>
-                    <option value="Efectivo">Efectivo</option>
-                    <option value="Joyeria">Joyeria</option>
-                    <option value="Relojes">Relojes</option>
-                    <option value="Propiedades">Propiedades</option>
-
-                    <option value="Otro">Otro</option>
-                    {/* Add more options as needed */}
-                  </select>
-
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    gap: "20px",
+                    padding: "20px",
+                    margin: "10px",
+                  }}
+                >
                   <div
                     style={{
                       display: "flex",
+                      flexDirection: "column",
                       justifyContent: "space-between",
-                      gap: "20px",
-                      padding: "20px",
-                      margin: "10px",
                     }}
                   >
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "space-between",
-                      }}
-                    >
-                      <p>Pagos con tarjeta:</p>
-                      {accountExists === "default" ? (
-                        <p>...</p>
-                      ) : accountExists === "true" ? (
-                        <label>
-                          <Switch
-                            onChange={handleSwitchTarjeta}
-                            checked={tarjeta.booleanValue}
-                            onColor="#86d3ff"
-                            onHandleColor="#2693e6"
-                            handleDiameter={30}
-                            uncheckedIcon={false}
-                            checkedIcon={false}
-                            boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
-                            activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
-                            height={20}
-                            width={48}
-                            className="react-switch"
-                            id="material-switch"
-                          />
-                        </label>
-                      ) : (
-                        <p>
-                          Para aceptar pagos con tarjeta debes configurar stripe
-                        </p>
-                      )}
-                    </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "space-between",
-                      }}
-                    >
-                      <p style={{ fontWeight: "400" }}>Pagos con oxxo:</p>
-
-                      {accountExists === "default" ? (
-                        <p>...</p>
-                      ) : accountExists === "true" ? (
-                        <label>
-                          <Switch
-                            onChange={handleSwitchOxxo}
-                            checked={oxxo.booleanValue}
-                            onColor="#86d3ff"
-                            onHandleColor="#2693e6"
-                            handleDiameter={30}
-                            uncheckedIcon={false}
-                            checkedIcon={false}
-                            boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
-                            activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
-                            height={20}
-                            width={48}
-                            className="react-switch"
-                            id="material-switch"
-                          />
-                        </label>
-                      ) : (
-                        <p>
-                          Para aceptar pagos con oxxo debes configurar stripe
-                        </p>
-                      )}
-                    </div>
-
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "space-between",
-                      }}
-                    >
-                      <p>Pagos con transferencia:</p>
+                    <p>Pagos con tarjeta:</p>
+                    {accountExists === "default" ? (
+                      <p>...</p>
+                    ) : accountExists === "true" ? (
                       <label>
                         <Switch
-                          onChange={handleSwitchTransferencia}
-                          checked={transferencia.booleanValue}
+                          onChange={handleSwitchTarjeta}
+                          checked={tarjeta.booleanValue}
                           onColor="#86d3ff"
                           onHandleColor="#2693e6"
                           handleDiameter={30}
@@ -490,26 +422,112 @@ const CrearRifa = () => {
                           id="material-switch"
                         />
                       </label>
-                    </div>
+                    ) : (
+                      <p>
+                        Para aceptar pagos con tarjeta debes configurar stripe
+                      </p>
+                    )}
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <p style={{ fontWeight: "400" }}>Pagos con oxxo:</p>
+
+                    {accountExists === "default" ? (
+                      <p>...</p>
+                    ) : accountExists === "true" ? (
+                      <label>
+                        <Switch
+                          onChange={handleSwitchOxxo}
+                          checked={oxxo.booleanValue}
+                          onColor="#86d3ff"
+                          onHandleColor="#2693e6"
+                          handleDiameter={30}
+                          uncheckedIcon={false}
+                          checkedIcon={false}
+                          boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                          activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+                          height={20}
+                          width={48}
+                          className="react-switch"
+                          id="material-switch"
+                        />
+                      </label>
+                    ) : (
+                      <p>Para aceptar pagos con oxxo debes configurar stripe</p>
+                    )}
                   </div>
 
-                  <label
-                    style={{ margin: "20px", width: "100%", fontWeight: "400" }}
-                    htmlFor="date"
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "space-between",
+                    }}
                   >
-                    Fecha del sorteo:
+                    <p>Pagos con transferencia:</p>
+                    <label>
+                      <Switch
+                        onChange={handleSwitchTransferencia}
+                        checked={transferencia.booleanValue}
+                        onColor="#86d3ff"
+                        onHandleColor="#2693e6"
+                        handleDiameter={30}
+                        uncheckedIcon={false}
+                        checkedIcon={false}
+                        boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                        activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+                        height={20}
+                        width={48}
+                        className="react-switch"
+                        id="material-switch"
+                      />
+                    </label>
+                  </div>
+                </div>
+
+                <label
+                  style={{ margin: "20px", width: "100%", fontWeight: "400" }}
+                  htmlFor="date"
+                >
+                  Fecha del sorteo:
+                </label>
+                <input
+                  type="date"
+                  id="date"
+                  value={date}
+                  onChange={(e) => setDate(e.target.value)}
+                  style={{
+                    width: "25%",
+                    color: "black",
+                    padding: "10px",
+
+                    margin: "20px",
+
+                    borderRadius: "15px",
+                    border: "1px solid #ccc",
+                    boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+                  }}
+                />
+
+                <div style={{ padding: "20px", width: "100%" }}>
+                  <label style={{ fontWeight: "400" }} htmlFor="image">
+                    Imagen Principal:
                   </label>
                   <input
-                    type="date"
-                    id="date"
-                    value={date}
-                    onChange={(e) => setDate(e.target.value)}
+                    type="file"
+                    id="image"
+                    accept="image/*"
+                    onChange={(e) => handleImageUpload(e.target.files[0])}
+                    required
                     style={{
-                      width: "25%",
+                      width: "100%",
                       color: "black",
                       padding: "10px",
-
-                      margin: "20px",
 
                       borderRadius: "15px",
                       border: "1px solid #ccc",
@@ -517,170 +535,151 @@ const CrearRifa = () => {
                     }}
                   />
 
-                  <div style={{ padding: "20px", width: "100%" }}>
-                    <label style={{ fontWeight: "400" }} htmlFor="image">
-                      Imagen Principal:
-                    </label>
-                    <input
-                      type="file"
-                      id="image"
-                      accept="image/*"
-                      onChange={(e) => handleImageUpload(e.target.files[0])}
-                      required
-                      style={{
-                        width: "100%",
-                        color: "black",
-                        padding: "10px",
-
-                        borderRadius: "15px",
-                        border: "1px solid #ccc",
-                        boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
-                      }}
+                  {/* Display preview of uploaded image */}
+                  {imagePreview && (
+                    <img
+                      src={imagePreview}
+                      alt="Preview"
+                      style={{ maxWidth: "100%", maxHeight: "100px" }}
                     />
+                  )}
+                </div>
 
-                    {/* Display preview of uploaded image */}
-                    {imagePreview && (
-                      <img
-                        src={imagePreview}
-                        alt="Preview"
-                        style={{ maxWidth: "100%", maxHeight: "100px" }}
-                      />
-                    )}
-                  </div>
-
-                  <div style={{ padding: "20px", width: "100%" }}>
-                    <label style={{ fontWeight: "400" }} htmlFor="image">
-                      Galeria: (INCLUYE LA IMAGEN PRINCIPAL)
-                    </label>
-                    <input
-                      type="file"
-                      id="image"
-                      accept="image/*"
-                      onChange={(e) => handleImagesUpload(e.target.files)}
-                      required
-                      multiple
-                      style={{
-                        width: "100%",
-                        color: "black",
-                        padding: "10px",
-
-                        borderRadius: "15px",
-                        border: "1px solid #ccc",
-                        boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
-                      }}
-                    />
-
-                    <div className="image-gallery">
-                      {items.map((url, index) => (
-                        <div
-                          style={{ display: "inline-block" }}
-                          key={index}
-                          className="image-item"
-                          url={url}
-                        >
-                          <img
-                            src={url}
-                            alt={url}
-                            style={{ width: "100px", height: "100px" }}
-                          />
-
-                          <button
-                            onClick={() => handleDeleteImagen(url)}
-                            className="delete-button"
-                          >
-                            Eliminar
-                          </button>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {userMetaData[0] ? (
-                    <p style={{ fontSize: "20px", margin: "10px" }}>
-                      Rifa Creada por: {userMetaData[0].nombre_negocio}
-                    </p>
-                  ) : null}
-
-                  <p style={{ color: "red", margin: "10px" }}>
-                    Asegurate de que todos los datos esten bien porque no vas a
-                    poder editar los datos una vendido el primer boleto
-                  </p>
-
-                  <button
+                <div style={{ padding: "20px", width: "100%" }}>
+                  <label style={{ fontWeight: "400" }} htmlFor="image">
+                    Galeria: (INCLUYE LA IMAGEN PRINCIPAL)
+                  </label>
+                  <input
+                    type="file"
+                    id="image"
+                    accept="image/*"
+                    onChange={(e) => handleImagesUpload(e.target.files)}
+                    required
+                    multiple
                     style={{
-                      margin: "10px",
                       width: "100%",
+                      color: "black",
                       padding: "10px",
-                      fontWeight: "400",
+
                       borderRadius: "15px",
                       border: "1px solid #ccc",
                       boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
-                      backgroundColor: "#007bff",
                     }}
-                    type="submit"
-                  >
-                    Crear Rifa
-                  </button>
+                  />
 
-                  {formError && <p className="error">{formError}</p>}
-                </form>
-              </div>
+                  <div className="image-gallery">
+                    {items.map((url, index) => (
+                      <div
+                        style={{ display: "inline-block" }}
+                        key={index}
+                        className="image-item"
+                        url={url}
+                      >
+                        <img
+                          src={url}
+                          alt={url}
+                          style={{ width: "100px", height: "100px" }}
+                        />
 
-              <div style={{ textAlign: "center" }} className="estimaciones">
-                <label htmlFor="costo-total">Costo total:</label>
-                <input
-                  type="number"
-                  id="costo-total"
-                  value={costoTotal}
-                  onChange={(e) => setCostoTotal(e.target.value)}
-                />
+                        <button
+                          onClick={() => handleDeleteImagen(url)}
+                          className="delete-button"
+                        >
+                          Eliminar
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
 
-                <p>Estimaciones</p>
-                <p>
-                  Ingreso estimado de la rifa $
-                  {(precioboleto * numboletos).toLocaleString("es-MX")}
+                {userMetaData[0] ? (
+                  <p style={{ fontSize: "20px", margin: "10px" }}>
+                    Rifa Creada por: {userMetaData[0].nombre_negocio}
+                  </p>
+                ) : null}
+
+                <p style={{ color: "red", margin: "10px" }}>
+                  Asegurate de que todos los datos esten bien porque no vas a
+                  poder editar los datos una vendido el primer boleto
                 </p>
 
-                <p>
-                  {" "}
-                  Cantidad de boletos vendidos para recuperar inversion{" "}
-                  {Math.ceil(costoTotal / precioboleto).toLocaleString(
-                    "es-MX"
-                  )}{" "}
-                </p>
+                <button
+                  style={{
+                    margin: "10px",
+                    width: "100%",
+                    padding: "10px",
+                    fontWeight: "400",
+                    borderRadius: "15px",
+                    border: "1px solid #ccc",
+                    boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+                    backgroundColor: "#007bff",
+                  }}
+                  type="submit"
+                >
+                  Crear Rifa
+                </button>
 
-                <p>
-                  Costo de la rifa ${(1 * costoTotal).toLocaleString("es-MX")}
-                </p>
+                {formError && <p className="error">{formError}</p>}
+              </form>
+            </div>
 
-                <p>
-                  Cantidad necesaria de boletos vendidos por dia{" "}
-                  {Math.ceil(numboletos / totalDays).toLocaleString("es-MX")}{" "}
-                </p>
+            <div style={{ textAlign: "center" }} className="estimaciones">
+              <label htmlFor="costo-total">Costo total:</label>
+              <input
+                type="number"
+                id="costo-total"
+                value={costoTotal}
+                onChange={(e) => setCostoTotal(e.target.value)}
+              />
 
-                <p>
-                  Comisiones por boleto % por cada boleto vendido: $
-                  {precioboleto * stripeFee +
-                    3 +
-                    (precioboleto * stripeFee + 3) * taxFee +
-                    precioboleto * appFee}
-                </p>
+              <p>Estimaciones</p>
+              <p>
+                Ingreso estimado de la rifa $
+                {(precioboleto * numboletos).toLocaleString("es-MX")}
+              </p>
 
-                <p>
-                  {((precioboleto * stripeFee +
-                    3 +
-                    (precioboleto * stripeFee + 3) * taxFee +
-                    precioboleto * appFee) /
-                    precioboleto) *
-                    100}{" "}
-                  %
-                </p>
+              <p>
+                {" "}
+                Cantidad de boletos vendidos para recuperar inversion{" "}
+                {Math.ceil(costoTotal / precioboleto).toLocaleString(
+                  "es-MX"
+                )}{" "}
+              </p>
 
-                <button onClick={navMisRifas}>Volver</button>
-              </div>
+              <p>
+                Costo de la rifa ${(1 * costoTotal).toLocaleString("es-MX")}
+              </p>
+
+              <p>
+                Cantidad necesaria de boletos vendidos por dia{" "}
+                {Math.ceil(numboletos / totalDays).toLocaleString("es-MX")}{" "}
+              </p>
+
+              <p>
+                Comisiones por boleto % por cada boleto vendido: $
+                {precioboleto * stripeFee +
+                  3 +
+                  (precioboleto * stripeFee + 3) * taxFee +
+                  precioboleto * appFee}
+              </p>
+
+              <p>
+                {((precioboleto * stripeFee +
+                  3 +
+                  (precioboleto * stripeFee + 3) * taxFee +
+                  precioboleto * appFee) /
+                  precioboleto) *
+                  100}{" "}
+                %
+              </p>
+
+              <button onClick={navMisRifas}>Volver</button>
             </div>
           </div>
-        ))}
+        </div>
+      ) : (
+        <h1>No estas autorizado</h1>
+      )}
     </>
   );
 };
