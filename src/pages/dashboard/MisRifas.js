@@ -89,19 +89,15 @@ const MisRifas = () => {
     <div className="dashboard-content">
       <div>
         {fetchError && <p>{fetchError}</p>}
+
         <h1> Tus Rifas </h1>
-        {accountExists === "default" ? (
-          <p>Cargando...</p>
-        ) : accountExists === "true" ? (
-          <button
-            onClick={() => navigate("/dashboard/" + user_id + "/crear-rifa")}
-          >
-            {" "}
-            Crear Rifa{" "}
-          </button>
-        ) : (
-          <p>Para crear rifas debes configurar tu cuenta</p>
-        )}
+
+        <button
+          onClick={() => navigate("/dashboard/" + user_id + "/crear-rifa")}
+        >
+          {" "}
+          Crear Rifa{" "}
+        </button>
 
         {rifas && (
           <div style={{ marginLeft: "10px" }} className="rifas-grid">

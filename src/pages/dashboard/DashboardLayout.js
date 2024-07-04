@@ -7,6 +7,7 @@ import supabase from "../../config/supabaseClient";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import Login from "../Login";
 
 const DashboardLayout = () => {
   const { user, userRole } = useUser();
@@ -40,7 +41,10 @@ const DashboardLayout = () => {
           </>
         )
       ) : (
-        <h1>Cargando...</h1>
+        <>
+          <h1>Debes iniciar sesion</h1>
+          <Login />
+        </>
       )}
     </>
   );
