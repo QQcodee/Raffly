@@ -474,10 +474,17 @@ const RenderRifa = () => {
             >
               <div className="contanier-img-principal">
                 {rifaDetails.galeria ? (
-                  <Carousel
-                    images={[rifaDetails.galeria, rifaDetails.galeria]}
-                    fecha={rifaDetails.fecharifa}
-                  />
+                  rifaDetails.galeria.length === 1 ? (
+                    <Carousel
+                      images={[rifaDetails.galeria, rifaDetails.galeria]}
+                      fecha={rifaDetails.fecharifa}
+                    />
+                  ) : (
+                    <Carousel
+                      images={rifaDetails.galeria}
+                      fecha={rifaDetails.fecharifa}
+                    />
+                  )
                 ) : (
                   rifaDetails.img && (
                     <Carousel
