@@ -83,7 +83,7 @@ const CrearRifa = () => {
       !nombre ||
       !desc ||
       !precioboleto ||
-      !numboletos ||
+      numboletos <= 0 ||
       !image ||
       !userMetaData ||
       !categoria ||
@@ -283,6 +283,12 @@ const CrearRifa = () => {
                 }}
                 onSubmit={handleSubmit}
               >
+                <label
+                  style={{ margin: "20px", width: "100%" }}
+                  htmlFor="nombre"
+                >
+                  Nombre de la Rifa:
+                </label>
                 <input
                   type="text"
                   id="nombre"
@@ -300,6 +306,9 @@ const CrearRifa = () => {
                   }}
                   placeholder="Nombre de la Rifa"
                 />
+                <label style={{ margin: "20px", width: "100%" }} htmlFor="desc">
+                  Descripcion:
+                </label>
 
                 <textarea
                   id="desc"
@@ -318,11 +327,17 @@ const CrearRifa = () => {
                   placeholder="Descripcion de la Rifa (Premios, etc.)"
                 />
 
+                <label
+                  style={{ margin: "20px", width: "100%" }}
+                  htmlFor="numboletos"
+                >
+                  Numero de Boletos:
+                </label>
+
                 <div
                   style={{ display: "flex", justifyContent: "space-between" }}
                 >
-                  <input
-                    type="number"
+                  <select
                     id="numboletos"
                     value={numboletos}
                     onChange={(e) => setnumboletos(e.target.value)}
@@ -336,8 +351,21 @@ const CrearRifa = () => {
                       border: "1px solid #ccc",
                       boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
                     }}
-                    placeholder="Numero de boletos (Entre 100 y 60,000)"
-                  />
+                  >
+                    <option value="">Elige cantidad de boletos a emitir</option>
+                    <option value="100">100 (1 oportunidad)</option>
+                    <option value="500">500 (2 oportunidades)</option>
+                    <option value="1000">1000 (10 oportunidades)</option>
+                    <option value="2000">2000 (5 oportunidades)</option>
+                    <option value="5000">5000 (2 oportunidades)</option>
+                    <option value="7500">7500 (8 oportunidades)</option>
+                    <option value="10000">10,000 (6 oportunidades)</option>
+                    <option value="20000">20,000 (3 oportunidades)</option>
+                    <option value="30000">30,000 (2 oportunidades)</option>
+                    <option value="60000">60,000 (1 oportunidad)</option>
+
+                    {/* Add more options as needed */}
+                  </select>
 
                   <input
                     type="number"
@@ -357,6 +385,13 @@ const CrearRifa = () => {
                     placeholder="Precio de cada boleto"
                   />
                 </div>
+
+                <label
+                  style={{ margin: "20px", width: "100%" }}
+                  htmlFor="categoria"
+                >
+                  Categoría:
+                </label>
 
                 <select
                   id="categoria"
@@ -384,6 +419,13 @@ const CrearRifa = () => {
                   <option value="Otro">Otro</option>
                   {/* Add more options as needed */}
                 </select>
+
+                <label
+                  style={{ margin: "20px", width: "100%" }}
+                  htmlFor="metodosPago"
+                >
+                  Metodos de pago:
+                </label>
 
                 <div
                   style={{
@@ -490,10 +532,7 @@ const CrearRifa = () => {
                   </div>
                 </div>
 
-                <label
-                  style={{ margin: "20px", width: "100%", fontWeight: "400" }}
-                  htmlFor="date"
-                >
+                <label style={{ margin: "20px", width: "100%" }} htmlFor="date">
                   Fecha del sorteo:
                 </label>
                 <input
@@ -515,7 +554,7 @@ const CrearRifa = () => {
                 />
 
                 <div style={{ padding: "20px", width: "100%" }}>
-                  <label style={{ fontWeight: "400" }} htmlFor="image">
+                  <label style={{ width: "100%" }} htmlFor="image">
                     Imagen Principal:
                   </label>
                   <input
@@ -546,7 +585,7 @@ const CrearRifa = () => {
                 </div>
 
                 <div style={{ padding: "20px", width: "100%" }}>
-                  <label style={{ fontWeight: "400" }} htmlFor="image">
+                  <label style={{ width: "100%" }} htmlFor="image">
                     Galeria: (INCLUYE LA IMAGEN PRINCIPAL)
                   </label>
                   <input
@@ -593,7 +632,13 @@ const CrearRifa = () => {
                 </div>
 
                 {userMetaData[0] ? (
-                  <p style={{ fontSize: "20px", margin: "10px" }}>
+                  <p
+                    style={{
+                      fontSize: "20px",
+                      margin: "10px",
+                      fontWeight: "600",
+                    }}
+                  >
                     Rifa Creada por: {userMetaData[0].nombre_negocio}
                   </p>
                 ) : null}

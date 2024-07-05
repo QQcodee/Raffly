@@ -60,7 +60,12 @@ const Home = () => {
             ¡Regístrate ahora y participa en tu primera rifa hoy mismo!
           </h2>
 
-          <button onClick={() => navigate("/rifas")}>Ver Rifas</button>
+          <button
+            className="ver-rifas-button"
+            onClick={() => navigate("/rifas")}
+          >
+            Ver Rifas
+          </button>
         </div>
 
         {rifas && (

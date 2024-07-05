@@ -1,21 +1,20 @@
 import React, { useState } from "react";
 
 const CalcularOps = () => {
-  const [boleto, setBoleto] = useState(7406);
+  const [boleto, setBoleto] = useState(777);
   const [numerosAdicionales, setNumerosAdicionales] = useState([]);
 
-  const [boletosEmitir, setBoletosEmitir] = useState(7500);
-  const columnas = 60000 / boletosEmitir;
+  const [boletosEmitir, setBoletosEmitir] = useState(2000);
+
+  const columnas = 10000 / boletosEmitir;
 
   const calcular = () => {
     const numeros = [];
 
-    const col1 =
-      boleto + (boletosEmitir - (boleto - (boletosEmitir - boleto + 1)));
-    numeros.push(col1);
-    const col2 =
-      boleto + (boletosEmitir - (boleto - (boletosEmitir - boleto - 1)));
-    numeros.push(col2);
+    for (let i = 1; i < columnas; i++) {
+      const numero = boleto + boletosEmitir * i;
+      numeros.push("," + numero);
+    }
 
     setNumerosAdicionales(numeros);
   };
@@ -23,7 +22,8 @@ const CalcularOps = () => {
   return (
     <div>
       <h1>Calcular Ops</h1>
-      {boleto}, {numerosAdicionales}
+      {boleto}
+      {numerosAdicionales}
       <h2>Columnas : {columnas}</h2>
       <h2>{numerosAdicionales.map}</h2>
       <button onClick={calcular}>Calcular</button>

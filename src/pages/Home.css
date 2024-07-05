@@ -59,7 +59,7 @@
   }
 
   .hero-home button {
-    width: 150px;
+    width: 100%;
     height: 50px;
     font-size: 24px;
   }
@@ -67,5 +67,9 @@
   .rifas-carousel {
     margin-top: 20px;
     margin-left: 60px;
+  }
+
+  .ver-rifas-button {
+    width: 100%;
   }
 }
