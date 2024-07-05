@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import CountdownTimer from "../../components/CountdownTimer";
 import LoadingBar from "../../components/LoadingBar";
 import axios from "axios";
+import Papa from "papaparse";
 
 const BoletosDashboard = () => {
   const [data, setData] = useState([]);
@@ -22,6 +23,8 @@ const BoletosDashboard = () => {
   const [currentRifa, setCurrentRifa] = useState("");
 
   const { user_id } = useParams();
+
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchRifas = async () => {
@@ -84,7 +87,7 @@ const BoletosDashboard = () => {
     } else {
       setData(
         filteredData.map((item) =>
-          item.id === item.id
+          item.id === boleto.id
             ? { ...item, comprado: true, apartado: false }
             : item
         )
@@ -252,10 +255,59 @@ const BoletosDashboard = () => {
     }
   };
 
+  const handleExportCSV = () => {
+    // Selecting specific columns (Name and Age)
+    const selectedColumns = data.map(
+      ({
+        nombre_rifa,
+        id,
+        id_rifa,
+        nombre,
+        email,
+        telefono,
+        num_boletos,
+        estado_mx,
+        comprado,
+        apartado,
+        oxxo,
+        precio,
+        valor,
+      }) => ({
+        nombre_rifa,
+        id,
+        id_rifa,
+        nombre,
+        email,
+        telefono,
+        num_boletos,
+        estado_mx,
+        comprado,
+        apartado,
+        oxxo,
+        precio,
+        valor: num_boletos.length * precio,
+      })
+    );
+
+    // Converting selected data to CSV using Papaparse
+    const csv = Papa.unparse(selectedColumns);
+
+    // Creating a Blob and downloading the CSV file
+    const csvData = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const csvURL = URL.createObjectURL(csvData);
+    const tempLink = document.createElement("a");
+    tempLink.href = csvURL;
+    tempLink.setAttribute("download", "my_export.csv");
+    tempLink.click();
+  };
+
   return (
     <div className="boletos-dashboard">
       <div className="boletos-dashboard-top">
         <h2 style={{ padding: "10px", margin: "10px" }}>Boletos</h2>
+        <button onClick={handleExportCSV} disabled={loading}>
+          {loading ? "Exporting..." : "Exportar Boletos a Excel"}
+        </button>
 
         <div className="select-container">
           <select

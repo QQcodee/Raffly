@@ -159,12 +159,17 @@ const BoletosList = ({ boleto }) => {
                     <p>{boleto.nombre}</p>
                   </li>
 
-                  <li>
-                    <p>
-                      <strong>ESTADO:</strong>
-                    </p>
-                    <p>CHIHUAHUA</p>
-                  </li>
+                  {boleto.estado_mx ? (
+                    <>
+                      <li>
+                        <p>
+                          <strong>ESTADO:</strong>
+                        </p>
+                        <p>CHIHUAHUA</p>
+                      </li>
+                    </>
+                  ) : null}
+
                   <li>
                     <p>
                       <strong>ESTADO:</strong>
@@ -180,10 +185,23 @@ const BoletosList = ({ boleto }) => {
                     </p>
                   </li>
                   <li>
-                    <p>
-                      <strong>FECHA:</strong>
-                    </p>
-                    <p>{formatDate(boleto.fecharifa)}</p>
+                    {boleto.fecharifa ? (
+                      <>
+                        <p>
+                          <strong>FECHA:</strong>
+                        </p>
+                        <p>{formatDate(boleto.fecharifa)}</p>
+                      </>
+                    ) : (
+                      <>
+                        <p>
+                          <strong>FECHA:</strong>
+                        </p>
+                        <p>
+                          La fecha sera fijada al liquidar 80% de los boletos
+                        </p>
+                      </>
+                    )}
                   </li>
                 </ul>
               </section>
