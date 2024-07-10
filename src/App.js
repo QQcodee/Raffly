@@ -41,6 +41,7 @@ import VerificadorBoletos from "./pages/VerificadorBoletos";
 import Rifas from "./pages/Rifas";
 import CrearRifa from "./pages/dashboard/CrearRifa";
 import CalcularOps from "./components/CalcularOps";
+import Landing from "./pages/Landing";
 
 //import HeaderLogin from "./pages/HeaderLogin.js";
 //import Topbar from "./pages/dashboard/Topbar.js";
@@ -61,10 +62,10 @@ function App() {
           <Route path="/:socio/:nombre/:id/:user_id" element={<RenderRifa />} />
           <Route path="/cart" element={<CartPage />} />
 
-          <Route path="/ops" element={<CalcularOps />} />
+          <Route path="/landing" element={<Landing />} />
 
           <Route path="/editar/:id" element={<Update />} />
-          <Route path="/crear" element={<CrearRifa />} />
+          <Route path="/crear" element={<Landing />} />
 
           <Route path="/login" element={<Login />} />
           <Route path="/success" element={<Success />} />
