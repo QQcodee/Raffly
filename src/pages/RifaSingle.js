@@ -92,7 +92,7 @@ const RifaSingle = () => {
 
       if (data) {
         setRifaDetails(data);
-        console.log(data);
+        //console.log(data);
         setDescItems(data.desc.split("\n"));
       }
     };
@@ -141,6 +141,40 @@ const RifaSingle = () => {
     fetchSoldTickets();
   }, [rifaDetails.id]);
 
+  const [soldTicketsView, setSoldTicketsView] = useState([]);
+
+  useEffect(() => {
+    const fetchSoldTicketsView = async () => {
+      if (!rifaDetails.id) return;
+
+      const { data, error } = await supabase
+        .from("boletos_view")
+        .select()
+        .eq("id_rifa", rifaDetails.id);
+
+      if (error) {
+        console.log(error);
+      }
+      if (
+        data
+          ? data[0].totalsold === undefined ||
+            data[0].totalsold === null ||
+            data[0].totalsold === 0
+          : true
+      ) {
+        // Flatten the arrays of ticket numbers into a single array
+
+        setSoldTicketsView(1);
+      }
+      if (data) {
+        // Flatten the arrays of ticket numbers into a single array
+
+        setSoldTicketsView(data[0].totalsold);
+      }
+    };
+    fetchSoldTicketsView();
+  }, [rifaDetails.id]);
+
   //const columnCount = 20; // Number of tickets per row
   //const rowCount = Math.ceil(rifaDetails.numboletos / columnCount); // Total rows needed for the tickets
 
@@ -149,6 +183,11 @@ const RifaSingle = () => {
   //const ticketNumbersArray = cart.map((item) => item.ticketNumber);
 
   const handleAddTicketToCart = (ticketNumber) => {
+    const oportunidades = [];
+    for (let i = 2; i <= rifaDetails.oportunidades; i++) {
+      oportunidades.push(rifaDetails.numboletos * (i - 1) + ticketNumber);
+    }
+
     // Check if the ticket is already selected or sold
     if (selectedTickets[ticketNumber] || soldTickets.includes(ticketNumber)) {
       // If ticket is already selected or sold, do nothing
@@ -179,18 +218,25 @@ const RifaSingle = () => {
       price: rifaDetails.precioboleto,
       raffleName: rifaDetails.nombre,
       rifa: rifaDetails,
+      oportunidades: oportunidades,
     });
   };
 
   const handleRemoveTicketFromCart = (itemId) => {
     setSelectedTickets((prev) => {
       const newSelectedTickets = { ...prev };
-      const item = cart.find((item) => item.id === itemId);
-      if (item) {
-        delete newSelectedTickets[item.ticketNumber];
-      }
+
+      // Loop through the cart to find items with the specified itemId
+      cart.forEach((item) => {
+        if (item.id === itemId) {
+          delete newSelectedTickets[item.ticketNumber];
+        }
+      });
+
       return newSelectedTickets;
     });
+
+    // Remove all items with the specified itemId from the cart
     removeItem(itemId);
   };
 
@@ -535,7 +581,7 @@ const RifaSingle = () => {
             left: "5vw",
           }}
         >
-          {soldTickets ? (
+          {soldTicketsView ? (
             <>
               <div
                 style={{
@@ -546,7 +592,7 @@ const RifaSingle = () => {
               >
                 <h6 style={{ marginTop: "0px" }}>Boletos vendidos</h6>
                 <LoadingBarRender
-                  boletosVendidos={soldTickets.length}
+                  boletosVendidos={soldTicketsView}
                   rifa={rifaDetails}
                 />
               </div>
@@ -622,21 +668,41 @@ const RifaSingle = () => {
                   className="boletos__seleccionados"
                 >
                   {cart.map((item) => (
-                    <li
-                      key={item.id}
-                      onClick={() => handleRemoveTicketFromCart(item.id)}
-                      style={{
-                        cursor: "pointer",
-                        backgroundColor: "#343A40",
-                        padding: "5px",
-                        width: "55px",
-                        borderRadius: "5px",
-                        color: "white",
-                        textAlign: "center",
-                      }}
-                    >
-                      {item.ticketNumber}
-                    </li>
+                    <>
+                      <li
+                        key={item.id}
+                        onClick={() => handleRemoveTicketFromCart(item.id)}
+                        style={{
+                          cursor: "pointer",
+                          backgroundColor: "#343A40",
+                          padding: "5px",
+                          width: "55px",
+                          borderRadius: "5px",
+                          color: "white",
+                          textAlign: "center",
+                        }}
+                      >
+                        {item.ticketNumber}
+                      </li>
+
+                      {item.oportunidades.map((oportunidad, index) => (
+                        <li
+                          key={`${item.id}-${index}`}
+                          onClick={() => handleRemoveTicketFromCart(item.id)}
+                          style={{
+                            cursor: "pointer",
+                            backgroundColor: "#6FCF85",
+                            padding: "5px",
+                            width: "55px",
+                            borderRadius: "5px",
+                            color: "white",
+                            textAlign: "center",
+                          }}
+                        >
+                          {oportunidad}
+                        </li>
+                      ))}
+                    </>
                   ))}
                 </ul>
               </div>

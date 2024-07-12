@@ -206,6 +206,10 @@
   overflow: hidden;
 }
 
+.buy_button_mobile {
+  display: none;
+}
+
 @media (max-width: 1550px) {
   .container__rifa {
     flex-direction: column;

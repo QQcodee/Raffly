@@ -9,18 +9,23 @@ import Switch from "react-switch";
 import UploadImage from "../../components/UploadImage";
 
 const CrearRifa = () => {
-  const [nombre, setNombre] = useState("");
-  const [desc, setDesc] = useState("");
+  const [nombre, setNombre] = useState(null);
+  const [desc, setDesc] = useState(null);
   // const [fecharifa,setfecharifa] = useState("")
-  const [precioboleto, setprecioboleto] = useState("");
-  const [numboletos, setnumboletos] = useState("");
+  const [precioboleto, setprecioboleto] = useState(null);
+  const [numboletos, setnumboletos] = useState(null);
   const [formError, setFormError] = useState(null);
-  const { user, userRole, userMetaData } = useUser();
+  const { user, userRole, userMetaData } = useUser(null);
   const [categoria, setCategoria] = useState(null);
+  const [oportunidades, setOportunidades] = useState(null);
 
-  const [tarjeta, setTarjeta] = useState(false);
-  const [oxxo, setOxxo] = useState(false);
-  const [transferencia, setTransferencia] = useState(false);
+  const [tarjeta, setTarjeta] = useState({ booleanValue: false });
+  const [oxxo, setOxxo] = useState({ booleanValue: false });
+  const [transferencia, setTransferencia] = useState({ booleanValue: false });
+
+  const [oportunidadesActivas, setOportunidadesActivas] = useState({
+    booleanValue: false,
+  });
 
   const [imagePreview, setImagePreview] = useState(null);
   const [image, setImageURL] = useState(null);
@@ -43,24 +48,31 @@ const CrearRifa = () => {
     console.log("Received URLs:", urls);
   };
 
-  const handleSwitchTarjeta = (checked) => {
+  const handleSwitchTarjeta = (checkedTarjeta) => {
     setTarjeta({
       ...tarjeta,
-      booleanValue: checked,
+      booleanValue: checkedTarjeta,
     });
   };
 
-  const handleSwitchOxxo = (checked) => {
+  const handleSwitchOportunidades = (checkedOps) => {
+    setOportunidadesActivas({
+      ...oportunidadesActivas,
+      booleanValue: checkedOps,
+    });
+  };
+
+  const handleSwitchOxxo = (checkedOxxo) => {
     setOxxo({
       ...oxxo,
-      booleanValue: checked,
+      booleanValue: checkedOxxo,
     });
   };
 
-  const handleSwitchTransferencia = (checked) => {
+  const handleSwitchTransferencia = (checkeTransferencia) => {
     setTransferencia({
       ...transferencia,
-      booleanValue: checked,
+      booleanValue: checkeTransferencia,
     });
   };
 
@@ -83,14 +95,23 @@ const CrearRifa = () => {
       !nombre ||
       !desc ||
       !precioboleto ||
-      numboletos <= 0 ||
+      !numboletos ||
       !image ||
       !userMetaData ||
       !categoria ||
       !imageUrls ||
-      (oxxo === false && tarjeta === false && transferencia === false)
+      !oportunidades
     ) {
-      setFormError("Please fill in all the fields correctly.");
+      setFormError("Llena todos los campos");
+      return;
+    }
+
+    if (
+      oxxo.booleanValue === false &&
+      tarjeta.booleanValue === false &&
+      transferencia.booleanValue === false
+    ) {
+      setFormError("Por favor, selecciona al menos una modalidad de pago");
       return;
     }
 
@@ -109,6 +130,8 @@ const CrearRifa = () => {
         tarjeta: tarjeta.booleanValue,
         transferencia: transferencia.booleanValue,
         galeria: galeria,
+        oportunidades:
+          oportunidadesActivas.booleanValue === true ? oportunidades : 1,
       },
     ]);
 
@@ -260,6 +283,34 @@ const CrearRifa = () => {
     }
   };
 
+  useEffect(() => {
+    const oportunidadesSet = () => {
+      if (numboletos === "100") {
+        setOportunidades(1);
+      }
+      if (numboletos === "500") {
+        setOportunidades(2);
+      }
+      if (numboletos === "1000") {
+        setOportunidades(10);
+      }
+      if (numboletos === "2000") {
+        setOportunidades(5);
+      }
+      if (numboletos === "5000") {
+        setOportunidades(2);
+      }
+      if (numboletos === "7500") {
+        setOportunidades(8);
+      }
+      if (numboletos === "10000") {
+        setOportunidades(6);
+      }
+    };
+
+    oportunidadesSet();
+  }, [numboletos]);
+
   return (
     <>
       {userRole === "Admin" || userRole === "Socio" ? (
@@ -328,10 +379,34 @@ const CrearRifa = () => {
                 />
 
                 <label
-                  style={{ margin: "20px", width: "100%" }}
+                  style={{
+                    margin: "20px",
+                    width: "100%",
+                    display: "flex",
+                    gap: "10px",
+                    alignItems: "center",
+                  }}
                   htmlFor="numboletos"
                 >
                   Numero de Boletos:
+                  <Switch
+                    onChange={handleSwitchOportunidades}
+                    checked={oportunidadesActivas.booleanValue}
+                    onColor="#86d3ff"
+                    onHandleColor="#2693e6"
+                    handleDiameter={30}
+                    uncheckedIcon={false}
+                    checkedIcon={false}
+                    boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                    activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+                    height={20}
+                    width={48}
+                    className="react-switch"
+                    id="material-switch-ops"
+                  />
+                  {oportunidadesActivas.booleanValue
+                    ? "Oportunidades Activadas"
+                    : "Oportunidades Desactivadas"}
                 </label>
 
                 <div
@@ -461,7 +536,7 @@ const CrearRifa = () => {
                           height={20}
                           width={48}
                           className="react-switch"
-                          id="material-switch"
+                          id="material-switch-tarjeta"
                         />
                       </label>
                     ) : (
@@ -496,7 +571,7 @@ const CrearRifa = () => {
                           height={20}
                           width={48}
                           className="react-switch"
-                          id="material-switch"
+                          id="material-switch-oxxo"
                         />
                       </label>
                     ) : (
@@ -526,7 +601,7 @@ const CrearRifa = () => {
                         height={20}
                         width={48}
                         className="react-switch"
-                        id="material-switch"
+                        id="material-switch-transferencia"
                       />
                     </label>
                   </div>
@@ -668,280 +743,290 @@ const CrearRifa = () => {
               </form>
             </div>
 
-            <div
-              style={{
-                maxWidth: "800px",
-                fontFamily: "Poppins",
-                border: "1px solid #ccc",
-                borderRadius: "15px",
-                padding: "20px",
-                boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
-                backgroundColor: "white",
-              }}
-            >
+            {precioboleto && (
               <div
-                style={{ textAlign: "center", width: "600px" }}
-                className="estimaciones"
+                style={{
+                  maxWidth: "800px",
+                  fontFamily: "Poppins",
+                  border: "1px solid #ccc",
+                  borderRadius: "15px",
+                  padding: "20px",
+                  boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+                  backgroundColor: "white",
+                }}
               >
-                <h2 style={{ marginBottom: "40px" }}>Estimaciones</h2>
-
-                <label htmlFor="costo-total">Valor total de los premios:</label>
-                <input
-                  type="number"
-                  id="costo-total"
-                  value={costoTotal}
-                  onChange={(e) => setCostoTotal(e.target.value)}
-                  style={{
-                    color: "black",
-                    padding: "10px",
-                    margin: "10px",
-                    borderRadius: "15px",
-                    border: "1px solid #ccc",
-                    boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
-                  }}
-                />
-
                 <div
-                  style={{
-                    display: "flex",
-                    width: "100%",
-                    justifyContent: "space-between",
-                    marginTop: "50px",
-                  }}
+                  style={{ textAlign: "center", width: "600px" }}
+                  className="estimaciones"
                 >
-                  Valor de los premios
-                  <p>${(1 * costoTotal).toLocaleString("es-MX")}</p>
-                </div>
+                  <h2 style={{ marginBottom: "40px" }}>Estimaciones</h2>
 
-                <div
-                  style={{
-                    display: "flex",
-                    width: "100%",
-                    justifyContent: "space-between",
-                    borderTop: "1px solid #ccc",
-                  }}
-                >
-                  Precio Boleto
-                  <p>${precioboleto.toLocaleString("es-MX")}</p>
-                </div>
+                  <label htmlFor="costo-total">
+                    Valor total de los premios:
+                  </label>
+                  <input
+                    type="number"
+                    id="costo-total"
+                    value={costoTotal}
+                    onChange={(e) => setCostoTotal(e.target.value)}
+                    style={{
+                      color: "black",
+                      padding: "10px",
+                      margin: "10px",
+                      borderRadius: "15px",
+                      border: "1px solid #ccc",
+                      boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+                    }}
+                  />
 
-                <div
-                  style={{
-                    display: "flex",
-                    width: "100%",
-                    justifyContent: "space-between",
-                    borderTop: "1px solid #ccc",
-                  }}
-                >
-                  Ingreso estimado de la rifa
-                  <p>${(precioboleto * numboletos).toLocaleString("es-MX")}</p>
-                </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      width: "100%",
+                      justifyContent: "space-between",
+                      marginTop: "50px",
+                    }}
+                  >
+                    Valor de los premios
+                    <p>${(1 * costoTotal).toLocaleString("es-MX")}</p>
+                  </div>
 
-                <div
-                  style={{
-                    display: "flex",
-                    width: "100%",
-                    justifyContent: "space-between",
-                    borderTop: "1px solid #ccc",
-                  }}
-                >
-                  Ganancia estimada
-                  {precioboleto * numboletos - costoTotal >= 0 ? (
-                    <p
-                      style={{
-                        color: "green",
-                        fontWeight: "500",
-                        fontFamily: "Poppins",
-                      }}
-                    >
-                      $
-                      {(precioboleto * numboletos - costoTotal).toLocaleString(
-                        "es-MX"
-                      )}
+                  <div
+                    style={{
+                      display: "flex",
+                      width: "100%",
+                      justifyContent: "space-between",
+                      borderTop: "1px solid #ccc",
+                    }}
+                  >
+                    Precio Boleto
+                    <p>${precioboleto.toLocaleString("es-MX")}</p>
+                  </div>
+
+                  <div
+                    style={{
+                      display: "flex",
+                      width: "100%",
+                      justifyContent: "space-between",
+                      borderTop: "1px solid #ccc",
+                    }}
+                  >
+                    Ingreso estimado de la rifa
+                    <p>
+                      ${(precioboleto * numboletos).toLocaleString("es-MX")}
                     </p>
-                  ) : (
-                    <p
-                      style={{
-                        color: "red",
-                        fontWeight: "500",
-                        fontFamily: "Poppins",
-                      }}
-                    >
-                      $
-                      {(precioboleto * numboletos - costoTotal).toLocaleString(
+                  </div>
+
+                  <div
+                    style={{
+                      display: "flex",
+                      width: "100%",
+                      justifyContent: "space-between",
+                      borderTop: "1px solid #ccc",
+                    }}
+                  >
+                    Ganancia estimada
+                    {precioboleto * numboletos - costoTotal >= 0 ? (
+                      <p
+                        style={{
+                          color: "green",
+                          fontWeight: "500",
+                          fontFamily: "Poppins",
+                        }}
+                      >
+                        $
+                        {(
+                          precioboleto * numboletos -
+                          costoTotal
+                        ).toLocaleString("es-MX")}
+                      </p>
+                    ) : (
+                      <p
+                        style={{
+                          color: "red",
+                          fontWeight: "500",
+                          fontFamily: "Poppins",
+                        }}
+                      >
+                        $
+                        {(
+                          precioboleto * numboletos -
+                          costoTotal
+                        ).toLocaleString("es-MX")}
+                      </p>
+                    )}
+                  </div>
+
+                  <div
+                    style={{
+                      display: "flex",
+                      width: "100%",
+                      justifyContent: "space-between",
+                      borderTop: "1px solid #ccc",
+                    }}
+                  >
+                    <p style={{ maxWidth: "40ch", textAlign: "left" }}>
+                      {" "}
+                      Boletos para recuperar inversion
+                    </p>
+                    {costoTotal && precioboleto ? (
+                      <p>
+                        {Math.ceil(costoTotal / precioboleto).toLocaleString(
+                          "es-MX"
+                        )}
+                      </p>
+                    ) : null}
+                  </div>
+
+                  {date && (
+                    <p>
+                      Cantidad necesaria de boletos vendidos por dia{" "}
+                      {Math.ceil(numboletos / totalDays).toLocaleString(
                         "es-MX"
-                      )}
+                      )}{" "}
                     </p>
                   )}
-                </div>
 
-                <div
-                  style={{
-                    display: "flex",
-                    width: "100%",
-                    justifyContent: "space-between",
-                    borderTop: "1px solid #ccc",
-                  }}
-                >
-                  <p style={{ maxWidth: "40ch", textAlign: "left" }}>
-                    {" "}
-                    Boletos para recuperar inversion
-                  </p>
-                  {costoTotal && precioboleto ? (
-                    <p>
-                      {Math.ceil(costoTotal / precioboleto).toLocaleString(
-                        "es-MX"
-                      )}
-                    </p>
-                  ) : null}
-                </div>
-
-                {date && (
-                  <p>
-                    Cantidad necesaria de boletos vendidos por dia{" "}
-                    {Math.ceil(numboletos / totalDays).toLocaleString("es-MX")}{" "}
-                  </p>
-                )}
-
-                <div
-                  style={{
-                    display: "flex",
-                    width: "100%",
-                    justifyContent: "space-between",
-                    borderTop: "1px solid #ccc",
-                  }}
-                >
-                  <p
+                  <div
                     style={{
-                      maxWidth: "40ch",
-                      textAlign: "left",
-                      color: "red",
+                      display: "flex",
+                      width: "100%",
+                      justifyContent: "space-between",
+                      borderTop: "1px solid #ccc",
                     }}
                   >
-                    Comisiones por boleto vendido (tarjeta o oxxo):
-                  </p>
-                  <p style={{ color: "red" }}>
-                    {" "}
-                    $
-                    {(
-                      precioboleto * stripeFee +
-                      3 +
-                      (precioboleto * stripeFee + 3) * taxFee +
-                      precioboleto * appFee
-                    ).toFixed(2)}
-                  </p>
-                </div>
-
-                <div
-                  style={{
-                    display: "flex",
-                    width: "100%",
-                    justifyContent: "space-between",
-                    borderTop: "1px solid #ccc",
-                  }}
-                >
-                  <p
-                    style={{
-                      maxWidth: "40ch",
-                      textAlign: "left",
-                      color: "red",
-                    }}
-                  >
-                    Maximo de comisiones por rifa:
-                  </p>
-                  <p style={{ color: "red" }}>
-                    {" "}
-                    $
-                    {(
-                      (precioboleto * stripeFee +
-                        3 +
-                        (precioboleto * stripeFee + 3) * taxFee +
-                        precioboleto * appFee) *
-                      numboletos
-                    ).toLocaleString("es-MX")}
-                  </p>
-                </div>
-
-                <div
-                  style={{
-                    display: "flex",
-                    width: "100%",
-                    justifyContent: "space-between",
-                    borderTop: "1px solid #ccc",
-                  }}
-                >
-                  Comision en %
-                  {precioboleto ? (
-                    <p>
-                      {(
-                        ((precioboleto * stripeFee +
-                          3 +
-                          (precioboleto * stripeFee + 3) * taxFee +
-                          precioboleto * appFee) /
-                          precioboleto) *
-                        100
-                      ).toFixed(2)}{" "}
-                      %
-                    </p>
-                  ) : null}
-                </div>
-
-                <div
-                  style={{
-                    display: "flex",
-                    width: "100%",
-                    justifyContent: "space-between",
-                    borderTop: "1px solid #ccc",
-                  }}
-                >
-                  Ganancia Estimada despues de comisiones
-                  {precioboleto * numboletos -
-                    costoTotal -
-                    (precioboleto * stripeFee +
-                      3 +
-                      (precioboleto * stripeFee + 3) * taxFee +
-                      precioboleto * appFee) *
-                      numboletos >=
-                  0 ? (
                     <p
                       style={{
-                        color: "#6FCF85",
-                        fontSize: "20px",
-                        fontWeight: "600",
+                        maxWidth: "40ch",
+                        textAlign: "left",
+                        color: "red",
                       }}
                     >
-                      {" "}
-                      $
-                      {(
-                        precioboleto * numboletos -
-                        costoTotal -
-                        (precioboleto * stripeFee +
-                          3 +
-                          (precioboleto * stripeFee + 3) * taxFee +
-                          precioboleto * appFee) *
-                          numboletos
-                      ).toLocaleString("es-MX")}
+                      Comisiones por boleto vendido (tarjeta o oxxo):
                     </p>
-                  ) : (
                     <p style={{ color: "red" }}>
                       {" "}
                       $
                       {(
-                        precioboleto * numboletos -
-                        costoTotal -
+                        precioboleto * stripeFee +
+                        3 +
+                        (precioboleto * stripeFee + 3) * taxFee +
+                        precioboleto * appFee
+                      ).toFixed(2)}
+                    </p>
+                  </div>
+
+                  <div
+                    style={{
+                      display: "flex",
+                      width: "100%",
+                      justifyContent: "space-between",
+                      borderTop: "1px solid #ccc",
+                    }}
+                  >
+                    <p
+                      style={{
+                        maxWidth: "40ch",
+                        textAlign: "left",
+                        color: "red",
+                      }}
+                    >
+                      Maximo de comisiones por rifa:
+                    </p>
+                    <p style={{ color: "red" }}>
+                      {" "}
+                      $
+                      {(
                         (precioboleto * stripeFee +
                           3 +
                           (precioboleto * stripeFee + 3) * taxFee +
                           precioboleto * appFee) *
-                          numboletos
+                        numboletos
                       ).toLocaleString("es-MX")}
                     </p>
-                  )}
-                </div>
+                  </div>
 
-                <button onClick={navMisRifas}>Volver</button>
+                  <div
+                    style={{
+                      display: "flex",
+                      width: "100%",
+                      justifyContent: "space-between",
+                      borderTop: "1px solid #ccc",
+                    }}
+                  >
+                    Comision en %
+                    {precioboleto ? (
+                      <p>
+                        {(
+                          ((precioboleto * stripeFee +
+                            3 +
+                            (precioboleto * stripeFee + 3) * taxFee +
+                            precioboleto * appFee) /
+                            precioboleto) *
+                          100
+                        ).toFixed(2)}{" "}
+                        %
+                      </p>
+                    ) : null}
+                  </div>
+
+                  <div
+                    style={{
+                      display: "flex",
+                      width: "100%",
+                      justifyContent: "space-between",
+                      borderTop: "1px solid #ccc",
+                    }}
+                  >
+                    Ganancia Estimada despues de comisiones
+                    {precioboleto * numboletos -
+                      costoTotal -
+                      (precioboleto * stripeFee +
+                        3 +
+                        (precioboleto * stripeFee + 3) * taxFee +
+                        precioboleto * appFee) *
+                        numboletos >=
+                    0 ? (
+                      <p
+                        style={{
+                          color: "#6FCF85",
+                          fontSize: "20px",
+                          fontWeight: "600",
+                        }}
+                      >
+                        {" "}
+                        $
+                        {(
+                          precioboleto * numboletos -
+                          costoTotal -
+                          (precioboleto * stripeFee +
+                            3 +
+                            (precioboleto * stripeFee + 3) * taxFee +
+                            precioboleto * appFee) *
+                            numboletos
+                        ).toLocaleString("es-MX")}
+                      </p>
+                    ) : (
+                      <p style={{ color: "red" }}>
+                        {" "}
+                        $
+                        {(
+                          precioboleto * numboletos -
+                          costoTotal -
+                          (precioboleto * stripeFee +
+                            3 +
+                            (precioboleto * stripeFee + 3) * taxFee +
+                            precioboleto * appFee) *
+                            numboletos
+                        ).toLocaleString("es-MX")}
+                      </p>
+                    )}
+                  </div>
+
+                  <button onClick={navMisRifas}>Volver</button>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       ) : (
