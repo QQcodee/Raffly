@@ -430,8 +430,8 @@ const RifaSingle = () => {
 
         <div className="container__rifa">
           <div className="rifa__details">
-            <h1>Sorteo #90 </h1>
-            <h2>Delicias/Chihuahua</h2>
+            <h1>{rifaDetails.nombre} </h1>
+            <h2>{socioMetaData[0] ? socioMetaData[0].estado : null}</h2>
 
             {rifaDetails.fecharifa === null ||
             rifaDetails.fecharifa === undefined ? (
@@ -481,7 +481,7 @@ const RifaSingle = () => {
                       boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
                       borderRadius: "50%",
                     }}
-                    src="https://cdn.builder.io/api/v1/image/assets%2F471f30dc7fc44194a6a6e33e22d8a6a9%2Fc1a175f6985f474398d722b4cbbbda9d"
+                    src={socioMetaData[0] && socioMetaData[0].image_url}
                   />
                   {socioMetaData[0] && (
                     <img
@@ -492,7 +492,7 @@ const RifaSingle = () => {
                         top: "30px",
                         left: "-25px",
                       }}
-                      src={socioMetaData[0].image_url}
+                      src="https://ivltiudjxnrytalzxfwr.supabase.co/storage/v1/object/public/imagenes-rifas/No-borrar/verificado.png"
                     />
                   )}
                 </div>
