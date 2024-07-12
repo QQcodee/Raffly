@@ -42,6 +42,7 @@ import Rifas from "./pages/Rifas";
 import CrearRifa from "./pages/dashboard/CrearRifa";
 import CalcularOps from "./components/CalcularOps";
 import Landing from "./pages/Landing";
+import RifaSingle from "./pages/RifaSingle";
 
 //import HeaderLogin from "./pages/HeaderLogin.js";
 //import Topbar from "./pages/dashboard/Topbar.js";
@@ -59,7 +60,7 @@ function App() {
           {/* Main website routes */}
           <Route path="/" element={<Home />} />
 
-          <Route path="/:socio/:nombre/:id/:user_id" element={<RenderRifa />} />
+          <Route path="/:socio/:nombre/:id/:user_id" element={<RifaSingle />} />
           <Route path="/cart" element={<CartPage />} />
 
           <Route path="/landing" element={<Landing />} />

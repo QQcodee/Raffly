@@ -1,0 +1,354 @@
+/*import popins from google fonts*/
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;800&display=swap");
+
+.rifa__background {
+  background-image: url("https://ivltiudjxnrytalzxfwr.supabase.co/storage/v1/object/public/imagenes-rifas/No-borrar/pattern_300_10p.png");
+  background-repeat: repeat;
+  height: 100%;
+  width: 100%;
+}
+
+.container__rifa {
+  border-radius: 15px;
+  width: 90vw;
+  min-width: 360px;
+  height: 67vh;
+  display: flex;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+  margin-left: 5vw;
+  margin-right: 5vw;
+
+  background-color: rgba(255, 255, 255, 0.61);
+  padding-left: 2vw;
+  padding-right: 2vw;
+  padding-top: 2vh;
+  padding-bottom: 2vh;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+
+  gap: 20px;
+}
+
+.rifa__details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-start;
+
+  border-radius: 15px;
+  width: 30vw;
+  padding-left: 1vw;
+  padding-right: 1vw;
+  padding-bottom: 1vh;
+
+  gap: 20px;
+}
+
+.rifa__details h1 {
+  font-size: 56px;
+  font-family: "Poppins";
+  font-weight: 600;
+  margin: 0;
+}
+
+.rifa__details h2 {
+  font-size: 24px;
+  font-family: "Poppins";
+}
+.rifa__details h3 {
+  font-size: 32px;
+  font-family: "Poppins";
+}
+
+.rifa__details h4 {
+  font-size: 52px;
+  font-family: "Poppins";
+  font-weight: 600;
+}
+
+.rifa__galeria {
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 15px;
+  width: 60vw;
+  overflow: hidden;
+}
+
+.rifa__galeria img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.loading-bar-container-render {
+  width: 90vw;
+  text-align: center;
+  height: 31px;
+}
+
+.loading-bar-render {
+  width: 100%;
+  background-color: #ffffff00;
+  border-radius: 15px;
+  overflow: hidden;
+  height: 24px;
+  position: relative;
+  top: 4px;
+  left: 3px;
+}
+
+.loading-bar-fill-render {
+  height: 23px;
+  background-color: #4caf50;
+  width: 0;
+  transition: width 0.3s ease-in-out;
+  text-align: center;
+  border-radius: 15px;
+}
+
+.tarjeta__verificado {
+  width: 100%;
+}
+
+.premios__lable {
+  display: flex;
+  justify-content: center;
+  background-color: #6fcf85;
+  width: 300px;
+  padding-top: 10px;
+  padding-right: 20px;
+  border-radius: 0 20px 20px 0;
+  height: 80px;
+  align-items: center;
+}
+
+.premios__lable h3 {
+  color: white;
+  font-family: "Poppins";
+  font-size: 46px;
+  font-weight: 800;
+  margin-left: 20px;
+}
+
+.carrito__container {
+  border-radius: 8px;
+  min-width: 360px;
+  width: 90vw;
+  height: 67vh;
+  min-height: 67vh;
+  display: flex;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+  margin-left: 5vw;
+  margin-right: 5vw;
+
+  background-color: #ffffff83;
+  padding-left: 2vw;
+  padding-right: 2vw;
+  padding-top: 2vh;
+  padding-bottom: 2vh;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.247);
+
+  gap: 20px;
+}
+
+.carrito__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  border-radius: 30px;
+
+  min-width: 330px;
+  padding-top: 1vh;
+  padding-left: 1vw;
+  padding-right: 1vw;
+  padding-bottom: 1vh;
+  background-color: #eaeaea;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+
+  gap: 20px;
+}
+
+.carrito__content h1 {
+  font-size: 32px;
+  font-family: "Poppins";
+  font-weight: 600;
+  text-align: center;
+}
+.carrito__content h2 {
+  font-size: 17px;
+  font-family: "Poppins";
+  font-weight: 600;
+}
+
+.carrito__content h3 {
+  font-size: 17px;
+  font-family: "Poppins";
+  font-weight: 400;
+}
+
+.grid__boletos {
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 15px;
+  width: 100%;
+  overflow: hidden;
+}
+
+@media (max-width: 1550px) {
+  .container__rifa {
+    flex-direction: column;
+    height: 800px;
+    gap: 20px;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .tarjeta__verificado {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .rifa__galeria {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    width: 85vw;
+    height: 400px;
+    overflow: hidden;
+  }
+
+  .rifa__galeria img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+  }
+
+  .rifa__details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    align-items: center;
+    border-radius: 15px;
+    width: 85vw;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+  }
+
+  .premios__lable {
+    display: flex;
+    justify-content: center;
+    background-color: #6fcf85;
+    width: 100vw;
+    padding-top: 10px;
+    padding-right: 20px;
+
+    border-radius: 0px;
+    height: 80px;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+  }
+}
+
+@media (max-width: 1240px) {
+  .carrito__container {
+    border-radius: 15px;
+    width: 90vw;
+    height: 100%;
+    min-height: 67vh;
+    display: flex;
+    flex-direction: column;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    margin-left: 5vw;
+    margin-right: 5vw;
+
+    background-color: #eaeaea;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+
+    gap: 20px;
+  }
+
+  .grid__boletos {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 15px;
+    width: 100%;
+    overflow: hidden;
+    margin-left: 20px;
+  }
+
+  .carrito__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    border-radius: 15px;
+
+    min-width: 330px;
+    padding-top: 1vh;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    padding-bottom: 1vh;
+    background-color: #e2e2e2;
+    box-shadow: none;
+    border-radius: 15px;
+
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .rifa__galeria img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+  }
+
+  .carrito__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    border-radius: 15px;
+
+    min-width: 300px;
+    padding-top: 1vh;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    padding-bottom: 1vh;
+    background-color: #e2e2e2;
+    box-shadow: none;
+    border-radius: 15px;
+
+    gap: 20px;
+  }
+}

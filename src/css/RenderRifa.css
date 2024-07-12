@@ -14,6 +14,12 @@
   font-family: "Poppins";
 }
 
+.top-izq {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+}
+
 .tituloYFecha h1 {
   font-size: 34px;
   color: #000000;
@@ -342,11 +348,6 @@
     flex-direction: column;
   }
 
-  .top-izq {
-    display: none;
-    flex-direction: column;
-  }
-
   .tarjeta-verificado-mobile {
     display: flex;
     justify-content: flex-start;
@@ -376,22 +377,32 @@
     font-family: "Poppins";
   }
 
+  .top-izq {
+    width: 100%;
+  }
+
   .tituloYFecha h1 {
     font-size: 30px;
     color: #000000;
     font-weight: "bold";
     max-width: 21ch;
+    text-align: center;
   }
 
   .tituloYFecha h2 {
     font-size: 15px;
     color: #000000;
     font-weight: "medium";
+    text-align: center;
+  }
+
+  .tituloYFecha p {
+    text-align: center;
   }
 
   .precioYContador {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: stretch;
 
     margin-top: 10px;
@@ -401,6 +412,7 @@
     font-size: 24px;
     color: #000000;
     font-weight: 600;
+    text-align: center;
   }
 
   .loading-bar-container-render {
@@ -443,16 +455,6 @@
 
   .tercer-premio {
     transform: scale(0.7);
-  }
-
-  .top-sec {
-    display: none;
-    flex-direction: column;
-  }
-
-  .top-izq {
-    display: none;
-    flex-direction: column;
   }
 
   .tarjeta-verificado-mobile {

@@ -341,19 +341,16 @@ const RenderRifa = () => {
       <div className="background">
         <div className="content">
           <div
-            style={{ display: "flex", justifyContent: "space-between" }}
+            style={{ display: "flex", justifyContent: "space-around" }}
             className="top-sec"
           >
-            <div
-              style={{ display: "flex", flexDirection: "column" }}
-              className="top-izq"
-            >
+            <div className="top-izq">
               <section className="tituloYFecha">
                 <h1>{rifaDetails && rifaDetails.nombre}</h1>
                 <p>Delicias/Chihuahua</p>
 
                 {rifaDetails.fecharifa && (
-                  <h2>Fecha del sorteo: (formatDate(rifaDetails.fecharifa))</h2>
+                  <h2>Fecha del sorteo: {formatDate(rifaDetails.fecharifa)}</h2>
                 )}
 
                 {rifaDetails.fecharifa === null ||
@@ -365,17 +362,10 @@ const RenderRifa = () => {
                 ) : null}
               </section>
               <section
-                style={{ marginTop: "30px" }}
+                style={{ marginTop: "30px", paddingRight: "30px" }}
                 className="precioYContador"
               >
                 <p>${rifaDetails && rifaDetails.precioboleto} MXN</p>
-
-                {soldTickets ? (
-                  <LoadingBarRender
-                    boletosVendidos={soldTickets.length}
-                    rifa={rifaDetails}
-                  />
-                ) : null}
               </section>
 
               {rifaDetails.fecharifa ? (
@@ -495,6 +485,26 @@ const RenderRifa = () => {
                 )}
               </div>
             </section>
+          </div>
+
+          <h2 style={{ textAlign: "center" }}> Boletos vendidos</h2>
+
+          <div
+            style={{
+              marginBottom: "80px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            {soldTickets ? (
+              <>
+                <LoadingBarRender
+                  boletosVendidos={soldTickets.length}
+                  rifa={rifaDetails}
+                />
+              </>
+            ) : null}
           </div>
 
           <section
