@@ -360,7 +360,7 @@
 
   .buy_button_mobile {
     position: fixed;
-    bottom: 60px;
+    bottom: 40px;
     right: 50%;
     transform: translateX(50%);
     background-color: #4caf50; /* Green */
