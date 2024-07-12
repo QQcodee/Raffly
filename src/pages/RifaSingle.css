@@ -341,6 +341,7 @@
     border-radius: 15px;
 
     min-width: 300px;
+    min-height: 300px;
     padding-top: 1vh;
     padding-left: 1vw;
     padding-right: 1vw;
@@ -348,7 +349,30 @@
     background-color: #e2e2e2;
     box-shadow: none;
     border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
 
     gap: 20px;
+  }
+
+  .buy-button {
+    display: none;
+  }
+
+  .buy_button_mobile {
+    position: fixed;
+    bottom: 60px;
+    right: 50%;
+    transform: translateX(50%);
+    background-color: #4caf50; /* Green */
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .carrito__container {
+    margin-bottom: 120px;
   }
 }

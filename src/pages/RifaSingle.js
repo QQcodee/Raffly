@@ -647,42 +647,37 @@ const RifaSingle = () => {
               </p>
 
               {socioMetaData[0] ? (
-                <div className="buy-button-container">
-                  {cart.length === 0 ? null : (
-                    <button
-                      className="buy-button"
-                      onClick={() => {
-                        navigate(
+                cart.length === 0 ? null : (
+                  <button
+                    className="buy-button"
+                    onClick={() => {
+                      navigate(
+                        "/" +
+                          encodeURIComponent(
+                            socioMetaData[0].nombre_negocio.replace(/\s+/g, "-")
+                          ) +
                           "/" +
-                            encodeURIComponent(
-                              socioMetaData[0].nombre_negocio.replace(
-                                /\s+/g,
-                                "-"
-                              )
-                            ) +
-                            "/" +
-                            encodeURIComponent(
-                              socioMetaData[0].user_id.replace(/\s+/g, "-")
-                            ) +
-                            "/carrito"
-                        );
-                      }}
-                      style={{
-                        backgroundColor: "#6FCF85",
-                        color: "white",
-                        borderRadius: "15px",
-                        border: "none",
-                        padding: "10px 20px",
-                        fontSize: "17px",
-                        cursor: "pointer",
-                        width: "300px",
-                        boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-                      }}
-                    >
-                      Comprar
-                    </button>
-                  )}
-                </div>
+                          encodeURIComponent(
+                            socioMetaData[0].user_id.replace(/\s+/g, "-")
+                          ) +
+                          "/carrito"
+                      );
+                    }}
+                    style={{
+                      backgroundColor: "#6FCF85",
+                      color: "white",
+                      borderRadius: "15px",
+                      border: "none",
+                      padding: "10px 20px",
+                      fontSize: "17px",
+                      cursor: "pointer",
+                      width: "300px",
+                      boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                    }}
+                  >
+                    Comprar
+                  </button>
+                )
               ) : null}
             </div>
 
@@ -717,7 +712,39 @@ const RifaSingle = () => {
         </div>
       </div>
 
-      <FooterGlobal />
+      {cart.length > 0 ? (
+        <button
+          className="buy_button_mobile"
+          onClick={() => {
+            navigate(
+              "/" +
+                encodeURIComponent(
+                  socioMetaData[0].nombre_negocio.replace(/\s+/g, "-")
+                ) +
+                "/" +
+                encodeURIComponent(
+                  socioMetaData[0].user_id.replace(/\s+/g, "-")
+                ) +
+                "/carrito"
+            );
+          }}
+          style={{
+            backgroundColor: "#007BFF",
+            color: "white",
+            borderRadius: "15px",
+            border: "none",
+            padding: "10px 20px",
+            fontSize: "17px",
+            cursor: "pointer",
+            width: "300px",
+            boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+            fontSize: "30px",
+            fontWeight: "500",
+          }}
+        >
+          Comprar
+        </button>
+      ) : null}
     </>
   );
 };
