@@ -376,6 +376,11 @@ const RifaSingle = () => {
     <>
       <div className="rifa__background">
         <HeaderGlobal />
+        <CustomAlertDialog
+          open={open}
+          handleClose={handleClose}
+          handleConfirm={handleConfirm}
+        />
 
         <div className="container__rifa">
           <div className="rifa__details">
