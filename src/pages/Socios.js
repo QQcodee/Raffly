@@ -31,8 +31,11 @@ const Socios = () => {
   return (
     <>
       <HeaderGlobal />
+
       <div>
         <div className="div-grid-archive-socios">
+          <h1 style={{ paddingLeft: "30px" }}>Socios Raffly</h1>
+
           {socios && (
             <div className="socios-grid">
               {socios.map((socio) => (
