@@ -604,7 +604,23 @@ const RifaSingle = () => {
           <h3>Premios</h3>
         </div>
 
-        <div style={{ height: "300px" }} className="premios__container"></div>
+        <div style={{ height: "300px" }} className="premios__container">
+          <ul
+            style={{
+              listStyle: "none",
+              paddingLeft: "20px",
+              paddingRight: "20px",
+              textAlign: "center",
+              fontFamily: "Poppins",
+              fontSize: "32px",
+            }}
+            className="rifa-desc-render"
+          >
+            {descItems.map((item, index) => (
+              <li key={index}>{item}</li>
+            ))}
+          </ul>
+        </div>
         <div className="carrito__container">
           <div style={{ display: "flex" }}>
             <div className="carrito__content">
