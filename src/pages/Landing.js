@@ -1,6 +1,8 @@
 import FooterGlobal from "../components/FooterGlobal";
 import HeaderGlobal from "../components/HeaderGlobal";
 
+import "./Landing.css";
+
 const Landing = () => {
   return (
     <>
@@ -355,7 +357,7 @@ const Landing = () => {
           Panel de administración
         </h2>
 
-        <section style={{ display: "flex", justifyContent: "center" }}>
+        <div className="dashboard__section">
           <div
             style={{
               display: "flex",
@@ -366,60 +368,16 @@ const Landing = () => {
             }}
           >
             <ul>
-              <li
-                style={{
-                  fontWeight: "bold",
-                  textAlign: "left",
-                  marginBottom: "20px",
-                  fontSize: "24px",
-                }}
-              >
-                Administracion simplificada
-              </li>
-              <li
-                style={{
-                  fontWeight: "bold",
-                  textAlign: "left",
-                  marginBottom: "20px",
-                  fontSize: "24px",
-                }}
-              >
-                Base de datos completa
-              </li>
-              <li
-                style={{
-                  fontWeight: "bold",
-                  textAlign: "left",
-                  marginBottom: "20px",
-                  fontSize: "24px",
-                }}
-              >
-                Busqueda y listado de usuarios
-              </li>
-              <li
-                style={{
-                  fontWeight: "bold",
-                  textAlign: "left",
-                  marginBottom: "20px",
-                  fontSize: "24px",
-                }}
-              >
-                Metricas detalladas de cada sorteo
-              </li>
+              <li>Administracion simplificada</li>
+              <li>Base de datos completa</li>
+              <li>Busqueda y listado de usuarios</li>
+              <li>Metricas detalladas de cada sorteo</li>
             </ul>
           </div>
-          <div
-            style={{
-              borderRadius: "15px",
-              boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-            }}
-          >
-            <img
-              style={{ width: "auto", height: "550px", borderRadius: "15px" }}
-              src="https://ivltiudjxnrytalzxfwr.supabase.co/storage/v1/object/public/imagenes-rifas/No-borrar/dashboard.png"
-            ></img>
+          <div className="dashboard__img">
+            <img src="https://ivltiudjxnrytalzxfwr.supabase.co/storage/v1/object/public/imagenes-rifas/No-borrar/dashboard.png"></img>
           </div>
-        </section>
+        </div>
 
         <h2
           style={{
@@ -452,6 +410,11 @@ const Landing = () => {
             cursor: "pointer",
             border: "none",
           }}
+          onClick={() =>
+            window.open(
+              "https://api.whatsapp.com/send/?phone=6143035198&text=Hola me interesa ser socio raffly"
+            )
+          }
         >
           Contactanos
         </button>
