@@ -336,6 +336,21 @@
     object-fit: contain;
   }
 
+  .buy_button_mobile {
+    display: block;
+    position: fixed;
+    bottom: 40px;
+    right: 50%;
+    transform: translateX(50%);
+    background-color: #4caf50; /* Green */
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
   .carrito__content {
     display: flex;
     flex-direction: column;
@@ -363,6 +378,7 @@
   }
 
   .buy_button_mobile {
+    display: block;
     position: fixed;
     bottom: 40px;
     right: 50%;
