@@ -301,6 +301,12 @@ const BoletosDashboard = () => {
     tempLink.click();
   };
 
+  const abrirWhatsapp = (telefono) => {
+    console.log(telefono);
+    const url = "https://api.whatsapp.com/send/?phone=" + telefono;
+    window.open(url, "_blank");
+  };
+
   return (
     <div className="boletos-dashboard">
       <div className="boletos-dashboard-top">
@@ -452,7 +458,7 @@ const BoletosDashboard = () => {
           <thead>
             <tr>
               <th
-                style={{ cursor: "pointer" }}
+                style={{ cursor: "pointer", whiteSpace: "nowrap" }}
                 onClick={() => handleSort("nombre")}
               >
                 Nombre Comprador <i className="material-icons">swap_vert</i>
@@ -470,19 +476,23 @@ const BoletosDashboard = () => {
               <th></th>
               <th>Email</th>
               <th>Telefono</th>
-
-              <th
-                style={{ cursor: "pointer" }}
-                onClick={() => handleSort("id")}
-              >
-                ID Boleto <i className="material-icons">swap_vert</i>
-              </th>
             </tr>
           </thead>
           <tbody>
             {filteredData.map((item) => (
               <tr key={item.id}>
-                <td>{item.nombre}</td>
+                <td
+                  style={{
+                    cursor: "pointer",
+                    whiteSpace: "nowrap",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                  onClick={() => abrirWhatsapp(item.telefono)}
+                >
+                  {item.nombre}
+                  <i className="material-icons">chat</i>
+                </td>
 
                 <td>{"$" + item.precio * item.num_boletos.length}</td>
                 <td>{item.num_boletos.join(", ")}</td>
@@ -538,7 +548,6 @@ const BoletosDashboard = () => {
                 </td>
                 <td>{item.email}</td>
                 <td>{item.telefono}</td>
-                <td>{item.id}</td>
               </tr>
             ))}
           </tbody>
@@ -549,3 +558,16 @@ const BoletosDashboard = () => {
 };
 
 export default BoletosDashboard;
+
+/*
+ <th
+                style={{ cursor: "pointer" }}
+                onClick={() => handleSort("id")}
+              >
+                ID Boleto <i className="material-icons">swap_vert</i>
+              </th>
+
+
+               <td>{item.id}</td>
+
+               */

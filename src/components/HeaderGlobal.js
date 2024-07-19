@@ -375,7 +375,25 @@ const HeaderGlobal = () => {
                     Mis Boletos
                   </a>
                 </li>
-              ) : null}
+              ) : (
+                <li>
+                  <a
+                    href={
+                      "/" +
+                      encodeURIComponent(
+                        socioMetaData[0].nombre_negocio.replace(/\s+/g, "-")
+                      ) +
+                      "/" +
+                      encodeURIComponent(
+                        socioMetaData[0].user_id.replace(/\s+/g, "-")
+                      ) +
+                      "/mis-boletos"
+                    }
+                  >
+                    Verificador de boletos
+                  </a>
+                </li>
+              )}
 
               <li>
                 <a
@@ -756,7 +774,22 @@ const HeaderGlobal = () => {
             }}
             className="headerIfSocioLogo"
           >
-            <img src={socioMetaData[0].image_url} className="img-logo"></img>
+            <img
+              onClick={() =>
+                navigate(
+                  "/" +
+                    encodeURIComponent(
+                      socioMetaData[0].nombre_negocio.replace(/\s+/g, "-")
+                    ) +
+                    "/" +
+                    encodeURIComponent(
+                      socioMetaData[0].user_id.replace(/\s+/g, "-")
+                    )
+                )
+              }
+              src={socioMetaData[0].image_url}
+              className="img-logo"
+            ></img>
             <img
               src="https://ivltiudjxnrytalzxfwr.supabase.co/storage/v1/object/public/imagenes-rifas/No-borrar/verificado.png"
               className="verificado"
@@ -765,6 +798,18 @@ const HeaderGlobal = () => {
           <div
             style={{ display: "flex", flexDirection: "column" }}
             className="headerIfSocioMenu"
+            onClick={() =>
+              navigate(
+                "/" +
+                  encodeURIComponent(
+                    socioMetaData[0].nombre_negocio.replace(/\s+/g, "-")
+                  ) +
+                  "/" +
+                  encodeURIComponent(
+                    socioMetaData[0].user_id.replace(/\s+/g, "-")
+                  )
+              )
+            }
           >
             <h1
               style={{

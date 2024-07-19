@@ -88,6 +88,11 @@ function App() {
           />
 
           <Route
+            path="/:nombre_negocio/:user_id/mis-boletos/:email"
+            element={<MisBoletos />}
+          />
+
+          <Route
             path="/:nombre_negocio/:user_id/carrito"
             element={<SingleCarrito />}
           />

@@ -13,7 +13,7 @@ import "../css/Single-Socios/BoletosList.css";
 
 const MisBoletos = () => {
   const { user } = useUser();
-  const { user_id, nombre_negocio } = useParams();
+  const { user_id, nombre_negocio, email } = useParams();
   const [boletos, setBoletos] = useState([]);
 
   const [buscarBoleto, setBuscarBoleto] = useState("");
@@ -54,6 +54,23 @@ const MisBoletos = () => {
       setBoletos(data);
     }
   };
+
+  useEffect(() => {
+    const fetchAfterApartar = async () => {
+      const { data, error } = await supabase
+        .from("boletos")
+        .select()
+        .eq("email", email)
+        .eq("socio_user_id", user_id)
+        .order("created_at", { ascending: false });
+
+      if (data) {
+        setBoletos(data);
+      }
+    };
+
+    fetchAfterApartar();
+  }, [email]);
 
   return (
     <>

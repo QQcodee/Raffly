@@ -201,7 +201,8 @@ const CheckoutForm = ({
             encodeURIComponent(rifa.socio.replace(/\s+/g, "-")) +
             "/" +
             encodeURIComponent(rifa.user_id.replace(/\s+/g, "-")) +
-            "/mis-boletos"
+            "/mis-boletos/" +
+            email
         );
       }
     }
