@@ -95,6 +95,25 @@ const BoletosDashboard = () => {
     }
   };
 
+  const eliminarBoletoApartado = async (boleto) => {
+    const confirmed = window.confirm(
+      `Seguro que quieres eliminar este boleto? \n \n  ${boleto.nombre} - ${boleto.num_boletos}`
+    );
+    if (!confirmed) {
+      return;
+    }
+    const { data, error } = await supabase
+      .from("boletos")
+      .delete()
+      .eq("id", boleto.id);
+
+    if (error) {
+      console.error("Error deleting ticket:", error);
+    } else {
+      setData(filteredData.filter((item) => item.id !== boleto.id));
+    }
+  };
+
   const [status, setStatus] = useState("default");
   const [error, setError] = useState(null);
 
@@ -308,12 +327,19 @@ const BoletosDashboard = () => {
   };
 
   return (
-    <div className="boletos-dashboard">
-      <div className="boletos-dashboard-top">
+    <div
+      style={{ display: "flex", flexDirection: "column" }}
+      className="boletos-dashboard"
+    >
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "10px",
+        }}
+        className="boletos-dashboard-top"
+      >
         <h2 style={{ padding: "10px", margin: "10px" }}>Boletos</h2>
-        <button onClick={handleExportCSV} disabled={loading}>
-          {loading ? "Exporting..." : "Exportar Boletos a Excel"}
-        </button>
 
         <div className="select-container">
           <select
@@ -323,9 +349,10 @@ const BoletosDashboard = () => {
             placeholder="Elegir Rifa"
             style={{
               width: "200px",
+              height: "2.6rem",
               color: "black",
               padding: "10px",
-              margin: "10px",
+
               borderRadius: "15px",
               boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
             }}
@@ -338,71 +365,71 @@ const BoletosDashboard = () => {
           </select>
         </div>
 
-        <div>
-          <input
-            type="text"
-            id="nombreInput"
-            value={searchTerm}
-            onChange={handleNombreSearch}
-            placeholder="Buscar por nombre"
-            style={{
-              width: "200px",
-              color: "black",
-              padding: "10px",
-              margin: "10px",
-              borderRadius: "15px",
-              border: "1px solid #ccc",
-              boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
-            }}
-          />
-        </div>
-        <div>
-          <input
-            type="text"
-            id="numberInput"
-            value={searchNumber}
-            onChange={handleNumberSearch}
-            placeholder="Buscar por boleto"
-            style={{
-              width: "200px",
-              color: "black",
-              padding: "10px",
-              margin: "10px",
-              borderRadius: "15px",
-              border: "1px solid #ccc",
-              boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
-            }}
-          />
-        </div>
-        <div>
-          <input
-            type="text"
-            id="telefonoInput"
-            value={searchTelefono}
-            onChange={(e) => setSearchTelefono(e.target.value)}
-            placeholder="Buscar por telefono"
-            style={{
-              width: "200px",
-              color: "black",
-              padding: "10px",
-              margin: "10px",
-              borderRadius: "15px",
-              border: "1px solid #ccc",
-              boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
-            }}
-          />
-        </div>
+        <input
+          type="text"
+          id="nombreInput"
+          value={searchTerm}
+          onChange={handleNombreSearch}
+          placeholder="Buscar por nombre"
+          style={{
+            width: "200px",
+            height: "2.6rem",
+            color: "black",
+            padding: "10px",
 
-        <div>
+            borderRadius: "15px",
+            border: "1px solid #ccc",
+            boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+          }}
+        />
+
+        <input
+          type="text"
+          id="numberInput"
+          value={searchNumber}
+          onChange={handleNumberSearch}
+          placeholder="Buscar por boleto"
+          style={{
+            width: "200px",
+            height: "2.6rem",
+            color: "black",
+            padding: "10px",
+
+            borderRadius: "15px",
+            border: "1px solid #ccc",
+            boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+          }}
+        />
+
+        <input
+          type="text"
+          id="telefonoInput"
+          value={searchTelefono}
+          onChange={(e) => setSearchTelefono(e.target.value)}
+          placeholder="Buscar por telefono"
+          style={{
+            width: "200px",
+            height: "2.6rem",
+            color: "black",
+            padding: "10px",
+
+            borderRadius: "15px",
+            border: "1px solid #ccc",
+            boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+          }}
+        />
+
+        <div className="select-container">
           <select
             id="estadoSelect"
             value={selectedEstado}
             onChange={(e) => setSelectedEstado(e.target.value)}
             style={{
               width: "200px",
+              height: "2.6rem",
               color: "black",
               padding: "10px",
-              margin: "10px",
+
               borderRadius: "15px",
               border: "1px solid #ccc",
               boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
@@ -414,6 +441,7 @@ const BoletosDashboard = () => {
             <option value="Apartado">Apartado</option>
           </select>
         </div>
+
         <button
           style={{
             margin: "10px",
@@ -422,11 +450,28 @@ const BoletosDashboard = () => {
             boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
             cursor: "pointer",
             fontFamily: "Poppins",
+            height: "3.6rem",
           }}
           onClick={handleCheckDuplicates}
         >
           Buscar Numeros Duplicados
         </button>
+
+        <button
+          style={{
+            padding: "10px",
+            margin: "10px",
+            width: "200px",
+            fontFamily: "Poppins",
+            borderRadius: "15px",
+            backgroundColor: "#6FCF85",
+          }}
+          onClick={handleExportCSV}
+          disabled={loading}
+        >
+          {loading ? "Exporting..." : "Exportar Boletos a Excel"}
+        </button>
+
         {duplicados.length > 0 && (
           <p
             style={{
@@ -447,14 +492,17 @@ const BoletosDashboard = () => {
       <div
         style={{
           overflowY: "auto",
-          maxHeight: "800px",
+          maxHeight: "80vh",
           width: "100%",
           marginLeft: "10px",
           padding: "10px",
         }}
         className="table-container"
       >
-        <table className="content-table">
+        <table
+          style={{ boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)" }}
+          className="content-table"
+        >
           <thead>
             <tr>
               <th
@@ -464,18 +512,21 @@ const BoletosDashboard = () => {
                 Nombre Comprador <i className="material-icons">swap_vert</i>
               </th>
 
+              <th>Telefono</th>
+              <th>Email</th>
+              <th>Estado</th>
+
               <th>Valor</th>
               <th>Boletos</th>
               <th
-                style={{ cursor: "pointer" }}
+                style={{ cursor: "pointer", whiteSpace: "nowrap" }}
                 onClick={() => handleSort("comprado")}
               >
                 Estado <i className="material-icons">swap_vert</i>
               </th>
 
               <th></th>
-              <th>Email</th>
-              <th>Telefono</th>
+              <th>Contador</th>
             </tr>
           </thead>
           <tbody>
@@ -487,16 +538,23 @@ const BoletosDashboard = () => {
                     whiteSpace: "nowrap",
                     display: "flex",
                     alignItems: "center",
+                    justifyContent: "space-between",
                   }}
                   onClick={() => abrirWhatsapp(item.telefono)}
                 >
                   {item.nombre}
-                  <i className="material-icons">chat</i>
+                  <i style={{ color: "#007BFF" }} className="material-icons">
+                    chat
+                  </i>
                 </td>
+
+                <td>{item.telefono}</td>
+                <td>{item.email}</td>
+                <td>{item.estado_mx}</td>
 
                 <td>{"$" + item.precio * item.num_boletos.length}</td>
                 <td>{item.num_boletos.join(", ")}</td>
-                <td>
+                <td style={{ whiteSpace: "nowrap" }}>
                   {item.comprado === true
                     ? "Pagado"
                     : item.oxxo === true
@@ -505,25 +563,51 @@ const BoletosDashboard = () => {
                     ? "Apartado"
                     : "Error"}
                 </td>
-                <td>
+                <td
+                  style={{
+                    display: "flex",
+                    gap: "10px",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
                   {item.apartado === true && (
-                    <button
-                      style={{
-                        cursor: "pointer",
-                        backgroundColor: "#3D9BE9",
-                        color: "white",
-                        padding: "10px",
-                        borderRadius: "15px",
-                        boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
-                        border: "none",
-                        fontFamily: "Poppins",
-                        fontSize: "12px",
-                        width: "150px",
-                      }}
-                      onClick={() => actualizarStatus(item)}
-                    >
-                      Marcar pagado
-                    </button>
+                    <>
+                      <button
+                        style={{
+                          cursor: "pointer",
+                          backgroundColor: "#6FCF85",
+                          color: "white",
+                          padding: "10px",
+                          borderRadius: "15px",
+                          boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+                          border: "none",
+                          fontFamily: "Poppins",
+                          fontSize: "12px",
+                          width: "80px",
+                        }}
+                        onClick={() => actualizarStatus(item)}
+                      >
+                        Confirmar
+                      </button>
+                      <button
+                        style={{
+                          cursor: "pointer",
+                          backgroundColor: "#DC3545",
+                          color: "white",
+                          padding: "10px",
+                          borderRadius: "15px",
+                          boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+                          border: "none",
+                          fontFamily: "Poppins",
+                          fontSize: "12px",
+                          width: "70px",
+                        }}
+                        onClick={() => eliminarBoletoApartado(item)}
+                      >
+                        Eliminar
+                      </button>
+                    </>
                   )}
 
                   {item.oxxo === true && (
@@ -546,8 +630,25 @@ const BoletosDashboard = () => {
                     </button>
                   )}
                 </td>
-                <td>{item.email}</td>
-                <td>{item.telefono}</td>
+                <td>
+                  {item.comprado === true && <></>}
+
+                  {item.oxxo === true && (
+                    <CountdownTimer
+                      fecha={item.apartado_fecha}
+                      color={"transparent"}
+                      colorLetras={"black"}
+                    />
+                  )}
+
+                  {item.apartado === true && (
+                    <CountdownTimer
+                      fecha={item.apartado_fecha}
+                      color={"transparent"}
+                      colorLetras={"black"}
+                    />
+                  )}
+                </td>
               </tr>
             ))}
           </tbody>

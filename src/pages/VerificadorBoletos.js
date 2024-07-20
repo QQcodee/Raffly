@@ -14,7 +14,7 @@ import "../css/Single-Socios/BoletosList.css";
 
 const VerificadorBoletos = () => {
   const { user } = useUser();
-  const { user_id, nombre_negocio } = useParams();
+  const { user_id, nombre_negocio, email } = useParams();
   const [boletos, setBoletos] = useState([]);
 
   const [buscarBoleto, setBuscarBoleto] = useState("");

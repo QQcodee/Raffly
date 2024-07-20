@@ -11,6 +11,7 @@ import HeaderSocios from "../components/HeaderSocios";
 //import CartPage.css
 import "../css/CartPage.css";
 import HeaderGlobal from "../components/HeaderGlobal";
+import FooterGlobal from "../components/FooterGlobal";
 
 const SingleCarrito = () => {
   const { cart, removeItem } = useCart();
@@ -88,20 +89,71 @@ const SingleCarrito = () => {
             {cart.length === 0 ? (
               <p>Ningun boleto seleccionado</p>
             ) : (
-              <>
-                <ul style={{ listStyle: "none" }}>
+              <div
+                style={{
+                  height: "max-content",
+                  width: "100%",
+                  maxHeight: "500px",
+                }}
+              >
+                <ul
+                  style={{
+                    listStyle: "none",
+                    display: "grid",
+                    gridTemplateColumns: "repeat(5, 1fr)",
+
+                    gap: "5px",
+                    padding: 0,
+                    maxHeight: "500px",
+                    height: "max-content",
+                    overflowX: "hidden",
+                    width: "330px",
+
+                    overflowY: "scroll",
+                  }}
+                  className="boletos__seleccionados"
+                >
                   {cart.map((item) => (
-                    <li key={item.id}>
-                      #{item.ticketNumber} - ${item.price}
-                      <button
+                    <>
+                      <li
+                        key={item.id}
                         onClick={() => handleRemoveTicketFromCart(item.id)}
+                        style={{
+                          cursor: "pointer",
+                          backgroundColor: "#343A40",
+                          padding: "5px",
+                          width: "55px",
+                          height: "30px",
+                          borderRadius: "5px",
+                          color: "white",
+                          textAlign: "center",
+                        }}
                       >
-                        Eliminar
-                      </button>
-                    </li>
+                        {item.ticketNumber}
+                      </li>
+
+                      {item.oportunidades.map((oportunidad, index) => (
+                        <li
+                          key={`${item.id}-${index}`}
+                          onClick={() => handleRemoveTicketFromCart(item.id)}
+                          style={{
+                            cursor: "pointer",
+                            backgroundColor: "#6FCF85",
+                            padding: "5px",
+                            width: "55px",
+                            borderRadius: "5px",
+                            color: "white",
+                            textAlign: "center",
+                            height: "30px",
+                          }}
+                        >
+                          {oportunidad}
+                        </li>
+                      ))}
+                    </>
                   ))}
                 </ul>
-              </>
+              </div>
             )}
             <p
               style={{
@@ -185,9 +237,10 @@ const SingleCarrito = () => {
               </button>
             </div>
           </div>
-          <div style={{ height: "70vh" }}></div>
         </>
       )}
+      <div style={{ height: "50px" }}></div>
+      <FooterGlobal />
     </>
   );
 };

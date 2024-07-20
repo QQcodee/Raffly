@@ -84,7 +84,7 @@ const AccountMenu = ({ onClose, user, socio_id, nombre_negocio }) => {
             </li>
 
             <li onClick={() => navigate("/perfil")}>Mi Cuenta</li>
-            <li onClick={() => navigate("/mis-boletos")}>Mis Boletos</li>
+            <li onClick={() => navigate("/verificador")}>Mis Boletos</li>
             <li>Configuracion</li>
             <li>Facturacion</li>
             <li onClick={logout}>Cerrar Sesion</li>

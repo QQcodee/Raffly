@@ -165,14 +165,14 @@ const BoletosList = ({ boleto }) => {
                         <p>
                           <strong>ESTADO:</strong>
                         </p>
-                        <p>CHIHUAHUA</p>
+                        <p>{boleto.estado_mx}</p>
                       </li>
                     </>
                   ) : null}
 
                   <li>
                     <p>
-                      <strong>ESTADO:</strong>
+                      <strong>PAGO:</strong>
                     </p>
                     <p>
                       {boleto.comprado === true

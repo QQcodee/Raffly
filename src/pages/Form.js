@@ -57,6 +57,8 @@ const CheckoutForm = ({
   const ticketNumbersArray = cart.map((item) => item.ticketNumber);
   const ticketNumbersWhatsapp = ticketNumbersArray.join("%0A");
 
+  const [estado, setEstado] = useState(null);
+
   const navigate = useNavigate();
 
   const handleRemoveSoldTicketsFromCart = async () => {
@@ -109,6 +111,7 @@ const CheckoutForm = ({
           fecharifa: rifa.fecharifa,
           socio_user_id: rifa.user_id,
           comprado: true,
+          estado_mx: estado,
         },
       ]);
 
@@ -128,7 +131,7 @@ const CheckoutForm = ({
     }
     if (paymentMethodType === "oxxo") {
       const now = new Date();
-      const apartadoUntil = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+      const apartadoUntil = new Date(now.getTime() + 48 * 60 * 60 * 1000);
 
       const { data, error } = await supabase.from("boletos").insert([
         {
@@ -150,6 +153,8 @@ const CheckoutForm = ({
           oxxo_url: oxxo_url,
           oxxo_id: oxxo_id,
           apartado_fecha: apartadoUntil,
+
+          estado_mx: estado,
         },
       ]);
 
@@ -189,6 +194,7 @@ const CheckoutForm = ({
 
           apartado: true,
           apartado_fecha: apartadoUntil,
+          estado_mx: estado,
         },
       ]);
 
@@ -398,25 +404,34 @@ const CheckoutForm = ({
               }}
               className="stripe-element"
             >
-              <div style={{ display: "flex", flexDirection: "column" }}>
-                <label htmlFor="name">Nombre</label>
-                <input
-                  type="text"
-                  id="firstName"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  required
-                />
-              </div>
-              <div style={{ display: "flex", flexDirection: "column" }}>
-                <label htmlFor="name">Apellido</label>
-                <input
-                  type="text"
-                  id="lastName"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  required
-                />
+              <div
+                style={{
+                  display: "flex",
+                  gap: "20px",
+                  justifyContent: "space-between",
+                }}
+              >
+                {" "}
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <label htmlFor="name">Nombre</label>
+                  <input
+                    type="text"
+                    id="firstName"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    required
+                  />
+                </div>
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <label htmlFor="name">Apellido</label>
+                  <input
+                    type="text"
+                    id="lastName"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    required
+                  />
+                </div>
               </div>
             </div>
 
@@ -438,6 +453,49 @@ const CheckoutForm = ({
                 onChange={(e) => setPhone(e.target.value)}
                 required
               />
+
+              <label htmlFor="estado">Estado</label>
+              <select
+                name="estado"
+                id="estado"
+                value={estado}
+                onChange={(e) => setEstado(e.target.value)}
+              >
+                <option value="">SELECCIONA ESTADO</option>
+                <option value="USA">USA</option>
+                <option value="Aguascalientes">Aguascalientes</option>
+                <option value="Baja California">Baja California</option>
+                <option value="Baja California Sur">Baja California Sur</option>
+                <option value="Campeche">Campeche</option>
+                <option value="Chiapas">Chiapas</option>
+                <option value="Chihuahua">Chihuahua</option>
+                <option value="Ciudad de México">Ciudad de México</option>
+                <option value="Coahuila">Coahuila</option>
+                <option value="Colima">Colima</option>
+                <option value="Durango">Durango</option>
+                <option value="Estado de México">Estado de México</option>
+                <option value="Guanajuato">Guanajuato</option>
+                <option value="Guerrero">Guerrero</option>
+                <option value="Hidalgo">Hidalgo</option>
+                <option value="Jalisco">Jalisco</option>
+                <option value="Michoacán">Michoacán</option>
+                <option value="Morelos">Morelos</option>
+                <option value="Nayarit">Nayarit</option>
+                <option value="Nuevo León">Nuevo León</option>
+                <option value="Oaxaca">Oaxaca</option>
+                <option value="Puebla">Puebla</option>
+                <option value="Querétaro">Querétaro</option>
+                <option value="Quintana Roo">Quintana Roo</option>
+                <option value="San Luis Potosí">San Luis Potosí</option>
+                <option value="Sinaloa">Sinaloa</option>
+                <option value="Sonora">Sonora</option>
+                <option value="Tabasco">Tabasco</option>
+                <option value="Tamaulipas">Tamaulipas</option>
+                <option value="Tlaxcala">Tlaxcala</option>
+                <option value="Veracruz">Veracruz</option>
+                <option value="Yucatán">Yucatán</option>
+                <option value="Zacatecas">Zacatecas</option>
+              </select>
             </div>
 
             <div className="stripe-element">
@@ -459,23 +517,48 @@ const CheckoutForm = ({
 
         {paymentMethodType === "oxxo" && (
           <>
-            <div className="stripe-element">
-              <label htmlFor="name">Nombre</label>
-              <input
-                type="text"
-                id="firstName"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-                required
-              />
-              <label htmlFor="name">Apellido</label>
-              <input
-                type="text"
-                id="lastName"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-                required
-              />
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+
+                width: "100%",
+                marginBottom: "10px",
+                marginTop: "10px",
+                gap: "10px",
+                alignItems: "center",
+              }}
+              className="stripe-element"
+            >
+              <div
+                style={{
+                  display: "flex",
+                  gap: "20px",
+                  justifyContent: "space-between",
+                }}
+              >
+                {" "}
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <label htmlFor="name">Nombre</label>
+                  <input
+                    type="text"
+                    id="firstName"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    required
+                  />
+                </div>
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <label htmlFor="name">Apellido</label>
+                  <input
+                    type="text"
+                    id="lastName"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
             </div>
             <div className="stripe-element">
               <label htmlFor="email">Email</label>
@@ -495,6 +578,49 @@ const CheckoutForm = ({
                 onChange={(e) => setPhone(e.target.value)}
                 required
               />
+
+              <label htmlFor="estado">Estado</label>
+              <select
+                name="estado"
+                id="estado"
+                value={estado}
+                onChange={(e) => setEstado(e.target.value)}
+              >
+                <option value="">SELECCIONA ESTADO</option>
+                <option value="USA">USA</option>
+                <option value="Aguascalientes">Aguascalientes</option>
+                <option value="Baja California">Baja California</option>
+                <option value="Baja California Sur">Baja California Sur</option>
+                <option value="Campeche">Campeche</option>
+                <option value="Chiapas">Chiapas</option>
+                <option value="Chihuahua">Chihuahua</option>
+                <option value="Ciudad de México">Ciudad de México</option>
+                <option value="Coahuila">Coahuila</option>
+                <option value="Colima">Colima</option>
+                <option value="Durango">Durango</option>
+                <option value="Estado de México">Estado de México</option>
+                <option value="Guanajuato">Guanajuato</option>
+                <option value="Guerrero">Guerrero</option>
+                <option value="Hidalgo">Hidalgo</option>
+                <option value="Jalisco">Jalisco</option>
+                <option value="Michoacán">Michoacán</option>
+                <option value="Morelos">Morelos</option>
+                <option value="Nayarit">Nayarit</option>
+                <option value="Nuevo León">Nuevo León</option>
+                <option value="Oaxaca">Oaxaca</option>
+                <option value="Puebla">Puebla</option>
+                <option value="Querétaro">Querétaro</option>
+                <option value="Quintana Roo">Quintana Roo</option>
+                <option value="San Luis Potosí">San Luis Potosí</option>
+                <option value="Sinaloa">Sinaloa</option>
+                <option value="Sonora">Sonora</option>
+                <option value="Tabasco">Tabasco</option>
+                <option value="Tamaulipas">Tamaulipas</option>
+                <option value="Tlaxcala">Tlaxcala</option>
+                <option value="Veracruz">Veracruz</option>
+                <option value="Yucatán">Yucatán</option>
+                <option value="Zacatecas">Zacatecas</option>
+              </select>
             </div>
           </>
         )}
@@ -514,25 +640,34 @@ const CheckoutForm = ({
               }}
               className="stripe-element"
             >
-              <div style={{ display: "flex", flexDirection: "column" }}>
-                <label htmlFor="name">Nombre</label>
-                <input
-                  type="text"
-                  id="firstName"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  required
-                />
-              </div>
-              <div style={{ display: "flex", flexDirection: "column" }}>
-                <label htmlFor="name">Apellido</label>
-                <input
-                  type="text"
-                  id="lastName"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  required
-                />
+              <div
+                style={{
+                  display: "flex",
+                  gap: "20px",
+                  justifyContent: "space-between",
+                }}
+              >
+                {" "}
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <label htmlFor="name">Nombre</label>
+                  <input
+                    type="text"
+                    id="firstName"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    required
+                  />
+                </div>
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <label htmlFor="name">Apellido</label>
+                  <input
+                    type="text"
+                    id="lastName"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    required
+                  />
+                </div>
               </div>
             </div>
             <div className="stripe-element">
@@ -553,6 +688,48 @@ const CheckoutForm = ({
                 onChange={(e) => setPhone(e.target.value)}
                 required
               />
+              <label htmlFor="estado">Estado</label>
+              <select
+                name="estado"
+                id="estado"
+                value={estado}
+                onChange={(e) => setEstado(e.target.value)}
+              >
+                <option value="">SELECCIONA ESTADO</option>
+                <option value="USA">USA</option>
+                <option value="Aguascalientes">Aguascalientes</option>
+                <option value="Baja California">Baja California</option>
+                <option value="Baja California Sur">Baja California Sur</option>
+                <option value="Campeche">Campeche</option>
+                <option value="Chiapas">Chiapas</option>
+                <option value="Chihuahua">Chihuahua</option>
+                <option value="Ciudad de México">Ciudad de México</option>
+                <option value="Coahuila">Coahuila</option>
+                <option value="Colima">Colima</option>
+                <option value="Durango">Durango</option>
+                <option value="Estado de México">Estado de México</option>
+                <option value="Guanajuato">Guanajuato</option>
+                <option value="Guerrero">Guerrero</option>
+                <option value="Hidalgo">Hidalgo</option>
+                <option value="Jalisco">Jalisco</option>
+                <option value="Michoacán">Michoacán</option>
+                <option value="Morelos">Morelos</option>
+                <option value="Nayarit">Nayarit</option>
+                <option value="Nuevo León">Nuevo León</option>
+                <option value="Oaxaca">Oaxaca</option>
+                <option value="Puebla">Puebla</option>
+                <option value="Querétaro">Querétaro</option>
+                <option value="Quintana Roo">Quintana Roo</option>
+                <option value="San Luis Potosí">San Luis Potosí</option>
+                <option value="Sinaloa">Sinaloa</option>
+                <option value="Sonora">Sonora</option>
+                <option value="Tabasco">Tabasco</option>
+                <option value="Tamaulipas">Tamaulipas</option>
+                <option value="Tlaxcala">Tlaxcala</option>
+                <option value="Veracruz">Veracruz</option>
+                <option value="Yucatán">Yucatán</option>
+                <option value="Zacatecas">Zacatecas</option>
+              </select>
             </div>
           </>
         )}
@@ -563,7 +740,9 @@ const CheckoutForm = ({
               <button
                 type="submit"
                 className="button"
-                disabled={!stripe || isLoading}
+                disabled={
+                  !stripe || isLoading || estado === null || estado === ""
+                }
               >
                 {isLoading ? "Processing..." : `Pagar $${totalAmount} MXN`}
               </button>
@@ -572,7 +751,11 @@ const CheckoutForm = ({
               )}
             </>
           ) : paymentMethodType === "transferencia" ? (
-            <button type="submit" className="button">
+            <button
+              type="submit"
+              className="button"
+              disabled={estado === null || estado === ""}
+            >
               Apartar
             </button>
           ) : null
@@ -603,7 +786,11 @@ const CheckoutForm = ({
             ) : null}
 
             {paymentMethodType === "transferencia" ? (
-              <button type="submit" className="button">
+              <button
+                type="submit"
+                className="button"
+                disabled={estado === null || estado === ""}
+              >
                 Apartar
               </button>
             ) : null}

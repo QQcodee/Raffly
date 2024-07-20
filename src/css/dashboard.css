@@ -173,7 +173,6 @@ select:disabled {
 
 .boletos-dashboard-top {
   display: flex;
-  flex-direction: column;
 }
 
 .content-table {
