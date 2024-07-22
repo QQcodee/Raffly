@@ -326,6 +326,42 @@ const BoletosDashboard = () => {
     window.open(url, "_blank");
   };
 
+  const parseDate = (dateString) => {
+    return new Date(dateString);
+  };
+
+  const ButtonWithDateCheck = ({ item }) => {
+    const today = new Date();
+    const apartadoFecha = parseDate(item.apartado_fecha);
+
+    // Check if apartado_fecha is before today's date
+    const isBeforeToday = apartadoFecha < today;
+
+    return (
+      <div>
+        {isBeforeToday && (
+          <button
+            style={{
+              cursor: "pointer",
+              backgroundColor: "#DC3545",
+              color: "white",
+              padding: "10px",
+              borderRadius: "15px",
+              boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+              border: "none",
+              fontFamily: "Poppins",
+              fontSize: "12px",
+              width: "80px",
+            }}
+            onClick={() => eliminarBoletoApartado(item)}
+          >
+            Eliminar
+          </button>
+        )}
+      </div>
+    );
+  };
+
   return (
     <div
       style={{ display: "flex", flexDirection: "column" }}
@@ -517,7 +553,9 @@ const BoletosDashboard = () => {
               <th>Estado</th>
 
               <th>Valor</th>
-              <th>Boletos</th>
+
+              <th>Boletos y Oportunidades</th>
+
               <th
                 style={{ cursor: "pointer", whiteSpace: "nowrap" }}
                 onClick={() => handleSort("comprado")}
@@ -553,7 +591,18 @@ const BoletosDashboard = () => {
                 <td>{item.estado_mx}</td>
 
                 <td>{"$" + item.precio * item.num_boletos.length}</td>
-                <td>{item.num_boletos.join(", ")}</td>
+                <td>
+                  {item.num_boletos.join(", ")},{" "}
+                  {item.oportunidades ? (
+                    <div style={{ color: "#6FCF85" }}>
+                      {" "}
+                      {item.oportunidades.join(", ")}
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                </td>
+
                 <td style={{ whiteSpace: "nowrap" }}>
                   {item.comprado === true
                     ? "Pagado"
@@ -590,44 +639,40 @@ const BoletosDashboard = () => {
                       >
                         Confirmar
                       </button>
-                      <button
-                        style={{
-                          cursor: "pointer",
-                          backgroundColor: "#DC3545",
-                          color: "white",
-                          padding: "10px",
-                          borderRadius: "15px",
-                          boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
-                          border: "none",
-                          fontFamily: "Poppins",
-                          fontSize: "12px",
-                          width: "70px",
-                        }}
-                        onClick={() => eliminarBoletoApartado(item)}
-                      >
-                        Eliminar
-                      </button>
+                      <ButtonWithDateCheck item={item} />
                     </>
                   )}
 
                   {item.oxxo === true && (
-                    <button
-                      style={{
-                        cursor: "pointer",
-                        backgroundColor: "#3D9BE9",
-                        color: "white",
-                        padding: "10px",
-                        borderRadius: "15px",
-                        boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
-                        border: "none",
-                        fontFamily: "Poppins",
-                        fontSize: "12px",
-                        width: "150px",
-                      }}
-                      onClick={() => fetchPaymentStatus(item)}
-                    >
-                      Verificar pago oxxo
-                    </button>
+                    <>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: "10px",
+                        }}
+                      >
+                        {" "}
+                        <button
+                          style={{
+                            cursor: "pointer",
+                            backgroundColor: "#3D9BE9",
+                            color: "white",
+                            padding: "10px",
+                            borderRadius: "15px",
+                            boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+                            border: "none",
+                            fontFamily: "Poppins",
+                            fontSize: "12px",
+                            width: "150px",
+                          }}
+                          onClick={() => fetchPaymentStatus(item)}
+                        >
+                          Verificar pago oxxo
+                        </button>
+                        <ButtonWithDateCheck item={item} />
+                      </div>
+                    </>
                   )}
                 </td>
                 <td>

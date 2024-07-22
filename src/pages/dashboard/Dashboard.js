@@ -17,7 +17,7 @@ const Dashboard = () => {
 
   const { user_id } = useParams();
 
-  console.log(data);
+  console.log("data", data);
 
   useEffect(() => {
     const fetchRifas = async () => {
@@ -115,6 +115,19 @@ const Dashboard = () => {
             boletos={data}
             totalNumbers={currentRifa.numboletos}
           />
+        </div>
+
+        <div>
+          {data[0] ? (
+            <h2>
+              {" "}
+              Total Recaudado: $
+              {(data[0].totalsold * currentRifa.precioboleto).toLocaleString(
+                "es-MX"
+              )}{" "}
+              MXN
+            </h2>
+          ) : null}
         </div>
       </div>
     </div>

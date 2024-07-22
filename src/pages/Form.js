@@ -57,6 +57,14 @@ const CheckoutForm = ({
   const ticketNumbersArray = cart.map((item) => item.ticketNumber);
   const ticketNumbersWhatsapp = ticketNumbersArray.join("%0A");
 
+  const oportunidadesArray = [];
+
+  cart.forEach((item) => {
+    if (Array.isArray(item.oportunidades)) {
+      oportunidadesArray.push(...item.oportunidades);
+    }
+  });
+
   const [estado, setEstado] = useState(null);
 
   const navigate = useNavigate();
@@ -112,6 +120,7 @@ const CheckoutForm = ({
           socio_user_id: rifa.user_id,
           comprado: true,
           estado_mx: estado,
+          oportunidades: oportunidadesArray,
         },
       ]);
 
@@ -155,6 +164,7 @@ const CheckoutForm = ({
           apartado_fecha: apartadoUntil,
 
           estado_mx: estado,
+          oportunidades: oportunidadesArray,
         },
       ]);
 
@@ -195,6 +205,7 @@ const CheckoutForm = ({
           apartado: true,
           apartado_fecha: apartadoUntil,
           estado_mx: estado,
+          oportunidades: oportunidadesArray,
         },
       ]);
 
