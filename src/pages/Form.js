@@ -778,7 +778,7 @@ const CheckoutForm = ({
                         encodeURIComponent(
                           socioMetaData[0].user_id.replace(/\s+/g, "-")
                         ) +
-                        "/login"
+                        "/login-carrito"
                     )
                   }
                 >

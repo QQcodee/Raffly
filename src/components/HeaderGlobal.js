@@ -548,6 +548,7 @@ const HeaderGlobal = () => {
                   justifyContent: "center",
                   boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
                 }}
+                onClick={() => navigate("/crear")}
               >
                 <Link
                   style={{ color: "white", textDecoration: "none" }}
@@ -609,6 +610,7 @@ const HeaderGlobal = () => {
                     justifyContent: "center",
                     boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
                   }}
+                  onClick={() => navigate("/dashboard/" + user?.id)}
                 >
                   <a
                     style={{ color: "black", textDecoration: "none" }}

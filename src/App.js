@@ -43,6 +43,7 @@ import CrearRifa from "./pages/dashboard/CrearRifa";
 import CalcularOps from "./components/CalcularOps";
 import Landing from "./pages/Landing";
 import RifaSingle from "./pages/RifaSingle";
+import LoginCart from "./pages/LoginCart";
 
 //import HeaderLogin from "./pages/HeaderLogin.js";
 //import Topbar from "./pages/dashboard/Topbar.js";
@@ -102,6 +103,11 @@ function App() {
           <Route
             path="/:nombre_negocio/:user_id/login"
             element={<LoginSingle />}
+          />
+
+          <Route
+            path="/:nombre_negocio/:user_id/login-carrito"
+            element={<LoginCart />}
           />
           <Route
             path="/:nombre_negocio/:user_id/perfil"
