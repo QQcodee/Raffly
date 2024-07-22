@@ -775,6 +775,7 @@ const HeaderGlobal = () => {
             className="headerIfSocioLogo"
           >
             <img
+              style={{ cursor: "pointer" }}
               onClick={() =>
                 navigate(
                   "/" +
@@ -818,6 +819,7 @@ const HeaderGlobal = () => {
                 fontWeight: "bold",
                 color: "white",
                 textTransform: "uppercase",
+                cursor: "pointer",
               }}
             >
               {socioMetaData[0].nombre_negocio}

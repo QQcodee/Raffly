@@ -43,9 +43,9 @@ const BoletosList = ({ boleto }) => {
         socioMetaData[0].phone +
         "&text=Porfavor envia una foto del comprobante de pago para asegurar tus " +
         count +
-        " boletos para el sorteo " +
+        " boletos para el sorteo (" +
         encodeURIComponent(boleto.nombre_rifa) +
-        ": %0A ———————————— %0A Nombre: " +
+        "): %0A ———————————— %0A Nombre: " +
         boleto.nombre +
         "%0A Telefono: " +
         boleto.telefono +
@@ -55,7 +55,9 @@ const BoletosList = ({ boleto }) => {
         ticketNumbersWhatsapp +
         "%0A%0ATOTAL: $" +
         totalAmount +
-        " %0A%0A Una vez enviado el comprobante de pago activaremos tu boleto en un periodo de 24hrs."
+        " %0A%0A Una vez enviado el comprobante de pago activaremos tu boleto en un periodo de 24hrs. %0A Para ver el estado de tu boleto puedes entrar al siguiente enlace: %0A" +
+        "raffly.com.mx/verificador/" +
+        boleto.email
     );
   };
 

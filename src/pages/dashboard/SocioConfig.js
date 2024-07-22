@@ -235,7 +235,7 @@ const SocioConfig = () => {
           }}
           type="submit"
         >
-          Save
+          Guardar
         </button>
       </form>
     </div>

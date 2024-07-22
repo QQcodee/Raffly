@@ -72,7 +72,9 @@ function App() {
           <Route path="/success" element={<Success />} />
 
           <Route path="/socios" element={<Socios />} />
+
           <Route path="/verificador" element={<VerificadorBoletos />} />
+          <Route path="/verificador/:email" element={<VerificadorBoletos />} />
 
           <Route path="/:nombre_negocio/:user_id" element={<SingleSocio />} />
 
@@ -105,7 +107,6 @@ function App() {
             path="/:nombre_negocio/:user_id/perfil"
             element={<SingleCarrito />}
           />
-          <Route path="/hed" element={<HeaderGlobal />} />
 
           {/* Dashboard routes */}
 

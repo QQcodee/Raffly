@@ -327,7 +327,9 @@ const CheckoutForm = ({
           ticketNumbersWhatsapp +
           "%0A%0ATOTAL: $" +
           totalAmount +
-          " %0A%0A CUENTAS DE PAGO AQUI: www.raffly.com.mx %0A %0A El siguiente paso es enviar foto del comprobante de pago por aqui"
+          " %0A%0A CUENTAS DE PAGO AQUI: www.raffly.com.mx %0A %0A El siguiente paso es enviar foto del comprobante de pago por aqui %0A %0A Para ver el estado de tu boleto puedes entrar al siguiente enlace: %0A" +
+          "raffly.com.mx/verificador/" +
+          email
       );
 
       handleSuccesfulPayment();

@@ -14,7 +14,7 @@ import "../css/Single-Socios/BoletosList.css";
 
 const VerificadorBoletos = () => {
   const { user } = useUser();
-  const { user_id, nombre_negocio, email } = useParams();
+  const { email } = useParams();
   const [boletos, setBoletos] = useState([]);
 
   const [buscarBoleto, setBuscarBoleto] = useState("");
@@ -53,6 +53,23 @@ const VerificadorBoletos = () => {
       setBoletos(data);
     }
   };
+
+  useEffect(() => {
+    const fetchAfterApartar = async () => {
+      const { data, error } = await supabase
+        .from("boletos")
+        .select()
+        .eq("email", email)
+
+        .order("created_at", { ascending: false });
+
+      if (data) {
+        setBoletos(data);
+      }
+    };
+
+    fetchAfterApartar();
+  }, [email]);
 
   return (
     <>
