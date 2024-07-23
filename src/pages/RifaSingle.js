@@ -25,6 +25,24 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Carousel from "../components/Carousel";
+import SlotMachine from "../components/SlotMachine";
+
+const Popup = ({ handleClose, show, children }) => {
+  return (
+    <div className={`popup ${show ? "show" : ""}`}>
+      <div className="popup-inner">
+        <p
+          style={{ fontSize: "20px", fontFamily: "poppins" }}
+          className="close-btn"
+          onClick={handleClose}
+        >
+          <i className="material-icons">close</i>
+        </p>
+        {children}
+      </div>
+    </div>
+  );
+};
 
 const CustomAlertDialog = ({ open, handleClose, handleConfirm }) => {
   return (
@@ -76,6 +94,12 @@ const RifaSingle = () => {
   const [rowHeight, setRowHeight] = useState(40);
   const [containerWidth, setContainerWidth] = useState(0);
   const containerRef = useRef(null);
+
+  const [showPopup, setShowPopup] = useState(false);
+
+  const togglePopup = () => {
+    setShowPopup(!showPopup);
+  };
 
   useEffect(() => {
     const fetchRifas = async () => {
@@ -775,10 +799,376 @@ const RifaSingle = () => {
                   left: "-2px",
                   cursor: "pointer",
                 }}
-                onClick={() => handleSelectRandomTickets(quantity)}
+                onClick={() => {
+                  togglePopup();
+                }}
                 src="https://ivltiudjxnrytalzxfwr.supabase.co/storage/v1/object/public/imagenes-rifas/No-borrar/slot_machine.png"
               ></img>
             </div>
+          </div>
+
+          <div className="maquinita-suerte-desktop">
+            <Popup show={showPopup} handleClose={togglePopup}>
+              {" "}
+              <h2
+                style={{
+                  textAlign: "center",
+                  fontFamily: "Poppins",
+                  fontSize: "32px",
+                  marginBottom: "20px",
+                }}
+              >
+                Maquinita de la Suerte
+              </h2>
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                {" "}
+                <SlotMachine columnas={5} />
+              </div>
+              {cart.length !== 0 ? (
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    gap: "10px",
+                    flexDirection: "column",
+                  }}
+                >
+                  <div style={{ display: "flex", justifyContent: "center" }}>
+                    <h3 style={{ textAlign: "center" }}>Boletos Generados</h3>
+                    <select
+                      style={{ marginLeft: "20px", maxWidth: "40px" }}
+                      value={quantity}
+                      onChange={(e) => setQuantity(Number(e.target.value))}
+                    >
+                      <option value="5">5</option>
+                      <option value="10">10</option>
+                      <option value="20">20</option>
+                      <option value="30">30</option>
+                      <option value="40">40</option>
+                      <option value="50">50</option>
+                    </select>{" "}
+                  </div>
+
+                  <h5 style={{ textAlign: "center" }}>
+                    {rifaDetails.oportunidades} oportunidades por boleto
+                  </h5>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      gap: "10px",
+                    }}
+                  >
+                    <button
+                      style={{ backgroundColor: "#343A40", cursor: "default" }}
+                    >
+                       
+                    </button>
+                    Boleto Principal
+                    <button
+                      style={{ backgroundColor: "#6FCF85", cursor: "default" }}
+                    >
+                       
+                    </button>
+                    Oportunidades
+                  </div>
+                  <h6
+                    style={{
+                      textAlign: "center",
+                      marginBottom: "15px",
+                      color: "red",
+                    }}
+                  >
+                    Click en los boletos que quieras eliminar
+                  </h6>
+                  <ul
+                    style={{
+                      listStyle: "none",
+                      display: "grid",
+                      gridTemplateColumns: "repeat(10, 1fr)",
+                      gap: "5px",
+                      padding: 0,
+                      maxHeight: "200px",
+
+                      overflowY: "scroll",
+                    }}
+                    className="boletos__seleccionados"
+                  >
+                    {cart.map((item, itemIndex) => (
+                      <>
+                        <li
+                          key={item.id}
+                          onClick={() => handleRemoveTicketFromCart(item.id)}
+                          style={{
+                            cursor: "pointer",
+                            backgroundColor: "#343A40",
+                            padding: "5px",
+                            width: "55px",
+                            borderRadius: "5px",
+                            color: "white",
+                            textAlign: "center",
+                            opacity: "0",
+                            "--index": itemIndex,
+                          }}
+                        >
+                          {item.ticketNumber}
+                        </li>
+
+                        {item.oportunidades.map((oportunidad, index) => (
+                          <li
+                            key={`${item.id}-${index}`}
+                            onClick={() => handleRemoveTicketFromCart(item.id)}
+                            style={{
+                              cursor: "pointer",
+                              backgroundColor: "#6FCF85",
+                              padding: "5px",
+                              width: "55px",
+                              borderRadius: "5px",
+                              color: "white",
+                              textAlign: "center",
+                              opacity: "0",
+                              "--index": itemIndex,
+                            }}
+                          >
+                            {oportunidad}
+                          </li>
+                        ))}
+                      </>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  gap: "10px",
+                }}
+              >
+                <button
+                  onClick={() => {
+                    handleSelectRandomTickets(quantity);
+                  }}
+                  style={{
+                    backgroundColor: "#343A40",
+                    color: "white",
+                    borderRadius: "5px",
+                    border: "none",
+
+                    cursor: "pointer",
+                    fontSize: "16px",
+                    padding: "10px 20px",
+                    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                    fontWeight: "600",
+                    fontFamily: "Poppins",
+                  }}
+                >
+                  Generar boletos
+                </button>
+                {cart.length !== 0 ? (
+                  <button
+                    style={{
+                      color: "white",
+                      borderRadius: "5px",
+                      border: "none",
+
+                      cursor: "pointer",
+                      fontSize: "16px",
+                      padding: "10px 20px",
+                      boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                      fontWeight: "600",
+                      fontFamily: "Poppins",
+                    }}
+                    onClick={togglePopup}
+                  >
+                    Mantener Boletos
+                  </button>
+                ) : null}
+              </div>
+            </Popup>
+          </div>
+
+          <div className="maquinita-suerte-mobile">
+            <Popup show={showPopup} handleClose={togglePopup}>
+              {" "}
+              <h2
+                style={{
+                  textAlign: "center",
+                  fontFamily: "Poppins",
+                  fontSize: "32px",
+                  marginBottom: "20px",
+                }}
+              >
+                Maquinita de la Suerte
+              </h2>
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                {" "}
+                <SlotMachine columnas={3} />
+              </div>
+              {cart.length !== 0 ? (
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    gap: "10px",
+                    flexDirection: "column",
+                  }}
+                >
+                  <div style={{ display: "flex", justifyContent: "center" }}>
+                    <h3 style={{ textAlign: "center" }}>Boletos Generados</h3>
+                    <select
+                      style={{ marginLeft: "20px", maxWidth: "40px" }}
+                      value={quantity}
+                      onChange={(e) => setQuantity(Number(e.target.value))}
+                    >
+                      <option value="5">5</option>
+                      <option value="10">10</option>
+                      <option value="20">20</option>
+                      <option value="30">30</option>
+                      <option value="40">40</option>
+                      <option value="50">50</option>
+                    </select>{" "}
+                  </div>
+
+                  <h5 style={{ textAlign: "center" }}>
+                    {rifaDetails.oportunidades} oportunidades por boleto
+                  </h5>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      gap: "10px",
+                    }}
+                  >
+                    <button
+                      style={{ backgroundColor: "#343A40", cursor: "default" }}
+                    >
+                       
+                    </button>
+                    Boleto Principal
+                    <button
+                      style={{ backgroundColor: "#6FCF85", cursor: "default" }}
+                    >
+                       
+                    </button>
+                    Oportunidades
+                  </div>
+                  <h6
+                    style={{
+                      textAlign: "center",
+                      marginBottom: "15px",
+                      color: "red",
+                    }}
+                  >
+                    Click en los boletos que quieras eliminar
+                  </h6>
+                  <ul
+                    style={{
+                      listStyle: "none",
+                      display: "grid",
+                      gridTemplateColumns: "repeat(5, 1fr)",
+                      gap: "5px",
+                      padding: 0,
+                      maxHeight: "200px",
+
+                      overflowY: "scroll",
+                    }}
+                    className="boletos__seleccionados"
+                  >
+                    {cart.map((item, itemIndex) => (
+                      <>
+                        <li
+                          key={item.id}
+                          onClick={() => handleRemoveTicketFromCart(item.id)}
+                          style={{
+                            cursor: "pointer",
+                            backgroundColor: "#343A40",
+                            padding: "5px",
+                            width: "55px",
+                            borderRadius: "5px",
+                            color: "white",
+                            textAlign: "center",
+                            opacity: "0",
+                            "--index": itemIndex,
+                          }}
+                        >
+                          {item.ticketNumber}
+                        </li>
+
+                        {item.oportunidades.map((oportunidad, index) => (
+                          <li
+                            key={`${item.id}-${index}`}
+                            onClick={() => handleRemoveTicketFromCart(item.id)}
+                            style={{
+                              cursor: "pointer",
+                              backgroundColor: "#6FCF85",
+                              padding: "5px",
+                              width: "55px",
+                              borderRadius: "5px",
+                              color: "white",
+                              textAlign: "center",
+                              opacity: "0",
+                              "--index": itemIndex,
+                            }}
+                          >
+                            {oportunidad}
+                          </li>
+                        ))}
+                      </>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  gap: "10px",
+                }}
+              >
+                <button
+                  onClick={() => {
+                    handleSelectRandomTickets(quantity);
+                  }}
+                  style={{
+                    backgroundColor: "#343A40",
+                    color: "white",
+                    borderRadius: "5px",
+                    border: "none",
+
+                    cursor: "pointer",
+                    fontSize: "16px",
+                    padding: "10px 20px",
+                    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                    fontWeight: "600",
+                    fontFamily: "Poppins",
+                  }}
+                >
+                  Generar boletos
+                </button>
+                {cart.length !== 0 ? (
+                  <button
+                    style={{
+                      color: "white",
+                      borderRadius: "5px",
+                      border: "none",
+
+                      cursor: "pointer",
+                      fontSize: "16px",
+                      padding: "10px 20px",
+                      boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                      fontWeight: "600",
+                      fontFamily: "Poppins",
+                    }}
+                    onClick={togglePopup}
+                  >
+                    Mantener Boletos
+                  </button>
+                ) : null}
+              </div>
+            </Popup>
           </div>
 
           <div className="grid__boletos" ref={containerRef}>

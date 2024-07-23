@@ -44,6 +44,7 @@ import CalcularOps from "./components/CalcularOps";
 import Landing from "./pages/Landing";
 import RifaSingle from "./pages/RifaSingle";
 import LoginCart from "./pages/LoginCart";
+import SlotMachine from "./components/SlotMachine";
 
 //import HeaderLogin from "./pages/HeaderLogin.js";
 //import Topbar from "./pages/dashboard/Topbar.js";
@@ -73,6 +74,7 @@ function App() {
           <Route path="/success" element={<Success />} />
 
           <Route path="/socios" element={<Socios />} />
+          <Route path="/slot" element={<SlotMachine />} />
 
           <Route path="/verificador" element={<VerificadorBoletos />} />
           <Route path="/verificador/:email" element={<VerificadorBoletos />} />

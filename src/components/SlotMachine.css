@@ -1,0 +1,55 @@
+/* styles.css */
+.slot-column {
+  width: 80px; /* Match the width of the image */
+  height: 235px; /* Adjust height as needed for the visible portion */
+  overflow: hidden; /* Ensure content stays within the column */
+  position: relative;
+}
+
+.slot-content-1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1422px; /* Twice the height of the image to ensure seamless looping */
+  display: flex;
+  flex-direction: column;
+  animation: spin 1s linear infinite;
+}
+
+.slot-content-2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1422px; /* Twice the height of the image to ensure seamless looping */
+  display: flex;
+  flex-direction: column;
+  animation: spin 1.2s linear infinite;
+}
+.slot-content-3 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1422px; /* Twice the height of the image to ensure seamless looping */
+  display: flex;
+  flex-direction: column;
+  animation: spin 0.9s linear infinite;
+}
+
+.slot-content-1,
+.slot-content-2,
+.slot-content-3 img {
+  width: 80px; /* Match the width of the image */
+  height: 711px; /* Match the height of the image */
+}
+
+@keyframes spin {
+  0% {
+    transform: translateY(-711px);
+  }
+  100% {
+    transform: translateY(0); /* Move up by one image height */
+  }
+}
