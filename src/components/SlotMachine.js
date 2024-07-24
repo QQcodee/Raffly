@@ -112,7 +112,7 @@ const SlotMachine = ({ columnas }) => {
             </div>
 
             <div className="slot-column">
-              <div className="slot-content-3">
+              <div className="slot-content-2">
                 <img
                   src="https://ivltiudjxnrytalzxfwr.supabase.co/storage/v1/object/public/imagenes-rifas/No-borrar/slotreel.png"
                   alt="Slot Image"

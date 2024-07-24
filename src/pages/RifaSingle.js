@@ -1071,7 +1071,7 @@ const RifaSingle = () => {
                       gridTemplateColumns: "repeat(5, 1fr)",
                       gap: "5px",
                       padding: 0,
-                      maxHeight: "200px",
+                      maxHeight: "150px",
 
                       overflowY: "scroll",
                     }}
