@@ -45,6 +45,7 @@ import Landing from "./pages/Landing";
 import RifaSingle from "./pages/RifaSingle";
 import LoginCart from "./pages/LoginCart";
 import SlotMachine from "./components/SlotMachine";
+import LimpiarCarrito from "./pages/ClearCart";
 
 //import HeaderLogin from "./pages/HeaderLogin.js";
 //import Topbar from "./pages/dashboard/Topbar.js";
@@ -61,6 +62,8 @@ function App() {
         <Routes>
           {/* Main website routes */}
           <Route path="/" element={<Home />} />
+
+          <Route path="/clearcart" element={<LimpiarCarrito />} />
 
           <Route path="/:socio/:nombre/:id/:user_id" element={<RifaSingle />} />
           <Route path="/cart" element={<CartPage />} />
