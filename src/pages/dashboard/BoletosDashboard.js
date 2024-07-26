@@ -644,7 +644,13 @@ const BoletosDashboard = () => {
                   }}
                 >
                   {item.apartado === true && (
-                    <>
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "10px",
+                        flexDirection: "column",
+                      }}
+                    >
                       <button
                         style={{
                           cursor: "pointer",
@@ -665,7 +671,7 @@ const BoletosDashboard = () => {
                         Confirmar
                       </button>
                       <ButtonWithDateCheck item={item} />
-                    </>
+                    </div>
                   )}
 
                   {item.oxxo === true && (
