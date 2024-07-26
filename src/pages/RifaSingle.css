@@ -97,7 +97,6 @@
 .rifa__details h3 {
   font-size: 32px;
   font-family: "Poppins";
-  text-align: center;
 }
 
 .rifa__details h4 {
@@ -467,5 +466,9 @@
 
   .carrito__container {
     margin-bottom: 120px;
+  }
+
+  .rifa__details h3 {
+    text-align: center;
   }
 }
