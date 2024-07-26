@@ -88,6 +88,7 @@
   font-family: "Poppins";
   font-weight: 600;
   margin: 0;
+  text-align: center;
 }
 
 .rifa__details h2 {
@@ -468,7 +469,8 @@
     margin-bottom: 120px;
   }
 
-  .rifa__details h3 {
+  .rifa__details h3,
+  h1 {
     text-align: center;
   }
 }
