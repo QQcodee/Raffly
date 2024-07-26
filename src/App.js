@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { CartProvider } from "./CartContext";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 //import { CssBaseline, ThemeProvider } from "@mui/material";
 //import { ColorModeContext, useMode } from "./theme";
@@ -134,8 +135,9 @@ function App() {
             <Route path="stripe-config" element={<Onboarding />} />
           </Route>
         </Routes>
-        <Analytics />
       </Router>
+      <Analytics />
+      <SpeedInsights />
     </CartProvider>
   );
 }
