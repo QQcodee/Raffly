@@ -20,7 +20,11 @@ const Topbar = () => {
     <>
       {userMetaData[0] ? (
         <header
-          style={{ backgroundColor: userMetaData[0].color }}
+          style={{
+            backgroundColor: userMetaData[0].color,
+            display: "flex",
+            alignItems: "center",
+          }}
           className="topbar"
         >
           <h1
@@ -32,30 +36,21 @@ const Topbar = () => {
           >
             Panel de {userMetaData[0].nombre_negocio}
           </h1>
-          <nav className="nav-home">
-            <ul className="nav-home-ul">
-              <li>
-                <Link
-                  style={{
-                    textDecoration: "none",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    display: "flex",
-                    gap: "0.5rem",
-                    color: "white",
-                  }}
-                  className="nav-home-item"
-                  to={"#"}
-                  onClick={toggleMenu}
-                >
-                  <i className="material-icons">account_circle</i>
-                  {user.user_metadata.name}
-                </Link>
-              </li>
 
-              {isMenuOpen && <AccountMenu onClose={closeMenu} user={user} />}
-            </ul>
-          </nav>
+          <div
+            style={{
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+            }}
+            onClick={toggleMenu}
+          >
+            <i className="material-icons">account_circle</i>
+            {user.user_metadata.name}
+          </div>
+
+          {isMenuOpen && <AccountMenu onClose={closeMenu} user={user} />}
         </header>
       ) : null}
     </>
