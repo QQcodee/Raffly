@@ -15,6 +15,7 @@ const BoletosDashboard = () => {
   const [sortDirection, setSortDirection] = useState("asc"); // Default sorting direction
   const [searchTerm, setSearchTerm] = useState(""); // State for search term
   const [searchNumber, setSearchNumber] = useState(""); // State for searching number in num_boletos
+  const [searchOportunidades, setSearchOportunidades] = useState(""); // State for searching by oportunidades
   const [searchTelefono, setSearchTelefono] = useState(""); // State for searching by telefono
   const [selectedEstado, setSelectedEstado] = useState(""); // State for selected estado
 
@@ -227,18 +228,30 @@ const BoletosDashboard = () => {
   };
 
   // Function to handle search by number in num_boletos
+
+  // Filtering data based on search term and number in num_boletos
   const handleNumberSearch = (e) => {
     setSearchNumber(e.target.value);
   };
 
-  // Filtering data based on search term and number in num_boletos
+  // Filtering data based on search term and number in num_boletos or oportunidades
   const filteredData = sortedData.filter((item) => {
     const nombreMatch = item.nombre
       .toLowerCase()
       .includes(searchTerm.toLowerCase());
+
     const numberMatch = item.num_boletos.some(
       (num) => num.toString() === searchNumber
     );
+
+    // Check if item.oportunidades exists and is an array before searching
+    const oportunidadesMatch =
+      item.oportunidades && item.oportunidades.length > 0
+        ? item.oportunidades.some(
+            (oportunidad) => oportunidad.toString() === searchNumber
+          )
+        : false;
+
     const telefonoMatch = item.telefono
       ? item.telefono.toString().includes(searchTelefono.toString())
       : false;
@@ -258,7 +271,7 @@ const BoletosDashboard = () => {
 
     return (
       nombreMatch &&
-      (searchNumber === "" || numberMatch) &&
+      (searchNumber === "" || numberMatch || oportunidadesMatch) &&
       (searchTelefono === "" || telefonoMatch) &&
       estadoMatch
     );
@@ -545,7 +558,7 @@ const BoletosDashboard = () => {
                 style={{ cursor: "pointer", whiteSpace: "nowrap" }}
                 onClick={() => handleSort("nombre")}
               >
-                Nombre Comprador <i className="material-icons">swap_vert</i>
+                Nombre y Apellido <i className="material-icons">swap_vert</i>
               </th>
 
               <th>Telefono</th>
@@ -563,8 +576,8 @@ const BoletosDashboard = () => {
                 Estado <i className="material-icons">swap_vert</i>
               </th>
 
-              <th></th>
-              <th>Contador</th>
+              <th> </th>
+              <th> </th>
             </tr>
           </thead>
           <tbody>
@@ -574,16 +587,20 @@ const BoletosDashboard = () => {
                   style={{
                     cursor: "pointer",
                     whiteSpace: "nowrap",
-                    display: "flex",
+
                     alignItems: "center",
                     justifyContent: "space-between",
                   }}
                   onClick={() => abrirWhatsapp(item.telefono)}
                 >
-                  {item.nombre}
-                  <i style={{ color: "#007BFF" }} className="material-icons">
-                    chat
-                  </i>
+                  <div
+                    style={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    {item.nombre}
+                    <i style={{ color: "#007BFF" }} className="material-icons">
+                      chat
+                    </i>
+                  </div>
                 </td>
 
                 <td>{item.telefono}</td>
@@ -592,15 +609,22 @@ const BoletosDashboard = () => {
 
                 <td>{"$" + item.precio * item.num_boletos.length}</td>
                 <td>
-                  {item.num_boletos.join(", ")},{" "}
-                  {item.oportunidades ? (
-                    <div style={{ color: "#6FCF85" }}>
-                      {" "}
-                      {item.oportunidades.join(", ")}
-                    </div>
-                  ) : (
-                    ""
-                  )}
+                  <div
+                    style={{
+                      maxHeight: "100px",
+                      overflow: "auto",
+                    }}
+                  >
+                    {item.num_boletos.join(", ")},{" "}
+                    {item.oportunidades ? (
+                      <div style={{ color: "#6FCF85" }}>
+                        {" "}
+                        {item.oportunidades.join(", ")}
+                      </div>
+                    ) : (
+                      ""
+                    )}
+                  </div>
                 </td>
 
                 <td style={{ whiteSpace: "nowrap" }}>
@@ -614,7 +638,6 @@ const BoletosDashboard = () => {
                 </td>
                 <td
                   style={{
-                    display: "flex",
                     gap: "10px",
                     justifyContent: "center",
                     alignItems: "center",
@@ -634,6 +657,8 @@ const BoletosDashboard = () => {
                           fontFamily: "Poppins",
                           fontSize: "12px",
                           width: "80px",
+                          alignItems: "center",
+                          justifyContent: "center",
                         }}
                         onClick={() => actualizarStatus(item)}
                       >
