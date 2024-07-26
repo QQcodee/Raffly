@@ -466,7 +466,7 @@ const RifaSingle = () => {
             {rifaDetails.fecharifa && (
               <h3>Fecha del sorteo: {formatDate(rifaDetails.fecharifa)}</h3>
             )}
-            <h4>$30 MXN</h4>
+            <h4>${rifaDetails.precioboleto} MXN</h4>
 
             {rifaDetails.fecharifa ? (
               <div className="contanier-counter">
@@ -637,6 +637,7 @@ const RifaSingle = () => {
               textAlign: "center",
               fontFamily: "Poppins",
               fontSize: "32px",
+              marginTop: "80px",
             }}
             className="rifa-desc-render"
           >
@@ -1222,6 +1223,7 @@ const RifaSingle = () => {
           Comprar
         </button>
       ) : null}
+      <FooterGlobal />
     </>
   );
 };

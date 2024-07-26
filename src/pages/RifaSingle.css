@@ -60,12 +60,10 @@
   margin-left: 5vw;
   margin-right: 5vw;
 
-  background-color: rgba(255, 255, 255, 0.61);
   padding-left: 2vw;
   padding-right: 2vw;
   padding-top: 2vh;
   padding-bottom: 2vh;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
 
   gap: 20px;
 }
@@ -99,6 +97,7 @@
 .rifa__details h3 {
   font-size: 32px;
   font-family: "Poppins";
+  text-align: center;
 }
 
 .rifa__details h4 {
