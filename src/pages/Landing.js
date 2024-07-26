@@ -1,9 +1,11 @@
 import FooterGlobal from "../components/FooterGlobal";
 import HeaderGlobal from "../components/HeaderGlobal";
+import { useNavigate } from "react-router-dom";
 
 import "./Landing.css";
 
 const Landing = () => {
+  const navigate = useNavigate();
   return (
     <>
       <HeaderGlobal />
@@ -310,7 +312,6 @@ const Landing = () => {
             justifyContent: "center",
             gap: "20px",
             alignItems: "center",
-            marginBottom: "240px",
           }}
         >
           <div
@@ -336,6 +337,24 @@ const Landing = () => {
             ></img>
           </div>
         </section>
+        <button
+          onClick={() =>
+            navigate(
+              "/Raffly-Oficial/Sorteo-Ejemplo/793ff25d-3646-4362-97bf-bfd8900222c5/448f23ad-9146-4df5-a466-d37143d5d445"
+            )
+          }
+          style={{
+            color: "white",
+            padding: "10px 20px",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
+            marginTop: "100px",
+            marginBottom: "220px",
+          }}
+        >
+          Ver Demostracion
+        </button>
       </div>
 
       <div
