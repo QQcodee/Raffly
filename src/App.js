@@ -48,6 +48,7 @@ import RifaSingle from "./pages/RifaSingle";
 import LoginCart from "./pages/LoginCart";
 import SlotMachine from "./components/SlotMachine";
 import LimpiarCarrito from "./pages/ClearCart";
+import MetodosPago from "./pages/MetodosPago";
 
 //import HeaderLogin from "./pages/HeaderLogin.js";
 //import Topbar from "./pages/dashboard/Topbar.js";
@@ -100,6 +101,11 @@ function App() {
           <Route
             path="/:nombre_negocio/:user_id/mis-boletos/:email"
             element={<MisBoletos />}
+          />
+
+          <Route
+            path="/:nombre_negocio/:user_id/metodos-de-pago"
+            element={<MetodosPago />}
           />
 
           <Route

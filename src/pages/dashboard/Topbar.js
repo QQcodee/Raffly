@@ -21,7 +21,7 @@ const Topbar = () => {
       {userMetaData[0] ? (
         <header
           style={{
-            backgroundColor: userMetaData[0].color,
+            backgroundColor: "black",
             display: "flex",
             alignItems: "center",
           }}

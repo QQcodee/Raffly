@@ -174,7 +174,7 @@ const HeaderGlobal = () => {
                     cursor: "pointer",
                   }}
                   className="material-icons"
-                  onClick={() => navigate("/carrito")}
+                  onClick={() => navigate("/rifas")}
                 >
                   local_mall
                 </i>
@@ -333,7 +333,21 @@ const HeaderGlobal = () => {
               </li>
 
               <li>
-                <a href="/socios">Socios</a>
+                <a
+                  href={
+                    "/" +
+                    encodeURIComponent(
+                      socioMetaData[0].nombre_negocio.replace(/\s+/g, "-")
+                    ) +
+                    "/" +
+                    encodeURIComponent(
+                      socioMetaData[0].user_id.replace(/\s+/g, "-")
+                    ) +
+                    "/metodos-de-pago"
+                  }
+                >
+                  Metodos de pago
+                </a>
               </li>
 
               <hr className="divider-title"></hr>
@@ -409,6 +423,24 @@ const HeaderGlobal = () => {
                   }
                 >
                   Rifas
+                </a>
+              </li>
+
+              <li>
+                <a
+                  href={
+                    "/" +
+                    encodeURIComponent(
+                      socioMetaData[0].nombre_negocio.replace(/\s+/g, "-")
+                    ) +
+                    "/" +
+                    encodeURIComponent(
+                      socioMetaData[0].user_id.replace(/\s+/g, "-")
+                    ) +
+                    "/metodos-de-pago"
+                  }
+                >
+                  Metodos de pago
                 </a>
               </li>
 
@@ -590,7 +622,7 @@ const HeaderGlobal = () => {
                     <sub>{cartCount}</sub>
                   </Link>
                 ) : (
-                  <Link className="nav-home-item" to={"/carrito"}>
+                  <Link className="nav-home-item" to={"/rifas"}>
                     <i className="material-icons">local_mall</i>
                     <sub>{cartCount}</sub>
                   </Link>

@@ -57,7 +57,11 @@ const BoletosList = ({ boleto }) => {
         totalAmount +
         " %0A%0A Una vez enviado el comprobante de pago activaremos tu boleto en un periodo de 24hrs. %0A Para ver el estado de tu boleto puedes entrar al siguiente enlace: %0A" +
         "https://www.raffly.com.mx/verificador/verificador/" +
-        boleto.email
+        boleto.email +
+        "%0A%0A Para ver los metodos de pago puedes entrar al siguiente enlace: %0A" +
+        `https://www.raffly.com.mx/${encodeURIComponent(
+          boleto.socio.replace(/\s+/g, "-")
+        )}/${encodeURIComponent(boleto.socio_user_id)}/metodos-de-pago`
     );
   };
 
