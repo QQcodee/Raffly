@@ -66,6 +66,7 @@ const MetodosPago = () => {
                 fontWeight: "500",
                 color: "black",
                 fontFamily: "Poppins",
+                textAlign: "center",
               }}
             >
               Debes realizar el pago por alguna de éstas opciones y enviar tu
