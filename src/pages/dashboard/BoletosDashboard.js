@@ -288,6 +288,12 @@ const BoletosDashboard = () => {
   };
 
   const handleExportCSV = () => {
+    const confirmar = window.confirm("¿Deseas exportar los datos a CSV?");
+
+    if (!confirmar) {
+      return;
+    }
+
     // Selecting specific columns (Name and Age)
     const selectedColumns = data.map(
       ({
