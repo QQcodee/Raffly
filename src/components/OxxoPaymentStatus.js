@@ -96,11 +96,11 @@ const OxxoPaymentStatus = ({ boleto }) => {
             }}
             onClick={handleRedirect}
           >
-            Pagar
+            Ir a Voucher de pago oxxo
           </button>
           <i
             onClick={() => fetchPaymentStatus()}
-            style={{ cursor: "pointer" }}
+            style={{ cursor: "pointer", marginTop: "10px" }}
             className="material-icons"
           >
             replay

@@ -138,14 +138,25 @@ const BoletosList = ({ boleto }) => {
                   </h4>
                 </section>
 
-                <section>
+                <section style={{ overflowY: "auto" }}>
                   <strong style={{ fontSize: "16px" }}>
                     Numeros:{" "}
                     <span style={{ fontSize: "11px" }}>
                       {" "}
                       {numBoletosString}
+                      {boleto.oportunidades ? (
+                        <div style={{ color: "#6FCF85" }}>
+                          <strong style={{ fontSize: "16px" }}>
+                            Oportunidades:{" "}
+                          </strong>{" "}
+                          {boleto.oportunidades.join(", ")}
+                        </div>
+                      ) : (
+                        ""
+                      )}
                     </span>
                   </strong>
+
                   <div>
                     <span></span>
                     <ul></ul>
