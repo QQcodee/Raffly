@@ -312,10 +312,9 @@ const CheckoutForm = ({
         //window.location.href = response.data.oxxoUrl;
 
         console.log(data);
+        window.open(data.oxxoUrl, "_blank");
 
         handleSuccesfulPayment(data.oxxoUrl, data.id);
-
-        window.open(data.oxxoUrl, "_blank");
       } catch (error) {
         console.error("Error:", error);
         setErrorMessage("Payment processing failed. Please try again.");
