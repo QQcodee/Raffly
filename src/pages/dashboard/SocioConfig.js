@@ -25,6 +25,10 @@ const SocioConfig = () => {
   const { user_id } = useParams();
   const [userMetaData, setUserMetaData] = useState([]);
   const [editIndex, setEditIndex] = useState(null); // Track which account is being edited
+
+  const [imagePreview, setImagePreview] = useState(null);
+  const [imageURL, setImageURL] = useState(null);
+
   const [formData, setFormData] = useState({
     nombre_negocio: "",
     phone: "",
@@ -80,6 +84,8 @@ const SocioConfig = () => {
       }
 
       console.log("Fetched user data:", data);
+
+      setImagePreview(data[0].image_url);
 
       setUserMetaData(data);
       setFormData({
@@ -146,6 +152,7 @@ const SocioConfig = () => {
           facebook_url: formData.facebook_url,
           instagram_url: formData.instagram_url,
           bancos: formData.bancos,
+          image_url: imageURL,
         })
         .eq("user_id", user_id);
 
@@ -250,6 +257,32 @@ const SocioConfig = () => {
       setIndexUpdate(index);
     }
     setShowPopup(!showPopup);
+  };
+
+  const handleImageUpload = async (file) => {
+    try {
+      const filePath = `public/${file.name}`;
+      const { data, error } = await supabase.storage
+        .from("imagenes-rifas")
+        .upload(filePath, file);
+
+      // Retrieve the public URL for the uploaded image
+      const { data: publicURLData, error: publicURLError } = supabase.storage
+        .from("imagenes-rifas")
+        .getPublicUrl(filePath);
+
+      if (publicURLError) {
+        throw publicURLError;
+      }
+
+      const publicURL = publicURLData.publicUrl;
+
+      // Set the public URL to the state variable for preview or further processing
+      setImagePreview(publicURL);
+      setImageURL(publicURL);
+    } catch (error) {
+      console.error("Error uploading image:", error.message);
+    }
   };
 
   const InputCuentasBanco = ({ bancos }) => {
@@ -466,6 +499,35 @@ const SocioConfig = () => {
             onSubmit={handleSubmit}
             className="profile-form"
           >
+            <div style={{ padding: "20px", width: "100%" }}>
+              <label style={{ width: "100%" }} htmlFor="image">
+                Imagen Principal:
+              </label>
+              <input
+                type="file"
+                id="image"
+                accept="image/*"
+                onChange={(e) => handleImageUpload(e.target.files[0])}
+                required
+                style={{
+                  width: "100%",
+                  color: "black",
+                  padding: "10px",
+
+                  borderRadius: "15px",
+                  border: "1px solid #ccc",
+                  boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+                }}
+              />
+
+              {imagePreview && (
+                <img
+                  src={imagePreview}
+                  alt="Preview"
+                  style={{ maxWidth: "100%", maxHeight: "100px" }}
+                />
+              )}
+            </div>
             <div className="form-group">
               <label htmlFor="nombre_negocio">Nombre Negocio</label>
               <input
