@@ -287,14 +287,14 @@ const BoletosDashboard = () => {
     }
   };
 
-  const handleExportCSV = () => {
+  const handleExportCSV = (data) => {
     const confirmar = window.confirm("¿Deseas exportar los datos a CSV?");
 
     if (!confirmar) {
       return;
     }
 
-    // Selecting specific columns (Name and Age)
+    // Selecting specific columns and formatting num_boletos and oportunidades as strings
     const selectedColumns = data.map(
       ({
         nombre_rifa,
@@ -304,12 +304,12 @@ const BoletosDashboard = () => {
         email,
         telefono,
         num_boletos,
+        oportunidades,
         estado_mx,
         comprado,
         apartado,
         oxxo,
         precio,
-        valor,
       }) => ({
         nombre_rifa,
         id,
@@ -317,7 +317,8 @@ const BoletosDashboard = () => {
         nombre,
         email,
         telefono,
-        num_boletos,
+        num_boletos: JSON.stringify(num_boletos), // Convert num_boletos array to JSON string
+        oportunidades: JSON.stringify(oportunidades), // Convert oportunidades array to JSON string
         estado_mx,
         comprado,
         apartado,
@@ -327,16 +328,27 @@ const BoletosDashboard = () => {
       })
     );
 
-    // Converting selected data to CSV using Papaparse
+    // Convert to CSV using PapaParse
     const csv = Papa.unparse(selectedColumns);
 
-    // Creating a Blob and downloading the CSV file
-    const csvData = new Blob([csv], { type: "text/csv;charset=utf-8;" });
-    const csvURL = URL.createObjectURL(csvData);
-    const tempLink = document.createElement("a");
-    tempLink.href = csvURL;
-    tempLink.setAttribute("download", "my_export.csv");
-    tempLink.click();
+    // Log the CSV to the console for debugging
+    console.log("Generated CSV:", csv);
+
+    // Create a blob from the CSV string
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+
+    // Create a download link and trigger the download
+    const link = document.createElement("a");
+    const url = URL.createObjectURL(blob);
+    link.setAttribute("href", url);
+    link.setAttribute("download", "data.csv");
+    link.style.visibility = "hidden";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    // Log to confirm the download process
+    console.log("CSV download initiated.");
   };
 
   const abrirWhatsapp = (telefono) => {
@@ -521,7 +533,7 @@ const BoletosDashboard = () => {
             borderRadius: "15px",
             backgroundColor: "#6FCF85",
           }}
-          onClick={handleExportCSV}
+          onClick={() => handleExportCSV(data)}
           disabled={loading}
         >
           {loading ? "Exporting..." : "Exportar Boletos a Excel"}
