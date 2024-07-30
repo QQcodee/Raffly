@@ -39,7 +39,7 @@ function LoginCart() {
             encodeURIComponent(nombre_negocio.replace(/\s+/g, "-")) +
             "/" +
             encodeURIComponent(user_id.replace(/\s+/g, "-")) +
-            "/login"
+            "/login-carrito"
         );
       }
     });
