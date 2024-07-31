@@ -6,7 +6,82 @@ import LoadingBar from "../../components/LoadingBar";
 import axios from "axios";
 import Papa from "papaparse";
 
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+
+import { useNavigate } from "react-router-dom";
+
+const CustomAlertDialog = ({ open, handleClose, handleConfirm, boleto }) => {
+  return (
+    <Dialog
+      open={open}
+      onClose={handleClose}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+    >
+      <DialogTitle
+        style={{ fontWeight: "bold", color: "black", textAlign: "center" }}
+        id="alert-dialog-title"
+      >
+        {"Confirmar pago"}
+      </DialogTitle>
+      <DialogContent>
+        <DialogContentText id="alert-dialog-description">
+          <p
+            style={{
+              fontWeight: "400",
+              fontSize: "20px",
+              color: "black",
+              textAlign: "center",
+            }}
+          >
+            Seguro que quieres marcar este boleto como pagado?
+          </p>
+          <br />
+          Nombre: <strong>{boleto.nombre}</strong> <br />
+          <br /> Números:{" "}
+          <strong>
+            {boleto.num_boletos ? boleto.num_boletos.join(", ") : "N/A"}
+          </strong>{" "}
+          <br /> <br /> Oportunidades:{" "}
+          <strong>
+            {boleto.oportunidades ? boleto.oportunidades.join(", ") : "N/A"}
+          </strong>
+          <br /> <br /> Valor:{" "}
+          <strong>
+            {boleto.num_boletos
+              ? boleto.num_boletos.length * boleto.precio + " MXN"
+              : "N/A"}
+          </strong>
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions style={{ justifyContent: "center" }}>
+        <Button
+          style={{ color: "white", backgroundColor: "#DC3545" }}
+          onClick={handleClose}
+          color="primary"
+        >
+          Cancelar
+        </Button>
+        <Button
+          style={{ color: "white", backgroundColor: "#28A745" }}
+          onClick={handleConfirm}
+          color="primary"
+          autoFocus
+        >
+          Confirmar
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+};
+
 const BoletosDashboard = () => {
+  const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [rifas, setRifas] = useState([]);
   const [selectedRifa, setSelectedRifa] = useState(""); // State to hold the selected rifa ID
@@ -26,6 +101,19 @@ const BoletosDashboard = () => {
   const { user_id } = useParams();
 
   const [loading, setLoading] = useState(false);
+
+  const [open, setOpen] = useState(false);
+  const [openEliminar, setOpenEliminar] = useState(false);
+  const [boletoItem, setBoletoItem] = useState({});
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleConfirm = () => {
+    setOpen(false);
+    actualizarStatus(boletoItem);
+  };
 
   useEffect(() => {
     const fetchRifas = async () => {
@@ -72,12 +160,6 @@ const BoletosDashboard = () => {
   }, [selectedRifa, selectedName]); // Fetch boletos whenever selectedRifa changes
 
   const actualizarStatus = async (boleto) => {
-    const confirmed = window.confirm(
-      `Seguro que quieres marcar este boleto como pagado? \n \n  ${boleto.nombre} - ${boleto.num_boletos}`
-    );
-    if (!confirmed) {
-      return;
-    }
     const { data, error } = await supabase
       .from("boletos")
       .update({ comprado: true, apartado: false })
@@ -398,6 +480,13 @@ const BoletosDashboard = () => {
       style={{ display: "flex", flexDirection: "column" }}
       className="boletos-dashboard"
     >
+      <CustomAlertDialog
+        open={open}
+        handleClose={handleClose}
+        handleConfirm={handleConfirm}
+        boleto={boletoItem}
+      />
+
       <div
         style={{
           display: "flex",
@@ -684,10 +773,14 @@ const BoletosDashboard = () => {
                           alignItems: "center",
                           justifyContent: "center",
                         }}
-                        onClick={() => actualizarStatus(item)}
+                        onClick={() => {
+                          setOpen(true);
+                          setBoletoItem(item);
+                        }}
                       >
                         Confirmar
                       </button>
+
                       <ButtonWithDateCheck item={item} />
                     </div>
                   )}
