@@ -350,6 +350,29 @@ const HeaderGlobal = () => {
                 </a>
               </li>
 
+              {userRole === "Admin" || userRole === "Socio" ? (
+                <li
+                  style={{
+                    backgroundColor: "white",
+                    color: "black",
+                    borderRadius: "15px",
+                    padding: "10px",
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
+                  }}
+                >
+                  <a
+                    style={{ color: "black", textDecoration: "none" }}
+                    href={"/dashboard/" + user?.id}
+                  >
+                    Panel de socio
+                  </a>
+                </li>
+              ) : null}
+
               <hr className="divider-title"></hr>
 
               <button
@@ -777,6 +800,29 @@ const HeaderGlobal = () => {
                 <li>
                   <a href="/socios">Socios</a>
                 </li>
+
+                {userRole === "Admin" || userRole === "Socio" ? (
+                  <li
+                    style={{
+                      backgroundColor: "white",
+                      color: "black",
+                      borderRadius: "15px",
+                      padding: "10px",
+                      cursor: "pointer",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
+                    }}
+                  >
+                    <a
+                      style={{ color: "black", textDecoration: "none" }}
+                      href={"/dashboard/" + user?.id}
+                    >
+                      Panel de socio
+                    </a>
+                  </li>
+                ) : null}
 
                 <hr className="divider-title"></hr>
 
