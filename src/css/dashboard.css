@@ -1,46 +1,6 @@
 /* Sidebar styling */
-.sidebar {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between; /* Space items apart */
-  height: 100%; /* Full height of its container */
-  width: 230px; /* Fixed width */
-  background: #ffffff;
-  padding: 10px;
-  box-sizing: border-box; /* Include padding in width/height */
-  box-shadow: #333 0px 4px 4px;
-}
 
 /* Navigation styling */
-.nav-sidebar {
-  flex-grow: 1; /* Allow the nav to grow and take available space */
-  overflow-y: auto; /* Add scrolling to nav items if necessary */
-}
-
-/* Sidebar bottom link styling */
-.sidebar-bottom {
-  margin-top: auto; /* Push this element to the bottom */
-  padding-top: 20px; /* Optional padding */
-  border-top: 1px solid #696969;
-}
-
-/* Styling for sidebar items */
-.nav-sidebar-item {
-  display: block;
-  padding: 10px;
-  color: #333;
-  text-decoration: none;
-}
-
-.nav-sidebar-item:hover {
-  background: #ddd;
-}
-
-/* Optional styles for the image */
-.nav-sidebar-img {
-  border-radius: 50%;
-  margin-bottom: 10px;
-}
 
 /* Other CSS for your application */
 .dashboard-layout {

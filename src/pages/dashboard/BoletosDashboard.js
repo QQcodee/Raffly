@@ -2,7 +2,6 @@ import supabase from "../../config/supabaseClient";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import CountdownTimer from "../../components/CountdownTimer";
-import LoadingBar from "../../components/LoadingBar";
 import axios from "axios";
 import Papa from "papaparse";
 
@@ -492,6 +491,8 @@ const BoletosDashboard = () => {
           display: "flex",
           alignItems: "center",
           gap: "10px",
+          width: "100%",
+          overflowX: "auto",
         }}
         className="boletos-dashboard-top"
       >
@@ -518,6 +519,29 @@ const BoletosDashboard = () => {
                 {rifa.nombre}
               </option>
             ))}
+          </select>
+        </div>
+
+        <div className="select-container">
+          <select
+            id="estadoSelect"
+            value={selectedEstado}
+            onChange={(e) => setSelectedEstado(e.target.value)}
+            style={{
+              width: "200px",
+              height: "2.6rem",
+              color: "black",
+              padding: "10px",
+
+              borderRadius: "15px",
+              border: "1px solid #ccc",
+              boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+            }}
+          >
+            <option value="">Todos</option>
+            <option value="Pagado">Pagado</option>
+            <option value="Pago pendiente oxxo">Pago pendiente oxxo</option>
+            <option value="Apartado">Apartado</option>
           </select>
         </div>
 
@@ -575,29 +599,6 @@ const BoletosDashboard = () => {
           }}
         />
 
-        <div className="select-container">
-          <select
-            id="estadoSelect"
-            value={selectedEstado}
-            onChange={(e) => setSelectedEstado(e.target.value)}
-            style={{
-              width: "200px",
-              height: "2.6rem",
-              color: "black",
-              padding: "10px",
-
-              borderRadius: "15px",
-              border: "1px solid #ccc",
-              boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
-            }}
-          >
-            <option value="">Todos</option>
-            <option value="Pagado">Pagado</option>
-            <option value="Pago pendiente oxxo">Pago pendiente oxxo</option>
-            <option value="Apartado">Apartado</option>
-          </select>
-        </div>
-
         <button
           style={{
             margin: "10px",
@@ -606,7 +607,8 @@ const BoletosDashboard = () => {
             boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
             cursor: "pointer",
             fontFamily: "Poppins",
-            height: "3.6rem",
+            maxWidth: "400px",
+            width: "max-content",
           }}
           onClick={handleCheckDuplicates}
         >
@@ -668,14 +670,6 @@ const BoletosDashboard = () => {
                 Nombre y Apellido <i className="material-icons">swap_vert</i>
               </th>
 
-              <th>Telefono</th>
-              <th>Email</th>
-              <th>Estado</th>
-
-              <th>Valor</th>
-
-              <th>Boletos y Oportunidades</th>
-
               <th
                 style={{ cursor: "pointer", whiteSpace: "nowrap" }}
                 onClick={() => handleSort("comprado")}
@@ -685,6 +679,14 @@ const BoletosDashboard = () => {
 
               <th> </th>
               <th> </th>
+
+              <th>Telefono</th>
+              <th>Email</th>
+              <th>Estado</th>
+
+              <th>Valor</th>
+
+              <th>Boletos y Oportunidades</th>
             </tr>
           </thead>
           <tbody>
@@ -707,30 +709,6 @@ const BoletosDashboard = () => {
                     <i style={{ color: "#007BFF" }} className="material-icons">
                       chat
                     </i>
-                  </div>
-                </td>
-
-                <td>{item.telefono}</td>
-                <td>{item.email}</td>
-                <td>{item.estado_mx}</td>
-
-                <td>{"$" + item.precio * item.num_boletos.length}</td>
-                <td>
-                  <div
-                    style={{
-                      maxHeight: "100px",
-                      overflow: "auto",
-                    }}
-                  >
-                    {item.num_boletos.join(", ")},{" "}
-                    {item.oportunidades ? (
-                      <div style={{ color: "#6FCF85" }}>
-                        {" "}
-                        {item.oportunidades.join(", ")}
-                      </div>
-                    ) : (
-                      ""
-                    )}
                   </div>
                 </td>
 
@@ -835,6 +813,30 @@ const BoletosDashboard = () => {
                       colorLetras={"black"}
                     />
                   )}
+                </td>
+
+                <td style={{ whiteSpace: "nowrap" }}>{item.telefono}</td>
+                <td>{item.email}</td>
+                <td>{item.estado_mx}</td>
+
+                <td>{"$" + item.precio * item.num_boletos.length}</td>
+                <td>
+                  <div
+                    style={{
+                      maxHeight: "100px",
+                      overflow: "auto",
+                    }}
+                  >
+                    {item.num_boletos.join(", ")},{" "}
+                    {item.oportunidades ? (
+                      <div style={{ color: "#6FCF85" }}>
+                        {" "}
+                        {item.oportunidades.join(", ")}
+                      </div>
+                    ) : (
+                      ""
+                    )}
+                  </div>
                 </td>
               </tr>
             ))}

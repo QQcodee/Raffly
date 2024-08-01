@@ -86,6 +86,7 @@ const SocioConfig = () => {
       console.log("Fetched user data:", data);
 
       setImagePreview(data[0].image_url);
+      setImageURL(data[0].image_url);
 
       setUserMetaData(data);
       setFormData({
@@ -508,7 +509,6 @@ const SocioConfig = () => {
                 id="image"
                 accept="image/*"
                 onChange={(e) => handleImageUpload(e.target.files[0])}
-                required
                 style={{
                   width: "100%",
                   color: "black",
