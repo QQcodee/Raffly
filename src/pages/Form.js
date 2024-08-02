@@ -320,9 +320,15 @@ const CheckoutForm = ({
         setErrorMessage("Payment processing failed. Please try again.");
       }
     } else if (paymentMethodType === "transferencia") {
+      const randomIndex = Math.floor(
+        Math.random() * socioMetaData[0].phones.length
+      );
+      const selectedPhone = socioMetaData[0].phones[randomIndex];
+
+      console.log(selectedPhone);
       window.open(
         "https://api.whatsapp.com/send/?phone=" +
-          socioMetaData[0].phone +
+          selectedPhone +
           "&text=Hola aparte " +
           cartCount +
           " boletos para el sorteo " +

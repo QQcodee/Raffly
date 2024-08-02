@@ -11,6 +11,7 @@ import UploadImage from "../../components/UploadImage";
 const CrearRifa = () => {
   const [nombre, setNombre] = useState(null);
   const [desc, setDesc] = useState(null);
+
   // const [fecharifa,setfecharifa] = useState("")
   const [precioboleto, setprecioboleto] = useState(null);
   const [numboletos, setnumboletos] = useState(null);

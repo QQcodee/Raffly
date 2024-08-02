@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import supabase from "../../config/supabaseClient";
 import "./SocioConfig.css";
@@ -29,6 +29,8 @@ const SocioConfig = () => {
   const [imagePreview, setImagePreview] = useState(null);
   const [imageURL, setImageURL] = useState(null);
 
+  const [phoneNumbers, setPhoneNumbers] = useState([""]);
+
   const [formData, setFormData] = useState({
     nombre_negocio: "",
     phone: "",
@@ -58,6 +60,7 @@ const SocioConfig = () => {
     ],
     image_url:
       "https://ivltiudjxnrytalzxfwr.supabase.co/storage/v1/object/public/imagenes-rifas/No-borrar/Group_61.png",
+    phones: ["639 123 4564", "639 123 4564"],
   });
 
   const [showPopup, setShowPopup] = useState(false);
@@ -87,6 +90,8 @@ const SocioConfig = () => {
 
       setImagePreview(data[0].image_url);
       setImageURL(data[0].image_url);
+
+      setPhoneNumbers(data[0].phones || [""]);
 
       setUserMetaData(data);
       setFormData({
@@ -119,6 +124,7 @@ const SocioConfig = () => {
         image_url:
           data[0].image_url ||
           "https://ivltiudjxnrytalzxfwr.supabase.co/storage/v1/object/public/imagenes-rifas/No-borrar/Group_61.png",
+        phones: data[0].phones || [],
       });
     } catch (error) {
       console.error("Error fetching user data:", error.message);
@@ -133,6 +139,21 @@ const SocioConfig = () => {
     });
   };
 
+  const handleChangePhones = (index, event) => {
+    const newPhoneNumbers = [...phoneNumbers];
+    newPhoneNumbers[index] = event.target.value;
+    setPhoneNumbers(newPhoneNumbers);
+  };
+
+  const handleAddPhoneNumber = () => {
+    setPhoneNumbers([...phoneNumbers, ""]);
+  };
+
+  const handleRemovePhoneNumber = (index) => {
+    const newPhoneNumbers = phoneNumbers.filter((_, i) => i !== index);
+    setPhoneNumbers(newPhoneNumbers);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -142,6 +163,7 @@ const SocioConfig = () => {
   };
 
   const UpdateSocioData = async () => {
+    const telefonos = phoneNumbers;
     try {
       const { data, error } = await supabase
         .from("user_metadata")
@@ -154,6 +176,7 @@ const SocioConfig = () => {
           instagram_url: formData.instagram_url,
           bancos: formData.bancos,
           image_url: imageURL,
+          phones: telefonos,
         })
         .eq("user_id", user_id);
 
@@ -258,6 +281,19 @@ const SocioConfig = () => {
       setIndexUpdate(index);
     }
     setShowPopup(!showPopup);
+  };
+
+  const fileInputRef = useRef(null);
+
+  const handleClick = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleFileChange = async (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      await handleImageUpload(file);
+    }
   };
 
   const handleImageUpload = async (file) => {
@@ -476,6 +512,7 @@ const SocioConfig = () => {
           justifyContent: "space-between",
           padding: "40px",
           maxHeight: "90vh",
+          gap: "80px",
         }}
       >
         <div className="profile-form-container">
@@ -500,32 +537,67 @@ const SocioConfig = () => {
             onSubmit={handleSubmit}
             className="profile-form"
           >
-            <div style={{ padding: "20px", width: "100%" }}>
-              <label style={{ width: "100%" }} htmlFor="image">
-                Imagen Principal:
-              </label>
+            <div className="image-upload-button">
               <input
                 type="file"
-                id="image"
+                ref={fileInputRef}
+                onChange={handleFileChange}
+                style={{ display: "none" }}
                 accept="image/*"
-                onChange={(e) => handleImageUpload(e.target.files[0])}
-                style={{
-                  width: "100%",
-                  color: "black",
-                  padding: "10px",
-
-                  borderRadius: "15px",
-                  border: "1px solid #ccc",
-                  boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
-                }}
               />
 
               {imagePreview && (
-                <img
-                  src={imagePreview}
-                  alt="Preview"
-                  style={{ maxWidth: "100%", maxHeight: "100px" }}
-                />
+                <div
+                  style={{
+                    marginTop: "10px",
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                >
+                  <img
+                    src={imagePreview}
+                    alt="Preview"
+                    style={{
+                      width: "100px",
+                      height: "100px",
+                      borderRadius: "50%",
+                      boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
+                    }}
+                  />
+                  <button
+                    type="button"
+                    onClick={handleClick}
+                    style={{
+                      background: "white",
+                      border: "none",
+                      cursor: "pointer",
+                      padding: "10px",
+                      borderRadius: "15px",
+                      boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+                      position: "relative",
+
+                      display: "flex",
+                      justifyContent: "center",
+
+                      alignItems: "center",
+
+                      width: "50px",
+
+                      height: "50px",
+
+                      left: "-30px",
+                      top: "60px",
+                    }}
+                  >
+                    <i
+                      className="material-icons"
+                      style={{ fontSize: "24px", color: "#333" }}
+                    >
+                      {" "}
+                      add_a_photo
+                    </i>
+                  </button>
+                </div>
               )}
             </div>
             <div className="form-group">
@@ -547,8 +619,9 @@ const SocioConfig = () => {
                 }}
               />
             </div>
+
             <div className="form-group">
-              <label htmlFor="phone">Telefono (whatsapp)</label>
+              <label htmlFor="phone">Telefono Principal (whatsapp)</label>
               <input
                 type="tel"
                 id="phone"
@@ -566,6 +639,71 @@ const SocioConfig = () => {
                 }}
               />
             </div>
+
+            <div>
+              <label
+                style={{ display: "flex", alignItems: "center", gap: "10px" }}
+                htmlFor="phone"
+                onClick={handleAddPhoneNumber}
+              >
+                Telefonos secundarios(Incluir el principal){" "}
+                <i
+                  style={{
+                    cursor: "pointer",
+                    color: "white",
+                    backgroundColor: "#6FCF85",
+                    padding: "5px",
+                    borderRadius: "50%",
+                  }}
+                  className="material-icons"
+                >
+                  {" "}
+                  add
+                </i>
+              </label>
+              {phoneNumbers.map((phone, index) => (
+                <div
+                  key={index}
+                  style={{
+                    marginBottom: "10px",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <input
+                    type="tel"
+                    id={`phone-${index}`}
+                    name={`phone-${index}`}
+                    value={phone}
+                    onChange={(event) => handleChangePhones(index, event)}
+                    required
+                    style={{
+                      color: "black",
+                      padding: "10px",
+                      margin: "10px",
+                      borderRadius: "15px",
+                      border: "1px solid #ccc",
+                      boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+                    }}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => handleRemovePhoneNumber(index)}
+                    style={{
+                      marginLeft: "10px",
+                      padding: "10px",
+                      borderRadius: "15px",
+                      border: "1px solid #ccc",
+                      backgroundColor: "#DC3545",
+                      color: "white",
+                    }}
+                  >
+                    Eliminar
+                  </button>
+                </div>
+              ))}
+            </div>
+
             <div className="form-group">
               <label htmlFor="estado">Estado (ubicacion)</label>
               <select
