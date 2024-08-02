@@ -14,14 +14,28 @@ const CarouselRifas = ({ items }) => {
     slidesToShow: 3, // Number of items to show at once
     slidesToScroll: 1,
     autoplay: true,
+    centerMode: true,
+    centerPadding: "0px",
 
     responsive: [
       {
-        breakpoint: 1024,
+        breakpoint: 1328,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 1,
           dots: true,
+          centerMode: true,
+          centerPadding: "7px",
+        },
+      },
+      {
+        breakpoint: 885,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          dots: true,
+          centerMode: true,
+          centerPadding: "60px",
         },
       },
       {
@@ -30,6 +44,8 @@ const CarouselRifas = ({ items }) => {
           slidesToShow: 1,
           slidesToScroll: 1,
           dots: true,
+          centerMode: true,
+          centerPadding: "7px",
         },
       },
     ],
