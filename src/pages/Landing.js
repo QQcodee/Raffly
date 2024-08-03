@@ -339,8 +339,9 @@ const Landing = () => {
         </section>
         <button
           onClick={() =>
-            navigate(
-              "/Raffly-Oficial/Sorteo-Ejemplo/793ff25d-3646-4362-97bf-bfd8900222c5/448f23ad-9146-4df5-a466-d37143d5d445"
+            window.open(
+              "https://www.raffly.com.mx/Raffly-Oficial/Sorteo-Ejemplo/793ff25d-3646-4362-97bf-bfd8900222c5/448f23ad-9146-4df5-a466-d37143d5d445",
+              "_blank"
             )
           }
           style={{

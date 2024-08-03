@@ -57,14 +57,14 @@ const Home = () => {
             Rifas para todos los intereses, Participa y gana premios
             extraordinarios
             <br /> <br />
-            ¡Regístrate ahora y participa en tu primera rifa hoy mismo!
+            ¡Regístrate ahora y crea tu primera rifa hoy mismo!
           </h2>
 
           <button
             className="ver-rifas-button"
-            onClick={() => navigate("/rifas")}
+            onClick={() => navigate("/crear")}
           >
-            Ver Rifas
+            Crear Rifa
           </button>
         </div>
 
