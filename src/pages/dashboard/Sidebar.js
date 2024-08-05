@@ -41,31 +41,6 @@ const Sidebar = () => {
               >
                 <li>
                   <Link
-                    style={{
-                      textDecoration: "none",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "10px",
-                      justifyContent: "center",
-                    }}
-                    className="nav-sidebar-item"
-                    to={
-                      "/" +
-                      encodeURIComponent(
-                        userMetaData[0].nombre_negocio.replace(/\s+/g, "-")
-                      ) +
-                      "/" +
-                      encodeURIComponent(
-                        userMetaData[0].user_id.replace(/\s+/g, "-")
-                      )
-                    }
-                  >
-                    <i className="material-icons">home</i>
-                    Inicio
-                  </Link>
-                </li>
-                <li>
-                  <Link
                     className="nav-sidebar-item"
                     to={"/dashboard/" + user_id}
                     style={{
@@ -133,6 +108,36 @@ const Sidebar = () => {
               </ul>
             </nav>
             <div className="sidebar-bottom">
+              <button
+                onClick={() =>
+                  (window.location.href =
+                    "/" +
+                    encodeURIComponent(
+                      userMetaData[0].nombre_negocio.replace(/\s+/g, "-")
+                    ) +
+                    "/" +
+                    encodeURIComponent(
+                      userMetaData[0].user_id.replace(/\s+/g, "-")
+                    ))
+                }
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  gap: "10px",
+                  padding: "10px 20px",
+
+                  border: "none",
+                  borderRadius: "5px",
+                  cursor: "pointer",
+                  marginBottom: "20px",
+
+                  boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
+                  width: "100%",
+                }}
+              >
+                <i className="material-icons">arrow_back</i>Salir del panel
+              </button>
               <Link
                 style={{
                   textDecoration: "none",
