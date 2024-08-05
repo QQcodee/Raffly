@@ -50,6 +50,7 @@ import SlotMachine from "./components/SlotMachine";
 import LimpiarCarrito from "./pages/ClearCart";
 import MetodosPago from "./pages/MetodosPago";
 import AvisoDePrivacidad from "./pages/AvisoDePrivacidad";
+import AdminPanel from "./pages/dashboard/AdminPanel";
 
 //import HeaderLogin from "./pages/HeaderLogin.js";
 //import Topbar from "./pages/dashboard/Topbar.js";
@@ -141,6 +142,7 @@ function App() {
             <Route path="editar/:id" element={<Update />} />
             <Route path="config" element={<SocioConfig />} />
             <Route path="stripe-config" element={<Onboarding />} />
+            <Route path="admin-panel" element={<AdminPanel />} />
           </Route>
         </Routes>
       </Router>

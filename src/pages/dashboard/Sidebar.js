@@ -6,7 +6,7 @@ import { useUser } from "../../UserContext";
 
 const Sidebar = () => {
   const { user_id } = useParams();
-  const { userMetaData } = useUser();
+  const { userMetaData, userRole } = useUser();
 
   return (
     <>
@@ -105,6 +105,25 @@ const Sidebar = () => {
                     Stripe
                   </Link>
                 </li>
+
+                {userRole === "Admin" && (
+                  <li>
+                    <Link
+                      style={{
+                        textDecoration: "none",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "10px",
+                        justifyContent: "center",
+                      }}
+                      className="nav-sidebar-item"
+                      to="admin-panel"
+                    >
+                      <i className="material-icons">manage_accounts</i>
+                      Panel de Admin
+                    </Link>
+                  </li>
+                )}
               </ul>
             </nav>
             <div className="sidebar-bottom">
