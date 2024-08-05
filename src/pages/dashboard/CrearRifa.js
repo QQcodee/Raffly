@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import supabase from "../../config/supabaseClient";
 import { useUser } from "../../UserContext";
@@ -7,16 +8,22 @@ import { useUser } from "../../UserContext";
 import "./CrearRifa.css";
 import Switch from "react-switch";
 import UploadImage from "../../components/UploadImage";
+import { Alert } from "bootstrap";
 
 const CrearRifa = () => {
   const [nombre, setNombre] = useState(null);
   const [desc, setDesc] = useState(null);
+
+  const { user_id } = useParams();
 
   // const [fecharifa,setfecharifa] = useState("")
   const [precioboleto, setprecioboleto] = useState(null);
   const [numboletos, setnumboletos] = useState(null);
   const [formError, setFormError] = useState(null);
   const { user, userRole, userMetaData } = useUser(null);
+
+  const [creditos, setcreditos] = useState(null);
+
   const [categoria, setCategoria] = useState(null);
   const [oportunidades, setOportunidades] = useState(null);
 
@@ -43,6 +50,35 @@ const CrearRifa = () => {
   useEffect(() => {
     checkAccountSetup();
   }, [user]);
+
+  useEffect(() => {
+    const fetchCreditos = async () => {
+      const { data, error } = await supabase
+        .from("user_metadata")
+        .select("creditos")
+        .eq("user_id", user_id);
+
+      if (error) {
+        console.log(error);
+      }
+
+      if (data) {
+        setcreditos(data[0].creditos);
+      }
+    };
+
+    fetchCreditos();
+  }, []);
+
+  useEffect(() => {
+    if (creditos === null) {
+      return;
+    }
+
+    if (creditos < 1) {
+      navigate("/dashboard/" + user.id + "/mis-rifas");
+    }
+  }, [creditos]);
 
   const handleImageUrls = (urls) => {
     setImageUrls((prevUrls) => [...prevUrls, ...urls]);
@@ -91,6 +127,13 @@ const CrearRifa = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (creditos === null || creditos < 1) {
+      return;
+    }
+
+    const creditoRestantes = creditos - 1;
+    setcreditos(creditoRestantes);
 
     if (
       !nombre ||
@@ -142,6 +185,21 @@ const CrearRifa = () => {
     } else {
       console.log(data);
       setFormError(null);
+    }
+
+    restarCreditos(creditoRestantes);
+  };
+
+  const restarCreditos = async (creditoRestantes) => {
+    const { data, error } = await supabase
+      .from("user_metadata")
+      .update({ creditos: creditoRestantes })
+      .eq("user_id", user.id);
+
+    if (error) {
+      console.log(error);
+    } else {
+      console.log(data);
       navigate("/dashboard/" + user.id + "/mis-rifas");
     }
   };
@@ -320,10 +378,13 @@ const CrearRifa = () => {
             style={{
               display: "flex",
               justifyContent: "space-between",
-              padding: "50px",
+              padding: "20px",
+              gap: "60px",
             }}
           >
             <div>
+              <h1>Crear Rifa</h1>
+
               <form
                 style={{
                   maxWidth: "800px",

@@ -85,7 +85,7 @@ const BoletosDashboard = () => {
   const [rifas, setRifas] = useState([]);
   const [selectedRifa, setSelectedRifa] = useState(""); // State to hold the selected rifa ID
   const [selectedName, setSelectedName] = useState("");
-  const [sortBy, setSortBy] = useState("id"); // Default sorting by ID
+  const [sortBy, setSortBy] = useState("comprado"); // Default sorting by ID
   const [sortDirection, setSortDirection] = useState("asc"); // Default sorting direction
   const [searchTerm, setSearchTerm] = useState(""); // State for search term
   const [searchNumber, setSearchNumber] = useState(""); // State for searching number in num_boletos

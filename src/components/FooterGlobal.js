@@ -119,6 +119,23 @@ const FooterGlobal = () => {
       <p
         style={{
           color: "black",
+          fontWeight: "500",
+          fontSize: "13px",
+          textAlign: "center",
+          fontFamily: "Poppins",
+          marginTop: "20px",
+          cursor: "pointer",
+          textDecoration: "underline",
+        }}
+        onClick={() =>
+          window.open("https://www.raffly.com.mx/aviso-de-privacidad", "_blank")
+        }
+      >
+        Aviso de privacidad
+      </p>
+      <p
+        style={{
+          color: "black",
           fontWeight: "600",
           fontSize: "17px",
           textAlign: "center",

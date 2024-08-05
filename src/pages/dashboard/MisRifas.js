@@ -10,14 +10,17 @@ import { useUser } from "../../UserContext";
 import RifaListDashboard from "../../components/RifaListDashboard";
 import { Margin } from "@mui/icons-material";
 //import css
+import "./MisRifas.css";
 
 const MisRifas = () => {
   const { user_id } = useParams();
   const [fetchError, setFetchError] = useState(null);
   const [rifas, setRifas] = useState(null);
-  const { userMetaData } = useUser();
+  const { userMetaData } = useUser(null);
 
   const [accountExists, setAccountExists] = useState("default");
+
+  const [creditos, setCreditos] = useState(null);
 
   const navigate = useNavigate();
 
@@ -47,7 +50,21 @@ const MisRifas = () => {
 
     fetchRifas();
     checkAccountSetup();
+    fetchCreditos();
   }, [user_id]);
+
+  const fetchCreditos = async () => {
+    const { data, error } = await supabase
+      .from("user_metadata")
+      .select("creditos")
+      .eq("user_id", user_id);
+    if (error) {
+      console.log(error);
+    }
+    if (data) {
+      setCreditos(data);
+    }
+  };
 
   const checkAccountSetup = async () => {
     try {
@@ -86,34 +103,102 @@ const MisRifas = () => {
   };
 
   return (
-    <div className="dashboard-content">
-      <div>
-        {fetchError && <p>{fetchError}</p>}
+    <>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "20px",
+          paddingLeft: "20px",
+          paddingRight: "20px",
+        }}
+      >
+        <div className="titulo-mis-rifas">
+          <h1> Tus Rifas </h1>
 
-        <h1> Tus Rifas </h1>
-
-        <button
-          onClick={() => navigate("/dashboard/" + user_id + "/crear-rifa")}
-        >
-          {" "}
-          Crear Rifa{" "}
-        </button>
-
-        {rifas && (
-          <div style={{ marginLeft: "10px" }} className="rifas-grid">
-            {rifas.map((rifa) => (
-              <RifaListDashboard
-                key={rifa.id}
-                rifa={rifa}
-                user_id={user_id}
-                onDelete={handleDelete}
-                boletosVendidos={450}
-              />
-            ))}
+          <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+            {creditos !== null ? (
+              creditos[0].creditos > 0 ? (
+                <>
+                  {" "}
+                  <h3>Crear Rifa</h3>
+                  <i
+                    style={{
+                      cursor: "pointer",
+                      marginLeft: "10px",
+                      backgroundColor: "#6FCF85",
+                      color: "white",
+                      borderRadius: "50%",
+                      padding: "10px",
+                      fontSize: "20px",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
+                    }}
+                    onClick={() =>
+                      navigate("/dashboard/" + user_id + "/crear-rifa")
+                    }
+                    className="material-icons"
+                  >
+                    add
+                  </i>
+                  <p>Creditos: {creditos[0].creditos}</p>
+                </>
+              ) : (
+                <>
+                  No tienes mas creditos contacta a soporte para agregar mas.
+                  <button
+                    onClick={() =>
+                      window.open(
+                        "https://api.whatsapp.com/send/?phone=" +
+                          "+526143035198" +
+                          "&text=Quiero agregar creditos"
+                      )
+                    }
+                  >
+                    Contactar
+                  </button>
+                </>
+              )
+            ) : (
+              <>
+                No tienes mas creditos contacta a soporte para agregar mas.
+                <button
+                  onClick={() =>
+                    window.open(
+                      "https://api.whatsapp.com/send/?phone=" +
+                        "+526143035198" +
+                        "&text=Quiero agregar creditos"
+                    )
+                  }
+                >
+                  Contactar
+                </button>
+              </>
+            )}
           </div>
-        )}
+        </div>
+
+        <div>
+          {fetchError && <p>{fetchError}</p>}
+
+          {rifas && (
+            <div className="mis-rifas-grid">
+              {rifas.map((rifa) => (
+                <RifaListDashboard
+                  key={rifa.id}
+                  rifa={rifa}
+                  user_id={user_id}
+                  onDelete={handleDelete}
+                  boletosVendidos={450}
+                />
+              ))}
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

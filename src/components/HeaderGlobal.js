@@ -353,8 +353,8 @@ const HeaderGlobal = () => {
               {userRole === "Admin" || userRole === "Socio" ? (
                 <li
                   style={{
-                    backgroundColor: "white",
-                    color: "black",
+                    backgroundColor: "black",
+                    color: "white",
                     borderRadius: "15px",
                     padding: "10px",
                     cursor: "pointer",
@@ -365,7 +365,11 @@ const HeaderGlobal = () => {
                   }}
                 >
                   <a
-                    style={{ color: "black", textDecoration: "none" }}
+                    style={{
+                      color: "white",
+                      textDecoration: "none",
+                      backgroundColor: "black",
+                    }}
                     href={"/dashboard/" + user?.id}
                   >
                     Panel de socio
@@ -804,8 +808,8 @@ const HeaderGlobal = () => {
                 {userRole === "Admin" || userRole === "Socio" ? (
                   <li
                     style={{
-                      backgroundColor: "white",
-                      color: "black",
+                      backgroundColor: "black",
+                      color: "white",
                       borderRadius: "15px",
                       padding: "10px",
                       cursor: "pointer",
@@ -816,7 +820,11 @@ const HeaderGlobal = () => {
                     }}
                   >
                     <a
-                      style={{ color: "black", textDecoration: "none" }}
+                      style={{
+                        color: "white",
+                        textDecoration: "none",
+                        backgroundColor: "black",
+                      }}
                       href={"/dashboard/" + user?.id}
                     >
                       Panel de socio

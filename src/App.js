@@ -49,6 +49,7 @@ import LoginCart from "./pages/LoginCart";
 import SlotMachine from "./components/SlotMachine";
 import LimpiarCarrito from "./pages/ClearCart";
 import MetodosPago from "./pages/MetodosPago";
+import AvisoDePrivacidad from "./pages/AvisoDePrivacidad";
 
 //import HeaderLogin from "./pages/HeaderLogin.js";
 //import Topbar from "./pages/dashboard/Topbar.js";
@@ -72,6 +73,7 @@ function App() {
           <Route path="/cart" element={<CartPage />} />
 
           <Route path="/landing" element={<Landing />} />
+          <Route path="/aviso-de-privacidad" element={<AvisoDePrivacidad />} />
 
           <Route path="/editar/:id" element={<Update />} />
           <Route path="/crear" element={<Landing />} />

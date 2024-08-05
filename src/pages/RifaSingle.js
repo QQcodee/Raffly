@@ -121,6 +121,7 @@ const RifaSingle = () => {
       }
     };
     fetchRifas();
+    window.scrollTo(0, 0);
   }, [id, navigate]);
 
   useEffect(() => {
