@@ -629,15 +629,25 @@ const RifaSingle = () => {
           <h3>Premios</h3>
         </div>
 
-        <div style={{ height: "300px" }} className="premios__container">
+        <div
+          style={{
+            height: "max-content",
+
+            justifyContent: "center",
+            alignItems: "center",
+            display: "flex",
+            flexDirection: "column",
+          }}
+          className="premios__container"
+        >
           <ul
             style={{
               listStyle: "none",
               paddingLeft: "20px",
               paddingRight: "20px",
-              textAlign: "center",
+
               fontFamily: "Poppins",
-              fontSize: "32px",
+
               marginTop: "80px",
             }}
             className="rifa-desc-render"

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import supabase from "../../config/supabaseClient";
@@ -207,6 +207,7 @@ const CrearRifa = () => {
   const handleImageUpload = async (file) => {
     try {
       const filePath = `public/${file.name}`;
+
       const { data, error } = await supabase.storage
         .from("imagenes-rifas")
         .upload(filePath, file);
@@ -266,6 +267,7 @@ const CrearRifa = () => {
           newImageURLs.push(existingImage);
         } else {
           const filePath = `public/${file.name}`;
+
           const { data, error } = await supabase.storage
             .from("imagenes-rifas")
             .upload(filePath, file);
@@ -692,7 +694,7 @@ const CrearRifa = () => {
 
                 <div style={{ padding: "20px", width: "100%" }}>
                   <label style={{ width: "100%" }} htmlFor="image">
-                    Imagen Principal:
+                    Imagen Principal: (Solo Formato: .jpg, .jpeg, .png)
                   </label>
                   <input
                     type="file"
@@ -723,8 +725,10 @@ const CrearRifa = () => {
 
                 <div style={{ padding: "20px", width: "100%" }}>
                   <label style={{ width: "100%" }} htmlFor="image">
-                    Galeria: (INCLUYE LA IMAGEN PRINCIPAL)
+                    Galeria: (INCLUYE LA IMAGEN PRINCIPAL) (Solo Formato: .jpg,
+                    .jpeg, .png)
                   </label>
+
                   <input
                     type="file"
                     id="image"

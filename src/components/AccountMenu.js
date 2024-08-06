@@ -39,27 +39,13 @@ const AccountMenu = ({ onClose, user, socio_id, nombre_negocio }) => {
                     encodeURIComponent(nombre_negocio.replace(/\s+/g, "-")) +
                     "/" +
                     encodeURIComponent(socio_id.replace(/\s+/g, "-")) +
-                    "/perfil"
-                )
-              }
-            >
-              Mi Cuenta
-            </li>
-            <li
-              onClick={() =>
-                navigate(
-                  "/" +
-                    encodeURIComponent(nombre_negocio.replace(/\s+/g, "-")) +
-                    "/" +
-                    encodeURIComponent(socio_id.replace(/\s+/g, "-")) +
                     "/mis-boletos"
                 )
               }
             >
               Mis Boletos
             </li>
-            <li>Configuracion</li>
-            <li>Facturacion</li>
+
             <li onClick={logout}>Cerrar Sesion</li>
           </ul>
           <button onClick={onClose}>Cerrar</button>
@@ -83,10 +69,8 @@ const AccountMenu = ({ onClose, user, socio_id, nombre_negocio }) => {
               {user.user_metadata.name}
             </li>
 
-            <li onClick={() => navigate("/perfil")}>Mi Cuenta</li>
             <li onClick={() => navigate("/verificador")}>Mis Boletos</li>
-            <li>Configuracion</li>
-            <li>Facturacion</li>
+
             <li onClick={logout}>Cerrar Sesion</li>
           </ul>
           <button onClick={onClose}>Cerrar</button>

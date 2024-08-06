@@ -11,6 +11,7 @@ import RifaListDashboard from "../../components/RifaListDashboard";
 import { Margin } from "@mui/icons-material";
 //import css
 import "./MisRifas.css";
+import RifaList from "../../components/RifaList";
 
 const MisRifas = () => {
   const { user_id } = useParams();
@@ -185,14 +186,8 @@ const MisRifas = () => {
 
           {rifas && (
             <div className="mis-rifas-grid">
-              {rifas.map((rifa) => (
-                <RifaListDashboard
-                  key={rifa.id}
-                  rifa={rifa}
-                  user_id={user_id}
-                  onDelete={handleDelete}
-                  boletosVendidos={450}
-                />
+              {rifas.map((rifa, index) => (
+                <RifaList key={index} rifa={rifa} />
               ))}
             </div>
           )}

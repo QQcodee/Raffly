@@ -392,6 +392,7 @@
   left: -10px; /* Adjust as needed */
   transition: transform 0.5s ease;
   z-index: 8;
+  border-radius: 50%;
 }
 
 .hovered .logo {

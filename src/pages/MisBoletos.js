@@ -26,7 +26,9 @@ const MisBoletos = () => {
 
         .from("boletos")
         .select()
+        .eq("socio_user_id", user_id)
         .eq("user_id", user.id)
+
         .order("created_at", { ascending: false });
 
       if (data) {
@@ -34,7 +36,7 @@ const MisBoletos = () => {
       }
     };
     fetchBoletos();
-  }, [user]);
+  }, [user, user_id]);
 
   const handleBuscarBoleto = async (e) => {
     e.preventDefault();
@@ -141,7 +143,7 @@ const MisBoletos = () => {
               width: "200px",
             }}
             type="submit"
-            onClick={handleBuscarBoleto}
+            onClick={() => handleBuscarBoleto}
           >
             Buscar Boleto
           </button>

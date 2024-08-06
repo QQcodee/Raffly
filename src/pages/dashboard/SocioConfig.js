@@ -105,20 +105,20 @@ const SocioConfig = () => {
           {
             img: "https://ivltiudjxnrytalzxfwr.supabase.co/storage/v1/object/public/imagenes-rifas/No-borrar/bbva.png",
             banco: "Bank 89",
-            clabe: "458 548 856 987 154 158",
-            nombre: "Luis Enrique Castañeda",
+            clabe: "888 888 888 888 888 888",
+            nombre: "Aun no se configura",
           },
           {
             img: "https://ivltiudjxnrytalzxfwr.supabase.co/storage/v1/object/public/imagenes-rifas/No-borrar/logo-bancoppel.png",
             banco: "Bank 98",
-            clabe: "458 548 856 987 154 158",
-            nombre: "Luis Enrique Castañeda",
+            clabe: "888 888 888 888 888 888",
+            nombre: "Aun no se configura",
           },
           {
             img: "https://ivltiudjxnrytalzxfwr.supabase.co/storage/v1/object/public/imagenes-rifas/No-borrar/logo-bancoppel.png",
             banco: "Bank 15",
-            clabe: "458 548 856 987 154 158",
-            nombre: "Luis Enrique Castañeda",
+            clabe: "888 888 888 888 888 888",
+            nombre: "Aun no se configura",
           },
         ],
         image_url:

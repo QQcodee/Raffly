@@ -140,7 +140,7 @@ const VerificadorBoletos = () => {
               width: "200px",
             }}
             type="submit"
-            onClick={handleBuscarBoleto}
+            onClick={() => handleBuscarBoleto}
           >
             Buscar Boleto
           </button>
