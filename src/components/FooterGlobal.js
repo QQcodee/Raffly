@@ -75,6 +75,13 @@ const FooterGlobal = () => {
               </a>
               <a>
                 <img
+                  onClick={() =>
+                    window.open(
+                      "https://api.whatsapp.com/send/?phone=" +
+                        "+526143035198" +
+                        "&text=Hola tengo una duda de Raffly.com.mx"
+                    )
+                  }
                   src="https://ivltiudjxnrytalzxfwr.supabase.co/storage/v1/object/public/imagenes-rifas/No-borrar/whatsapp.png"
                   alt="logo"
                   style={{
@@ -106,10 +113,7 @@ const FooterGlobal = () => {
             <h3 style={{ textAlign: "left", fontSize: "11px", color: "black" }}>
               Email: enrique@raffly.com.mx
             </h3>
-            <h3 style={{ textAlign: "left", fontSize: "11px", color: "black" }}>
-              Calle Cordillera Del Condor #6019, <br />
-              Chihuahua, Chihuahua, Mexico. #33124
-            </h3>
+
             <h3 style={{ textAlign: "left", fontSize: "11px", color: "black" }}>
               Tel. 614 303 5198
             </h3>
