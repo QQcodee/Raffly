@@ -55,8 +55,8 @@
   min-width: 360px;
   height: 67vh;
   display: flex;
-  margin-top: 5vh;
-  margin-bottom: 5vh;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
   margin-left: 5vw;
   margin-right: 5vw;
 
@@ -84,11 +84,11 @@
 }
 
 .rifa__details h1 {
-  font-size: 56px;
+  font-size: 46px;
   font-family: "Poppins";
   font-weight: 600;
   margin: 0;
-  text-align: center;
+  text-align: left;
 }
 
 .rifa__details h2 {
@@ -96,7 +96,7 @@
   font-family: "Poppins";
 }
 .rifa__details h3 {
-  font-size: 32px;
+  font-size: 24px;
   font-family: "Poppins";
 }
 
@@ -301,7 +301,7 @@
     align-items: center;
     border-radius: 15px;
     width: 85vw;
-    height: 400px;
+
     overflow: hidden;
   }
 
@@ -395,6 +395,10 @@
 
     gap: 20px;
   }
+
+  .rifa__details h3 {
+    text-align: center;
+  }
 }
 
 @media (max-width: 830px) {
@@ -403,6 +407,18 @@
   }
   .maquinita-suerte-mobile {
     display: block;
+  }
+
+  .rifa__details h1 {
+    text-align: center;
+  }
+
+  .rifa__details h3 {
+    text-align: center;
+  }
+
+  .tarjeta__verificado {
+    display: none;
   }
 }
 
@@ -477,8 +493,13 @@
     margin-bottom: 120px;
   }
 
-  .rifa__details h3,
-  h1 {
+  .rifa__details h3 {
+    text-align: center;
+    font-size: 17px;
+  }
+
+  .rifa__details h1 {
+    font-size: 32px;
     text-align: center;
   }
 }
