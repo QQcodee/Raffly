@@ -24,6 +24,8 @@
   padding: 20px;
   width: 800px;
   height: auto;
+  max-height: 95vh;
+  overflow-y: auto;
   background: #ffffff;
 
   border-radius: 5px;

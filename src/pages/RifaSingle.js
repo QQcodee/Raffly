@@ -87,7 +87,7 @@ const RifaSingle = () => {
 
   const [open, setOpen] = useState(false);
 
-  const [quantity, setQuantity] = useState(10);
+  const [quantity, setQuantity] = useState(1);
 
   const [columnCount, setColumnCount] = useState(7);
   const [columnWidth, setColumnWidth] = useState(50);
@@ -670,16 +670,30 @@ const RifaSingle = () => {
               >
                 <h2>Generar boletos</h2>
                 <select
-                  style={{ marginLeft: "20px", maxWidth: "40px" }}
+                  style={{
+                    marginLeft: "20px",
+                    maxWidth: "40px",
+                    maxHeight: "40px",
+                    overflowY: "auto",
+                  }}
                   value={quantity}
                   onChange={(e) => setQuantity(Number(e.target.value))}
                 >
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+
                   <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+
+                  <option value="9">9</option>
+
                   <option value="10">10</option>
+                  <option value="15">15</option>
                   <option value="20">20</option>
-                  <option value="30">30</option>
-                  <option value="40">40</option>
-                  <option value="50">50</option>
                 </select>
               </div>
 
@@ -821,7 +835,6 @@ const RifaSingle = () => {
 
           <div className="maquinita-suerte-desktop">
             <Popup show={showPopup} handleClose={togglePopup}>
-              {" "}
               <h2
                 style={{
                   textAlign: "center",
@@ -848,16 +861,31 @@ const RifaSingle = () => {
                   <div style={{ display: "flex", justifyContent: "center" }}>
                     <h3 style={{ textAlign: "center" }}>Boletos Generados</h3>
                     <select
-                      style={{ marginLeft: "20px", maxWidth: "40px" }}
+                      type="number"
+                      style={{
+                        marginLeft: "20px",
+                        width: "auto",
+
+                        height: "auto",
+                      }}
                       value={quantity}
                       onChange={(e) => setQuantity(Number(e.target.value))}
                     >
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+
                       <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+
+                      <option value="9">9</option>
+
                       <option value="10">10</option>
+                      <option value="15">15</option>
                       <option value="20">20</option>
-                      <option value="30">30</option>
-                      <option value="40">40</option>
-                      <option value="50">50</option>
                     </select>{" "}
                   </div>
 
@@ -1034,12 +1062,21 @@ const RifaSingle = () => {
                       value={quantity}
                       onChange={(e) => setQuantity(Number(e.target.value))}
                     >
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+
                       <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+
+                      <option value="9">9</option>
+
                       <option value="10">10</option>
+                      <option value="15">15</option>
                       <option value="20">20</option>
-                      <option value="30">30</option>
-                      <option value="40">40</option>
-                      <option value="50">50</option>
                     </select>{" "}
                   </div>
 
