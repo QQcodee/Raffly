@@ -313,7 +313,25 @@ const HeaderGlobal = () => {
                     Mis Boletos
                   </a>
                 </li>
-              ) : null}
+              ) : (
+                <li>
+                  <a
+                    href={
+                      "/" +
+                      encodeURIComponent(
+                        socioMetaData[0].nombre_negocio.replace(/\s+/g, "-")
+                      ) +
+                      "/" +
+                      encodeURIComponent(
+                        socioMetaData[0].user_id.replace(/\s+/g, "-")
+                      ) +
+                      "/mis-boletos"
+                    }
+                  >
+                    Verificador de boletos
+                  </a>
+                </li>
+              )}
 
               <li>
                 <a

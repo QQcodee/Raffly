@@ -38,8 +38,8 @@ const MisBoletos = () => {
     fetchBoletos();
   }, [user, user_id]);
 
-  const handleBuscarBoleto = async (e) => {
-    e.preventDefault();
+  const handleBuscarBoleto = async () => {
+    console.log("buscando");
 
     const { data, error } = await supabase
       .from("boletos")
@@ -143,7 +143,7 @@ const MisBoletos = () => {
               width: "200px",
             }}
             type="submit"
-            onClick={() => handleBuscarBoleto}
+            onClick={() => handleBuscarBoleto()}
           >
             Buscar Boleto
           </button>

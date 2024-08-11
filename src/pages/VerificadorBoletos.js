@@ -18,6 +18,7 @@ const VerificadorBoletos = () => {
   const [boletos, setBoletos] = useState([]);
 
   const [buscarBoleto, setBuscarBoleto] = useState("");
+  console.log(buscarBoleto);
 
   const navigate = useNavigate();
 
@@ -37,8 +38,8 @@ const VerificadorBoletos = () => {
     fetchBoletos();
   }, [user]);
 
-  const handleBuscarBoleto = async (e) => {
-    e.preventDefault();
+  const handleBuscarBoleto = async () => {
+    console.log("buscando");
 
     const { data, error } = await supabase
       .from("boletos")
@@ -140,7 +141,7 @@ const VerificadorBoletos = () => {
               width: "200px",
             }}
             type="submit"
-            onClick={() => handleBuscarBoleto}
+            onClick={() => handleBuscarBoleto()}
           >
             Buscar Boleto
           </button>
