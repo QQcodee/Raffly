@@ -49,12 +49,14 @@ const CheckoutForm = ({
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  console.log(phone.length);
 
   const [isLoading, setIsLoading] = useState(false);
 
   const { cart, clearCart, removeItem, cartCount } = useCart();
 
   const ticketNumbersArray = cart.map((item) => item.ticketNumber);
+
   const ticketNumbersWhatsapp = ticketNumbersArray.join("%0A");
 
   const oportunidadesArray = [];
@@ -109,7 +111,7 @@ const CheckoutForm = ({
           num_boletos: ticketNumbersArray,
           user_id: user.id,
           precio: rifa.precioboleto,
-          desc: rifa.desc,
+
           nombre_rifa: rifa.nombre,
           email: email,
           telefono: phone,
@@ -148,7 +150,7 @@ const CheckoutForm = ({
           num_boletos: ticketNumbersArray,
           user_id: user.id,
           precio: rifa.precioboleto,
-          desc: rifa.desc,
+
           nombre_rifa: rifa.nombre,
           email: email,
           telefono: phone,
@@ -192,7 +194,7 @@ const CheckoutForm = ({
           num_boletos: ticketNumbersArray,
           user_id: user ? user.id : null,
           precio: rifa.precioboleto,
-          desc: rifa.desc,
+
           nombre_rifa: rifa.nombre,
           email: email,
           telefono: phone,
@@ -472,7 +474,7 @@ const CheckoutForm = ({
                 placeholder="Numero de whatsapp"
                 id="phone"
                 value={phone}
-                onChange={(e) => setPhone(e.target.value)}
+                onChange={(e) => setPhone(e.target.value.replace(/\D/g, ""))}
                 required
               />
 
@@ -597,7 +599,7 @@ const CheckoutForm = ({
                 placeholder="Numero de whatsapp"
                 id="phone"
                 value={phone}
-                onChange={(e) => setPhone(e.target.value)}
+                onChange={(e) => setPhone(e.target.value.replace(/\D/g, ""))}
                 required
               />
 
@@ -707,7 +709,7 @@ const CheckoutForm = ({
                 placeholder="Numero de whatsapp"
                 id="phone"
                 value={phone}
-                onChange={(e) => setPhone(e.target.value)}
+                onChange={(e) => setPhone(e.target.value.replace(/\D/g, ""))}
                 required
               />
               <label htmlFor="estado">Estado</label>
@@ -763,7 +765,11 @@ const CheckoutForm = ({
                 type="submit"
                 className="button"
                 disabled={
-                  !stripe || isLoading || estado === null || estado === ""
+                  !stripe ||
+                  isLoading ||
+                  estado === null ||
+                  estado === "" ||
+                  phone.length < 10
                 }
               >
                 {isLoading ? "Processing..." : `Pagar $${totalAmount} MXN`}
@@ -776,7 +782,7 @@ const CheckoutForm = ({
             <button
               type="submit"
               className="button"
-              disabled={estado === null || estado === ""}
+              disabled={estado === null || estado === "" || phone.length < 10}
             >
               Apartar
             </button>
@@ -811,7 +817,7 @@ const CheckoutForm = ({
               <button
                 type="submit"
                 className="button"
-                disabled={estado === null || estado === ""}
+                disabled={estado === null || estado === "" || phone.length < 10}
               >
                 Apartar
               </button>

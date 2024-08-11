@@ -27,6 +27,7 @@ const SingleCarrito = () => {
   const ticketNumbersArray = cart.map((item) => item.ticketNumber);
 
   const navigate = useNavigate();
+  console.log(cart);
 
   const handleRemoveTicketFromCart = (itemId) => {
     setSelectedTickets((prev) => {
