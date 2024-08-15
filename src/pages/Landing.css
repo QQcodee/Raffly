@@ -15,11 +15,23 @@
   object-fit: contain;
 }
 
+.titulo-landing {
+  font-size: 56px;
+  font-weight: 600;
+}
+
 .dashboard__section li {
   font-weight: bold;
   text-align: left;
   margin-bottom: 20px;
   font-size: 24px;
+}
+
+@media (max-width: 845px) {
+  .titulo-landing {
+    font-size: 36px;
+    font-weight: 600;
+  }
 }
 
 @media (max-width: 768px) {
@@ -50,5 +62,17 @@
     margin-bottom: 20px;
     font-size: 24px;
     align-items: center;
+  }
+}
+
+@media (max-width: 560px) {
+  .titulo-landing {
+    font-size: 27px;
+    font-weight: 600;
+  }
+
+  .sub-landing {
+    font-size: 24px;
+    font-weight: 400;
   }
 }

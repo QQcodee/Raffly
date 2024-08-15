@@ -54,11 +54,11 @@ const Home = () => {
           <h1>Bienvenido a Raffly!</h1>
 
           <h2>
-            La Mejor Plataforma de Rifas <br />
-            Rifas para todos los intereses, Participa y gana premios
-            extraordinarios
+            La Forma Más Simple de Crear Rifas <br />
+            Personaliza tu rifa, lanza y gana visibilidad. ¡Empieza tu rifa hoy
+            mismo!
             <br /> <br />
-            ¡Regístrate ahora y crea tu primera rifa hoy mismo!
+            ¡Contáctanos para comenzar con tu primera rifa!
           </h2>
 
           <button

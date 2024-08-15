@@ -19,10 +19,12 @@ const Landing = () => {
           alignItems: "center",
         }}
       >
-        <h2 style={{ fontSize: "56px", fontWeight: "bold" }}>
+        <h2 className="titulo-landing">
           Raffly - Tu Solución para Rifas y Sorteos en Línea{" "}
         </h2>
-        <h1>Sistema de Rifas y Sorteos Completamente Automatizado</h1>
+        <h1 className="sub-landing">
+          Sistema de Rifas y Sorteos Completamente Automatizado
+        </h1>
 
         <hr
           style={{
@@ -38,7 +40,7 @@ const Landing = () => {
             fontSize: "21px",
             maxWidth: "50ch",
             textAlign: "center",
-            marginBottom: "60px",
+            marginBottom: "5px",
           }}
         >
           {" "}
@@ -47,6 +49,28 @@ const Landing = () => {
           nos encargamos de todo: desde el hosting de tus rifas hasta la gestión
           de pagos y la administración de boletos.
         </p>
+        <button
+          style={{
+            marginTop: "20px",
+            marginBottom: "60px",
+            backgroundColor: "#6FCF85",
+            color: "white",
+            fontWeight: "bold",
+            fontSize: "46px",
+            boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+            borderRadius: "10px",
+            padding: "10px 20px",
+            cursor: "pointer",
+            border: "none",
+          }}
+          onClick={() =>
+            window.open(
+              "https://api.whatsapp.com/send/?phone=6143035198&text=Hola me interesa ser socio raffly"
+            )
+          }
+        >
+          Contactanos
+        </button>
 
         <hr
           style={{
