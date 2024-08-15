@@ -87,6 +87,11 @@ const MetodosPago = () => {
                 justifyContent: "center",
                 gap: "10px",
               }}
+              onClick={() => {
+                window.open(
+                  `https://wa.me/${userMetaData[0].phone}?text=Enviar comprobante de pago`
+                );
+              }}
             >
               <i className="material-icons">open_in_new</i>
               Whatsapp {userMetaData[0].phone}{" "}
