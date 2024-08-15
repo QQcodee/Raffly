@@ -443,6 +443,40 @@ const CrearRifa = () => {
                 />
 
                 <label
+                  style={{ margin: "20px", width: "100%" }}
+                  htmlFor="categoria"
+                >
+                  Categoría:
+                </label>
+
+                <select
+                  id="categoria"
+                  value={categoria}
+                  onChange={(e) => setCategoria(e.target.value)}
+                  required
+                  style={{
+                    width: "100%",
+                    color: "black",
+                    padding: "10px",
+                    margin: "10px",
+                    borderRadius: "15px",
+                    border: "1px solid #ccc",
+                    boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+                  }}
+                >
+                  <option value="">Seleccione una categoría</option>
+                  <option value="Vehiculos">Vehiculos</option>
+                  <option value="Celulares">Celulares</option>
+                  <option value="Efectivo">Efectivo</option>
+                  <option value="Joyeria">Joyeria</option>
+                  <option value="Relojes">Relojes</option>
+                  <option value="Propiedades">Propiedades</option>
+
+                  <option value="Otro">Otro</option>
+                  {/* Add more options as needed */}
+                </select>
+
+                <label
                   style={{
                     margin: "20px",
                     width: "100%",
@@ -509,6 +543,7 @@ const CrearRifa = () => {
                   <input
                     type="number"
                     id="precioboleto"
+                    min={1}
                     value={precioboleto}
                     onChange={(e) => setprecioboleto(e.target.value)}
                     required
@@ -527,44 +562,42 @@ const CrearRifa = () => {
 
                 <label
                   style={{ margin: "20px", width: "100%" }}
-                  htmlFor="categoria"
-                >
-                  Categoría:
-                </label>
-
-                <select
-                  id="categoria"
-                  value={categoria}
-                  onChange={(e) => setCategoria(e.target.value)}
-                  required
-                  style={{
-                    width: "100%",
-                    color: "black",
-                    padding: "10px",
-                    margin: "10px",
-                    borderRadius: "15px",
-                    border: "1px solid #ccc",
-                    boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
-                  }}
-                >
-                  <option value="">Seleccione una categoría</option>
-                  <option value="Vehiculos">Vehiculos</option>
-                  <option value="Celulares">Celulares</option>
-                  <option value="Efectivo">Efectivo</option>
-                  <option value="Joyeria">Joyeria</option>
-                  <option value="Relojes">Relojes</option>
-                  <option value="Propiedades">Propiedades</option>
-
-                  <option value="Otro">Otro</option>
-                  {/* Add more options as needed */}
-                </select>
-
-                <label
-                  style={{ margin: "20px", width: "100%" }}
                   htmlFor="metodosPago"
                 >
                   Metodos de pago:
                 </label>
+
+                <div
+                  style={{
+                    display: "flex",
+                    width: "90%",
+                    justifyContent: "space-between",
+                    borderTop: "1px solid #ccc",
+                    position: "relative",
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                  }}
+                >
+                  <p
+                    style={{
+                      maxWidth: "40ch",
+                      textAlign: "left",
+                      color: "red",
+                    }}
+                  >
+                    Comisiones por boleto vendido (tarjeta o oxxo):
+                  </p>
+                  <p style={{ color: "red" }}>
+                    {" "}
+                    $
+                    {(
+                      precioboleto * stripeFee +
+                      3 +
+                      (precioboleto * stripeFee + 3) * taxFee +
+                      precioboleto * appFee
+                    ).toFixed(2)}
+                  </p>
+                </div>
 
                 <div
                   style={{
@@ -808,8 +841,20 @@ const CrearRifa = () => {
                 {formError && <p className="error">{formError}</p>}
               </form>
             </div>
+          </div>
+        </div>
+      ) : (
+        <h1>No estas autorizado</h1>
+      )}
+    </>
+  );
+};
 
-            {precioboleto && (
+export default CrearRifa;
+
+/*
+
+{precioboleto && (
               <div
                 style={{
                   maxWidth: "800px",
@@ -1093,13 +1138,5 @@ const CrearRifa = () => {
                 </div>
               </div>
             )}
-          </div>
-        </div>
-      ) : (
-        <h1>No estas autorizado</h1>
-      )}
-    </>
-  );
-};
 
-export default CrearRifa;
+*/

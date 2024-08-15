@@ -10,6 +10,7 @@ const CounterRifasActivas = ({ idSocio }) => {
       const { data, error } = await supabase
         .from("rifas")
         .select()
+        .eq("status", "True")
         .eq("user_id", idSocio);
 
       if (error) {

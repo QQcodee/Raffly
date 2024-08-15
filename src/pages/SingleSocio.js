@@ -28,7 +28,8 @@ const SingleSocio = () => {
       const { data, error } = await supabase
         .from("rifas")
         .select()
-        .eq("user_id", user_id);
+        .eq("user_id", user_id)
+        .eq("status", "True");
 
       if (error) {
         setFetchError("Could not fetch rifas");

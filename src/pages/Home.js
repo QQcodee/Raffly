@@ -27,6 +27,7 @@ const Home = () => {
       const { data, error } = await supabase
         .from("rifas")
         .select()
+        .eq("status", "True")
         .order("created_at", { ascending: false })
         .range(0, 20);
 
