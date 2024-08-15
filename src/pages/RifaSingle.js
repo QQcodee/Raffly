@@ -107,11 +107,12 @@ const RifaSingle = () => {
         .from("rifas")
         .select()
         .eq("id", id)
+        .eq("status", "true")
         .single();
 
       if (error) {
         console.log(error);
-        //navigate("/", { replace: true });
+        navigate("/", { replace: true });
       }
 
       if (data) {

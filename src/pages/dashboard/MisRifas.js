@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import Switch from "react-switch";
 import { useUser } from "../../UserContext";
 
 //import components
@@ -18,6 +19,8 @@ const MisRifas = () => {
   const [fetchError, setFetchError] = useState(null);
   const [rifas, setRifas] = useState(null);
   const { userMetaData } = useUser(null);
+
+  console.log(rifas);
 
   const [accountExists, setAccountExists] = useState("default");
 
@@ -101,6 +104,28 @@ const MisRifas = () => {
     } catch (error) {
       console.error("Error checking account existence:", error);
     }
+  };
+
+  const toggleRifaStatus = async (rifa) => {
+    const confirm = window.confirm(
+      "¿Seguro que quieres cambiar el estado de esta rifa?"
+    );
+
+    if (!confirm) {
+      return;
+    }
+
+    const { data, error } = await supabase
+      .from("rifas")
+      .update({ status: !rifa.status })
+      .eq("id", rifa.id);
+    if (error) {
+      console.log(error);
+    }
+    if (data) {
+      console.log(data);
+    }
+    window.location.reload();
   };
 
   return (
@@ -187,7 +212,84 @@ const MisRifas = () => {
           {rifas && (
             <div className="mis-rifas-grid">
               {rifas.map((rifa, index) => (
-                <RifaList key={index} rifa={rifa} />
+                <>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      gap: "10px",
+                    }}
+                  >
+                    <RifaList key={index} rifa={rifa} />
+                    {rifa.status === true ? (
+                      <>
+                        <p
+                          style={{
+                            fontSize: "21px",
+                            backgroundColor: "#6FCF85",
+                            padding: "10px",
+                            borderRadius: "10px",
+                            color: "white",
+                            position: "relative",
+                            right: "-80px",
+                            top: "0px",
+                            zIndex: "10",
+                          }}
+                        >
+                          Rifa Activa
+                        </p>
+                        <div
+                          style={{
+                            position: "relative",
+                            right: "-80px",
+                            top: "0px",
+                            zIndex: "10",
+                          }}
+                        >
+                          {" "}
+                          <Switch
+                            onChange={() => toggleRifaStatus(rifa)}
+                            checked={rifa.status}
+                          />
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <p
+                          style={{
+                            fontSize: "21px",
+                            color: "white",
+                            padding: "10px",
+                            borderRadius: "10px",
+                            backgroundColor: "red",
+                            position: "relative",
+                            right: "-80px",
+                            top: "0px",
+                            zIndex: "10",
+                          }}
+                        >
+                          Rifa Inactiva
+                        </p>
+                        <div
+                          style={{
+                            position: "relative",
+                            right: "-80px",
+                            top: "0px",
+                            zIndex: "10",
+                          }}
+                        >
+                          {" "}
+                          <Switch
+                            onChange={() => toggleRifaStatus(rifa)}
+                            checked={rifa.status}
+                          />
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </>
               ))}
             </div>
           )}

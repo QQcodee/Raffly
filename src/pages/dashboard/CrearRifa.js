@@ -161,6 +161,7 @@ const CrearRifa = () => {
 
     const { data, error } = await supabase.from("rifas").insert([
       {
+        status: true,
         nombre,
         desc,
         precioboleto,
