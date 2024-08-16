@@ -51,6 +51,7 @@ import LimpiarCarrito from "./pages/ClearCart";
 import MetodosPago from "./pages/MetodosPago";
 import AvisoDePrivacidad from "./pages/AvisoDePrivacidad";
 import AdminPanel from "./pages/dashboard/AdminPanel";
+import UploadImgV2 from "./components/UploadImgV2";
 
 //import HeaderLogin from "./pages/HeaderLogin.js";
 //import Topbar from "./pages/dashboard/Topbar.js";
@@ -67,6 +68,8 @@ function App() {
         <Routes>
           {/* Main website routes */}
           <Route path="/" element={<Home />} />
+
+          <Route path="/imgv2" element={<UploadImgV2 />} />
 
           <Route path="/clearcart" element={<LimpiarCarrito />} />
 

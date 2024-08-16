@@ -9,6 +9,8 @@ import "./CrearRifa.css";
 import Switch from "react-switch";
 import UploadImage from "../../components/UploadImage";
 import { Alert } from "bootstrap";
+import UploadImgV2 from "../../components/UploadImgV2";
+import UploadImgPrincipalV2 from "../../components/ImageManager";
 
 const CrearRifa = () => {
   const [nombre, setNombre] = useState(null);
@@ -42,6 +44,8 @@ const CrearRifa = () => {
   const [startDate, setStartDate] = useState("");
 
   const [imageUrls, setImageUrls] = useState([]);
+
+  const [galeria, setGaleria] = useState([]);
 
   const [accountExists, setAccountExists] = useState("default");
 
@@ -205,31 +209,16 @@ const CrearRifa = () => {
     }
   };
 
-  const handleImageUpload = async (file) => {
-    try {
-      const filePath = `public/${file.name}`;
+  const handleGalleryUpdate = (updatedImages) => {
+    setGaleria(updatedImages);
+    setImagePreviews(updatedImages);
+    setItems(updatedImages);
+    setImages(updatedImages);
+  };
 
-      const { data, error } = await supabase.storage
-        .from("imagenes-rifas")
-        .upload(filePath, file);
-
-      // Retrieve the public URL for the uploaded image
-      const { data: publicURLData, error: publicURLError } = supabase.storage
-        .from("imagenes-rifas")
-        .getPublicUrl(filePath);
-
-      if (publicURLError) {
-        throw publicURLError;
-      }
-
-      const publicURL = publicURLData.publicUrl;
-
-      // Set the public URL to the state variable for preview or further processing
-      setImagePreview(publicURL);
-      setImageURL(publicURL);
-    } catch (error) {
-      console.error("Error uploading image:", error.message);
-    }
+  const handleImgPrincipalUpdate = (updatedImages) => {
+    setImagePreview(updatedImages);
+    setImageURL(updatedImages);
   };
 
   const [costoTotal, setCostoTotal] = useState(0);
@@ -249,56 +238,9 @@ const CrearRifa = () => {
   const [arrayImagenes, setArrayImagenes] = useState([]);
   //const rifa = "5e087aad-06ad-4ae4-9aaf-477f9fdf9209";
 
-  const [galeria, setGaleria] = useState([]);
-
   // Function to append new items to the array
   const addItems = (newItems) => {
     setItems((prevItems) => [...prevItems, ...newItems]);
-  };
-
-  const handleImagesUpload = async (files) => {
-    const newImagePreviews = [];
-    const newImageURLs = [];
-    const uploadPromises = Array.from(files).map(async (file) => {
-      try {
-        const existingImage = items.find((item) => item.includes(file.name));
-
-        if (existingImage) {
-          newImagePreviews.push(existingImage);
-          newImageURLs.push(existingImage);
-        } else {
-          const filePath = `public/${file.name}`;
-
-          const { data, error } = await supabase.storage
-            .from("imagenes-rifas")
-            .upload(filePath, file);
-        }
-
-        const filePath = `public/${file.name}`;
-
-        // Retrieve the public URL for the uploaded image
-        const { data: publicURLData, error: publicURLError } = supabase.storage
-          .from("imagenes-rifas")
-          .getPublicUrl(filePath);
-
-        if (publicURLError) {
-          throw publicURLError;
-        }
-
-        const publicURL = publicURLData.publicUrl;
-        newImagePreviews.push(publicURL);
-        newImageURLs.push(publicURL);
-        setGaleria(newImageURLs);
-        console.log(galeria);
-      } catch (error) {
-        console.error("Error uploading image:", error.message);
-      }
-    });
-
-    await Promise.all(uploadPromises);
-    setImagePreviews((prev) => [...prev, ...newImagePreviews]);
-    addItems(newImageURLs);
-    setImages((prev) => [...prev, ...newImageURLs]);
   };
 
   const handleDeleteImagen = (url) => {
@@ -730,31 +672,19 @@ const CrearRifa = () => {
                   <label style={{ width: "100%" }} htmlFor="image">
                     Imagen Principal: (Solo Formato: .jpg, .jpeg, .png)
                   </label>
-                  <input
-                    type="file"
-                    id="image"
-                    accept="image/*"
-                    onChange={(e) => handleImageUpload(e.target.files[0])}
-                    required
-                    style={{
-                      width: "100%",
-                      color: "black",
-                      padding: "10px",
 
-                      borderRadius: "15px",
-                      border: "1px solid #ccc",
-                      boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
-                    }}
+                  <UploadImgPrincipalV2
+                    onPrincipalUpdate={handleImgPrincipalUpdate}
                   />
-
-                  {/* Display preview of uploaded image */}
-                  {imagePreview && (
-                    <img
-                      src={imagePreview}
-                      alt="Preview"
-                      style={{ maxWidth: "100%", maxHeight: "100px" }}
-                    />
-                  )}
+                  <div style={{ marginTop: "10px" }}>
+                    {imagePreview && (
+                      <img
+                        src={imagePreview}
+                        alt="Preview"
+                        style={{ maxWidth: "100%", maxHeight: "100px" }}
+                      />
+                    )}
+                  </div>
                 </div>
 
                 <div style={{ padding: "20px", width: "100%" }}>
@@ -763,25 +693,9 @@ const CrearRifa = () => {
                     .jpeg, .png)
                   </label>
 
-                  <input
-                    type="file"
-                    id="image"
-                    accept="image/*"
-                    onChange={(e) => handleImagesUpload(e.target.files)}
-                    required
-                    multiple
-                    style={{
-                      width: "100%",
-                      color: "black",
-                      padding: "10px",
+                  <UploadImgV2 onGalleryUpdate={handleGalleryUpdate} />
 
-                      borderRadius: "15px",
-                      border: "1px solid #ccc",
-                      boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
-                    }}
-                  />
-
-                  <div className="image-gallery">
+                  <div style={{ marginTop: "10px" }} className="image-gallery">
                     {items.map((url, index) => (
                       <div
                         style={{ display: "inline-block" }}
@@ -796,6 +710,7 @@ const CrearRifa = () => {
                         />
 
                         <button
+                          type="button"
                           onClick={() => handleDeleteImagen(url)}
                           className="delete-button"
                         >

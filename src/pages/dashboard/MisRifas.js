@@ -39,7 +39,8 @@ const MisRifas = () => {
       const { data, error } = await supabase
         .from("rifas")
         .select()
-        .eq("user_id", user_id);
+        .eq("user_id", user_id)
+        .order("status", { ascending: false });
 
       if (error) {
         setFetchError("Could not fetch rifas");

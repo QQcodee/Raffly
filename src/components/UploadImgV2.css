@@ -1,0 +1,48 @@
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.popup.show {
+  display: flex;
+}
+
+.popup-inner {
+  position: relative;
+  padding: 20px;
+  width: 80vw;
+  height: 90vh;
+  max-height: 95vh;
+  overflow-y: auto;
+  background: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(161, 161, 161, 0.5);
+  border-radius: 15px;
+}
+
+.close-btn {
+  position: absolute;
+
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: rgb(0, 0, 0);
+}
+
+.imagenes-subidas {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 90px);
+  row-gap: 20px;
+  column-gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
