@@ -44,7 +44,7 @@ const MisBoletos = () => {
     const { data, error } = await supabase
       .from("boletos")
       .select()
-      .eq("email", buscarBoleto)
+      .or(`email.eq.${buscarBoleto},telefono.eq.${buscarBoleto}`)
       .eq("socio_user_id", user_id)
       .order("created_at", { ascending: false });
 
@@ -108,11 +108,11 @@ const MisBoletos = () => {
           <input
             type="text"
             id="nombreInput"
-            placeholder="Buscar boleto por email"
+            placeholder="Buscar boleto por email o telefono"
             value={buscarBoleto}
             onChange={(e) => setBuscarBoleto(e.target.value)}
             style={{
-              width: "250px",
+              width: "270px",
               color: "black",
               padding: "10px",
               marginLeft: "40px",

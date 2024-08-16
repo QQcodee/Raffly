@@ -44,7 +44,7 @@ const VerificadorBoletos = () => {
     const { data, error } = await supabase
       .from("boletos")
       .select()
-      .eq("email", buscarBoleto);
+      .or(`email.eq.${buscarBoleto},telefono.eq.${buscarBoleto}`); // Replace 'phone_number' with the actual column name for the phone number
 
     if (error) {
       console.log(error);
@@ -106,11 +106,11 @@ const VerificadorBoletos = () => {
           <input
             type="text"
             id="nombreInput"
-            placeholder="Buscar boleto por email"
+            placeholder="Buscar boleto por email o telefono"
             value={buscarBoleto}
             onChange={(e) => setBuscarBoleto(e.target.value)}
             style={{
-              width: "250px",
+              width: "270px",
               color: "black",
               padding: "10px",
               marginLeft: "40px",
