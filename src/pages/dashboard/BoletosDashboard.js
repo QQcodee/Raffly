@@ -145,7 +145,9 @@ const BoletosDashboard = () => {
 
       const { data, error } = await supabase
         .from("boletos")
-        .select()
+        .select(
+          "id, id_rifa, created_at, telefono, email, nombre, num_boletos, oportunidades, precio, comprado, apartado, oxxo, estado_mx, apartado_fecha, oxxo_id, oportunidades"
+        )
         .eq("id_rifa", selectedRifa);
 
       if (error) {
@@ -156,7 +158,7 @@ const BoletosDashboard = () => {
       }
     };
     fetchBoletos();
-  }, [selectedRifa, selectedName]); // Fetch boletos whenever selectedRifa changes
+  }, [selectedRifa]); // Fetch boletos whenever selectedRifa changes
 
   const actualizarStatus = async (boleto) => {
     const { data, error } = await supabase
@@ -378,7 +380,6 @@ const BoletosDashboard = () => {
     // Selecting specific columns and formatting num_boletos and oportunidades as strings
     const selectedColumns = data.map(
       ({
-        nombre_rifa,
         id,
         id_rifa,
         nombre,
@@ -392,7 +393,6 @@ const BoletosDashboard = () => {
         oxxo,
         precio,
       }) => ({
-        nombre_rifa,
         id,
         id_rifa,
         nombre,
@@ -422,7 +422,7 @@ const BoletosDashboard = () => {
     const link = document.createElement("a");
     const url = URL.createObjectURL(blob);
     link.setAttribute("href", url);
-    link.setAttribute("download", "data.csv");
+    link.setAttribute("download", `boletos_${currentRifa.nombre}.data.csv`);
     link.style.visibility = "hidden";
     document.body.appendChild(link);
     link.click();

@@ -150,7 +150,7 @@ const RifaSingle = () => {
 
       const { data, error } = await supabase
         .from("boletos")
-        .select()
+        .select("num_boletos")
         .eq("id_rifa", rifaDetails.id);
 
       if (error) {

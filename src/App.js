@@ -69,8 +69,6 @@ function App() {
           {/* Main website routes */}
           <Route path="/" element={<Home />} />
 
-          <Route path="/imgv2" element={<UploadImgV2 />} />
-
           <Route path="/clearcart" element={<LimpiarCarrito />} />
 
           <Route path="/:socio/:nombre/:id/:user_id" element={<RifaSingle />} />
@@ -86,7 +84,6 @@ function App() {
           <Route path="/success" element={<Success />} />
 
           <Route path="/socios" element={<Socios />} />
-          <Route path="/slot" element={<SlotMachine />} />
 
           <Route path="/verificador" element={<VerificadorBoletos />} />
           <Route path="/verificador/:email" element={<VerificadorBoletos />} />
