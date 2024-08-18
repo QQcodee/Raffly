@@ -18,9 +18,28 @@ const MisRifas = () => {
   const { user_id } = useParams();
   const [fetchError, setFetchError] = useState(null);
   const [rifas, setRifas] = useState(null);
-  const { userMetaData } = useUser(null);
+  const { userRole } = useUser(null);
 
-  console.log(rifas);
+  const [userMetaData, setUserMetaData] = useState();
+
+  useEffect(() => {
+    if (!user_id) {
+      return;
+    }
+    const fetchUserMetaData = async () => {
+      const { data, error } = await supabase
+        .from("user_metadata")
+        .select()
+        .eq("user_id", user_id)
+        .single();
+      if (error) {
+        console.error("Error fetching user metadata:", error.message);
+        return;
+      }
+      setUserMetaData(data);
+    };
+    fetchUserMetaData();
+  }, [user_id]);
 
   const [accountExists, setAccountExists] = useState("default");
 
@@ -273,6 +292,7 @@ const MisRifas = () => {
                         >
                           Rifa Inactiva
                         </p>
+                        {userRole}
                         <div
                           style={{
                             position: "relative",

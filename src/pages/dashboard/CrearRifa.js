@@ -22,7 +22,30 @@ const CrearRifa = () => {
   const [precioboleto, setprecioboleto] = useState(null);
   const [numboletos, setnumboletos] = useState(null);
   const [formError, setFormError] = useState(null);
-  const { user, userRole, userMetaData } = useUser(null);
+  const { user, userRole } = useUser(null);
+
+  const [userMetaData, setUserMetaData] = useState([]);
+
+  useEffect(() => {
+    if (!user_id) {
+      return;
+    }
+    const fetchUserMetaData = async () => {
+      const { data, error } = await supabase
+        .from("user_metadata")
+        .select()
+        .eq("user_id", user_id)
+        .single();
+      if (error) {
+        console.error("Error fetching user metadata:", error.message);
+        return;
+      }
+      setUserMetaData(data);
+    };
+    fetchUserMetaData();
+  }, [user_id]);
+
+  console.log(userMetaData);
 
   const [creditos, setcreditos] = useState(null);
 
@@ -80,7 +103,7 @@ const CrearRifa = () => {
     }
 
     if (creditos < 1) {
-      navigate("/dashboard/" + user.id + "/mis-rifas");
+      navigate("/dashboard/" + user_id + "/mis-rifas");
     }
   }, [creditos]);
 
@@ -118,7 +141,7 @@ const CrearRifa = () => {
   };
 
   const navMisRifas = () => {
-    navigate("/dashboard/" + user.id + "/mis-rifas");
+    navigate("/dashboard/" + user_id + "/mis-rifas");
   };
 
   useEffect(() => {
@@ -170,8 +193,8 @@ const CrearRifa = () => {
         desc,
         precioboleto,
         numboletos,
-        socio: userMetaData[0].nombre_negocio,
-        user_id: user.id,
+        socio: userMetaData.nombre_negocio,
+        user_id: user_id,
         categoria: categoria,
         img: image,
         fecharifa: date ? date : null,
@@ -199,13 +222,13 @@ const CrearRifa = () => {
     const { data, error } = await supabase
       .from("user_metadata")
       .update({ creditos: creditoRestantes })
-      .eq("user_id", user.id);
+      .eq("user_id", user_id);
 
     if (error) {
       console.log(error);
     } else {
       console.log(data);
-      navigate("/dashboard/" + user.id + "/mis-rifas");
+      navigate("/dashboard/" + user_id + "/mis-rifas");
     }
   };
 
@@ -260,7 +283,7 @@ const CrearRifa = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ accountId: userMetaData[0].stripe_id }),
+          body: JSON.stringify({ accountId: userMetaData.stripe_id }),
         }
       );
 
@@ -721,7 +744,7 @@ const CrearRifa = () => {
                   </div>
                 </div>
 
-                {userMetaData[0] ? (
+                {userMetaData ? (
                   <p
                     style={{
                       fontSize: "20px",
@@ -729,7 +752,7 @@ const CrearRifa = () => {
                       fontWeight: "600",
                     }}
                   >
-                    Rifa Creada por: {userMetaData[0].nombre_negocio}
+                    Rifa Creada por: {userMetaData.nombre_negocio}
                   </p>
                 ) : null}
 
