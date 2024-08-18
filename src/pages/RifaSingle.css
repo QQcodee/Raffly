@@ -19,6 +19,13 @@
   display: flex;
 }
 
+.contenedor-grid-boletos {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
 .popup-inner {
   position: relative;
   padding: 20px;
@@ -377,6 +384,14 @@
     margin-left: 20px;
   }
 
+  .contenedor-grid-boletos {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    align-items: center;
+  }
+
   .carrito__content {
     display: flex;
     flex-direction: column;
@@ -478,6 +493,14 @@
     border-radius: 5px;
     cursor: pointer;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .contenedor-grid-boletos {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    align-items: center;
   }
 
   .carrito__content {

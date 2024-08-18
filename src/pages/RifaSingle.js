@@ -74,11 +74,9 @@ const CustomAlertDialog = ({ open, handleClose, handleConfirm }) => {
 };
 
 const RifaSingle = () => {
-  //const id = "dd0a52e2-591f-44ec-8d58-8fc8a59832a1";
-
   const { id, user_id, nombre_negocio } = useParams();
   const navigate = useNavigate();
-  const { addItem, cart, removeItem, clearCart } = useCart(); // Destructure cart instead of cartItems
+  const { addItem, cart, removeItem, clearCart } = useCart();
   const [rifaDetails, setRifaDetails] = useState([]);
   const [socioMetaData, setSocioMetaData] = useState([]);
   const [soldTickets, setSoldTickets] = useState([]);
@@ -1220,21 +1218,27 @@ const RifaSingle = () => {
               </div>
             </Popup>
           </div>
+          <div className="contenedor-grid-boletos">
+            <h6>
+              {" "}
+              Boletos disponibles : {rifaDetails.numboletos - soldTicketsView}
+            </h6>
 
-          <div className="grid__boletos" ref={containerRef}>
-            <Grid
-              className="boletos-grid"
-              columnCount={columnCount}
-              overscanRowCount={5}
-              style={{ border: "none", overflowX: "hidden" }}
-              columnWidth={columnWidth}
-              height={600}
-              rowCount={Math.ceil(rifaDetails.numboletos / columnCount)}
-              rowHeight={rowHeight}
-              width={containerWidth}
-            >
-              {Cell}
-            </Grid>
+            <div className="grid__boletos" ref={containerRef}>
+              <Grid
+                className="boletos-grid"
+                columnCount={columnCount}
+                overscanRowCount={5}
+                style={{ border: "none", overflowX: "hidden" }}
+                columnWidth={columnWidth}
+                height={600}
+                rowCount={Math.ceil(rifaDetails.numboletos / columnCount)}
+                rowHeight={rowHeight}
+                width={containerWidth}
+              >
+                {Cell}
+              </Grid>
+            </div>
           </div>
         </div>
       </div>
