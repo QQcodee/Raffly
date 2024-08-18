@@ -22,7 +22,7 @@ const CrearRifa = () => {
   const [precioboleto, setprecioboleto] = useState(null);
   const [numboletos, setnumboletos] = useState(null);
   const [formError, setFormError] = useState(null);
-  const { user, userRole } = useUser(null);
+  const { userRole } = useUser(null);
 
   const [userMetaData, setUserMetaData] = useState([]);
 
@@ -44,8 +44,6 @@ const CrearRifa = () => {
     };
     fetchUserMetaData();
   }, [user_id]);
-
-  console.log(userMetaData);
 
   const [creditos, setcreditos] = useState(null);
 
@@ -76,7 +74,7 @@ const CrearRifa = () => {
 
   useEffect(() => {
     checkAccountSetup();
-  }, [user]);
+  }, [userMetaData]);
 
   useEffect(() => {
     const fetchCreditos = async () => {
