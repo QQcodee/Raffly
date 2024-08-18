@@ -44,6 +44,8 @@ const HeaderGlobal = () => {
 
   const { user, userRole } = useUser();
 
+  const [cuentasAdicionales, setCuentasAdicionales] = useState([]);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -60,12 +62,14 @@ const HeaderGlobal = () => {
       }
       if (data) {
         setSocioMetaData(data);
+        setCuentasAdicionales(data[0].sub_cuentas);
 
         //console.log(data);
       }
     };
     fetchUserMetaData();
   }, [user_id]);
+
   return (
     <>
       <header className="header-global">
@@ -368,7 +372,8 @@ const HeaderGlobal = () => {
                 </a>
               </li>
 
-              {userRole === "Admin" || userRole === "Socio" ? (
+              {user?.id === user_id ||
+              cuentasAdicionales?.includes(user?.id) ? (
                 <li
                   style={{
                     backgroundColor: "black",
@@ -388,7 +393,7 @@ const HeaderGlobal = () => {
                       textDecoration: "none",
                       backgroundColor: "black",
                     }}
-                    href={"/dashboard/" + user?.id}
+                    href={"/dashboard/" + user_id}
                   >
                     Panel de socio
                   </a>
@@ -489,7 +494,8 @@ const HeaderGlobal = () => {
                 </a>
               </li>
 
-              {userRole === "Admin" || userRole === "Socio" ? (
+              {user?.id === user_id ||
+              cuentasAdicionales?.includes(user?.id) ? (
                 <li
                   style={{
                     backgroundColor: "white",
@@ -505,7 +511,7 @@ const HeaderGlobal = () => {
                 >
                   <a
                     style={{ color: "black", textDecoration: "none" }}
-                    href={"/dashboard/" + user?.id}
+                    href={"/dashboard/" + user_id}
                   >
                     Panel de socio
                   </a>

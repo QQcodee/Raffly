@@ -1,14 +1,39 @@
 import { useUser } from "../../UserContext";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import supabase from "../../config/supabaseClient";
 import AccountMenu from "../../components/AccountMenu";
 import SideBarMobile from "./SideBarMobile";
+import { useParams } from "react-router-dom";
 
 //import navHome.css
 
 const Topbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { user, userMetaData } = useUser();
+  const { user } = useUser();
+
+  const { user_id } = useParams();
+
+  const [userMetaData, setUserMetaData] = useState([]);
+
+  useEffect(() => {
+    if (!user_id) {
+      return;
+    }
+    const fetchUserMetaData = async () => {
+      const { data, error } = await supabase
+        .from("user_metadata")
+        .select()
+        .eq("user_id", user_id)
+        .single();
+      if (error) {
+        console.error("Error fetching user metadata:", error.message);
+        return;
+      }
+      setUserMetaData(data);
+    };
+    fetchUserMetaData();
+  }, [user_id]);
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -25,7 +50,7 @@ const Topbar = () => {
   };
   return (
     <>
-      {userMetaData[0] ? (
+      {userMetaData ? (
         <>
           <header
             style={{
@@ -51,7 +76,7 @@ const Topbar = () => {
                 fontFamily: "Poppins",
               }}
             >
-              Panel de {userMetaData[0].nombre_negocio}
+              Panel de {userMetaData.nombre_negocio}
             </h1>
 
             <div

@@ -1,22 +1,46 @@
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useUser } from "../../UserContext";
+import supabase from "../../config/supabaseClient";
+import { useEffect, useState } from "react";
 
 //import sidebar css
 
 const Sidebar = () => {
   const { user_id } = useParams();
-  const { userMetaData, userRole } = useUser();
+  const { userRole } = useUser();
+
+  const [userMetaData, setUserMetaData] = useState();
+
+  useEffect(() => {
+    if (!user_id) {
+      return;
+    }
+    const fetchUserMetaData = async () => {
+      const { data, error } = await supabase
+        .from("user_metadata")
+        .select()
+        .eq("user_id", user_id)
+        .single();
+      if (error) {
+        console.error("Error fetching user metadata:", error.message);
+        return;
+      }
+      setUserMetaData(data);
+    };
+    fetchUserMetaData();
+  }, [user_id]);
 
   return (
     <>
       <aside className="sidebar">
-        {userMetaData[0] ? (
+        {userMetaData ? (
           <>
             <img
               className="nav-sidebar-img"
-              height={150}
-              src={userMetaData[0].image_url}
+              height="150px"
+              width="150px"
+              src={userMetaData.image_url}
               alt="User"
               style={{
                 boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
@@ -115,11 +139,11 @@ const Sidebar = () => {
                   (window.location.href =
                     "/" +
                     encodeURIComponent(
-                      userMetaData[0].nombre_negocio.replace(/\s+/g, "-")
+                      userMetaData.nombre_negocio.replace(/\s+/g, "-")
                     ) +
                     "/" +
                     encodeURIComponent(
-                      userMetaData[0].user_id.replace(/\s+/g, "-")
+                      userMetaData.user_id.replace(/\s+/g, "-")
                     ))
                 }
                 style={{

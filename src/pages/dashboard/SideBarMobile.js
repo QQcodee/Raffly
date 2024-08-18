@@ -1,10 +1,34 @@
 import { useUser } from "../../UserContext";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import supabase from "../../config/supabaseClient";
+import { useEffect, useState } from "react";
 
 const SideBarMobile = ({ isOpen, toggleSidebar }) => {
   const { user_id } = useParams();
-  const { userMetaData, userRole } = useUser();
+  const { userRole } = useUser();
+
+  const [userMetaData, setSocioMetaData] = useState([]);
+
+  useEffect(() => {
+    const fetchUserMetaData = async () => {
+      const { data, error } = await supabase
+        .from("user_metadata")
+        .select()
+        .eq("user_id", user_id);
+      if (error) {
+        console.error("Error fetching user metadata:", error.message);
+        return;
+      }
+
+      if (data) {
+        setSocioMetaData(data);
+      }
+    };
+
+    fetchUserMetaData();
+  }, [user_id]);
+
   return (
     <div
       style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
@@ -15,11 +39,18 @@ const SideBarMobile = ({ isOpen, toggleSidebar }) => {
           <img
             className="nav-sidebar-img"
             height={150}
-            src={userMetaData[0].image_url}
+            src={
+              userMetaData[0]
+                ? userMetaData[0].image_url
+                : "https://ivltiudjxnrytalzxfwr.supabase.co/storage/v1/object/public/imagenes-rifas/public/images.png"
+            }
             alt="User"
             style={{
               boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
               border: "1px solid #ccc",
+              borderRadius: "50%",
+              height: "150px",
+              width: "150px",
             }}
           />
           <nav
@@ -38,31 +69,6 @@ const SideBarMobile = ({ isOpen, toggleSidebar }) => {
                 alignItems: "flex-start",
               }}
             >
-              <li>
-                <Link
-                  style={{
-                    textDecoration: "none",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "10px",
-                    justifyContent: "center",
-                  }}
-                  className="nav-sidebar-item"
-                  to={
-                    "/" +
-                    encodeURIComponent(
-                      userMetaData[0].nombre_negocio.replace(/\s+/g, "-")
-                    ) +
-                    "/" +
-                    encodeURIComponent(
-                      userMetaData[0].user_id.replace(/\s+/g, "-")
-                    )
-                  }
-                >
-                  <i className="material-icons">home</i>
-                  Inicio
-                </Link>
-              </li>
               <li>
                 <Link
                   className="nav-sidebar-item"
@@ -113,23 +119,6 @@ const SideBarMobile = ({ isOpen, toggleSidebar }) => {
                 </Link>
               </li>
 
-              <li>
-                <Link
-                  style={{
-                    textDecoration: "none",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "10px",
-                    justifyContent: "center",
-                  }}
-                  className="nav-sidebar-item"
-                  to="stripe-config"
-                >
-                  <i className="material-icons">add_card</i>
-                  Stripe
-                </Link>
-              </li>
-
               {userRole === "Admin" && (
                 <li>
                   <Link
@@ -151,6 +140,36 @@ const SideBarMobile = ({ isOpen, toggleSidebar }) => {
             </ul>
           </nav>
           <div className="sidebar-bottom">
+            <button
+              onClick={() =>
+                (window.location.href =
+                  "/" +
+                  encodeURIComponent(
+                    userMetaData[0].nombre_negocio.replace(/\s+/g, "-")
+                  ) +
+                  "/" +
+                  encodeURIComponent(
+                    userMetaData[0].user_id.replace(/\s+/g, "-")
+                  ))
+              }
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: "10px",
+                padding: "10px 20px",
+
+                border: "none",
+                borderRadius: "5px",
+                cursor: "pointer",
+                marginBottom: "20px",
+
+                boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
+                width: "100%",
+              }}
+            >
+              <i className="material-icons">arrow_back</i>Salir del panel
+            </button>
             <Link
               style={{
                 textDecoration: "none",
@@ -163,6 +182,21 @@ const SideBarMobile = ({ isOpen, toggleSidebar }) => {
               to="config"
             >
               <i className="material-icons">settings</i>Config
+            </Link>
+
+            <Link
+              style={{
+                textDecoration: "none",
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+                justifyContent: "center",
+              }}
+              className="nav-sidebar-item"
+              to="stripe-config"
+            >
+              <i className="material-icons">add_card</i>
+              Stripe
             </Link>
           </div>
         </>
