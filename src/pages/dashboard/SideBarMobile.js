@@ -184,20 +184,22 @@ const SideBarMobile = ({ isOpen, toggleSidebar }) => {
               <i className="material-icons">settings</i>Config
             </Link>
 
-            <Link
-              style={{
-                textDecoration: "none",
-                display: "flex",
-                alignItems: "center",
-                gap: "10px",
-                justifyContent: "center",
-              }}
-              className="nav-sidebar-item"
-              to="stripe-config"
-            >
-              <i className="material-icons">add_card</i>
-              Stripe
-            </Link>
+            {userRole === "Socio" && (
+              <Link
+                style={{
+                  textDecoration: "none",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  justifyContent: "center",
+                }}
+                className="nav-sidebar-item"
+                to="stripe-config"
+              >
+                <i className="material-icons">add_card</i>
+                Stripe
+              </Link>
+            )}
           </div>
         </>
       ) : null}
