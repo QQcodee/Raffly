@@ -3,6 +3,7 @@ import HeaderGlobal from "../components/HeaderGlobal";
 import { useNavigate } from "react-router-dom";
 
 import "./Landing.css";
+import Precios from "./Precios";
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -49,28 +50,6 @@ const Landing = () => {
           nos encargamos de todo: desde el hosting de tus rifas hasta la gestión
           de pagos y la administración de boletos.
         </p>
-        <button
-          style={{
-            marginTop: "20px",
-            marginBottom: "60px",
-            backgroundColor: "#6FCF85",
-            color: "white",
-            fontWeight: "bold",
-            fontSize: "46px",
-            boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-            borderRadius: "10px",
-            padding: "10px 20px",
-            cursor: "pointer",
-            border: "none",
-          }}
-          onClick={() =>
-            window.open(
-              "https://api.whatsapp.com/send/?phone=6143035198&text=Hola me interesa ser socio raffly"
-            )
-          }
-        >
-          Contactanos
-        </button>
 
         <hr
           style={{
@@ -79,6 +58,8 @@ const Landing = () => {
             width: "40%",
           }}
         ></hr>
+
+        <Precios />
 
         <h2
           style={{ marginBottom: "60px", fontWeight: "bold", fontSize: "36px" }}
@@ -447,7 +428,7 @@ const Landing = () => {
             backgroundColor: "#6FCF85",
             color: "white",
             fontWeight: "bold",
-            fontSize: "46px",
+            fontSize: "32px",
             boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
             borderRadius: "10px",
             padding: "10px 20px",

@@ -5,7 +5,6 @@ import "./Precios.css";
 const Precios = () => {
   return (
     <>
-      <HeaderGlobal />
       <div
         style={{
           textAlign: "center",
@@ -46,7 +45,15 @@ const Precios = () => {
               <h3>GRATIS</h3>
               <p>Perfecto para rifas pequeñas</p>
             </section>
-            <button>Empieza Gratis </button>
+            <button
+              onClick={() =>
+                window.open(
+                  "https://api.whatsapp.com/send/?phone=6143035198&text=Hola me interesa contratar el plan gratis"
+                )
+              }
+            >
+              Empieza Gratis{" "}
+            </button>
             <div
               style={{
                 display: "flex",
@@ -73,7 +80,15 @@ const Precios = () => {
               <h3>BASICO</h3>
               <p>Ideal para rifas con mayor alcance</p>
             </section>
-            <button>Comienza Ahora</button>
+            <button
+              onClick={() =>
+                window.open(
+                  "https://api.whatsapp.com/send/?phone=6143035198&text=Hola me interesa contratar el plan basico"
+                )
+              }
+            >
+              Comienza Ahora
+            </button>
             <div
               style={{
                 display: "flex",
@@ -122,7 +137,15 @@ const Precios = () => {
               </div>
               <p>La opción ideal para gestionar rifas extensas</p>
             </section>
-            <button>Comienza Ahora</button>
+            <button
+              onClick={() =>
+                window.open(
+                  "https://api.whatsapp.com/send/?phone=6143035198&text=Hola me interesa contratar el plan estantar"
+                )
+              }
+            >
+              Comienza Ahora
+            </button>
             <div
               style={{
                 display: "flex",
@@ -156,7 +179,15 @@ const Precios = () => {
               <h3>PROFESIONAL</h3>
               <p>La solución definitiva para rifas de cualquier magnitud</p>
             </section>
-            <button>Comienza Ahora</button>
+            <button
+              onClick={() =>
+                window.open(
+                  "https://api.whatsapp.com/send/?phone=6143035198&text=Hola me interesa contratar el plan profesional"
+                )
+              }
+            >
+              Comienza Ahora
+            </button>
             <div
               style={{
                 display: "flex",
