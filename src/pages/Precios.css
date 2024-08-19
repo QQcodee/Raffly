@@ -1,0 +1,71 @@
+.div-grid-precios {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  width: 80vw;
+  min-width: 1400px;
+  align-items: center;
+}
+
+.card-precios {
+  padding: 20px;
+  background-color: rgb(255, 255, 255);
+  min-height: 55vh;
+  height: max-content;
+
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+.card-precios-destacado {
+  background-color: rgb(255, 255, 255);
+  min-height: 65vh;
+  height: max-content;
+  border-radius: 15px;
+  padding: 20px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+  border: 2px solid #6fcf85;
+}
+
+.card-precios-destacado button {
+  background-color: #6fcf85;
+  color: rgb(255, 255, 255);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.card-precios button {
+  background-color: #6fcf85;
+  color: rgb(255, 255, 255);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-weight: 500;
+}
+
+@media (max-width: 1442px) {
+  .div-grid-precios {
+    display: grid;
+    grid-template-columns: 1fr;
+
+    row-gap: 50px;
+    width: 350px;
+    min-width: 350px;
+
+    align-items: center;
+  }
+}

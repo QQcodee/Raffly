@@ -651,6 +651,16 @@ const RifaSingle = () => {
             }}
             className="rifa-desc-render"
           >
+            <p> Descripcion premios:</p>
+            <hr
+              style={{
+                border: "1px solid black",
+                width: "40%",
+                position: "relative",
+                left: "50%",
+                transform: "translateX(-50%)",
+              }}
+            />
             {descItems.map((item, index) => (
               <li key={index}>{item}</li>
             ))}
