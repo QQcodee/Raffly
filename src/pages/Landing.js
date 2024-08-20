@@ -437,7 +437,7 @@ const Landing = () => {
           }}
           onClick={() =>
             window.open(
-              "https://api.whatsapp.com/send/?phone=6143035198&text=Hola me interesa ser socio raffly"
+              "https://api.whatsapp.com/send/?phone=+526143035198&text=Hola me interesa ser socio raffly"
             )
           }
         >

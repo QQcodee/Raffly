@@ -115,7 +115,7 @@ const FooterGlobal = () => {
             </h3>
 
             <h3 style={{ textAlign: "left", fontSize: "11px", color: "black" }}>
-              Tel. 614 303 5198
+              Tel. +52 614 303 5198
             </h3>
           </div>
         </div>

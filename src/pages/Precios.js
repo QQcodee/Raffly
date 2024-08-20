@@ -48,7 +48,7 @@ const Precios = () => {
             <button
               onClick={() =>
                 window.open(
-                  "https://api.whatsapp.com/send/?phone=6143035198&text=Hola me interesa contratar el plan gratis"
+                  "https://api.whatsapp.com/send/?phone=+526143035198&text=Hola me interesa contratar el plan gratis"
                 )
               }
             >
@@ -83,7 +83,7 @@ const Precios = () => {
             <button
               onClick={() =>
                 window.open(
-                  "https://api.whatsapp.com/send/?phone=6143035198&text=Hola me interesa contratar el plan basico"
+                  "https://api.whatsapp.com/send/?phone=+526143035198&text=Hola me interesa contratar el plan basico"
                 )
               }
             >
@@ -140,7 +140,7 @@ const Precios = () => {
             <button
               onClick={() =>
                 window.open(
-                  "https://api.whatsapp.com/send/?phone=6143035198&text=Hola me interesa contratar el plan estantar"
+                  "https://api.whatsapp.com/send/?phone=+526143035198&text=Hola me interesa contratar el plan estantar"
                 )
               }
             >
@@ -182,7 +182,7 @@ const Precios = () => {
             <button
               onClick={() =>
                 window.open(
-                  "https://api.whatsapp.com/send/?phone=6143035198&text=Hola me interesa contratar el plan profesional"
+                  "https://api.whatsapp.com/send/?phone=+526143035198&text=Hola me interesa contratar el plan profesional"
                 )
               }
             >
