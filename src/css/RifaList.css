@@ -77,17 +77,10 @@
   -webkit-backdrop-filter: blur(17.6px);
   z-index: 2; /* Ensure front container is above back container when revealed */
   cursor: pointer;
-  border: 1px solid rgba(131, 131, 131, 0.5);
 }
 
 .hovered .front-container {
   z-index: 1;
-}
-
-.logo-name-container {
-  display: flex;
-  align-items: center;
-  margin-top: 30px;
 }
 
 .logo-rifaList {
@@ -115,7 +108,7 @@
 }
 
 .logo-name-container span {
-  margin-top: 30px;
+  margin-top: 20px;
   max-width: 19ch;
   word-wrap: break-word;
   white-space: pre-wrap;
@@ -123,9 +116,10 @@
   text-align: center;
   font-weight: 800;
   color: #000000;
-  font-size: 21px;
+  font-size: 19px;
   font-family: "Poppins";
   text-transform: uppercase;
+  margin-bottom: 10px;
 }
 
 .rifa-name-list {
@@ -133,7 +127,7 @@
   max-height: 4rem;
   height: auto;
   max-width: 44ch;
-  font-size: 21px;
+  font-size: 19px;
   text-align: center;
   font-family: "Poppins";
   overflow: hidden;
@@ -230,4 +224,95 @@
 
     left: -20px;
   }
+}
+
+.logo-name-container {
+  display: flex;
+  align-items: center;
+  height: max-content;
+}
+
+.logo {
+  width: auto; /* Adjust as needed */
+  height: 80px; /* Adjust as needed */
+  position: absolute;
+  top: -20px; /* Adjust as needed */
+  left: -10px; /* Adjust as needed */
+  transition: transform 0.5s ease;
+  z-index: 8;
+  border-radius: 50%;
+}
+
+.rifa-name {
+  font-weight: bold;
+  height: 20px;
+  font-size: 21px;
+}
+
+.description {
+  margin: 10px 0;
+  text-align: left;
+  color: #000000;
+  font-weight: 400;
+
+  font-size: 14px;
+  font-family: "Poppins";
+  cursor: default; /* Set default cursor */
+  list-style-type: none;
+  height: 120px;
+  max-height: calc(1.2em * 9);
+  overflow: hidden;
+}
+
+.description li {
+  text-align: center;
+  padding-left: 0px;
+}
+.description ul {
+  padding-left: 0px;
+  text-align: center;
+}
+
+.loading-bar-container {
+  height: 30px;
+}
+
+.countdown-container {
+  display: flex;
+}
+
+.price {
+  position: absolute;
+  top: -20px; /* Adjust as needed */
+  right: -120px; /* Adjust as needed */
+  font-weight: bold;
+  font-size: 36px; /* Adjust as needed */
+  background-color: red;
+  border-radius: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
+  color: white;
+  transition: transform 0.5s ease;
+  z-index: 2;
+}
+
+.hovered .price {
+  transform: translate(90px, 1px);
+
+  z-index: 8;
+}
+
+.rifas-grid {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  row-gap: 120px;
+  column-gap: 150px;
+}
+
+.divider {
+  width: 80%;
+  height: 1px;
+  color: #6b6b6b25;
+  margin-top: 40px;
 }
