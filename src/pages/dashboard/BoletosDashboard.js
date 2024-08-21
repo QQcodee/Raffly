@@ -572,7 +572,7 @@ const BoletosDashboard = () => {
             }}
           >
             {" "}
-            Enviar Mensaje{" "}
+            Enviar confirmacion de pago{" "}
           </button>
         </Popup>
       )}
