@@ -13,6 +13,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
 import { useNavigate } from "react-router-dom";
+import PresetMensajes from "../../components/PresetMensajes";
 
 const CustomAlertDialog = ({ open, handleClose, handleConfirm, boleto }) => {
   return (
@@ -132,6 +133,7 @@ const BoletosDashboard = () => {
         if (data.length > 0) {
           setSelectedRifa(data[0].id);
           setSelectedName(data[0].nombre);
+          setCurrentRifa(data[0]);
         }
       }
     };
@@ -175,6 +177,53 @@ const BoletosDashboard = () => {
             ? { ...item, comprado: true, apartado: false }
             : item
         )
+      );
+    }
+
+    const ticketNumbersWhatsapp = boleto.num_boletos.join(", ");
+
+    if (boleto.oportunidades?.length > 0) {
+      const confirmar = window.confirm(
+        `Quieres enviar confirmacion de pago por whatsapp? \n \n  ${boleto.nombre} - ${boleto.num_boletos}`
+      );
+      if (!confirmar) {
+        return;
+      }
+      const ticketOpotunidadesWhatsapp = boleto.oportunidades.join(", ");
+      window.open(
+        `https://api.whatsapp.com/send/?phone=52${boleto.telefono}
+          "&text=Recibimos tu pago para el sorteo (${encodeURIComponent(
+            currentRifa.nombre
+          )}) 
+        %0A %0A Nombre:${boleto.nombre}  %0A Telefono:${
+          boleto.telefono
+        }  %0A Estado:${boleto.estado_mx}  %0A%0A Total:$${
+          boleto.precio * boleto.num_boletos.length
+        }  %0A %0ANumeros: ${ticketNumbersWhatsapp}
+        %0A %0AOportunidades: ${ticketOpotunidadesWhatsapp} %0A%0A Puedes ver tu boleto en el siguiente enlace: %0Ahttps://www.raffly.com.mx/verificador/${
+          boleto.email
+        }`
+      );
+    } else {
+      const confirmar = window.confirm(
+        `Quieres enviar confirmacion de pago por whatsapp? \n \n  ${boleto.nombre} - ${boleto.num_boletos}`
+      );
+      if (!confirmar) {
+        return;
+      }
+      window.open(
+        `https://api.whatsapp.com/send/?phone=52${boleto.telefono}
+              "&text=Recibimos tu pago para el sorteo (${encodeURIComponent(
+                currentRifa.nombre
+              )}) 
+            %0A %0A Nombre: ${boleto.nombre}  %0A Telefono: ${
+          boleto.telefono
+        }  %0A Estado: ${boleto.estado_mx} %0A%0A Total: $${
+          boleto.precio * boleto.num_boletos.length
+        }  %0A %0ANumeros: ${ticketNumbersWhatsapp}
+            %0A%0A Puedes ver tu boleto en el siguiente enlace: %0Ahttps://www.raffly.com.mx/verificador/${
+              boleto.email
+            }`
       );
     }
   };
@@ -700,15 +749,13 @@ const BoletosDashboard = () => {
                     alignItems: "center",
                     justifyContent: "space-between",
                   }}
-                  onClick={() => abrirWhatsapp(item.telefono)}
                 >
                   <div
                     style={{ display: "flex", justifyContent: "space-between" }}
                   >
                     {item.nombre}
-                    <i style={{ color: "#007BFF" }} className="material-icons">
-                      chat
-                    </i>
+
+                    <PresetMensajes item={item} currentRifa={currentRifa} />
                   </div>
                 </td>
 
