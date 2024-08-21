@@ -1228,27 +1228,28 @@ const RifaSingle = () => {
               </div>
             </Popup>
           </div>
+
           <div className="contenedor-grid-boletos">
             <h6>
               {" "}
               Boletos disponibles : {rifaDetails.numboletos - soldTicketsView}
             </h6>
+          </div>
 
-            <div className="grid__boletos" ref={containerRef}>
-              <Grid
-                className="boletos-grid"
-                columnCount={columnCount}
-                overscanRowCount={5}
-                style={{ border: "none", overflowX: "hidden" }}
-                columnWidth={columnWidth}
-                height={600}
-                rowCount={Math.ceil(rifaDetails.numboletos / columnCount)}
-                rowHeight={rowHeight}
-                width={containerWidth}
-              >
-                {Cell}
-              </Grid>
-            </div>
+          <div className="grid__boletos" ref={containerRef}>
+            <Grid
+              className="boletos-grid"
+              columnCount={columnCount}
+              overscanRowCount={5}
+              style={{ border: "none", overflowX: "hidden" }}
+              columnWidth={columnWidth}
+              height={600}
+              rowCount={Math.ceil(rifaDetails.numboletos / columnCount)}
+              rowHeight={rowHeight}
+              width={containerWidth}
+            >
+              {Cell}
+            </Grid>
           </div>
         </div>
       </div>

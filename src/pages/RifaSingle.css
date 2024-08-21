@@ -20,10 +20,7 @@
 }
 
 .contenedor-grid-boletos {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: 100%;
+  display: none;
 }
 
 .popup-inner {
