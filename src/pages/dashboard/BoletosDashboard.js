@@ -434,7 +434,7 @@ const BoletosDashboard = () => {
 
   const abrirWhatsapp = (telefono) => {
     console.log(telefono);
-    const url = "https://api.whatsapp.com/send/?phone=" + telefono;
+    const url = "https://api.whatsapp.com/send/?phone=52" + telefono;
     window.open(url, "_blank");
   };
 

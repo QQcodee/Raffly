@@ -70,7 +70,7 @@ const Home = () => {
         </div>
 
         {rifas && (
-          <div className="rifas-carousel">
+          <div style={{ marginTop: "50px" }} className="rifas-carousel">
             <CarouselRifas items={rifas} />
           </div>
         )}
