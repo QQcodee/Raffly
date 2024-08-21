@@ -106,6 +106,28 @@ const BoletosDashboard = () => {
   const [openEliminar, setOpenEliminar] = useState(false);
   const [boletoItem, setBoletoItem] = useState({});
 
+  const [showPopup, setShowPopup] = useState(false);
+  const togglePopup = () => {
+    setShowPopup(!showPopup);
+  };
+
+  const Popup = ({ handleClose, show, children }) => {
+    return (
+      <div className={`popup-mensajes ${show ? "show" : ""}`}>
+        <div className="popup-inner-mensajes">
+          <p
+            style={{ fontSize: "20px", fontFamily: "poppins" }}
+            className="close-btn"
+            onClick={handleClose}
+          >
+            <i className="material-icons">close</i>
+          </p>
+          {children}
+        </div>
+      </div>
+    );
+  };
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -162,6 +184,8 @@ const BoletosDashboard = () => {
     fetchBoletos();
   }, [selectedRifa]); // Fetch boletos whenever selectedRifa changes
 
+  const [currentItem, setCurrentItem] = useState();
+
   const actualizarStatus = async (boleto) => {
     const { data, error } = await supabase
       .from("boletos")
@@ -180,52 +204,9 @@ const BoletosDashboard = () => {
       );
     }
 
-    const ticketNumbersWhatsapp = boleto.num_boletos.join(", ");
+    setCurrentItem(boleto);
 
-    if (boleto.oportunidades?.length > 0) {
-      const confirmar = window.confirm(
-        `Quieres enviar confirmacion de pago por whatsapp? \n \n  ${boleto.nombre} - ${boleto.num_boletos}`
-      );
-      if (!confirmar) {
-        return;
-      }
-      const ticketOpotunidadesWhatsapp = boleto.oportunidades.join(", ");
-      window.open(
-        `https://api.whatsapp.com/send/?phone=52${boleto.telefono}
-          "&text=Recibimos tu pago para el sorteo (${encodeURIComponent(
-            currentRifa.nombre
-          )}) 
-        %0A %0A Nombre:${boleto.nombre}  %0A Telefono:${
-          boleto.telefono
-        }  %0A Estado:${boleto.estado_mx}  %0A%0A Total:$${
-          boleto.precio * boleto.num_boletos.length
-        }  %0A %0ANumeros: ${ticketNumbersWhatsapp}
-        %0A %0AOportunidades: ${ticketOpotunidadesWhatsapp} %0A%0A Puedes ver tu boleto en el siguiente enlace: %0Ahttps://www.raffly.com.mx/verificador/${
-          boleto.email
-        }`
-      );
-    } else {
-      const confirmar = window.confirm(
-        `Quieres enviar confirmacion de pago por whatsapp? \n \n  ${boleto.nombre} - ${boleto.num_boletos}`
-      );
-      if (!confirmar) {
-        return;
-      }
-      window.open(
-        `https://api.whatsapp.com/send/?phone=52${boleto.telefono}
-              "&text=Recibimos tu pago para el sorteo (${encodeURIComponent(
-                currentRifa.nombre
-              )}) 
-            %0A %0A Nombre: ${boleto.nombre}  %0A Telefono: ${
-          boleto.telefono
-        }  %0A Estado: ${boleto.estado_mx} %0A%0A Total: $${
-          boleto.precio * boleto.num_boletos.length
-        }  %0A %0ANumeros: ${ticketNumbersWhatsapp}
-            %0A%0A Puedes ver tu boleto en el siguiente enlace: %0Ahttps://www.raffly.com.mx/verificador/${
-              boleto.email
-            }`
-      );
-    }
+    togglePopup();
   };
 
   const eliminarBoletoApartado = async (boleto) => {
@@ -534,6 +515,67 @@ const BoletosDashboard = () => {
         handleConfirm={handleConfirm}
         boleto={boletoItem}
       />
+
+      {currentItem && (
+        <Popup handleClose={togglePopup} show={showPopup}>
+          <p
+            style={{
+              marginTop: "40px",
+            }}
+          >
+            Para : <strong>{currentItem.nombre}</strong>
+          </p>
+          <button
+            style={{
+              backgroundColor: "#6FCF85",
+              color: "white",
+            }}
+            onClick={() => {
+              const ticketNumbersWhatsapp = currentItem.num_boletos.join(", ");
+              if (currentItem.oportunidades?.length > 0) {
+                const ticketOpotunidadesWhatsapp =
+                  currentItem.oportunidades.join(", ");
+                window.open(
+                  `https://api.whatsapp.com/send/?phone=52${
+                    currentItem.telefono
+                  }
+                    "&text=Recibimos tu pago para el sorteo (${encodeURIComponent(
+                      currentRifa.nombre
+                    )}) 
+                  %0A %0A Nombre:${currentItem.nombre}  %0A Telefono:${
+                    currentItem.telefono
+                  }  %0A Estado:${currentItem.estado_mx}  %0A%0A Total:$${
+                    currentItem.precio * currentItem.num_boletos.length
+                  }  %0A %0ANumeros: ${ticketNumbersWhatsapp}
+                  %0A %0AOportunidades: ${ticketOpotunidadesWhatsapp} %0A%0A Puedes ver tu boleto en el siguiente enlace: %0Ahttps://www.raffly.com.mx/verificador/${
+                    currentItem.email
+                  }`
+                );
+              } else {
+                window.open(
+                  `https://api.whatsapp.com/send/?phone=52${
+                    currentItem.telefono
+                  }
+                        "&text=Recibimos tu pago para el sorteo (${encodeURIComponent(
+                          currentRifa.nombre
+                        )}) 
+                      %0A %0A Nombre: ${currentItem.nombre}  %0A Telefono: ${
+                    currentItem.telefono
+                  }  %0A Estado: ${currentItem.estado_mx} %0A%0A Total: $${
+                    currentItem.precio * currentItem.num_boletos.length
+                  }  %0A %0ANumeros: ${ticketNumbersWhatsapp}
+                      %0A%0A Puedes ver tu boleto en el siguiente enlace: %0Ahttps://www.raffly.com.mx/verificador/${
+                        currentItem.email
+                      }`
+                );
+              }
+            }}
+          >
+            {" "}
+            Enviar Mensaje{" "}
+          </button>
+        </Popup>
+      )}
 
       <div
         style={{
