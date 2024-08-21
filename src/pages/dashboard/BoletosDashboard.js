@@ -504,8 +504,6 @@ const BoletosDashboard = () => {
     );
   };
 
-  console.log(currentItem.telefono);
-
   return (
     <div
       style={{ display: "flex", flexDirection: "column" }}
@@ -540,7 +538,7 @@ const BoletosDashboard = () => {
                 window.open(
                   `https://api.whatsapp.com/send/?phone=52${
                     currentItem.telefono
-                  }"&text=Recibimos tu pago para el sorteo (${encodeURIComponent(
+                  }&text=Recibimos tu pago para el sorteo (${encodeURIComponent(
                     currentRifa.nombre
                   )})%0A %0A Nombre:${currentItem.nombre}%0A Telefono:${
                     currentItem.telefono
@@ -554,7 +552,7 @@ const BoletosDashboard = () => {
                 window.open(
                   `https://api.whatsapp.com/send/?phone=52${
                     currentItem.telefono
-                  }"&text=Recibimos tu pago para el sorteo (${encodeURIComponent(
+                  }&text=Recibimos tu pago para el sorteo (${encodeURIComponent(
                     currentRifa.nombre
                   )})%0A %0A Nombre: ${currentItem.nombre}%0A Telefono: ${
                     currentItem.telefono

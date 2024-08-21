@@ -46,7 +46,7 @@ const PresetMensajes = ({ item, currentRifa }) => {
     } else {
       window.open(
         `https://api.whatsapp.com/send/?phone=52${item.telefono}
-              "&text=Recibimos tu pago para el sorteo (${encodeURIComponent(
+              &text=Recibimos tu pago para el sorteo (${encodeURIComponent(
                 currentRifa.nombre
               )}) 
             %0A %0A Nombre: ${item.nombre}  %0A Telefono: ${
@@ -66,7 +66,7 @@ const PresetMensajes = ({ item, currentRifa }) => {
       const ticketOpotunidadesWhatsapp = item.oportunidades.join(", ");
       window.open(
         `https://api.whatsapp.com/send/?phone=52${item.telefono}
-            "&text=Boleto para el sorteo (${encodeURIComponent(
+            &text=Boleto para el sorteo (${encodeURIComponent(
               currentRifa.nombre
             )}) 
           %0A %0ANombre:${item.nombre}  %0ATelefono:${
@@ -84,7 +84,7 @@ const PresetMensajes = ({ item, currentRifa }) => {
     } else {
       window.open(
         `https://api.whatsapp.com/send/?phone=52${item.telefono}
-                "&text=Boleto para el sorteo (${encodeURIComponent(
+                &text=Boleto para el sorteo (${encodeURIComponent(
                   currentRifa.nombre
                 )}) 
               %0A %0ANombre:${item.nombre}  %0ATelefono:${
