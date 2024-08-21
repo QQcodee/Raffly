@@ -29,7 +29,9 @@ const AccountMenu = ({ onClose, user, socio_id, nombre_negocio }) => {
             >
               <i className="material-icons">account_circle</i>
 
-              {user.user_metadata.name}
+              {user.user_metadata.name
+                ? user.user_metadata.name
+                : user.user_metadata.email}
             </li>
 
             <li
@@ -66,7 +68,9 @@ const AccountMenu = ({ onClose, user, socio_id, nombre_negocio }) => {
             >
               <i className="material-icons">account_circle</i>
 
-              {user.user_metadata.name}
+              {user.user_metadata.name
+                ? user.user_metadata.name
+                : user.user_metadata.email}
             </li>
 
             <li onClick={() => navigate("/verificador")}>Mis Boletos</li>

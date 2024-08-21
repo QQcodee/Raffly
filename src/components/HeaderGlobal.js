@@ -243,7 +243,9 @@ const HeaderGlobal = () => {
                     onClick={toggleMenu}
                   >
                     <i className="material-icons">account_circle</i>
-                    {user.user_metadata.name}
+                    {user.user_metadata.name
+                      ? user.user_metadata.name
+                      : user.user_metadata.email}
                   </Link>
                   {isMenuOpen && (
                     <AccountMenu
@@ -554,7 +556,9 @@ const HeaderGlobal = () => {
                       onClick={toggleMenu}
                     >
                       <i className="material-icons">account_circle</i>
-                      {user.user_metadata.name}
+                      {user.user_metadata.name
+                        ? user.user_metadata.name
+                        : user.user_metadata.email}
                     </Link>
                     {isMenuOpen && (
                       <AccountMenu
@@ -720,7 +724,9 @@ const HeaderGlobal = () => {
                       onClick={toggleMenu}
                     >
                       <i className="material-icons">account_circle</i>
-                      {user.user_metadata.name}
+                      {user.user_metadata.name
+                        ? user.user_metadata.name
+                        : user.user_metadata.email}
                     </Link>
                     {isMenuOpen && (
                       <AccountMenu
@@ -777,7 +783,9 @@ const HeaderGlobal = () => {
                       onClick={toggleMenu}
                     >
                       <i className="material-icons">account_circle</i>
-                      {user.user_metadata.name}
+                      {user.user_metadata.name
+                        ? user.user_metadata.name
+                        : user.user_metadata.email}
                     </Link>
                     {isMenuOpen && (
                       <AccountMenu
