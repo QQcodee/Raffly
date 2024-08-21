@@ -53,6 +53,8 @@ const MetodosPago = () => {
             fontWeight: "bold",
             color: "black",
             fontFamily: "Poppins",
+
+            textAlign: "center",
           }}
         >
           METODOS DE PAGO
