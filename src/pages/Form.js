@@ -49,6 +49,11 @@ const CheckoutForm = ({
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+
+  const [countryCode, setCountryCode] = useState("");
+
+  console.log(countryCode + phone);
+
   console.log(phone.length);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -114,7 +119,7 @@ const CheckoutForm = ({
 
           nombre_rifa: rifa.nombre,
           email: email,
-          telefono: phone,
+          telefono: countryCode + phone,
           img_rifa: rifa.img,
           socio: rifa.socio,
           nombre: firstName + " " + lastName,
@@ -153,7 +158,7 @@ const CheckoutForm = ({
 
           nombre_rifa: rifa.nombre,
           email: email,
-          telefono: phone,
+          telefono: countryCode + phone,
           img_rifa: rifa.img,
           socio: rifa.socio,
           nombre: firstName + " " + lastName,
@@ -197,7 +202,7 @@ const CheckoutForm = ({
 
           nombre_rifa: rifa.nombre,
           email: email,
-          telefono: phone,
+          telefono: countryCode + phone,
           img_rifa: rifa.img,
           socio: rifa.socio,
           nombre: firstName + " " + lastName,
@@ -469,14 +474,39 @@ const CheckoutForm = ({
                 required
               />
               <label htmlFor="phone">Telefono</label>
-              <input
-                type="phone"
-                placeholder="Numero de whatsapp"
-                id="phone"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value.replace(/\D/g, ""))}
-                required
-              />
+              <div
+                style={{
+                  display: "flex",
+                  gap: "10px",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <select
+                  name="countryCode"
+                  style={{
+                    width: "100px",
+
+                    padding: "6px",
+                    margin: "10px 0 20px 0",
+                  }}
+                  id="countryCode"
+                  required
+                  onChange={(e) => setCountryCode(e.target.value)}
+                >
+                  <option value="">Pais</option>
+                  <option value="52">Mexico</option>
+                  <option value="1">USA</option>
+                </select>
+                <input
+                  type="phone"
+                  placeholder="Numero de whatsapp"
+                  id="phone"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value.replace(/\D/g, ""))}
+                  required
+                />
+              </div>
 
               <label htmlFor="estado">Estado</label>
               <select
@@ -594,14 +624,39 @@ const CheckoutForm = ({
                 required
               />
               <label htmlFor="phone">Telefono</label>
-              <input
-                type="phone"
-                placeholder="Numero de whatsapp"
-                id="phone"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value.replace(/\D/g, ""))}
-                required
-              />
+              <div
+                style={{
+                  display: "flex",
+                  gap: "10px",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <select
+                  name="countryCode"
+                  style={{
+                    width: "100px",
+
+                    padding: "6px",
+                    margin: "10px 0 20px 0",
+                  }}
+                  id="countryCode"
+                  required
+                  onChange={(e) => setCountryCode(e.target.value)}
+                >
+                  <option value="">Pais</option>
+                  <option value="52">Mexico</option>
+                  <option value="1">USA</option>
+                </select>
+                <input
+                  type="phone"
+                  placeholder="Numero de whatsapp"
+                  id="phone"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value.replace(/\D/g, ""))}
+                  required
+                />
+              </div>
 
               <label htmlFor="estado">Estado</label>
               <select
@@ -703,15 +758,42 @@ const CheckoutForm = ({
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
+
               <label htmlFor="phone">Telefono</label>
-              <input
-                type="phone"
-                placeholder="Numero de whatsapp"
-                id="phone"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value.replace(/\D/g, ""))}
-                required
-              />
+
+              <div
+                style={{
+                  display: "flex",
+                  gap: "10px",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <select
+                  name="countryCode"
+                  style={{
+                    width: "100px",
+
+                    padding: "6px",
+                    margin: "10px 0 20px 0",
+                  }}
+                  id="countryCode"
+                  required
+                  onChange={(e) => setCountryCode(e.target.value)}
+                >
+                  <option value="">Pais</option>
+                  <option value="52">Mexico</option>
+                  <option value="1">USA</option>
+                </select>
+                <input
+                  type="phone"
+                  placeholder="Numero de whatsapp"
+                  id="phone"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value.replace(/\D/g, ""))}
+                  required
+                />
+              </div>
               <label htmlFor="estado">Estado</label>
               <select
                 name="estado"
@@ -769,7 +851,9 @@ const CheckoutForm = ({
                   isLoading ||
                   estado === null ||
                   estado === "" ||
-                  phone.length < 10
+                  phone.length < 10 ||
+                  phone.length > 10 ||
+                  countryCode === ""
                 }
               >
                 {isLoading ? "Processing..." : `Pagar $${totalAmount} MXN`}
@@ -782,7 +866,13 @@ const CheckoutForm = ({
             <button
               type="submit"
               className="button"
-              disabled={estado === null || estado === "" || phone.length < 10}
+              disabled={
+                estado === null ||
+                estado === "" ||
+                phone.length < 10 ||
+                phone.length > 10 ||
+                countryCode === ""
+              }
             >
               Apartar
             </button>
@@ -817,7 +907,13 @@ const CheckoutForm = ({
               <button
                 type="submit"
                 className="button"
-                disabled={estado === null || estado === "" || phone.length < 10}
+                disabled={
+                  estado === null ||
+                  estado === "" ||
+                  phone.length < 10 ||
+                  phone.length > 10 ||
+                  countryCode === ""
+                }
               >
                 Apartar
               </button>

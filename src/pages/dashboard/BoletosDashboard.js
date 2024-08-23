@@ -464,7 +464,7 @@ const BoletosDashboard = () => {
 
   const abrirWhatsapp = (telefono) => {
     console.log(telefono);
-    const url = "https://api.whatsapp.com/send/?phone=52" + telefono;
+    const url = "https://api.whatsapp.com/send/?phone=" + telefono;
     window.open(url, "_blank");
   };
 
@@ -536,7 +536,7 @@ const BoletosDashboard = () => {
                 const ticketOpotunidadesWhatsapp =
                   currentItem.oportunidades.join(", ");
                 window.open(
-                  `https://api.whatsapp.com/send/?phone=52${
+                  `https://api.whatsapp.com/send/?phone=${
                     currentItem.telefono
                   }&text=Recibimos tu pago para el sorteo (${encodeURIComponent(
                     currentRifa.nombre
@@ -550,7 +550,7 @@ const BoletosDashboard = () => {
                 );
               } else {
                 window.open(
-                  `https://api.whatsapp.com/send/?phone=52${
+                  `https://api.whatsapp.com/send/?phone=${
                     currentItem.telefono
                   }&text=Recibimos tu pago para el sorteo (${encodeURIComponent(
                     currentRifa.nombre

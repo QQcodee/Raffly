@@ -30,33 +30,31 @@ const PresetMensajes = ({ item, currentRifa }) => {
     if (item.oportunidades?.length > 0) {
       const ticketOpotunidadesWhatsapp = item.oportunidades.join(", ");
       window.open(
-        `https://api.whatsapp.com/send/?phone=52${item.telefono}
-          "&text=Recibimos tu pago para el sorteo (${encodeURIComponent(
-            currentRifa.nombre
-          )}) 
-        %0A %0A Nombre:${item.nombre}  %0A Telefono:${
+        `https://api.whatsapp.com/send/?phone=${
           item.telefono
-        }  %0A Estado:${item.estado_mx}  %0A%0A Total:$${
+        }&text=Recibimos tu pago para el sorteo (${encodeURIComponent(
+          currentRifa.nombre
+        )})%0A %0A Nombre:${item.nombre}%0A Telefono:${
+          item.telefono
+        }%0A Estado:${item.estado_mx}%0A%0A Total:$${
           item.precio * item.num_boletos.length
-        }  %0A %0ANumeros: ${ticketNumbersWhatsapp}
-        %0A %0AOportunidades: ${ticketOpotunidadesWhatsapp} %0A%0A Puedes ver tu boleto en el siguiente enlace: %0Ahttps://www.raffly.com.mx/verificador/${
+        }%0A %0ANumeros: ${ticketNumbersWhatsapp}%0A %0AOportunidades: ${ticketOpotunidadesWhatsapp} %0A%0A Puedes ver tu boleto en el siguiente enlace: %0Ahttps://www.raffly.com.mx/verificador/${
           item.email
         }`
       );
     } else {
       window.open(
-        `https://api.whatsapp.com/send/?phone=52${item.telefono}
-              &text=Recibimos tu pago para el sorteo (${encodeURIComponent(
-                currentRifa.nombre
-              )}) 
-            %0A %0A Nombre: ${item.nombre}  %0A Telefono: ${
+        `https://api.whatsapp.com/send/?phone=${
           item.telefono
-        }  %0A Estado: ${item.estado_mx} %0A%0A Total: $${
+        }&text=Recibimos tu pago para el sorteo (${encodeURIComponent(
+          currentRifa.nombre
+        )})%0A %0A Nombre: ${item.nombre}%0A Telefono: ${
+          item.telefono
+        }%0A Estado: ${item.estado_mx}%0A%0A Total: $${
           item.precio * item.num_boletos.length
-        }  %0A %0ANumeros: ${ticketNumbersWhatsapp}
-            %0A%0A Puedes ver tu boleto en el siguiente enlace: %0Ahttps://www.raffly.com.mx/verificador/${
-              item.email
-            }`
+        }%0A %0ANumeros: ${ticketNumbersWhatsapp}%0A%0A Puedes ver tu boleto en el siguiente enlace: %0Ahttps://www.raffly.com.mx/verificador/${
+          item.email
+        }`
       );
     }
   };
@@ -65,37 +63,37 @@ const PresetMensajes = ({ item, currentRifa }) => {
     if (item.oportunidades?.length > 0) {
       const ticketOpotunidadesWhatsapp = item.oportunidades.join(", ");
       window.open(
-        `https://api.whatsapp.com/send/?phone=52${item.telefono}
-            &text=Boleto para el sorteo (${encodeURIComponent(
-              currentRifa.nombre
-            )}) 
-          %0A %0ANombre:${item.nombre}  %0ATelefono:${
+        `https://api.whatsapp.com/send/?phone=${
           item.telefono
-        }  %0AEstado:${item.estado_mx}  %0A%0ATotal:$${
+        }&text=Boleto para el sorteo (${encodeURIComponent(
+          currentRifa.nombre
+        )})%0A %0ANombre:${item.nombre}%0ATelefono:${item.telefono}%0AEstado:${
+          item.estado_mx
+        }%0A%0ATotal:$${
           item.precio * item.num_boletos.length
-        }  %0A%0ANumeros: ${ticketNumbersWhatsapp} %0A %0AOportunidades: ${ticketOpotunidadesWhatsapp}  %0A%0AMetodos de pago en el siguiente enlace: %0Ahttps://www.raffly.com.mx/${encodeURIComponent(
+        }%0A%0ANumeros: ${ticketNumbersWhatsapp}%0A %0AOportunidades: ${ticketOpotunidadesWhatsapp}  %0A%0AMetodos de pago en el siguiente enlace: %0Ahttps://www.raffly.com.mx/${encodeURIComponent(
           currentRifa.socio.replace(/\s+/g, "-")
         )}/${encodeURIComponent(
           currentRifa.user_id
-        )}  %0A%0A Puedes ver el estado de tu boleto en el siguiente enlace: %0Ahttps://www.raffly.com.mx/verificador/${
+        )}%0A%0A Puedes ver el estado de tu boleto en el siguiente enlace: %0Ahttps://www.raffly.com.mx/verificador/${
           item.email
         } `
       );
     } else {
       window.open(
-        `https://api.whatsapp.com/send/?phone=52${item.telefono}
-                &text=Boleto para el sorteo (${encodeURIComponent(
-                  currentRifa.nombre
-                )}) 
-              %0A %0ANombre:${item.nombre}  %0ATelefono:${
+        `https://api.whatsapp.com/send/?phone=${
           item.telefono
-        }  %0AEstado:${item.estado_mx}  %0A%0ATotal:$${
+        }&text=Boleto para el sorteo (${encodeURIComponent(
+          currentRifa.nombre
+        )})%0A %0ANombre:${item.nombre}  %0ATelefono:${
+          item.telefono
+        }%0AEstado:${item.estado_mx}  %0A%0ATotal:$${
           item.precio * item.num_boletos.length
-        }  %0A %0ANumeros: ${ticketNumbersWhatsapp} %0A%0AMetodos de pago en el siguiente enlace: %0Ahttps://www.raffly.com.mx/${encodeURIComponent(
+        }%0A %0ANumeros: ${ticketNumbersWhatsapp}%0A%0AMetodos de pago en el siguiente enlace: %0Ahttps://www.raffly.com.mx/${encodeURIComponent(
           currentRifa.socio.replace(/\s+/g, "-")
         )}/${encodeURIComponent(
           currentRifa.user_id
-        )}  %0A%0A Puedes ver el estado de tu boleto en el siguiente enlace: %0Ahttps://www.raffly.com.mx/verificador/${
+        )}%0A%0A Puedes ver el estado de tu boleto en el siguiente enlace: %0Ahttps://www.raffly.com.mx/verificador/${
           item.email
         } `
       );
@@ -103,7 +101,7 @@ const PresetMensajes = ({ item, currentRifa }) => {
   };
 
   const IrWhatsapp = () => {
-    window.open(`https://api.whatsapp.com/send/?phone=52${item.telefono}`);
+    window.open(`https://api.whatsapp.com/send/?phone=${item.telefono}`);
   };
 
   return (

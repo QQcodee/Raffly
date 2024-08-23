@@ -621,7 +621,8 @@ const SocioConfig = () => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="phone">Telefono Principal (whatsapp)</label>
+              <label htmlFor="phone">Telefono Principal (Whatsapp)</label>
+              <p>Incluir codigo de area +52 o +1</p>
               <input
                 type="tel"
                 id="phone"
@@ -661,6 +662,11 @@ const SocioConfig = () => {
                   add
                 </i>
               </label>
+              <p>
+                Incluir codigo de area +52 o +1 (Estos son los numeros a donde
+                sera redirigido el usuario despues de apartar boleto. Inlcuir el
+                principal)
+              </p>
               {phoneNumbers.map((phone, index) => (
                 <div
                   key={index}
