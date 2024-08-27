@@ -29,7 +29,7 @@ app.post("/api/create-payment-intent-oxxo", async (req, res) => {
 
   try {
     // Create PaymentIntent
-    const amountInCentavos = Math.round(amount * 100);
+    const amountInCentavos = amount;
     const platformFee = Math.round(
       0.01 * amountInCentavos +
         amountInCentavos * 0.036 +

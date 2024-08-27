@@ -23,7 +23,7 @@ app.post("/api/checkout", async (req, res) => {
   const precioBoleto = amount;
   const platformFeePercentage = 0.01;
 
-  const amountInCentavos = Math.round(amount * 100);
+  const amountInCentavos = amount;
   const platformFee = Math.round(
     0.01 * amountInCentavos +
       amountInCentavos * 0.036 +
