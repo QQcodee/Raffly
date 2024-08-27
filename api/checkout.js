@@ -26,10 +26,9 @@ app.post("/api/checkout", async (req, res) => {
   const amountInCentavos = amount;
   const platformFee = Math.round(
     0.01 * amountInCentavos +
-      amountInCentavos * 0.036 +
-      amountInCentavos * 0.036 * 0.16
+      (amountInCentavos * 0.036 + 3) +
+      (amountInCentavos * 0.036 + 3) * 0.16
   );
-
   try {
     const payment = await stripe.paymentIntents.create({
       amount,
