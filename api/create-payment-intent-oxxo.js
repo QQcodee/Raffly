@@ -32,8 +32,8 @@ app.post("/api/create-payment-intent-oxxo", async (req, res) => {
     const amountInCentavos = amount;
     const platformFee = Math.round(
       0.01 * amountInCentavos +
-        (amountInCentavos * 0.036 + 3) +
-        (amountInCentavos * 0.036 + 3) * 0.16
+        (amountInCentavos * 0.036 + 300) +
+        (amountInCentavos * 0.036 + 300) * 0.16
     );
     const paymentIntent = await stripe.paymentIntents.create({
       amount: amount, // Stripe expects amount in cents

@@ -26,8 +26,8 @@ app.post("/api/checkout", async (req, res) => {
   const amountInCentavos = amount;
   const platformFee = Math.round(
     amountInCentavos * 0.01 +
-      (amountInCentavos * 0.036 + 3) +
-      (amountInCentavos * 0.036 + 3) * 0.16
+      (amountInCentavos * 0.036 + 300) +
+      (amountInCentavos * 0.036 + 300) * 0.16
   );
   console.log(platformFee);
   try {
