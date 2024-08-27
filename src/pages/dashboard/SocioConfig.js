@@ -353,6 +353,7 @@ const SocioConfig = () => {
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
+                gap: "20px",
               }}
             >
               <ul style={{ listStyle: "none", minWidth: "200px" }}>
@@ -503,18 +504,35 @@ const SocioConfig = () => {
           </button>
         </form>
       </Popup>
-      <h2 style={{ padding: "10px", margin: "10px" }}>
-        Configuracion de socio
-      </h2>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          padding: "40px",
-          maxHeight: "90vh",
-          gap: "80px",
-        }}
-      >
+
+      <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+        {" "}
+        <h2 style={{ padding: "10px", margin: "10px" }}>
+          Configuracion de socio
+        </h2>
+        <button
+          style={{
+            padding: "10px 20px",
+            borderRadius: "15px",
+            height: "50px",
+
+            backgroundColor: "black",
+            color: "white",
+            border: "none",
+            boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+            cursor: "pointer",
+          }}
+          onClick={async () => {
+            await UpdateSocioData();
+            window.location.reload();
+          }}
+          disabled={formData.estado === ""}
+        >
+          Guardar
+        </button>
+      </div>
+
+      <div className="form-bancos-container">
         <div className="profile-form-container">
           <form
             style={{
@@ -528,11 +546,13 @@ const SocioConfig = () => {
               border: "1px solid #ccc",
               maxWidth: "500px",
               margin: "auto",
-              marginBottom: "50px",
+
               backgroundColor: "white",
               gap: "10px",
-              width: "600px",
-              height: "auto",
+              maxWidth: "600px",
+              width: "90vw",
+              height: "80vh",
+              overflow: "auto",
             }}
             onSubmit={handleSubmit}
             className="profile-form"
@@ -552,6 +572,8 @@ const SocioConfig = () => {
                     marginTop: "10px",
                     display: "flex",
                     justifyContent: "center",
+                    position: "relative",
+                    left: "20px",
                   }}
                 >
                   <img
@@ -600,25 +622,18 @@ const SocioConfig = () => {
                 </div>
               )}
             </div>
-            <div className="form-group">
-              <label htmlFor="nombre_negocio">Nombre Negocio</label>
-              <input
-                type="text"
-                id="nombre_negocio"
-                name="nombre_negocio"
-                value={formData.nombre_negocio}
-                onChange={handleChange}
-                required
-                style={{
-                  color: "black",
-                  padding: "10px",
-                  margin: "10px",
-                  borderRadius: "15px",
-                  border: "1px solid #ccc",
-                  boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
-                }}
-              />
-            </div>
+
+            <p
+              style={{
+                color: "black",
+                margin: "10px",
+                fontSize: "20px",
+                textAlign: "center",
+              }}
+            >
+              {formData.nombre_negocio}
+            </p>
+            <hr style={{ margin: "10px" }} />
 
             <div className="form-group">
               <label htmlFor="phone">Telefono Principal (Whatsapp)</label>
@@ -840,6 +855,7 @@ const SocioConfig = () => {
               alignItems: "center",
 
               gap: "20px",
+              padding: "20px",
             }}
           >
             <button
@@ -865,7 +881,8 @@ const SocioConfig = () => {
             </button>
             <div
               style={{
-                width: "500px",
+                maxWidth: "500px",
+                width: "90vw",
 
                 backgroundColor: "white",
                 height: "63vh",
@@ -879,6 +896,25 @@ const SocioConfig = () => {
               {" "}
               <InputCuentasBanco bancos={formData.bancos} />
             </div>
+            <button
+              style={{
+                padding: "10px 20px",
+                borderRadius: "15px",
+                height: "50px",
+
+                backgroundColor: "black",
+                color: "white",
+                border: "none",
+                boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+                cursor: "pointer",
+              }}
+              onClick={async () => {
+                await UpdateSocioData();
+                window.location.reload();
+              }}
+            >
+              Guardar
+            </button>
           </div>
         )}
       </div>

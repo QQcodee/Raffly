@@ -66,7 +66,7 @@ const CrearRifa = () => {
 
   const [imageUrls, setImageUrls] = useState([]);
 
-  const [galeria, setGaleria] = useState([]);
+  const [galeria, setGaleria] = useState(null);
 
   const [accountExists, setAccountExists] = useState("default");
 
@@ -169,7 +169,8 @@ const CrearRifa = () => {
       !userMetaData ||
       !categoria ||
       !imageUrls ||
-      !oportunidades
+      !oportunidades ||
+      galeria.length < 1
     ) {
       setFormError("Llena todos los campos");
       return;
@@ -251,7 +252,7 @@ const CrearRifa = () => {
     (new Date(date) - new Date(startDate)) / (1000 * 60 * 60 * 24);
 
   const [imagePreviews, setImagePreviews] = useState([]);
-  const [images, setImages] = useState([]);
+  const [images, setImages] = useState(null);
   const [socioMetaData, setSocioMetaData] = useState(null);
   const [selectedImages, setSelectedImages] = useState([]);
 
@@ -312,6 +313,9 @@ const CrearRifa = () => {
     const oportunidadesSet = () => {
       if (numboletos === "100") {
         setOportunidades(1);
+      }
+      if (numboletos === "200") {
+        setOportunidades(5);
       }
       if (numboletos === "500") {
         setOportunidades(2);
@@ -491,6 +495,7 @@ const CrearRifa = () => {
                   >
                     <option value="">Elige cantidad de boletos a emitir</option>
                     <option value="100">100 (1 oportunidad)</option>
+                    <option value="200">200 (5 oportunidad)</option>
                     <option value="500">500 (2 oportunidades)</option>
                     <option value="1000">1000 (10 oportunidades)</option>
                     <option value="2000">2000 (5 oportunidades)</option>
@@ -756,7 +761,7 @@ const CrearRifa = () => {
 
                 <p style={{ color: "red", margin: "10px" }}>
                   Asegurate de que todos los datos esten bien porque no vas a
-                  poder editar los datos una vendido el primer boleto
+                  poder editar los datos una vez vendido el primer boleto
                 </p>
 
                 <button

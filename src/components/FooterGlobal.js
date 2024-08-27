@@ -59,6 +59,12 @@ const FooterGlobal = () => {
 
                     cursor: "pointer",
                   }}
+                  onClick={() =>
+                    window.open(
+                      "https://www.facebook.com/profile.php?id=61561928014396",
+                      "_blank"
+                    )
+                  }
                 />
               </a>
               <a>
@@ -71,6 +77,9 @@ const FooterGlobal = () => {
 
                     cursor: "pointer",
                   }}
+                  onClick={() =>
+                    window.open("https://www.instagram.com/raffly_mx", "_blank")
+                  }
                 />
               </a>
               <a>

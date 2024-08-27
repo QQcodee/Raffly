@@ -144,8 +144,7 @@ const AvisoDePrivacidad = () => {
             <h2>9. Contacto</h2>
             <p>
               Si tiene alguna pregunta o inquietud sobre este aviso de
-              privacidad, por favor contáctenos a través de [dirección de correo
-              electrónico de contacto] o [dirección física de contacto].
+              privacidad, por favor contáctenos.
             </p>
           </div>
         </div>

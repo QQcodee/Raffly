@@ -11,6 +11,14 @@
   z-index: 1000;
 }
 
+.form-bancos-container {
+  display: flex;
+  justify-content: space-between;
+
+  max-height: 90vh;
+  gap: 80px;
+}
+
 .popup.show {
   display: flex;
 }
@@ -35,4 +43,15 @@
   font-size: 16px;
   cursor: pointer;
   color: white;
+}
+
+@media (max-width: 1380px) {
+  .form-bancos-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    max-height: 90vh;
+    gap: 80px;
+  }
 }
