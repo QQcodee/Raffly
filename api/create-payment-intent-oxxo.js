@@ -35,7 +35,8 @@ app.post("/api/create-payment-intent-oxxo", async (req, res) => {
       description,
       payment_method_types: ["oxxo"],
       receipt_email: email,
-      application_fee_amount: 0.01 * amount,
+      application_fee_amount:
+        0.01 * amount + amount * 0.036 + amount * 0.036 * 0.16,
       transfer_data: {
         destination: destination,
       },

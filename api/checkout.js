@@ -32,11 +32,12 @@ app.post("/api/checkout", async (req, res) => {
       payment_method: id,
       confirm: true,
       payment_method_types: ["card", "oxxo"],
-      application_fee_amount: 0.01 * amount,
+      application_fee_amount:
+        0.01 * amount + amount * 0.036 + amount * 0.036 * 0.16,
       transfer_data: {
         destination: destination,
       },
-      return_url: "https://www.raffly.com.mx//success",
+      return_url: "https://www.raffly.com.mx/success",
     });
 
     console.log(payment);
