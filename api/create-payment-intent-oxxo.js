@@ -29,14 +29,14 @@ app.post("/api/create-payment-intent-oxxo", async (req, res) => {
 
   try {
     // Create PaymentIntent
+    const platformFee = 0.01 * amount + amount * 0.036 + amount * 0.036 * 0.16;
     const paymentIntent = await stripe.paymentIntents.create({
       amount: amount, // Stripe expects amount in cents
       currency: "mxn",
       description,
       payment_method_types: ["oxxo"],
       receipt_email: email,
-      application_fee_amount:
-        0.01 * amount + amount * 0.036 + amount * 0.036 * 0.16,
+      application_fee_amount: platformFee,
       transfer_data: {
         destination: destination,
       },

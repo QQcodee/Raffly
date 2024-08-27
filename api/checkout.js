@@ -22,7 +22,7 @@ app.post("/api/checkout", async (req, res) => {
 
   const precioBoleto = amount;
   const platformFeePercentage = 0.01;
-  const platformFee = precioBoleto * platformFeePercentage;
+  const platformFee = 0.01 * amount + amount * 0.036 + amount * 0.036 * 0.16;
 
   try {
     const payment = await stripe.paymentIntents.create({
@@ -32,8 +32,7 @@ app.post("/api/checkout", async (req, res) => {
       payment_method: id,
       confirm: true,
       payment_method_types: ["card", "oxxo"],
-      application_fee_amount:
-        0.01 * amount + amount * 0.036 + amount * 0.036 * 0.16,
+      application_fee_amount: platformFee,
       transfer_data: {
         destination: destination,
       },
