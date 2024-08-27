@@ -560,10 +560,9 @@ const CrearRifa = () => {
                     {" "}
                     $
                     {(
-                      precioboleto * stripeFee +
-                      3 +
-                      (precioboleto * stripeFee + 3) * taxFee +
-                      precioboleto * appFee
+                      precioboleto * 0.01 +
+                      (precioboleto * 0.036 + 3) +
+                      (precioboleto * 0.036 + 3) * 0.16
                     ).toFixed(2)}
                   </p>
                 </div>
