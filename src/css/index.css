@@ -349,7 +349,7 @@ hr.solid {
 
 .ticket .ticket__first-section > section:first-of-type > img {
   height: 75px;
-  width: auto;
+  width: 75px;
 }
 
 .ticket .ticket__first-section {
