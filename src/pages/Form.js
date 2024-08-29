@@ -355,7 +355,7 @@ const CheckoutForm = ({
           )}/${encodeURIComponent(
             rifa.user_id
           )}/metodos-de-pago %0A %0A El siguiente paso es enviar foto del comprobante de pago por aqui %0A %0A Para ver el estado de tu boleto puedes entrar al siguiente enlace: %0A` +
-          "raffly.com.mx/verificador/" +
+          "https://www.raffly.com.mx/verificador/" +
           email
       );
 
