@@ -545,7 +545,7 @@ const BoletosDashboard = () => {
                   }  %0A Estado:${currentItem.estado_mx}%0A%0A Total:$${
                     currentItem.precio * currentItem.num_boletos.length
                   }%0A %0ANumeros: ${ticketNumbersWhatsapp}%0A %0AOportunidades: ${ticketOpotunidadesWhatsapp} %0A%0A Puedes ver tu boleto en el siguiente enlace: %0Ahttps://www.raffly.com.mx/verificador/${
-                    currentItem.email
+                    currentItem.telefono
                   }`
                 );
               } else {
@@ -559,7 +559,7 @@ const BoletosDashboard = () => {
                   }%0A Estado: ${currentItem.estado_mx} %0A%0A Total: $${
                     currentItem.precio * currentItem.num_boletos.length
                   }%0A %0ANumeros: ${ticketNumbersWhatsapp}%0A%0A Puedes ver tu boleto en el siguiente enlace: %0Ahttps://www.raffly.com.mx/verificador/${
-                    currentItem.email
+                    currentItem.telefono
                   }`
                 );
               }

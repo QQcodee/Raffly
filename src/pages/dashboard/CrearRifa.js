@@ -317,6 +317,12 @@ const CrearRifa = () => {
       if (numboletos === "200") {
         setOportunidades(5);
       }
+      if (numboletos === "250") {
+        setOportunidades(4);
+      }
+      if (numboletos === "333") {
+        setOportunidades(3);
+      }
       if (numboletos === "500") {
         setOportunidades(2);
       }
@@ -496,6 +502,8 @@ const CrearRifa = () => {
                     <option value="">Elige cantidad de boletos a emitir</option>
                     <option value="100">100 (1 oportunidad)</option>
                     <option value="200">200 (5 oportunidad)</option>
+                    <option value="250">250 (4 oportunidad)</option>
+                    <option value="333">333 (3 oportunidades)</option>
                     <option value="500">500 (2 oportunidades)</option>
                     <option value="1000">1000 (10 oportunidades)</option>
                     <option value="2000">2000 (5 oportunidades)</option>

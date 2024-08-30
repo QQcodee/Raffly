@@ -181,3 +181,25 @@ const AdminPanel = () => {
 };
 
 export default AdminPanel;
+
+/*
+
+
+import jsonData from "./template.json";
+
+console.log(jsonData);
+
+const subirBoletos = async () => {
+    const { data, error } = await supabase
+      .from("boletos")
+      .insert(jsonData)
+      .select();
+
+    if (error) {
+      console.log(error);
+    }
+  };
+
+   <button onClick={() => subirBoletos()}>Agregar Boletos</button>
+
+  */

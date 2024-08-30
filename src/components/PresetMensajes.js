@@ -39,7 +39,7 @@ const PresetMensajes = ({ item, currentRifa }) => {
         }%0A Estado:${item.estado_mx}%0A%0A Total:$${
           item.precio * item.num_boletos.length
         }%0A %0ANumeros: ${ticketNumbersWhatsapp}%0A %0AOportunidades: ${ticketOpotunidadesWhatsapp} %0A%0A Puedes ver tu boleto en el siguiente enlace: %0Ahttps://www.raffly.com.mx/verificador/${
-          item.email
+          item.telefono
         }`
       );
     } else {
@@ -53,7 +53,7 @@ const PresetMensajes = ({ item, currentRifa }) => {
         }%0A Estado: ${item.estado_mx}%0A%0A Total: $${
           item.precio * item.num_boletos.length
         }%0A %0ANumeros: ${ticketNumbersWhatsapp}%0A%0A Puedes ver tu boleto en el siguiente enlace: %0Ahttps://www.raffly.com.mx/verificador/${
-          item.email
+          item.telefono
         }`
       );
     }
@@ -76,7 +76,7 @@ const PresetMensajes = ({ item, currentRifa }) => {
         )}/${encodeURIComponent(
           currentRifa.user_id
         )}%0A%0A Puedes ver el estado de tu boleto en el siguiente enlace: %0Ahttps://www.raffly.com.mx/verificador/${
-          item.email
+          item.telefono
         } `
       );
     } else {
@@ -94,7 +94,7 @@ const PresetMensajes = ({ item, currentRifa }) => {
         )}/${encodeURIComponent(
           currentRifa.user_id
         )}%0A%0A Puedes ver el estado de tu boleto en el siguiente enlace: %0Ahttps://www.raffly.com.mx/verificador/${
-          item.email
+          item.telefono
         } `
       );
     }
