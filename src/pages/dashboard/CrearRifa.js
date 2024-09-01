@@ -499,20 +499,66 @@ const CrearRifa = () => {
                       boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
                     }}
                   >
-                    <option value="">Elige cantidad de boletos a emitir</option>
-                    <option value="100">100 (1 oportunidad)</option>
-                    <option value="200">200 (5 oportunidad)</option>
-                    <option value="250">250 (4 oportunidad)</option>
-                    <option value="333">333 (3 oportunidades)</option>
-                    <option value="500">500 (2 oportunidades)</option>
-                    <option value="1000">1000 (10 oportunidades)</option>
-                    <option value="2000">2000 (5 oportunidades)</option>
-                    <option value="5000">5000 (2 oportunidades)</option>
-                    <option value="7500">7500 (8 oportunidades)</option>
-                    <option value="10000">10,000 (6 oportunidades)</option>
-                    <option value="20000">20,000 (3 oportunidades)</option>
-                    <option value="30000">30,000 (2 oportunidades)</option>
-                    <option value="60000">60,000 (1 oportunidad)</option>
+                    {userMetaData.Plan === "Gratis" && (
+                      <>
+                        <option value="">
+                          Elige cantidad de boletos a emitir
+                        </option>
+                        <option value="100">100 (1 oportunidad)</option>
+                      </>
+                    )}
+
+                    {userMetaData.Plan === "Basico" && (
+                      <>
+                        <option value="">
+                          Elige cantidad de boletos a emitir
+                        </option>
+                        <option value="100">100 (1 oportunidad)</option>
+                        <option value="200">200 (5 oportunidad)</option>
+                        <option value="250">250 (4 oportunidad)</option>
+                        <option value="333">333 (3 oportunidades)</option>
+                        <option value="500">500 (2 oportunidades)</option>
+                        <option value="1000">1000 (10 oportunidades)</option>
+                      </>
+                    )}
+                    {userMetaData.Plan === "Estandar" && (
+                      <>
+                        <option value="">
+                          Elige cantidad de boletos a emitir
+                        </option>
+                        <option value="100">100 (1 oportunidad)</option>
+                        <option value="200">200 (5 oportunidad)</option>
+                        <option value="250">250 (4 oportunidad)</option>
+                        <option value="333">333 (3 oportunidades)</option>
+                        <option value="500">500 (2 oportunidades)</option>
+                        <option value="1000">1000 (10 oportunidades)</option>
+                        <option value="2000">2000 (5 oportunidades)</option>
+                        <option value="5000">5000 (2 oportunidades)</option>
+                        <option value="7500">7500 (8 oportunidades)</option>
+                        <option value="10000">10,000 (6 oportunidades)</option>
+                      </>
+                    )}
+
+                    {userMetaData.Plan === "Profesional" && (
+                      <>
+                        <option value="">
+                          Elige cantidad de boletos a emitir
+                        </option>
+                        <option value="100">100 (1 oportunidad)</option>
+                        <option value="200">200 (5 oportunidad)</option>
+                        <option value="250">250 (4 oportunidad)</option>
+                        <option value="333">333 (3 oportunidades)</option>
+                        <option value="500">500 (2 oportunidades)</option>
+                        <option value="1000">1000 (10 oportunidades)</option>
+                        <option value="2000">2000 (5 oportunidades)</option>
+                        <option value="5000">5000 (2 oportunidades)</option>
+                        <option value="7500">7500 (8 oportunidades)</option>
+                        <option value="10000">10,000 (6 oportunidades)</option>
+                        <option value="20000">20,000 (3 oportunidades)</option>
+                        <option value="30000">30,000 (2 oportunidades)</option>
+                        <option value="60000">60,000 (1 oportunidad)</option>
+                      </>
+                    )}
 
                     {/* Add more options as needed */}
                   </select>
