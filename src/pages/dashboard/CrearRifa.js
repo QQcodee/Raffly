@@ -47,6 +47,12 @@ const CrearRifa = () => {
 
   const [creditos, setcreditos] = useState(null);
 
+  useEffect(() => {
+    if (creditos === 0) {
+      navigate("/dashboard/" + user_id + "/mis-rifas");
+    }
+  }, [creditos]);
+
   const [categoria, setCategoria] = useState(null);
   const [oportunidades, setOportunidades] = useState(null);
 
