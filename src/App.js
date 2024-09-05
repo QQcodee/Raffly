@@ -3,6 +3,24 @@ import { CartProvider } from "./CartContext";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 
+import ReactGA from "react-ga4";
+
+const TRACKING_ID = process.env.REACT_APP_GA_TRACKING_ID;
+ReactGA.initialize(TRACKING_ID);
+
+function TrackPageViews() {
+  const location = useLocation();
+
+  useEffect(() => {
+    ReactGA.send({
+      hitType: "pageview",
+      page: location.pathname + location.search,
+    });
+  }, [location]);
+
+  return null;
+}
+
 //import { CssBaseline, ThemeProvider } from "@mui/material";
 //import { ColorModeContext, useMode } from "./theme";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -67,6 +85,7 @@ function App() {
   return (
     <CartProvider>
       <Router>
+        <TrackPageViews />
         <Routes>
           {/* Main website routes */}
           <Route path="/" element={<Home />} />
