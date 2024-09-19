@@ -352,6 +352,12 @@ const CrearRifa = () => {
     oportunidadesSet();
   }, [numboletos]);
 
+  const handleDateChange = (e) => {
+    const selectedDate = e.target.value;
+    const formattedDate = `${selectedDate}T12:00:00`; // Agregar hora para evitar desfase de zona horaria
+    setDate(formattedDate);
+  };
+
   return (
     <>
       {userRole === "Admin" || userRole === "Socio" ? (
@@ -738,8 +744,8 @@ const CrearRifa = () => {
                 <input
                   type="date"
                   id="date"
-                  value={date}
-                  onChange={(e) => setDate(e.target.value)}
+                  value={date.substring(0, 10)} // Para mostrar solo la parte de la fecha sin la hora
+                  onChange={handleDateChange}
                   style={{
                     width: "25%",
                     color: "black",

@@ -678,9 +678,9 @@ const SocioConfig = () => {
                 </i>
               </label>
               <p>
-                Incluir codigo de area +52 o +1 (Estos son los numeros a donde
-                sera redirigido el usuario despues de apartar boleto. Inlcuir el
-                principal)
+                Incluir codigo de area +52 o +1 (Estos son los numeros de
+                Whatsapp a donde sera redirigido el usuario despues de apartar
+                boleto. Inlcuir el principal)
               </p>
               {phoneNumbers.map((phone, index) => (
                 <div
@@ -798,7 +798,6 @@ const SocioConfig = () => {
                 name="facebook_url"
                 value={formData.facebook_url}
                 onChange={handleChange}
-                required
                 style={{
                   color: "black",
                   padding: "10px",
@@ -817,7 +816,6 @@ const SocioConfig = () => {
                 name="instagram_url"
                 value={formData.instagram_url}
                 onChange={handleChange}
-                required
                 style={{
                   color: "black",
                   padding: "10px",

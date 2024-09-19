@@ -62,6 +62,7 @@ import AdminPanel from "./pages/dashboard/AdminPanel";
 import UploadImgV2 from "./components/UploadImgV2";
 import Precios from "./pages/Precios";
 import RifaListMobile from "./components/RifaListMobile";
+import Registro from "./pages/Registro";
 
 //import HeaderLogin from "./pages/HeaderLogin.js";
 //import Topbar from "./pages/dashboard/Topbar.js";

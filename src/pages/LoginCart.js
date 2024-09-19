@@ -21,29 +21,29 @@ function LoginCart() {
   const { user_id, nombre_negocio } = useParams();
   const navigate = useNavigate();
 
+  const { user } = useUser();
+
   const [view, setView] = useState("sign_in"); // default to sign_in
 
   useEffect(() => {
-    supabase.auth.onAuthStateChange((event, session) => {
-      if (event === "SIGNED_IN") {
-        navigate(
+    if (!user) {
+      navigate(
+        "/" +
+          encodeURIComponent(nombre_negocio.replace(/\s+/g, "-")) +
           "/" +
-            encodeURIComponent(nombre_negocio.replace(/\s+/g, "-")) +
-            "/" +
-            encodeURIComponent(user_id.replace(/\s+/g, "-")) +
-            "/perfil"
-        );
-      } else {
-        navigate(
+          encodeURIComponent(user_id.replace(/\s+/g, "-")) +
+          "/login-carrito"
+      );
+    } else {
+      navigate(
+        "/" +
+          encodeURIComponent(nombre_negocio.replace(/\s+/g, "-")) +
           "/" +
-            encodeURIComponent(nombre_negocio.replace(/\s+/g, "-")) +
-            "/" +
-            encodeURIComponent(user_id.replace(/\s+/g, "-")) +
-            "/login-carrito"
-        );
-      }
-    });
-  }, [navigate]);
+          encodeURIComponent(user_id.replace(/\s+/g, "-")) +
+          "/carrito"
+      );
+    }
+  }, [user]);
 
   return (
     <>

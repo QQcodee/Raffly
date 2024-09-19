@@ -1,53 +1,27 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { Auth } from "@supabase/auth-ui-react";
 import { useNavigate } from "react-router-dom";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { Link } from "react-router-dom";
 import supabase from "../config/supabaseClient";
-
-import { useUser } from "../UserContext";
-
-import HeaderSocios from "../components/HeaderSocios";
-
 import "../css/index.css"; // Ensure this is correctly linked
+import "../css/NavHome.css";
+import HeaderHome from "../components/HeaderHome";
 import HeaderGlobal from "../components/HeaderGlobal";
 import FooterGlobal from "../components/FooterGlobal";
-
+import { useUser } from "../UserContext";
 //import HeaderLogin from "./HeaderLogin";
 
-function LoginSingle() {
-  const { user_id, nombre_negocio } = useParams();
+function LoginSinHeader() {
   const navigate = useNavigate();
 
-  const { user } = useUser();
+  const { user, userMetadata } = useUser();
 
   const [view, setView] = useState("sign_in"); // default to sign_in
 
-  useEffect(() => {
-    if (user) {
-      navigate(
-        "/" +
-          encodeURIComponent(nombre_negocio.replace(/\s+/g, "-")) +
-          "/" +
-          encodeURIComponent(user_id.replace(/\s+/g, "-"))
-      );
-    } else {
-      navigate(
-        "/" +
-          encodeURIComponent(nombre_negocio.replace(/\s+/g, "-")) +
-          "/" +
-          encodeURIComponent(user_id.replace(/\s+/g, "-")) +
-          "/login"
-      );
-    }
-  }, [user]);
-
   return (
     <>
-      <HeaderGlobal />
-
       <div className="login-container">
         <div className="auth-component">
           <h1>
@@ -62,12 +36,7 @@ function LoginSingle() {
             supabaseClient={supabase}
             providers={["google"]}
             magicLink={true}
-            redirectTo={
-              "https://www.raffly.com.mx/" +
-              encodeURIComponent(nombre_negocio.replace(/\s+/g, "-")) +
-              "/" +
-              encodeURIComponent(user_id.replace(/\s+/g, "-"))
-            }
+            redirectTo={"https://www.raffly.com.mx/registro"}
             appearance={{ theme: ThemeSupa }}
             theme="minimal"
             view={view}
@@ -183,9 +152,8 @@ function LoginSingle() {
           </div>
         </div>
       </div>
-      <FooterGlobal />
     </>
   );
 }
 
-export default LoginSingle;
+export default LoginSinHeader;

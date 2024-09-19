@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useState } from "react";
 import { Auth } from "@supabase/auth-ui-react";
 import { useNavigate } from "react-router-dom";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
@@ -8,37 +9,46 @@ import "../css/index.css"; // Ensure this is correctly linked
 import "../css/NavHome.css";
 import HeaderHome from "../components/HeaderHome";
 import HeaderGlobal from "../components/HeaderGlobal";
-
+import FooterGlobal from "../components/FooterGlobal";
+import { useUser } from "../UserContext";
 //import HeaderLogin from "./HeaderLogin";
 
 function Login() {
   const navigate = useNavigate();
 
+  const { user } = useUser();
+
+  const [view, setView] = useState("sign_in"); // default to sign_in
+
   useEffect(() => {
-    supabase.auth.onAuthStateChange((event, session) => {
-      if (event === "SIGNED_IN") {
-        navigate("/success");
-      } else {
-        navigate("/login");
-      }
-    });
-  }, [navigate]);
+    if (user) {
+      navigate("/");
+    }
+  }, [user]);
 
   return (
-    <div>
-      <div>
-        <HeaderGlobal />
-      </div>
+    <>
+      <HeaderGlobal />
+
       <div className="login-container">
         <div className="auth-component">
-          <h1>Iniciar Sesion</h1>
+          <h1>
+            {view === "sign_in" && "Iniciar Sesion"}
+            {view === "sign_up" && "Registrate"}
+            {view === "forgotten_password" && "Cambiar Contraseña"}
+            {view === "magic_link" && "Link Magico"}
+            {view === "update_password" && "Actualizar Contraseña"}
+          </h1>
+
           <Auth
             supabaseClient={supabase}
             providers={["google"]}
             magicLink={true}
-            redirectTo="https://www.raffly.com.mx/"
+            redirectTo={"https://www.raffly.com.mx/"}
             appearance={{ theme: ThemeSupa }}
             theme="minimal"
+            view={view}
+            showLinks={false}
             localization={{
               variables: {
                 sign_in: {
@@ -80,9 +90,78 @@ function Login() {
               },
             }}
           />
+          <div
+            style={{
+              textAlign: "center",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            {view === "sign_in" && (
+              <Link
+                style={{
+                  textDecoration: "underline",
+                  color: "grey",
+                  cursor: "pointer",
+                  fontWeight: "400",
+                  fontSize: "14px",
+                }}
+                to={""}
+                onClick={() => setView("forgotten_password")}
+              >
+                Olvidaste tu contraseña?
+              </Link>
+            )}
+            {view === "sign_in" && (
+              <Link
+                style={{
+                  textDecoration: "underline",
+                  color: "grey",
+                  cursor: "pointer",
+                  fontWeight: "400",
+                  fontSize: "14px",
+                }}
+                to={""}
+                onClick={() => setView("sign_up")}
+              >
+                No tienes una cuenta? Crear una
+              </Link>
+            )}
+            {view === "sign_up" && (
+              <Link
+                style={{
+                  textDecoration: "underline",
+                  color: "grey",
+                  cursor: "pointer",
+                  fontWeight: "400",
+                  fontSize: "14px",
+                }}
+                to={""}
+                onClick={() => setView("sign_in")}
+              >
+                Ya tienes una cuenta? Iniciar Sesion
+              </Link>
+            )}
+            {view === "forgotten_password" && (
+              <Link
+                style={{
+                  textDecoration: "underline",
+                  color: "grey",
+                  cursor: "pointer",
+                  fontWeight: "400",
+                  fontSize: "14px",
+                }}
+                to={""}
+                onClick={() => setView("sign_in")}
+              >
+                Ya tienes una cuenta? Iniciar Sesion
+              </Link>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+      <FooterGlobal />
+    </>
   );
 }
 
