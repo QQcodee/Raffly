@@ -867,6 +867,7 @@ const CheckoutForm = ({
               type="submit"
               className="button"
               disabled={
+                isLoading ||
                 estado === null ||
                 estado === "" ||
                 phone.length < 10 ||
@@ -874,7 +875,7 @@ const CheckoutForm = ({
                 countryCode === ""
               }
             >
-              Apartar
+              {isLoading ? "Procesando..." : `Pagar $${totalAmount} MXN`}
             </button>
           ) : null
         ) : (
@@ -908,6 +909,7 @@ const CheckoutForm = ({
                 type="submit"
                 className="button"
                 disabled={
+                  isLoading ||
                   estado === null ||
                   estado === "" ||
                   phone.length < 10 ||
@@ -915,7 +917,7 @@ const CheckoutForm = ({
                   countryCode === ""
                 }
               >
-                Apartar
+                {isLoading ? "Procesando..." : `Pagar $${totalAmount} MXN`}
               </button>
             ) : null}
           </>
